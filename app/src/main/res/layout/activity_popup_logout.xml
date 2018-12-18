@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true">
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/popup">
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_popup_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/logout"
+            android:textColor="@color/dialog_msg_text"
+            android:textSize="@dimen/_15sdp"
+            app:font_text="SFUIDisplay-Medium.ttf" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_popup_msg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/tv_popup_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="OK"
+                android:textColor="@color/dialog_submit"
+                android:textSize="@dimen/_15sdp"
+                app:font_text="SFUIDisplay-Medium.ttf" />
+
+
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/tv_popup_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="CANCEL"
+                android:textColor="@color/dialog_submit"
+                android:textSize="@dimen/_15sdp"
+                app:font_text="SFUIDisplay-Medium.ttf" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
