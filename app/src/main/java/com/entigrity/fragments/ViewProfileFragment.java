@@ -26,6 +26,8 @@ import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 
+import java.util.ArrayList;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -37,6 +39,9 @@ public class ViewProfileFragment extends Fragment {
     private FragmentViewprofileBinding binding;
     private static final String TAG = ViewProfileFragment.class.getName();
     ProgressDialog progressDialog;
+    public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "";
+    public int country_id = 0, state_id = 0, city_id = 0, whoyouare = 0;
+    public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
 
 
     @Nullable
@@ -101,6 +106,17 @@ public class ViewProfileFragment extends Fragment {
 
     public void Navigate_EditProfile() {
         Intent i = new Intent(context, EditProfileActivity.class);
+        i.putExtra(getResources().getString(R.string.pass_fname), firstname);
+        i.putExtra(getResources().getString(R.string.pass_lname), lastname);
+        i.putExtra(getResources().getString(R.string.pass_email), email);
+        i.putExtra(getResources().getString(R.string.pass_firm_name), firmname);
+        i.putExtra(getResources().getString(R.string.pass_mobile_number), mobilenumber);
+        i.putExtra(getResources().getString(R.string.pass_country), country_id);
+        i.putExtra(getResources().getString(R.string.pass_state), state_id);
+        i.putExtra(getResources().getString(R.string.pass_city), city_id);
+        i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
+        i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);
+        i.putExtra(getResources().getString(R.string.pass_topics_of_interesr), arraylistselectedtopicsofinterest);
         startActivity(i);
     }
 
@@ -139,6 +155,7 @@ public class ViewProfileFragment extends Fragment {
                             if (viewProfileModel.getPayload().getData().getFirstName() != null
                                     && !viewProfileModel.getPayload().getData().getFirstName().equalsIgnoreCase("")) {
                                 binding.tvFirstname.setText(viewProfileModel.getPayload().getData().getFirstName());
+                                firstname = viewProfileModel.getPayload().getData().getFirstName();
 
                             }
 
@@ -146,49 +163,66 @@ public class ViewProfileFragment extends Fragment {
                             if (viewProfileModel.getPayload().getData().getLastName() != null
                                     && !viewProfileModel.getPayload().getData().getLastName().equalsIgnoreCase("")) {
                                 binding.tvLastname.setText(viewProfileModel.getPayload().getData().getLastName());
+                                lastname = viewProfileModel.getPayload().getData().getLastName();
+
                             }
 
                             if (viewProfileModel.getPayload().getData().getEmail() != null
                                     && !viewProfileModel.getPayload().getData().getEmail().equalsIgnoreCase("")) {
                                 binding.tvEmailname.setText(viewProfileModel.getPayload().getData().getEmail());
+                                email = viewProfileModel.getPayload().getData().getEmail();
                             }
 
                             if (viewProfileModel.getPayload().getData().getFirmName() != null
                                     && !viewProfileModel.getPayload().getData().getFirmName().equalsIgnoreCase("")) {
                                 binding.tvFirmname.setText(viewProfileModel.getPayload().getData().getFirmName());
+                                firmname = viewProfileModel.getPayload().getData().getFirmName();
                             }
 
 
                             if (viewProfileModel.getPayload().getData().getContactNo() != null
                                     && !viewProfileModel.getPayload().getData().getContactNo().equalsIgnoreCase("")) {
                                 binding.tvMobilenumber.setText(viewProfileModel.getPayload().getData().getContactNo());
+                                mobilenumber = viewProfileModel.getPayload().getData().getContactNo();
                             }
 
 
                             if (viewProfileModel.getPayload().getData().getCountry() != null
                                     && !viewProfileModel.getPayload().getData().getCountry().equalsIgnoreCase("")) {
                                 binding.tvContry.setText(viewProfileModel.getPayload().getData().getCountry());
+                                country_id = viewProfileModel.getPayload().getData().getCountryId();
                             }
                             if (viewProfileModel.getPayload().getData().getState() != null
                                     && !viewProfileModel.getPayload().getData().getState().equalsIgnoreCase("")) {
                                 binding.tvState.setText(viewProfileModel.getPayload().getData().getState());
+                                state_id = viewProfileModel.getPayload().getData().getStateId();
                             }
 
                             if (viewProfileModel.getPayload().getData().getCity() != null
                                     && !viewProfileModel.getPayload().getData().getCity().equalsIgnoreCase("")) {
                                 binding.tvCity.setText(viewProfileModel.getPayload().getData().getCity());
+                                city_id = viewProfileModel.getPayload().getData().getCityId();
+                            }
+
+
+                            if (viewProfileModel.getPayload().getData().getTags().size() > 0) {
+                                for (int i = 0; i < viewProfileModel.getPayload().getData().getTags().size(); i++) {
+                                    arraylistselectedtopicsofinterest.add(viewProfileModel.getPayload().getData().getTags().get(i).getId());
+                                }
                             }
 
 
                             if (viewProfileModel.getPayload().getData().getZipcode() != null
                                     && !viewProfileModel.getPayload().getData().getZipcode().equalsIgnoreCase("")) {
                                 binding.tvZipcode.setText(viewProfileModel.getPayload().getData().getZipcode());
+                                zipcode = viewProfileModel.getPayload().getData().getZipcode();
                             }
 
 
                             if (viewProfileModel.getPayload().getData().getUserType() != null
                                     && !viewProfileModel.getPayload().getData().getUserType().equalsIgnoreCase("")) {
                                 binding.tvWhoYouAre.setText(viewProfileModel.getPayload().getData().getUserType());
+                                whoyouare = viewProfileModel.getPayload().getData().getUserTypeId();
                             }
 
                         } else {

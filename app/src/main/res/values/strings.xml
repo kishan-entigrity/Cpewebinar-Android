@@ -179,4 +179,18 @@
     <string name="logout">Are you sure you want to Logout?</string>
 
 
+    //pass data from view profile to edit profile
+    <string name="pass_fname">firstname</string>
+    <string name="pass_lname">lastname</string>
+    <string name="pass_email">email</string>
+    <string name="pass_firm_name">firmname</string>
+    <string name="pass_mobile_number">mobilenumber</string>
+    <string name="pass_country">country</string>
+    <string name="pass_state">state</string>
+    <string name="pass_city">city</string>
+    <string name="pass_zipcode">zipcode</string>
+    <string name="pass_who_you_are">whoyouare</string>
+    <string name="pass_topics_of_interesr">topicsofinterest</string>
+
+
 </resources>

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -31,7 +30,6 @@ import com.entigrity.model.city.CityModel;
 import com.entigrity.model.country.CountryItem;
 import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
-import com.entigrity.model.editProfile.Topicsofinterestmodel;
 import com.entigrity.model.state.StateItem;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.topicsofinterest.TagsItem;
@@ -50,13 +48,14 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+
 public class EditProfileActivity extends AppCompatActivity {
     ActivityEditProfileBinding binding;
     public Dialog myDialog;
     public Context context;
     private APIService mAPIService;
     public RecyclerView recyclerview_topics_interest;
-    public TopicsofinterestEditProfileAdapter TopicsofinterestEditProfileAdapteradapter;
+    public TopicsofinterestEditProfileAdapter topicsofinterestEditProfileAdapteradapter;
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     public TextView tv_apply, tv_cancel;
     private static final String TAG = EditProfileActivity.class.getName();
@@ -79,7 +78,9 @@ public class EditProfileActivity extends AppCompatActivity {
     public ArrayList<String> getcityarraylist = new ArrayList<String>();
     public ArrayList<CityItem> getcityarray = new ArrayList<CityItem>();
 
-    ArrayList<Topicsofinterestmodel> saveselectedlist = new ArrayList<Topicsofinterestmodel>();
+
+    public boolean checkedadapter = false;
+
 
     public Dialog myDialog_popup;
     public TextView tv_popup_msg, tv_popup_submit;
@@ -89,6 +90,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private int country_pos = 0;
     private int state_pos = 0;
     private int city_pos = 0;
+    public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "";
+    public int whoyouare = 0;
     private int who_you_are_pos = 0;
 
 
@@ -102,19 +105,18 @@ public class EditProfileActivity extends AppCompatActivity {
     public EditText edt_search;
 
 
-    //private int user_type = 0;
-    ColorStateList oldColors;
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         context = EditProfileActivity.this;
         mAPIService = ApiUtils.getAPIService();
+        Intent intent = getIntent();
+        if (intent != null) {
+            firstname = intent.getStringExtra("fname");
 
 
-        oldColors = binding.tvTopicsofinterset.getTextColors();
+        }
 
 
         binding.spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -339,46 +341,12 @@ public class EditProfileActivity extends AppCompatActivity {
                             }
 
                             if (viewProfileModel.getPayload().getData().getTags().size() > 0) {
-                                for (int k = 0; k < viewProfileModel.getPayload().getData().getTags().size(); k++) {
-                                    Topicsofinterestmodel topicsofinterestmodel = new Topicsofinterestmodel();
-                                    topicsofinterestmodel.setTopicsselected(viewProfileModel.getPayload().getData().getTags().get(k).toString());
-                                    saveselectedlist.add(topicsofinterestmodel);
-                                }
-
-
-                                if (mListrtopicsofinterest.size() > saveselectedlist.size()) {
-                                    int difference = mListrtopicsofinterest.size() - saveselectedlist.size();
-                                    for (int m = 0; m < difference; m++) {
-                                        Topicsofinterestmodel topicsofinterestmodel = new Topicsofinterestmodel();
-                                        topicsofinterestmodel.setTopicsselected("");
-                                        saveselectedlist.add(topicsofinterestmodel);
-                                    }
-                                }
 
 
                                 for (int i = 0; i < viewProfileModel.getPayload().getData().getTags().size(); i++) {
                                     arraylistselectedtopicsofinterest.add(viewProfileModel.getPayload().getData().getTags().get(i).getId());
                                 }
 
-
-                               /* for (int i = 0; i < mListrtopicsofinterest.size(); i++) {
-                                    for (int j = 0; j < saveselectedlist.size(); j++) {
-                                        if (mListrtopicsofinterest.get(i).getTag().contains(saveselectedlist.get(j).getTopicsselected())) {
-                                            arraylistselectedtopicsofinterest.add(mListrtopicsofinterest.get(i).getId());
-                                        }
-                                    }
-                                }*/
-
-
-                            } else {
-                                if (mListrtopicsofinterest.size() > saveselectedlist.size()) {
-                                    int difference = mListrtopicsofinterest.size() - saveselectedlist.size();
-                                    for (int m = 0; m < difference; m++) {
-                                        Topicsofinterestmodel topicsofinterestmodel = new Topicsofinterestmodel();
-                                        topicsofinterestmodel.setTopicsselected("");
-                                        saveselectedlist.add(topicsofinterestmodel);
-                                    }
-                                }
 
                             }
 
@@ -406,20 +374,10 @@ public class EditProfileActivity extends AppCompatActivity {
                             }
 
 
-                          /*  if (viewProfileModel.getPayload().getData().getUserType() != null
-                                    && !viewProfileModel.getPayload().getData().getUserType().equalsIgnoreCase("")) {
-
-                                who_you_are = viewProfileModel.getPayload().getData().getUserType();
-
-                            }
-*/
-
                             if (viewProfileModel.getPayload().getData().getUserTypeId() != 0) {
                                 who_you_are_pos = viewProfileModel.getPayload().getData().getUserTypeId();
                             }
 
-
-                            //    Constant.Log(TAG, "size" + saveselectedlist.size());
 
                         } else
 
@@ -490,6 +448,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                                 if (Validation()) {
                                     if (Constant.isNetworkAvailable(context)) {
+
                                         EditPost(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
                                                 binding.edtFirstname.getText().toString(), binding.edtLastname.getText().toString(),
                                                 binding.edtEmailname.getText().toString(), binding.edtFirmname.getText().toString(), country_id, state_id, city_id, Integer.parseInt(binding.edtZipcode.getText().toString()), binding.edtMobileNumber.getText()
@@ -598,13 +557,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             arrayLististusertypeid.add(userTypeModel.getPayload().getUserType().get(i).getId());
                         }
 
-                       /* for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
-                            if (userTypeModel.getPayload().getUserType().get(i).getName().equals(who_you_are)) {
-                                who_you_are_pos = i;
-                                user_type = who_you_are_pos;
 
-                            }
-                        }*/
                     }
                 });
     }
@@ -745,7 +698,6 @@ public class EditProfileActivity extends AppCompatActivity {
         recyclerview_topics_interest = (RecyclerView) myDialog.findViewById(R.id.recyclerview_topics_interest);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerview_topics_interest.setLayoutManager(layoutManager);
-        TopicsofinterestEditProfileAdapteradapter = new TopicsofinterestEditProfileAdapter(context, mListrtopicsofinterest, saveselectedlist);
         tv_apply = (TextView) myDialog.findViewById(R.id.tv_apply);
         tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel);
         edt_search = (EditText) myDialog.findViewById(R.id.edt_search);
@@ -774,7 +726,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     if (mListrtopicsofinterest.size() > 0) {
                         recyclerview_topics_interest.setVisibility(View.VISIBLE);
-                        TopicsofinterestEditProfileAdapteradapter.notifyDataSetChanged();
+                        topicsofinterestEditProfileAdapteradapter.notifyDataSetChanged();
                     } else {
                         recyclerview_topics_interest.setVisibility(View.GONE);
                     }
@@ -790,7 +742,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     if (mListrtopicsofinterest.size() > 0) {
                         recyclerview_topics_interest.setVisibility(View.VISIBLE);
-                        TopicsofinterestEditProfileAdapteradapter.notifyDataSetChanged();
+                        topicsofinterestEditProfileAdapteradapter.notifyDataSetChanged();
                     } else {
                         recyclerview_topics_interest.setVisibility(View.GONE);
 
@@ -822,14 +774,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                arraylistselectedtopicsofinterest.clear();
-
-                if (TopicsofinterestEditProfileAdapteradapter.arraylistselectedtag.size() > 0) {
-                    arraylistselectedtopicsofinterest.addAll(TopicsofinterestEditProfileAdapteradapter.arraylistselectedtag);
-                    TopicsofinterestEditProfileAdapteradapter.arraylistselectedtag.clear();
-                }
-
-
+                checkedadapter = true;
                 if (myDialog.isShowing()) {
                     myDialog.dismiss();
 
@@ -839,8 +784,18 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
 
-        if (mListrtopicsofinterest.size() > 0) {
-            recyclerview_topics_interest.setAdapter(TopicsofinterestEditProfileAdapteradapter);
+        if (checkedadapter == false) {
+            topicsofinterestEditProfileAdapteradapter = new TopicsofinterestEditProfileAdapter(context, mListrtopicsofinterest, arraylistselectedtopicsofinterest);
+            if (topicsofinterestEditProfileAdapteradapter != null) {
+                recyclerview_topics_interest.setAdapter(topicsofinterestEditProfileAdapteradapter);
+
+            }
+        } else {
+            topicsofinterestEditProfileAdapteradapter = new TopicsofinterestEditProfileAdapter(context, mListrtopicsofinterest, arraylistselectedtopicsofinterest);
+            if (topicsofinterestEditProfileAdapteradapter != null) {
+                recyclerview_topics_interest.setAdapter(topicsofinterestEditProfileAdapteradapter);
+            }
+
         }
 
         myDialog.show();
@@ -1083,6 +1038,7 @@ public class EditProfileActivity extends AppCompatActivity {
         } else {
             return true;
         }
+
 
     }
 

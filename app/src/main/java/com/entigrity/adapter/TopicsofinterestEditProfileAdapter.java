@@ -10,7 +10,6 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.entigrity.R;
-import com.entigrity.model.editProfile.Topicsofinterestmodel;
 import com.entigrity.model.topicsofinterest.TagsItem;
 
 import java.util.ArrayList;
@@ -18,16 +17,15 @@ import java.util.ArrayList;
 public class TopicsofinterestEditProfileAdapter extends RecyclerView.Adapter<TopicsofinterestEditProfileAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<TagsItem> mList;
     LayoutInflater mInflater;
+    private ArrayList<TagsItem> mList;
     public ArrayList<Integer> arraylistselectedtag = new ArrayList<Integer>();
-    ArrayList<Topicsofinterestmodel> saveselectedlist = new ArrayList<Topicsofinterestmodel>();
 
 
-    public TopicsofinterestEditProfileAdapter(Context mContext, ArrayList<TagsItem> mList, ArrayList<Topicsofinterestmodel> saveselectedlist) {
+    public TopicsofinterestEditProfileAdapter(Context mContext, ArrayList<TagsItem> mList, ArrayList<Integer> arraylistselectedtag) {
         this.mContext = mContext;
         this.mList = mList;
-        this.saveselectedlist = saveselectedlist;
+        this.arraylistselectedtag = arraylistselectedtag;
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -45,12 +43,12 @@ public class TopicsofinterestEditProfileAdapter extends RecyclerView.Adapter<Top
 
         holder.tv_topics.setText(mList.get(position).getTag());
 
-
-        if (mList.get(position).getTag().equals(saveselectedlist.get(position).getTopicsselected())) {
-            holder.cbselection.setChecked(true);
-            arraylistselectedtag.add(mList.get(position).getId());
-        } else {
-            holder.cbselection.setChecked(false);
+        if (arraylistselectedtag.size() > 0) {
+            for (int k = 0; k < arraylistselectedtag.size(); k++) {
+                if (mList.get(position).getId() == (arraylistselectedtag.get(k))) {
+                    holder.cbselection.setChecked(true);
+                }
+            }
         }
 
 
@@ -64,7 +62,7 @@ public class TopicsofinterestEditProfileAdapter extends RecyclerView.Adapter<Top
                         arraylistselectedtag.add(mList.get(position).getId());
                     } else {
                         holder.cbselection.setChecked(false);
-                        arraylistselectedtag.remove(mList.get(position).getId());
+                        arraylistselectedtag.remove(position);
                     }
 
                 } catch (Exception e) {

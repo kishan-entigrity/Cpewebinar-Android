@@ -378,15 +378,17 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                arraylistselectedtopicsofinterest.clear();
+                //  arraylistselectedtopicsofinterest.clear();
                 //topicsofinterestAdapteradapter.arraylistselectedtag.clear();
 
                 //topicsofinterestAdapteradapter.notifyDataSetChanged();
 
+                arraylistselectedtopicsofinterest.addAll(topicsofinterestAdapteradapter.arraylistselectedtag);
+/*
                 if (topicsofinterestAdapteradapter.arraylistselectedtag.size() > 0) {
-                    arraylistselectedtopicsofinterest.addAll(topicsofinterestAdapteradapter.arraylistselectedtag);
-                    topicsofinterestAdapteradapter.arraylistselectedtag.clear();
-                }
+
+                    //topicsofinterestAdapteradapter.arraylistselectedtag.clear();
+                }*/
 
             /*    Constant.Log(TAG, "size" + topicsofinterestAdapteradapter.arraylistselectedtag.size());
                 Constant.Log(TAG, "size2" + arraylistselectedtopicsofinterest.size());
