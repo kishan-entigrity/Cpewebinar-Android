@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true">
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/popup">
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_popup_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:maxEms="20"
+            android:maxLines="3"
+            android:scrollbars="vertical"
+            android:textColor="@color/dialog_msg_text"
+            android:textSize="@dimen/_15sdp"
+            app:font_text="SFUIDisplay-Medium.ttf" />
+
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_popup_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="OK"
+            android:textColor="@color/dialog_submit"
+            android:textSize="@dimen/_15sdp"
+            app:font_text="SFUIDisplay-Medium.ttf" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

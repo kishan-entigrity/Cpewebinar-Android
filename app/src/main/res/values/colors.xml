@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#003F72</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#003F72</color>
+    <color name="White">#FFFFFF</color>
+    <color name="theme_background">#193f70</color>
+    <color name="forgot_password_header">#225884</color>
+    <color name="login_do_not_have_account">#C9C9C9</color>
+
+
+   <!-- <color name="transperent">#100FFFFFF</color>-->
+
+
+    <color name="background_topics">#C7C6CB</color>
+    <color name="background_contact_us">#F5F5F7</color>
+
+
+    //Edit Profile
+    <color name="edit_profile_background_color">#F5F5F7</color>
+    <color name="edit_profile_lable_colcr">#C9C9D5</color>
+
+
+    //dashboard
+    <color name="dashboard_bottom_selected">#0E2B4D</color>
+    <color name="dashboard_bottom_unselected">#A6A6A6</color>
+
+
+    //menu_drawer
+
+    <color name="drawer_header">#00254C</color>
+    <color name="drawer_child_background">#004C78</color>
+
+    //Custom Alert Dialog
+    <color name="dialog_msg_text">#AAAAAA</color>
+    <color name="dialog_submit">#65788D</color>
+
+    //topics of interest
+
+    <color name="text_topics_interest">#CECECE</color>
+
+
+    //vimeo
+
+    <color name="username_text">#ffffffff</color>
+    <color name="username_edit">#ff000000</color>
+
+    <color name="password_text">#ffffffff</color>
+    <color name="password_edit">#ff000000</color>
+
+    <color name="ssl_text_label">#ffffffff</color>
+    <color name="ssl_text_value">#ffffffff</color>
+
+
+    <color name="black">#ff000000</color>
+
+
+    <color name="geolocation_permissions_prompt_background">#ffdddddd</color>
+
+
+</resources>

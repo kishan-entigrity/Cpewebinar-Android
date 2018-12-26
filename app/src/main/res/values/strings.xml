@@ -1,0 +1,182 @@
+<resources>
+    <string name="app_name">My Cpe</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="percentage_value">50%</string>
+    <string name="bearer">Bearer</string>
+
+
+    //progress dialog
+    <string name="progrees_msg">Please Wait</string>
+
+
+    <string-array name="nav_item_activity_titles">
+        <item>DashBoard</item>
+        <item>Change Password</item>
+        <item>Profile</item>
+        <item>Contact Us</item>
+        <item>Notifications</item>
+
+    </string-array>
+
+
+    //common message
+    <string name="please_check_internet_condition">Please Check Internet Condition</string>
+    <string name="device_token">device token</string>
+    <string name="device_id">device id</string>
+    <string name="no_data_found">No Data Found</string>
+
+
+    //pre login
+    <string name="str_signup">SIGN UP</string>
+    <string name="str_login">LOGIN</string>
+    <string name="str_contactus">Contact Us</string>
+
+    //login
+    <string name="str_email">Email</string>
+    <string name="str_password">Password</string>
+    <string name="do_not_have_account">Don"'"t have an account?</string>
+    <string name="register_now_login">REGISTER NOW</string>
+
+
+    <string name="validate_email_id">Please Enter Email Id</string>
+    <string name="validate_password">Please Enter Password</string>
+    <string name="str_token">login token</string>
+
+
+    //dashboard
+
+    <string name="str_completed">COMPLETED</string>
+    <string name="str_ongoing">ONGOING</string>
+    <string name="str_upcoming">UPCOMING</string>
+
+    <string name="str_total_credit">Total Credit</string>
+    <string name="str_my_favorites">My Favorites</string>
+
+
+    //edit profile
+
+    <string name="view_profile_firstname">First Name</string>
+    <string name="view_profile_lastname">Last Name</string>
+    <string name="view_profile_email">Email</string>
+    <string name="view_profile_firm_name">Firm Name</string>
+    <string name="view_profile_mobile_number">Mobile Number</string>
+
+    <string name="view_profile_country">Country</string>
+    <string name="view_profile_state">State</string>
+    <string name="view_profile_city">City</string>
+
+    <string name="view_profile_zipcode">Zipcode</string>
+    <string name="view_profile_topics_interest">Topics of Interest</string>
+    <string name="view_profile_who_you_are">Who you are?</string>
+    <string name="edit_profile_header">Edit Profile</string>
+
+
+    //change password
+
+    <string name="str_change_password">Change Password</string>
+    <string name="str_change_password_submit">SUBMIT</string>
+    <string name="str_old_password">Old Password</string>
+    <string name="str_new_password">New Password</string>
+
+
+    //validate
+    <string name="validate_oldpassword">Please Enter Old Password</string>
+    <string name="validate_newpassword">Please Enter New Password</string>
+    <string name="validate_confirmpassword">Please Enter Confirm Password</string>
+    <string name="val_new_confirm_password_not_match">New Password and Confirm Password does not match</string>
+
+
+    //vimeo
+
+    <string name="loading_video">Loading video</string>
+
+    //forgot password
+
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_password_header">Forgot Password</string>
+    <string name="forgot_password_submit_button">SUBMIT</string>
+    <string name="forgot_edit_email">Enter your email</string>
+    <string name="forgot_header_text">Please Enter Your Registered Email</string>
+    action_settings
+
+    //contact us
+
+    <string name="contact_us">Contact Us</string>
+    <string name="contact_name">Name</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="email_id">Email ID</string>
+    <string name="contact_message">Message</string>
+    <string name="subject">Subject</string>
+    <string name="contact_send">SEND</string>
+
+    //Register
+
+    <string name="str_register">Register</string>
+    <string name="str_confirm_password">Confirm Password</string>
+    <string name="str_mobile_number">Mobile Number</string>
+    <string name="str_first_name">First Name</string>
+    <string name="str_last_name">Last Name</string>
+    <string name="str_email_id">Email ID</string>
+    <string name="str_topics_interset">Topics of Interest</string>
+    <string name="str_who_you_are">Who you are?</string>
+    <string name="str_reg_password">Password</string>
+    <string name="str_reg_confirm_password">Confirm Password</string>
+    <string name="str_firm_name">Firm Name</string>
+    <string name="str_alredy_account">Already have an account?</string>
+    <string name="str_login_now">LOGIN NOW</string>
+    <string name="str_accepted">I accepted terms and conditions.</string>
+    <string name="str_other_option">Please select other option</string>
+
+
+    <string name="str_select_country">Select Country</string>
+    <string name="str_select_state">Select State</string>
+    <string name="str_select_city">Select City</string>
+
+
+    //topics of interset
+
+    <string name="str_lable_apply">APPLY</string>
+    <string name="str_lable_cancel">CANCEL</string>
+    <string name="str_search">Search</string>
+
+
+    //validate
+    <string name="val_firstname">Please Enter First Name</string>
+    <string name="val_lastname">Please Enter Last Name</string>
+    <string name="val_emailid">Please Enter Email Id</string>
+    <string name="val_password_register">Please Enter Password</string>
+    <string name="val_confirm_password_register">Please Enter Confirm Password</string>
+    <string name="val_confirm_password_not_match">Password and Confirm Password does not match</string>
+    <string name="val_firm_name_register">Please Enter Firm Name</string>
+    <string name="val_mobile_number">Please Enter Mobile Number</string>
+    <string name="val_terms_and_condition">Please Accept Terms and Condition</string>
+    <string name="val_topics">Please select topics of interest</string>
+    <string name="val_zipcode">Please enter zipcode</string>
+
+    <string name="val_user_type">Please select user type</string>
+    <string name="str_country">Please Select Country</string>
+    <string name="str_state">Please Select State</string>
+    <string name="str_city">please select city</string>
+
+
+    //contact us
+    <string name="cus_valname">Please Enter Name</string>
+    <string name="cus_valnumber">Please Enter Contact Number</string>
+    <string name="cus_valsubject">Please Select Subject</string>
+    <string name="cus_valemailid">Please Enter Email Id</string>
+    <string name="cus_valmsg">Please Enter Message</string>
+    <string name="subject_hint">Subjects</string>
+
+
+    //forgot password
+    <string name="forgot_passoword_email">Please Enter Email Id</string>
+    //logout
+    <string name="logout">Are you sure you want to Logout?</string>
+
+
+</resources>

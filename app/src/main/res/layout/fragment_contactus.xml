@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.entigrity.fragments.ContactUsFragment" />
+    </data>
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_contact_us">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp">
+
+
+            <com.entigrity.view.CustomEditTextView
+                android:id="@+id/edtname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:hint="@string/contact_name"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:singleLine="true"
+                app:font_edit="SFUIDisplay-Medium.ttf"
+
+
+                />
+
+            <com.entigrity.view.CustomEditTextView
+                android:id="@+id/edtcontact_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edtname"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:hint="@string/contact_number"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:singleLine="true"
+                app:font_edit="SFUIDisplay-Medium.ttf" />
+
+            <RelativeLayout
+                android:id="@+id/relsubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edtcontact_number">
+
+                <Spinner
+                    android:id="@+id/spinner_subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/drop_down_arrow" />
+
+            </RelativeLayout>
+
+
+            <com.entigrity.view.CustomEditTextView
+                android:id="@+id/edtemailid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relsubject"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:hint="@string/email_id"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                app:font_edit="SFUIDisplay-Medium.ttf" />
+
+            <EditText
+                android:id="@+id/edtmessage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_below="@+id/edtemailid"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="top|left"
+                android:hint="@string/contact_message"
+                android:imeOptions="actionDone"
+                android:inputType="textEmailAddress|textMultiLine"
+                android:scrollbars="vertical"
+                android:scrollHorizontally="false"
+                android:singleLine="true"
+
+                />
+
+
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edtmessage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:background="@drawable/rounded_button"
+                android:text="@string/contact_send"
+                android:textColor="@color/White"
+                app:font_button="SFUIDisplay-Bold.ttf"
+
+                />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</layout>
