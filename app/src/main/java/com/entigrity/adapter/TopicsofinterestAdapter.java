@@ -44,18 +44,12 @@ public class TopicsofinterestAdapter extends RecyclerView.Adapter<Topicsofintere
         holder.tv_topics.setText(mList.get(position).getTag());
 
 
-        Constant.Log("size_selected", "" + arraylistselectedtag.size());
-
         if (arraylistselectedtag.size() > 0) {
-
-            if (mList.get(position).getId() == arraylistselectedtag.get(position)) {
-                holder.cbselection.setChecked(true);
-                arraylistselectedtag.add(mList.get(position).getId());
-            } else {
-                holder.cbselection.setChecked(false);
+            for (int k = 0; k < arraylistselectedtag.size(); k++) {
+                if (mList.get(position).getId() == (arraylistselectedtag.get(k))) {
+                    holder.cbselection.setChecked(true);
+                }
             }
-
-
         }
 
 
@@ -64,20 +58,17 @@ public class TopicsofinterestAdapter extends RecyclerView.Adapter<Topicsofintere
             public void onClick(View v) {
 
                 try {
-
                     if (holder.cbselection.isChecked() == false) {
                         holder.cbselection.setChecked(true);
                         arraylistselectedtag.add(mList.get(position).getId());
                     } else {
                         holder.cbselection.setChecked(false);
-                        arraylistselectedtag.remove(mList.get(position).getId());
+                        arraylistselectedtag.remove(position);
                     }
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
 
             }
         });

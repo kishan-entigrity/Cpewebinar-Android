@@ -33,6 +33,7 @@ import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
+import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 
@@ -65,6 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     public boolean boolean_usertype = true;
     private int user_type = 0;
+    public boolean checkedadapter = false;
 
 
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
@@ -124,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 , binding.edtLastname.getText().toString(), binding.edtEmailid.getText().toString(),
                                 binding.edtPassword.getText().toString(), binding.edtConfirmpassword.getText().toString(),
                                 binding.edtFirmname.getText().toString(), binding.edtMobilenumbert.getText().toString(),
-                                arraylistselectedtopicsofinterest, user_type);
+                                topicsofinterestAdapteradapter.arraylistselectedtag, user_type);
                     } else {
                         Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                     }
@@ -298,6 +300,7 @@ public class SignUpActivity extends AppCompatActivity {
         recyclerview_topics_interest = (RecyclerView) myDialog.findViewById(R.id.recyclerview_topics_interest);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerview_topics_interest.setLayoutManager(layoutManager);
+        recyclerview_topics_interest.addItemDecoration(new SimpleDividerItemDecoration(this));
 
         tv_apply = (TextView) myDialog.findViewById(R.id.tv_apply);
         tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel);
@@ -378,27 +381,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //  arraylistselectedtopicsofinterest.clear();
-                //topicsofinterestAdapteradapter.arraylistselectedtag.clear();
-
-                //topicsofinterestAdapteradapter.notifyDataSetChanged();
-
-                arraylistselectedtopicsofinterest.addAll(topicsofinterestAdapteradapter.arraylistselectedtag);
-/*
-                if (topicsofinterestAdapteradapter.arraylistselectedtag.size() > 0) {
-
-                    //topicsofinterestAdapteradapter.arraylistselectedtag.clear();
-                }*/
-
-            /*    Constant.Log(TAG, "size" + topicsofinterestAdapteradapter.arraylistselectedtag.size());
-                Constant.Log(TAG, "size2" + arraylistselectedtopicsofinterest.size());
-*/
-
-              /*  if (arraylistselectedtopicsofinterest.size() > 0) {
-                    binding.tvTopicsofinterset.setBackgroundColor(getResources().getColor(R.color.theme_background));
-                } else {
-                    binding.tvTopicsofinterset.setBackgroundColor(getResources().getColor(R.color.White));
-                }*/
+                arraylistselectedtopicsofinterest=topicsofinterestAdapteradapter.arraylistselectedtag;
 
 
                 if (myDialog.isShowing()) {
@@ -407,6 +390,9 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+
+
+        Constant.Log(TAG, "show" + arraylistselectedtopicsofinterest.size());
 
 
         if (mListrtopicsofinterest.size() > 0) {
@@ -463,7 +449,7 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (user_type == 0) {
             Constant.ShowPopUp(getResources().getString(R.string.val_user_type), context);
             return false;
-        } else if (arraylistselectedtopicsofinterest.size() == 0) {
+        } else if (topicsofinterestAdapteradapter.arraylistselectedtag.size() == 0) {
             Constant.ShowPopUp(getResources().getString(R.string.val_topics), context);
             return false;
         } else if (!checkprivacypolicystatus) {

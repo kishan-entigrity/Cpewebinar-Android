@@ -35,10 +35,10 @@ import com.entigrity.model.state.StateModel;
 import com.entigrity.model.topicsofinterest.TagsItem;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.usertype.UserTypeModel;
-import com.entigrity.model.viewprofile.ViewProfileModel;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
+import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 
@@ -58,7 +58,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public TopicsofinterestEditProfileAdapter topicsofinterestEditProfileAdapteradapter;
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     public TextView tv_apply, tv_cancel;
-    private static final String TAG = EditProfileActivity.class.getName();
+
 
     private ArrayList<String> arrayLististusertype = new ArrayList<String>();
     private ArrayList<Integer> arrayLististusertypeid = new ArrayList<Integer>();
@@ -91,7 +91,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private int state_pos = 0;
     private int city_pos = 0;
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "";
-    public int whoyouare = 0;
     private int who_you_are_pos = 0;
 
 
@@ -104,6 +103,8 @@ public class EditProfileActivity extends AppCompatActivity {
     public boolean boolean_usertype_spinner = true;
     public EditText edt_search;
 
+    private static final String TAG = EditProfileActivity.class.getName();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,11 +112,22 @@ public class EditProfileActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         context = EditProfileActivity.this;
         mAPIService = ApiUtils.getAPIService();
+
         Intent intent = getIntent();
         if (intent != null) {
-            firstname = intent.getStringExtra("fname");
+            firstname = intent.getStringExtra(getResources().getString(R.string.pass_fname));
+            lastname = intent.getStringExtra(getResources().getString(R.string.pass_lname));
+            email = intent.getStringExtra(getResources().getString(R.string.pass_email));
+            firmname = intent.getStringExtra(getResources().getString(R.string.pass_firm_name));
+            mobilenumber = intent.getStringExtra(getResources().getString(R.string.pass_mobile_number));
+            zipcode = intent.getStringExtra(getResources().getString(R.string.pass_zipcode));
+            country_pos = intent.getIntExtra(getResources().getString(R.string.pass_country), 0);
+            state_pos = intent.getIntExtra(getResources().getString(R.string.pass_state), 0);
+            city_pos = intent.getIntExtra(getResources().getString(R.string.pass_city), 0);
+            who_you_are_pos = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are), 0);
+            arraylistselectedtopicsofinterest = intent.getIntegerArrayListExtra(getResources().getString(R.string.pass_topics_of_interesr));
 
-
+            SetData();
         }
 
 
@@ -284,18 +296,59 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
 
-    public void GetProfile() {
+    public void SetData() {
+
+        if (!firstname.equalsIgnoreCase("") && firstname != null) {
+            binding.edtFirstname.setText(firstname);
+        }
+
+
+        if (!lastname.equalsIgnoreCase("") && lastname != null) {
+            binding.edtLastname.setText(lastname);
+        }
+
+
+        if (!email.equalsIgnoreCase("") && email != null) {
+            binding.edtEmailname.setText(email);
+        }
+
+        if (!firmname.equalsIgnoreCase("") && firmname != null) {
+            binding.edtFirmname.setText(firmname);
+        }
+
+        if (!mobilenumber.equalsIgnoreCase("") && mobilenumber != null) {
+            binding.edtMobileNumber.setText(mobilenumber);
+        }
+
+
+        if (country_pos != 0) {
+            country_id = country_pos;
+        }
+        if (state_pos != 0) {
+            state_id = state_pos;
+        }
+
+        if (city_pos != 0) {
+            city_id = city_pos;
+
+        }
+
+        if (!zipcode.equalsIgnoreCase("") && zipcode != null) {
+            binding.edtZipcode.setText(zipcode);
+        }
+
+
+    }
+
+
+   /* public void GetProfile() {
         mAPIService.GetProfile(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ViewProfileModel>() {
                     @Override
                     public void onCompleted() {
 
-                        if (Constant.isNetworkAvailable(context)) {
-                            GetCountry();
-                        } else {
-                            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
-                        }
-
+                      *//*
+     *//*
 
                     }
 
@@ -403,7 +456,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     }
                 });
 
-    }
+    }*/
 
 
     public void EditPost(String Authorization, String first_name, String last_name, String email,
@@ -651,7 +704,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     public void onCompleted() {
 
                         if (Constant.isNetworkAvailable(context)) {
-                            GetProfile();
+                            GetCountry();
                         } else {
                             Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                         }
@@ -698,6 +751,9 @@ public class EditProfileActivity extends AppCompatActivity {
         recyclerview_topics_interest = (RecyclerView) myDialog.findViewById(R.id.recyclerview_topics_interest);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerview_topics_interest.setLayoutManager(layoutManager);
+
+        recyclerview_topics_interest.addItemDecoration(new SimpleDividerItemDecoration(this));
+
         tv_apply = (TextView) myDialog.findViewById(R.id.tv_apply);
         tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel);
         edt_search = (EditText) myDialog.findViewById(R.id.edt_search);
@@ -993,7 +1049,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             Show_State_Adapter();
                         } else {
-                            Constant.ShowPopUp("Country Not Found", context);
+                            Constant.ShowPopUp("State Not Found", context);
                         }
 
 

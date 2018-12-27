@@ -109,19 +109,20 @@
     <string name="contact_us">Contact Us</string>
     <string name="contact_name">Name</string>
     <string name="contact_number">Contact Number</string>
-    <string name="email_id">Email ID</string>
+    <string name="email_id">Email</string>
     <string name="contact_message">Message</string>
     <string name="subject">Subject</string>
     <string name="contact_send">SEND</string>
 
+
     //Register
 
-    <string name="str_register">Register</string>
+    <string name="str_register">REGISTER</string>
     <string name="str_confirm_password">Confirm Password</string>
     <string name="str_mobile_number">Mobile Number</string>
     <string name="str_first_name">First Name</string>
     <string name="str_last_name">Last Name</string>
-    <string name="str_email_id">Email ID</string>
+    <string name="str_email_id">Email</string>
     <string name="str_topics_interset">Topics of Interest</string>
     <string name="str_who_you_are">Who you are?</string>
     <string name="str_reg_password">Password</string>
@@ -148,7 +149,7 @@
     //validate
     <string name="val_firstname">Please Enter First Name</string>
     <string name="val_lastname">Please Enter Last Name</string>
-    <string name="val_emailid">Please Enter Email Id</string>
+    <string name="val_emailid">Please Enter Email</string>
     <string name="val_password_register">Please Enter Password</string>
     <string name="val_confirm_password_register">Please Enter Confirm Password</string>
     <string name="val_confirm_password_not_match">Password and Confirm Password does not match</string>
@@ -168,7 +169,7 @@
     <string name="cus_valname">Please Enter Name</string>
     <string name="cus_valnumber">Please Enter Contact Number</string>
     <string name="cus_valsubject">Please Select Subject</string>
-    <string name="cus_valemailid">Please Enter Email Id</string>
+    <string name="cus_valemailid">Please Enter Email</string>
     <string name="cus_valmsg">Please Enter Message</string>
     <string name="subject_hint">Subjects</string>
 

@@ -63,46 +63,55 @@
                 android:layout_marginRight="@dimen/_5sdp"
                 android:orientation="vertical">
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_first_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-
-                    <com.entigrity.view.CustomEditTextView
-                        android:id="@+id/edt_firstname"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/view_profile_firstname"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        app:font_edit="SFUIDisplay-Medium.ttf" />
+                        android:layout_weight="1">
 
 
-                </android.support.design.widget.TextInputLayout>
+                        <com.entigrity.view.CustomEditTextView
+                            android:id="@+id/edt_firstname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/view_profile_firstname"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:singleLine="true"
+                            app:font_edit="SFUIDisplay-Medium.ttf" />
 
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_last_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true">
+                    </android.support.design.widget.TextInputLayout>
 
 
-                    <com.entigrity.view.CustomEditTextView
-                        android:id="@+id/edt_lastname"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_last_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/view_profile_lastname"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        app:font_edit="SFUIDisplay-Medium.ttf" />
+                        android:layout_weight="1">
 
 
-                </android.support.design.widget.TextInputLayout>
+                        <com.entigrity.view.CustomEditTextView
+                            android:id="@+id/edt_lastname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/view_profile_lastname"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:singleLine="true"
+                            app:font_edit="SFUIDisplay-Medium.ttf" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                </LinearLayout>
 
 
                 <android.support.design.widget.TextInputLayout

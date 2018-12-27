@@ -106,6 +106,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
+                            binding.edtEmailId.setText("");
                             Constant.ShowPopUp(forgotpaawordmodel.getMessage(), context);
                         } else {
                             if (progressDialog.isShowing()) {

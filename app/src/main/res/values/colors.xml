@@ -5,7 +5,9 @@
     <color name="colorAccent">#003F72</color>
     <color name="White">#FFFFFF</color>
     <color name="theme_background">#193f70</color>
-    <color name="forgot_password_header">#225884</color>
+    <color name="forgot_password_header">#213B5B</color>
+
+
     <color name="login_do_not_have_account">#C9C9C9</color>
 
 
