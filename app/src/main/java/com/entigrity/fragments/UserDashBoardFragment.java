@@ -46,9 +46,7 @@ public class UserDashBoardFragment extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-                    System.exit(0);
-
+                    getActivity().finish();
                     return true;
                 }
                 return false;

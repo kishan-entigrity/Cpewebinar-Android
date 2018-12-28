@@ -58,7 +58,7 @@ public class ContactUsFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     getActivity().finish();
-                    System.exit(0);
+
 
                     return true;
                 }
