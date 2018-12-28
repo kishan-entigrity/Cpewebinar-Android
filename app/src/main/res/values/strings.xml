@@ -80,8 +80,8 @@
 
     <string name="str_change_password">Change Password</string>
     <string name="str_change_password_submit">SUBMIT</string>
-    <string name="str_old_password">Old Password</string>
-    <string name="str_new_password">New Password</string>
+    <string name="str_old_password">Old  Password</string>
+    <string name="str_new_password">New  Password</string>
 
 
     //validate

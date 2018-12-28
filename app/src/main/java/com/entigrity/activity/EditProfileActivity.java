@@ -149,7 +149,8 @@ public class EditProfileActivity extends AppCompatActivity {
                             Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                         }
                     } else {
-                        Constant.ShowPopUp(context.getString(R.string.str_country), context);
+                        country_id = position;
+                        // Constant.ShowPopUp(context.getString(R.string.str_country), context);
                     }
 
 
@@ -182,7 +183,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                     } else {
-                        Constant.ShowPopUp(context.getString(R.string.str_state), context);
+                        state_id = position;
+                        //Constant.ShowPopUp(context.getString(R.string.str_state), context);
                     }
 
 
@@ -209,7 +211,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     if (position != 0) {
                         city_id = position;
                     } else {
-                        Constant.ShowPopUp(context.getString(R.string.str_city), context);
+                        city_id = position;
+                        //Constant.ShowPopUp(context.getString(R.string.str_city), context);
                     }
 
 
@@ -235,7 +238,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         Constant.Log("value", "value" + who_you_are_pos);
                     } else {
-                        Constant.ShowPopUp(context.getString(R.string.val_user_type), context);
+                        who_you_are_pos = position;
+                        //Constant.ShowPopUp(context.getString(R.string.val_user_type), context);
                     }
 
 
@@ -622,8 +626,8 @@ public class EditProfileActivity extends AppCompatActivity {
             //binding.spinner.setOnItemSelectedListener(this);
 
             //Creating the ArrayAdapter instance having the user type list
-            ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayLististusertype);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, arrayLististusertype);
+            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             binding.spinner.setAdapter(aa);
 
@@ -639,8 +643,8 @@ public class EditProfileActivity extends AppCompatActivity {
             //binding.spinnerCountry.setOnItemSelectedListener(this);
 
             //Creating the ArrayAdapter instance having the user type list
-            ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, getcountryarraylist);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getcountryarraylist);
+            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             binding.spinnerCountry.setAdapter(aa);
 
@@ -660,8 +664,8 @@ public class EditProfileActivity extends AppCompatActivity {
             //binding.spinnerCountry.setOnItemSelectedListener(this);
 
             //Creating the ArrayAdapter instance having the user type list
-            ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, getcityarraylist);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getcityarraylist);
+            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             binding.spinnerCity.setAdapter(aa);
 
@@ -680,8 +684,8 @@ public class EditProfileActivity extends AppCompatActivity {
             //binding.spinnerCountry.setOnItemSelectedListener(this);
 
             //Creating the ArrayAdapter instance having the user type list
-            ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, getstatearralist);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getstatearralist);
+            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             binding.spinnerState.setAdapter(aa);
             binding.spinnerState.setSelection(state_pos);
@@ -917,7 +921,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             Show_Country_Adapter();
                         } else {
-                            Constant.ShowPopUp("Country Not Found", context);
+                            //Constant.ShowPopUp("Country Not Found", context);
                         }
 
 
@@ -981,7 +985,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             Show_City_Adapter();
 
                         } else {
-                            Constant.ShowPopUp("City Not Found", context);
+                            //Constant.ShowPopUp("City Not Found", context);
                         }
 
 
@@ -1049,7 +1053,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             Show_State_Adapter();
                         } else {
-                            Constant.ShowPopUp("State Not Found", context);
+                            // Constant.ShowPopUp("State Not Found", context);
                         }
 
 

@@ -164,8 +164,8 @@ public class ContactUsFragment extends Fragment {
 
 
             //Creating the ArrayAdapter instance having the user type list
-            ArrayAdapter aa = new ArrayAdapter(context, android.R.layout.simple_spinner_item, arrayListsubject);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter aa = new ArrayAdapter(context, R.layout.spinner_item, arrayListsubject);
+            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             binding.spinnerSubject.setAdapter(aa);
         }

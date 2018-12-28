@@ -248,7 +248,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(context, LoginActivity.class);
                 startActivity(i);
-                finish();
+
 
             }
         });
@@ -292,6 +292,12 @@ public class SignUpActivity extends AppCompatActivity {
 
     }*/
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     public void ShowTopicsOfInterestPopup() {
         myDialog = new Dialog(context);
@@ -381,7 +387,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                arraylistselectedtopicsofinterest=topicsofinterestAdapteradapter.arraylistselectedtag;
+                arraylistselectedtopicsofinterest = topicsofinterestAdapteradapter.arraylistselectedtag;
 
 
                 if (myDialog.isShowing()) {
@@ -412,8 +418,8 @@ public class SignUpActivity extends AppCompatActivity {
 
 
             //Creating the ArrayAdapter instance having the user type list
-            ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayLististusertype);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, arrayLististusertype);
+            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             binding.spinner.setAdapter(aa);
         }
@@ -600,7 +606,7 @@ public class SignUpActivity extends AppCompatActivity {
                 alertDialog.dismiss();
                 Intent i = new Intent(context, LoginActivity.class);
                 startActivity(i);
-                finish();
+
 
             }
         });

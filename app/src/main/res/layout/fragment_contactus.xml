@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
@@ -41,6 +42,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:singleLine="true"
+                    android:textSize="@dimen/_12sdp"
                     app:font_edit="SFUIDisplay-Medium.ttf"
 
 
@@ -53,18 +55,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_name"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/_10sdp">
 
                 <com.entigrity.view.CustomEditTextView
                     android:id="@+id/edtcontact_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/input_name"
-                    android:layout_marginTop="@dimen/_10sdp"
+
                     android:hint="@string/contact_number"
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:singleLine="true"
+                    android:textSize="@dimen/_12sdp"
                     app:font_edit="SFUIDisplay-Medium.ttf" />
 
             </android.support.design.widget.TextInputLayout>
@@ -73,14 +77,16 @@
                 android:id="@+id/relsubject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/input_contact_number">
+                android:layout_below="@+id/input_contact_number"
+                android:layout_marginTop="@dimen/_10sdp">
 
                 <Spinner
                     android:id="@+id/spinner_subject"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_4sdp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown" />
@@ -101,7 +107,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relsubject"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/_10sdp">
 
 
                 <com.entigrity.view.CustomEditTextView
@@ -109,11 +116,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/relsubject"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:hint="@string/email_id"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:singleLine="true"
+                    android:textSize="@dimen/_12sdp"
                     app:font_edit="SFUIDisplay-Medium.ttf" />
 
 
@@ -125,7 +132,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_emailid"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/_10sdp">
 
 
                 <EditText
@@ -139,6 +147,7 @@
                     android:inputType="textMultiLine"
                     android:scrollbars="vertical"
                     android:scrollHorizontally="false"
+                    android:textSize="@dimen/_12sdp"
 
                     />
 
@@ -158,6 +167,7 @@
                 android:background="@drawable/rounded_button"
                 android:text="@string/contact_send"
                 android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
                 app:font_button="SFUIDisplay-Bold.ttf"
 
                 />

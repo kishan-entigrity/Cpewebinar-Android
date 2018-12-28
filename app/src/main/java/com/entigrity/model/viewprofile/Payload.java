@@ -8,15 +8,17 @@ public class Payload {
     @SerializedName("data")
     private Data data;
 
-    public String getAccess_token() {
-        return access_token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    private String access_token;
+    @SerializedName("access_token")
+
+    private String accessToken;
 
     public void setData(Data data) {
         this.data = data;
@@ -26,13 +28,12 @@ public class Payload {
         return data;
     }
 
-
     @Override
     public String toString() {
         return
                 "Payload{" +
+                        "access_token = '" + accessToken + '\'' +
                         "data = '" + data + '\'' +
-                        "access_token = '" + access_token +
                         "}";
     }
 }

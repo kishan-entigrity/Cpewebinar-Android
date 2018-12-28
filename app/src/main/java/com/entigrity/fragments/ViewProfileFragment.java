@@ -66,7 +66,6 @@ public class ViewProfileFragment extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    getActivity().finish();
                     System.exit(0);
 
                     return true;
@@ -190,18 +189,18 @@ public class ViewProfileFragment extends Fragment {
                             if (viewProfileModel.getPayload().getData().getCountry() != null
                                     && !viewProfileModel.getPayload().getData().getCountry().equalsIgnoreCase("")) {
                                 binding.tvContry.setText(viewProfileModel.getPayload().getData().getCountry());
-                                country_id = viewProfileModel.getPayload().getData().getCountryId();
+                                country_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCountryId());
                             }
                             if (viewProfileModel.getPayload().getData().getState() != null
                                     && !viewProfileModel.getPayload().getData().getState().equalsIgnoreCase("")) {
                                 binding.tvState.setText(viewProfileModel.getPayload().getData().getState());
-                                state_id = viewProfileModel.getPayload().getData().getStateId();
+                                state_id = Integer.parseInt(viewProfileModel.getPayload().getData().getStateId());
                             }
 
                             if (viewProfileModel.getPayload().getData().getCity() != null
                                     && !viewProfileModel.getPayload().getData().getCity().equalsIgnoreCase("")) {
                                 binding.tvCity.setText(viewProfileModel.getPayload().getData().getCity());
-                                city_id = viewProfileModel.getPayload().getData().getCityId();
+                                city_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCityId());
                             }
 
 
@@ -226,8 +225,8 @@ public class ViewProfileFragment extends Fragment {
                             }
 
                         } else {
-                            if (viewProfileModel.getPayload().getAccess_token() != null && !viewProfileModel.getPayload().getAccess_token().equalsIgnoreCase("")) {
-                                AppSettings.set_login_token(context, viewProfileModel.getPayload().getAccess_token());
+                            if (viewProfileModel.getPayload().getAccessToken() != null && !viewProfileModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
+                                AppSettings.set_login_token(context, viewProfileModel.getPayload().getAccessToken());
 
                                 if (Constant.isNetworkAvailable(context)) {
                                     GetProfile();

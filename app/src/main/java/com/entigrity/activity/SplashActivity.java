@@ -24,9 +24,6 @@ public class SplashActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
     ActivitySplashBinding binding;
 
-    public ArrayList<String> arrayemployee = new ArrayList();
-    public ArrayList<String> arrayListclient = new ArrayList();
-
 
     public Context context;
     private static final String TAG = SplashActivity.class.getName();
@@ -36,23 +33,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
         context = SplashActivity.this;
-
-      /*  arrayemployee.add("chirag");
-        arrayemployee.add("deepak");
-        arrayemployee.add("tanuj");
-
-        arrayListclient.add("chirag");
-        arrayListclient.add("deepak");
-
-
-        for (int i = 0; i < arrayemployee.size(); i++) {
-            for (int j = 0; j < arrayListclient.size(); j++) {
-                if (arrayemployee.get(i).contains(arrayListclient.get(j))) {
-                    Constant.Log("matched", "++++" + arrayemployee.get(i));
-                }
-            }
-
-        }*/
 
 
         Navigation();
@@ -71,8 +51,6 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-
-                Constant.Log("token", "token" + AppSettings.get_login_token(context));
 
 
                 if (!AppSettings.get_login_token(context).isEmpty()) {

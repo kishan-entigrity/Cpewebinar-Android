@@ -41,7 +41,7 @@ public class Data{
 	private int id;
 
 	@SerializedName("state_id")
-	private int stateId;
+	private String stateId;
 
 	@SerializedName("designation")
 	private String designation;
@@ -59,10 +59,10 @@ public class Data{
 	private String email;
 
 	@SerializedName("country_id")
-	private int countryId;
+	private String countryId;
 
 	@SerializedName("city_id")
-	private int cityId;
+	private String cityId;
 
 	public void setCountry(String country){
 		this.country = country;
@@ -152,11 +152,11 @@ public class Data{
 		return id;
 	}
 
-	public void setStateId(int stateId){
+	public void setStateId(String stateId){
 		this.stateId = stateId;
 	}
 
-	public int getStateId(){
+	public String getStateId(){
 		return stateId;
 	}
 
@@ -200,19 +200,19 @@ public class Data{
 		return email;
 	}
 
-	public void setCountryId(int countryId){
+	public void setCountryId(String countryId){
 		this.countryId = countryId;
 	}
 
-	public int getCountryId(){
+	public String getCountryId(){
 		return countryId;
 	}
 
-	public void setCityId(int cityId){
+	public void setCityId(String cityId){
 		this.cityId = cityId;
 	}
 
-	public int getCityId(){
+	public String getCityId(){
 		return cityId;
 	}
 

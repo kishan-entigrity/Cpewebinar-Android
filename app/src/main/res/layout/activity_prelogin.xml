@@ -33,7 +33,7 @@
             android:background="@drawable/rounded_transperent_background"
             android:text="@string/str_signup"
             android:textColor="@color/White"
-            android:textSize="@dimen/_15sdp" />
+            android:textSize="@dimen/_12sdp" />
 
 
         <com.entigrity.view.CustomButtonView
@@ -43,13 +43,13 @@
             android:layout_below="@+id/strsignup"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:background="@drawable/rounded_button"
             android:text="@string/str_login"
-            app:font_button="SFUIDisplay-Bold.ttf"
             android:textColor="@color/White"
-            android:textSize="@dimen/_15sdp" />
+            android:textSize="@dimen/_12sdp"
+            app:font_button="SFUIDisplay-Bold.ttf" />
 
 
     </RelativeLayout>

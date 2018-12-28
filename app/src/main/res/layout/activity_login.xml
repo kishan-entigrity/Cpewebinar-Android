@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/White">
+        android:background="#F5F5F7">
 
         <RelativeLayout
             android:id="@+id/rel_login_top"
@@ -48,7 +48,7 @@
                 android:text="@string/str_login"
                 android:textColor="@color/theme_background"
                 android:textSize="@dimen/_15sdp"
-                app:font_text="SFUIDisplay-Medium.ttf" />
+                app:font_text="SFUIDisplay-Bold.ttf" />
 
             <com.entigrity.view.CustomEditTextView
                 android:id="@+id/edtusername"
@@ -60,6 +60,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
+                android:textSize="@dimen/_12sdp"
                 app:font_edit="SFUIDisplay-Medium.ttf"
 
 
@@ -76,6 +77,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:singleLine="true"
+                android:textSize="@dimen/_12sdp"
                 app:font_edit="SFUIDisplay-Medium.ttf"
 
 
@@ -88,9 +90,10 @@
                 android:layout_below="@+id/edtpassword"
                 android:layout_alignParentRight="true"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/theme_background"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 android:textStyle="bold"
                 app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -106,10 +109,7 @@
                 android:background="@drawable/rounded_button"
                 android:text="@string/str_login"
                 android:textColor="@color/White"
-                app:font_button="SFUIDisplay-Bold.ttf"
-
-
-                />
+                app:font_button="SFUIDisplay-Bold.ttf" />
 
             <com.entigrity.view.CustomTextView
                 android:layout_width="wrap_content"
@@ -118,10 +118,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/do_not_have_account"
                 android:textColor="@color/login_do_not_have_account"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_11sdp"
                 android:textStyle="bold"
                 app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -134,9 +135,10 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_25sdp"
                 android:text="@string/register_now_login"
                 android:textColor="@color/theme_background"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_11sdp"
                 android:textStyle="bold"
                 app:font_text="SFUIDisplay-Medium.ttf" />
 
