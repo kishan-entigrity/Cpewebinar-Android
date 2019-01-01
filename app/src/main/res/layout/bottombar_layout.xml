@@ -26,18 +26,18 @@
         android:weightSum="2">
 
         <ImageView
-            android:id="@+id/iv_live"
+            android:id="@+id/iv_assesement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/live_hover" />
+            android:src="@mipmap/assesment_hover" />
 
         <ImageView
-            android:id="@+id/iv_self_study"
+            android:id="@+id/iv_favorities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/self_study" />
+            android:src="@mipmap/favorites" />
 
     </LinearLayout>
 

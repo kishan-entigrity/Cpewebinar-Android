@@ -987,6 +987,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             Show_City_Adapter();
 
                         } else {
+
                             //Constant.ShowPopUp("City Not Found", context);
                         }
 
@@ -1055,6 +1056,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             Show_State_Adapter();
                         } else {
+
+
                             // Constant.ShowPopUp("State Not Found", context);
                         }
 
