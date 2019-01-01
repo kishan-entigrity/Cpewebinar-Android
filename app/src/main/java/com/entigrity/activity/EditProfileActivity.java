@@ -824,6 +824,8 @@ public class EditProfileActivity extends AppCompatActivity {
         tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if (myDialog.isShowing()) {
                     myDialog.dismiss();
                 }

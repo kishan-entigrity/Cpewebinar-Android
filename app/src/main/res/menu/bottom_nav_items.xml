@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:title="test"
+        android:icon="@drawable/blue_select" />
+    <item
+        android:id="@+id/menu_search"
+        android:title="test"
+        android:icon="@drawable/blue_select" />
+
+    <item
+        android:id="@+id/menu_notification"
+        android:title="test"
+        android:icon="@drawable/blue_select" />
+    <item
+        android:id="@+id/menu_notificatio"
+        android:title="test"
+        android:icon="@drawable/blue_select" />
+    <item
+        android:id="@+id/menu_notifications"
+        android:title="test"
+        android:icon="@drawable/blue_select" />
+</menu>

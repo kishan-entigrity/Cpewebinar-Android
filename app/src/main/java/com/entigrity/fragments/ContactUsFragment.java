@@ -2,11 +2,13 @@ package com.entigrity.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.FragmentContactusBinding;
 import com.entigrity.model.contactus.ContactUsModel;
@@ -50,15 +53,17 @@ public class ContactUsFragment extends Fragment {
         mAPIService = ApiUtils.getAPIService();
         context = getActivity();
 
+        MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
+
 
         binding.getRoot().setFocusableInTouchMode(true);
         binding.getRoot().requestFocus();
         binding.getRoot().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    getActivity().finish();
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 
+                    ConfirmationPopup();
 
                     return true;
                 }
@@ -116,6 +121,43 @@ public class ContactUsFragment extends Fragment {
 
 
         return view = binding.getRoot();
+    }
+
+    public void ConfirmationPopup() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+        // Setting Dialog Title
+        // alertDialog.setTitle("Confirm Delete...");
+
+        // Setting Dialog Message
+        alertDialog.setMessage(getResources().getString(R.string.exit_validation));
+
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Write your code here to invoke YES event
+                dialog.cancel();
+                getActivity().finish();
+
+
+            }
+        });
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Write your code here to invoke NO event
+
+                dialog.cancel();
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+
+
     }
 
 
@@ -186,6 +228,9 @@ public class ContactUsFragment extends Fragment {
             return false;
         } else if (binding.edtemailid.getText().toString().isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.cus_valemailid), context);
+            return false;
+        } else if (!Constant.isValidEmailId(binding.edtemailid.getText().toString())) {
+            Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
             return false;
         } else if (binding.edtmessage.getText().toString().isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.cus_valmsg), context);

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -13,9 +12,6 @@ import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivitySplashBinding;
 import com.entigrity.utility.AppSettings;
-import com.entigrity.utility.Constant;
-
-import java.util.ArrayList;
 
 
 public class SplashActivity extends AppCompatActivity {

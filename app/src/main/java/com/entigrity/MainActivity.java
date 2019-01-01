@@ -5,8 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.activity.LoginActivity;
@@ -65,13 +64,30 @@ public class MainActivity extends AppCompatActivity
     public Dialog myDialog_popup;
     public TextView tv_popup_msg, tv_popup_submit;
     ProgressDialog progressDialog;
+    private static MainActivity instance;
+
+    public RelativeLayout rel_top_bottom;
+
+    public ImageView iv_live, iv_self_study, iv_home, iv_dash_board, iv_profile;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        instance = MainActivity.this;
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+        rel_top_bottom = (RelativeLayout) findViewById(R.id.rel_top_bottom);
+
+        iv_live = (ImageView) findViewById(R.id.iv_live);
+        iv_self_study = (ImageView) findViewById(R.id.iv_self_study);
+        iv_home = (ImageView) findViewById(R.id.iv_home);
+        iv_dash_board = (ImageView) findViewById(R.id.iv_dash_board);
+        iv_profile = (ImageView) findViewById(R.id.iv_profile);
 
         setSupportActionBar(toolbar);
         context = MainActivity.this;
@@ -88,6 +104,64 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+        iv_live.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetImageBackground(0);
+
+                SetDefault();
+
+
+            }
+        });
+
+        iv_self_study.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetImageBackground(1);
+                SetDefault();
+
+            }
+        });
+
+        iv_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SetImageBackground(2);
+                SetDefault();
+
+            }
+        });
+
+        iv_dash_board.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SetImageBackground(3);
+
+                SetDefault();
+
+            }
+        });
+
+        iv_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SetImageBackground(4);
+                setToolbarTitle(2);
+                viewProfileFragment = new ViewProfileFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, viewProfileFragment, "viewprofilefragment").addToBackStack("null").commit();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+
+            }
+        });
+
+
+
 
 
         /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);*/
@@ -123,6 +197,7 @@ public class MainActivity extends AppCompatActivity
         headerview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SetImageBackground(4);
                 setToolbarTitle(2);
                 viewProfileFragment = new ViewProfileFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, viewProfileFragment, "viewprofilefragment").addToBackStack("null").commit();
@@ -130,6 +205,39 @@ public class MainActivity extends AppCompatActivity
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
+
+
+    }
+
+
+    public void SetImageBackground(int position) {
+
+        if (position == 0) {
+            iv_live.setImageResource(R.mipmap.live_hover);
+            iv_self_study.setImageResource(R.mipmap.self_study);
+            iv_dash_board.setImageResource(R.mipmap.dash_board);
+            iv_profile.setImageResource(R.mipmap.footer_profile);
+        } else if (position == 1) {
+            iv_live.setImageResource(R.mipmap.live);
+            iv_self_study.setImageResource(R.mipmap.self_study_hover);
+            iv_dash_board.setImageResource(R.mipmap.dash_board);
+            iv_profile.setImageResource(R.mipmap.footer_profile);
+        } else if (position == 2) {
+            iv_live.setImageResource(R.mipmap.live);
+            iv_self_study.setImageResource(R.mipmap.self_study);
+            iv_dash_board.setImageResource(R.mipmap.dash_board);
+            iv_profile.setImageResource(R.mipmap.footer_profile);
+        } else if (position == 3) {
+            iv_live.setImageResource(R.mipmap.live);
+            iv_self_study.setImageResource(R.mipmap.self_study);
+            iv_dash_board.setImageResource(R.mipmap.dash_board_hover);
+            iv_profile.setImageResource(R.mipmap.footer_profile);
+        } else if (position == 4) {
+            iv_live.setImageResource(R.mipmap.live);
+            iv_self_study.setImageResource(R.mipmap.self_study);
+            iv_dash_board.setImageResource(R.mipmap.dash_board);
+            iv_profile.setImageResource(R.mipmap.footer_profile_hover);
+        }
 
 
     }
@@ -192,8 +300,14 @@ public class MainActivity extends AppCompatActivity
         alertDialog.show();
     }
 
+    public static MainActivity getInstance() {
+        return instance;
+
+    }
+
 
     public void SetDefault() {
+        SetImageBackground(0);
         setToolbarTitle(0);
         userDashBoardFragment = new UserDashBoardFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, userDashBoardFragment, "UserDashBoardFragment").addToBackStack("null").commit();
@@ -291,10 +405,10 @@ public class MainActivity extends AppCompatActivity
         menuModel = new MenuModel("Contact Us", true, false, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
-        menuModel = new MenuModel("Instructor Profile", true, false, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Instructor", true, false, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
-        menuModel = new MenuModel("Company Profile", true, false, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
+        menuModel = new MenuModel("Company", true, false, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
         headerList.add(menuModel);
 
         menuModel = new MenuModel("FAQ", true, false, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
@@ -340,7 +454,7 @@ public class MainActivity extends AppCompatActivity
                         } else if (groupPosition == 8) {
                             if (Constant.isNetworkAvailable(context)) {
                                 // ShowPopUp();
-                                NewPopUp();
+                                LogOutPoPUp();
 
                             } else {
                                 Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
@@ -445,7 +559,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void NewPopUp() {
+    public void LogOutPoPUp() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
         // Setting Dialog Title

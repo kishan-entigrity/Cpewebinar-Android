@@ -205,6 +205,9 @@ public class LoginActivity extends AppCompatActivity {
         if (binding.edtusername.getText().toString().isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.validate_email_id), context);
             return false;
+        } else if (!Constant.isValidEmailId(binding.edtusername.getText().toString())) {
+            Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
+            return false;
         } else if (binding.edtpassword.getText().toString().isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.validate_password), context);
             return false;

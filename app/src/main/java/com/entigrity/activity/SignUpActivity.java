@@ -243,6 +243,22 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+
+        binding.tvterms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (checkprivacypolicystatus == false) {
+                    checkprivacypolicystatus = true;
+                    binding.ivcheckbox.setImageResource(R.mipmap.check_box_click);
+                } else {
+                    checkprivacypolicystatus = false;
+                    binding.ivcheckbox.setImageResource(R.mipmap.check_box);
+                }
+
+            }
+        });
+
         binding.tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -436,6 +452,9 @@ public class SignUpActivity extends AppCompatActivity {
             return false;
         } else if (binding.edtEmailid.getText().toString().isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_emailid), context);
+            return false;
+        } else if (!Constant.isValidEmailId(binding.edtEmailid.getText().toString())) {
+            Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
             return false;
         } else if (binding.edtPassword.getText().toString().isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_password_register), context);

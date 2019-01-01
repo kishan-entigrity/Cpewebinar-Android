@@ -63,7 +63,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/input_name"
-
                     android:hint="@string/contact_number"
                     android:imeOptions="actionDone"
                     android:inputType="number"
@@ -78,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_contact_number"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_marginTop="@dimen/_15sdp">
 
                 <Spinner
                     android:id="@+id/spinner_subject"
@@ -101,12 +100,22 @@
 
             </RelativeLayout>
 
+            <View
+                android:id="@+id/viewinquiry"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/relsubject"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_3sdp"
+                android:background="#A7A7A8" />
+
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_emailid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/relsubject"
+                android:layout_below="@+id/viewinquiry"
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/_10sdp">
 

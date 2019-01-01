@@ -65,6 +65,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         if (binding.edtEmailId.getText().toString().isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.forgot_passoword_email), context);
             return false;
+        } else if (!Constant.isValidEmailId(binding.edtEmailId.getText().toString())) {
+            Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
+            return false;
         } else {
             return true;
         }

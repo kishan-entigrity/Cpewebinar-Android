@@ -29,6 +29,8 @@
     <string name="device_token">device token</string>
     <string name="device_id">device id</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="exit_validation">Are you sure you want to Exit?</string>
+    <string name="valid_email">Please Enter Valid Email Id</string>
 
 
     //pre login

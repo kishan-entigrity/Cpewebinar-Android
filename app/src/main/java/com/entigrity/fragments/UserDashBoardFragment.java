@@ -1,6 +1,7 @@
 package com.entigrity.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
@@ -11,11 +12,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.FragmentHomeBinding;
 
@@ -39,14 +42,18 @@ public class UserDashBoardFragment extends Fragment {
         setupViewPager(binding.viewpager);
         binding.tabs.setupWithViewPager(binding.viewpager);
 
+        MainActivity.getInstance().rel_top_bottom.setVisibility(View.GONE);
+
 
         binding.getRoot().setFocusableInTouchMode(true);
         binding.getRoot().requestFocus();
         binding.getRoot().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    getActivity().finish();
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+                    ConfirmationPopup();
+
                     return true;
                 }
                 return false;
@@ -95,6 +102,45 @@ public class UserDashBoardFragment extends Fragment {
         return view = binding.getRoot();
 
     }
+
+
+    public void ConfirmationPopup() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+        // Setting Dialog Title
+        // alertDialog.setTitle("Confirm Delete...");
+
+        // Setting Dialog Message
+        alertDialog.setMessage(getResources().getString(R.string.exit_validation));
+
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Write your code here to invoke YES event
+                dialog.cancel();
+                getActivity().finish();
+
+
+            }
+        });
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Write your code here to invoke NO event
+
+                dialog.cancel();
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+
+
+    }
+
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());

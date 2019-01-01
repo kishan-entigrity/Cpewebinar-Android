@@ -41,6 +41,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_5sdp"
+                android:padding="@dimen/_2sdp"
                 android:src="@mipmap/back" />
 
 
@@ -140,6 +141,7 @@
 
                 </android.support.design.widget.TextInputLayout>
 
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_firm_name"
                     android:layout_width="match_parent"
@@ -212,6 +214,14 @@
 
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="#A7A7A8" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -238,6 +248,14 @@
 
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="#A7A7A8" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -263,6 +281,14 @@
                         android:src="@mipmap/drop_down_arrow" />
 
                 </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:background="#A7A7A8" />
 
 
                 <android.support.design.widget.TextInputLayout
@@ -312,6 +338,14 @@
                         android:src="@mipmap/drop_down_arrow" />
 
                 </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="#A7A7A8" />
 
                 <com.entigrity.view.CustomTextView
                     android:id="@+id/tv_topicsofinterset"
