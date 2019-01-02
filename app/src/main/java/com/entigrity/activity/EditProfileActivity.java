@@ -103,6 +103,12 @@ public class EditProfileActivity extends AppCompatActivity {
     public boolean boolean_usertype_spinner = true;
     public EditText edt_search;
 
+    public boolean checkstatearray = false;
+    public boolean checkcityarray = false;
+
+
+    private String State, City;
+
     private static final String TAG = EditProfileActivity.class.getName();
 
 
@@ -120,6 +126,8 @@ public class EditProfileActivity extends AppCompatActivity {
             email = intent.getStringExtra(getResources().getString(R.string.pass_email));
             firmname = intent.getStringExtra(getResources().getString(R.string.pass_firm_name));
             mobilenumber = intent.getStringExtra(getResources().getString(R.string.pass_mobile_number));
+            State = intent.getStringExtra(getResources().getString(R.string.pass_state_text));
+            City = intent.getStringExtra(getResources().getString(R.string.pass_city_text));
             zipcode = intent.getStringExtra(getResources().getString(R.string.pass_zipcode));
             country_pos = intent.getIntExtra(getResources().getString(R.string.pass_country), 0);
             state_pos = intent.getIntExtra(getResources().getString(R.string.pass_state), 0);
@@ -141,7 +149,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 } else {
 
                     if (position != 0) {
-                        country_id = position;
+
+
+                        country_id = getcountryarray.get(position - 1).getId();
+
+                        State = "";
 
                         if (Constant.isNetworkAvailable(context)) {
                             GetState(country_id);
@@ -149,6 +161,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                         }
                     } else {
+
                         country_id = position;
                         // Constant.ShowPopUp(context.getString(R.string.str_country), context);
                     }
@@ -174,7 +187,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 } else {
 
                     if (position != 0) {
-                        state_id = position;
+
+
+                        state_id = getstatearray.get(position - 1).getId();
+
+
+                        City = "";
 
                         if (Constant.isNetworkAvailable(context)) {
                             GetCity(state_id);
@@ -183,6 +201,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                     } else {
+
                         state_id = position;
                         //Constant.ShowPopUp(context.getString(R.string.str_state), context);
                     }
@@ -235,7 +254,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     if (position != 0) {
                         who_you_are_pos = arrayLististusertypeid.get(position - 1);
-
                         Constant.Log("value", "value" + who_you_are_pos);
                     } else {
                         who_you_are_pos = position;
@@ -587,6 +605,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<UserTypeModel>() {
                     @Override
                     public void onCompleted() {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                         ShowAdapter();
                         binding.spinner.setSelection(who_you_are_pos);
                     }
@@ -657,7 +678,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
 
-    public void Show_City_Adapter() {
+    public void Show_City_else_Adapter() {
         if (getcityarraylist.size() > 0) {
             //Getting the instance of Spinner and applying OnItemSelectedListener on it
 
@@ -670,7 +691,29 @@ public class EditProfileActivity extends AppCompatActivity {
             binding.spinnerCity.setAdapter(aa);
 
 
-            binding.spinnerCity.setSelection(city_pos);
+        }
+
+
+    }
+
+    public void Show_City_Adapter() {
+        if (getcityarraylist.size() > 0) {
+            //Getting the instance of Spinner and applying OnItemSelectedListener on it
+
+            //binding.spinnerCountry.setOnItemSelectedListener(this);
+
+            //Creating the ArrayAdapter instance having the user type list
+            ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getcityarraylist);
+            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
+            //Setting the ArrayAdapter data on the Spinner
+            binding.spinnerCity.setAdapter(aa);
+            if (checkcityarray == true) {
+                binding.spinnerCity.setSelection(1);
+            } else {
+                binding.spinnerCity.setSelection(city_pos);
+            }
+
+
         }
 
 
@@ -688,7 +731,32 @@ public class EditProfileActivity extends AppCompatActivity {
             aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             binding.spinnerState.setAdapter(aa);
-            binding.spinnerState.setSelection(state_pos);
+
+            if (checkstatearray == true) {
+                binding.spinnerState.setSelection(1);
+            } else {
+                binding.spinnerState.setSelection(state_pos);
+            }
+
+
+        }
+
+
+    }
+
+
+    public void Show_State_else_Adapter() {
+        if (getstatearralist.size() > 0) {
+            //Getting the instance of Spinner and applying OnItemSelectedListener on it
+
+            //binding.spinnerCountry.setOnItemSelectedListener(this);
+
+            //Creating the ArrayAdapter instance having the user type list
+            ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getstatearralist);
+            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
+            //Setting the ArrayAdapter data on the Spinner
+            binding.spinnerState.setAdapter(aa);
+
 
         }
 
@@ -872,9 +940,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted() {
 
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
 
                         if (Constant.isNetworkAvailable(context)) {
                             GetState(country_pos);
@@ -984,9 +1049,20 @@ public class EditProfileActivity extends AppCompatActivity {
                                 getcityarray.add(cityItem);
 
                             }
+                            checkcityarray = false;
+
                             Show_City_Adapter();
 
                         } else {
+
+                            if (!City.equalsIgnoreCase("") && City != null) {
+                                checkcityarray = true;
+                                getcityarraylist.add(City);
+                                Show_City_Adapter();
+                            } else {
+                                Show_City_else_Adapter();
+                            }
+
 
                             //Constant.ShowPopUp("City Not Found", context);
                         }
@@ -1054,8 +1130,19 @@ public class EditProfileActivity extends AppCompatActivity {
                                 getstatearray.add(stateItem);
                             }
 
+                            checkstatearray = false;
+
+
                             Show_State_Adapter();
                         } else {
+
+                            if (!State.equalsIgnoreCase("") && State != null) {
+                                checkstatearray = true;
+                                getstatearralist.add(State);
+                                Show_State_Adapter();
+                            } else {
+                                Show_State_else_Adapter();
+                            }
 
 
                             // Constant.ShowPopUp("State Not Found", context);

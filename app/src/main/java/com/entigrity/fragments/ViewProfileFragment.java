@@ -44,6 +44,8 @@ public class ViewProfileFragment extends Fragment {
     ProgressDialog progressDialog;
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "";
     public int country_id = 0, state_id = 0, city_id = 0, whoyouare = 0;
+
+    public String State, City;
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
 
 
@@ -161,6 +163,8 @@ public class ViewProfileFragment extends Fragment {
         i.putExtra(getResources().getString(R.string.pass_country), country_id);
         i.putExtra(getResources().getString(R.string.pass_state), state_id);
         i.putExtra(getResources().getString(R.string.pass_city), city_id);
+        i.putExtra(getResources().getString(R.string.pass_state_text), State);
+        i.putExtra(getResources().getString(R.string.pass_city_text), City);
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
         i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);
         i.putExtra(getResources().getString(R.string.pass_topics_of_interesr), arraylistselectedtopicsofinterest);
@@ -243,12 +247,14 @@ public class ViewProfileFragment extends Fragment {
                                     && !viewProfileModel.getPayload().getData().getState().equalsIgnoreCase("")) {
                                 binding.tvState.setText(viewProfileModel.getPayload().getData().getState());
                                 state_id = Integer.parseInt(viewProfileModel.getPayload().getData().getStateId());
+                                State = viewProfileModel.getPayload().getData().getState();
                             }
 
                             if (viewProfileModel.getPayload().getData().getCity() != null
                                     && !viewProfileModel.getPayload().getData().getCity().equalsIgnoreCase("")) {
                                 binding.tvCity.setText(viewProfileModel.getPayload().getData().getCity());
                                 city_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCityId());
+                                City = viewProfileModel.getPayload().getData().getCity();
                             }
 
 
@@ -257,8 +263,6 @@ public class ViewProfileFragment extends Fragment {
                                     arraylistselectedtopicsofinterest.add(viewProfileModel.getPayload().getData().getTags().get(i).getId());
                                 }
                             }
-
-
                             if (viewProfileModel.getPayload().getData().getZipcode() != null
                                     && !viewProfileModel.getPayload().getData().getZipcode().equalsIgnoreCase("")) {
                                 binding.tvZipcode.setText(viewProfileModel.getPayload().getData().getZipcode());

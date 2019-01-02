@@ -89,7 +89,8 @@ public class TopicsofinterestEditProfileAdapter extends RecyclerView.Adapter<Top
 
         private ViewHolder(View itemView) {
             super(itemView);
-            // this.setIsRecyclable(false);
+            this.setIsRecyclable(false);
+
 
             cbselection = (CheckBox) itemView.findViewById(R.id.cbselection);
             tv_topics = (TextView) itemView.findViewById(R.id.tv_topics);

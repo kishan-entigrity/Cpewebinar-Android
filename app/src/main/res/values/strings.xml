@@ -191,6 +191,8 @@
     <string name="pass_country">country</string>
     <string name="pass_state">state</string>
     <string name="pass_city">city</string>
+    <string name="pass_state_text">statetext</string>
+    <string name="pass_city_text">citytext</string>
     <string name="pass_zipcode">zipcode</string>
     <string name="pass_who_you_are">whoyouare</string>
     <string name="pass_topics_of_interesr">topicsofinterest</string>

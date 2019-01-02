@@ -89,6 +89,7 @@ public class TopicsofinterestAdapter extends RecyclerView.Adapter<Topicsofintere
 
         private ViewHolder(View itemView) {
             super(itemView);
+            this.setIsRecyclable(false);
 
             cbselection = (CheckBox) itemView.findViewById(R.id.cbselection);
             tv_topics = (TextView) itemView.findViewById(R.id.tv_topics);
