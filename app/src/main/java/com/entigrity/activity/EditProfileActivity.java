@@ -82,7 +82,6 @@ public class EditProfileActivity extends AppCompatActivity {
     public boolean checkedadapter = false;
 
 
-    public Dialog myDialog_popup;
     public TextView tv_popup_msg, tv_popup_submit;
     private int country_id = 0;
     private int state_id = 0;
@@ -363,124 +362,6 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
 
-   /* public void GetProfile() {
-        mAPIService.GetProfile(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ViewProfileModel>() {
-                    @Override
-                    public void onCompleted() {
-
-                      *//*
-     *//*
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                        String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
-
-
-                    }
-
-                    @Override
-                    public void onNext(ViewProfileModel viewProfileModel) {
-
-                        if (viewProfileModel.isSuccess()) {
-                            if (viewProfileModel.getPayload().getData().getFirstName() != null
-                                    && !viewProfileModel.getPayload().getData().getFirstName().equalsIgnoreCase("")) {
-                                binding.edtFirstname.setText(viewProfileModel.getPayload().getData().getFirstName());
-                            }
-
-                            if (viewProfileModel.getPayload().getData().getLastName() != null
-                                    && !viewProfileModel.getPayload().getData().getLastName().equalsIgnoreCase("")) {
-                                binding.edtLastname.setText(viewProfileModel.getPayload().getData().getLastName());
-                            }
-
-                            if (viewProfileModel.getPayload().getData().getEmail() != null
-                                    && !viewProfileModel.getPayload().getData().getEmail().equalsIgnoreCase("")) {
-                                binding.edtEmailname.setText(viewProfileModel.getPayload().getData().getEmail());
-                            }
-
-                            if (viewProfileModel.getPayload().getData().getFirmName() != null
-                                    && !viewProfileModel.getPayload().getData().getFirmName().equalsIgnoreCase("")) {
-                                binding.edtFirmname.setText(viewProfileModel.getPayload().getData().getFirmName());
-                            }
-
-
-                            if (viewProfileModel.getPayload().getData().getContactNo() != null
-                                    && !viewProfileModel.getPayload().getData().getContactNo().equalsIgnoreCase("")) {
-                                binding.edtMobileNumber.setText(viewProfileModel.getPayload().getData().getContactNo());
-                            }
-
-                            if (viewProfileModel.getPayload().getData().getTags().size() > 0) {
-
-
-                                for (int i = 0; i < viewProfileModel.getPayload().getData().getTags().size(); i++) {
-                                    arraylistselectedtopicsofinterest.add(viewProfileModel.getPayload().getData().getTags().get(i).getId());
-                                }
-
-
-                            }
-
-                            if (viewProfileModel.getPayload().getData().getCountry() != null
-                                    && !viewProfileModel.getPayload().getData().getCountry().equalsIgnoreCase("")) {
-                                country_pos = viewProfileModel.getPayload().getData().getCountryId();
-                                country_id = country_pos;
-                            }
-                            if (viewProfileModel.getPayload().getData().getState() != null
-                                    && !viewProfileModel.getPayload().getData().getState().equalsIgnoreCase("")) {
-                                state_pos = viewProfileModel.getPayload().getData().getStateId();
-                                state_id = state_pos;
-                            }
-
-                            if (viewProfileModel.getPayload().getData().getCity() != null
-                                    && !viewProfileModel.getPayload().getData().getCity().equalsIgnoreCase("")) {
-                                city_pos = viewProfileModel.getPayload().getData().getCityId();
-                                city_id = city_pos;
-
-                            }
-
-                            if (viewProfileModel.getPayload().getData().getZipcode() != null
-                                    && !viewProfileModel.getPayload().getData().getZipcode().equalsIgnoreCase("")) {
-                                binding.edtZipcode.setText(viewProfileModel.getPayload().getData().getZipcode());
-                            }
-
-
-                            if (viewProfileModel.getPayload().getData().getUserTypeId() != 0) {
-                                who_you_are_pos = viewProfileModel.getPayload().getData().getUserTypeId();
-                            }
-
-
-                        } else
-
-                        {
-
-                            if (viewProfileModel.getPayload().getAccess_token() != null && !viewProfileModel.getPayload().getAccess_token().equalsIgnoreCase("")) {
-                                AppSettings.set_login_token(context, viewProfileModel.getPayload().getAccess_token());
-
-                                if (Constant.isNetworkAvailable(context)) {
-                                    GetProfile();
-                                } else {
-                                    Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
-                                }
-
-
-                            } else {
-                                Constant.ShowPopUp(viewProfileModel.getMessage(), context);
-                            }
-
-                        }
-
-
-                    }
-                });
-
-    }*/
-
-
     public void EditPost(String Authorization, String first_name, String last_name, String email,
                          String firm_name, final int country_id, final int state_id, final int city_id,
                          int zipcode, String contact_no, ArrayList<Integer> tags, final int user_type) {
@@ -549,33 +430,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
-    /*public void ShowPopUpSucess(String message, final Context context) {
-        myDialog_popup = new Dialog(context);
-        myDialog_popup.setContentView(R.layout.activity_popup);
-        myDialog_popup.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        tv_popup_msg = (TextView) myDialog_popup.findViewById(R.id.tv_popup_msg);
-        tv_popup_submit = (TextView) myDialog_popup.findViewById(R.id.tv_popup_submit);
-
-        tv_popup_msg.setText(message);
-
-
-        tv_popup_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myDialog_popup.isShowing()) {
-                    myDialog_popup.dismiss();
-                }
-
-                Intent i = new Intent(context, MainActivity.class);
-                startActivity(i);
-                finish();
-
-
-            }
-        });
-        myDialog_popup.show();
-
-    }*/
 
     public void ShowPopUp(String message, final Context context) {
         final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(
@@ -1004,8 +858,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<CityModel>() {
                     @Override
                     public void onCompleted() {
-
-
                         if (Constant.isNetworkAvailable(context)) {
                             GetUserType();
                         } else {
