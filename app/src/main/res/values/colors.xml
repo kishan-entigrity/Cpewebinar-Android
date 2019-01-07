@@ -60,4 +60,9 @@
     <color name="geolocation_permissions_prompt_background">#ffdddddd</color>
 
 
+    //instructor list
+
+    <color name="inst_background">#193f70</color>
+
+
 </resources>

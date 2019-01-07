@@ -2,6 +2,7 @@ package com.entigrity.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     public Context context;
+
     private static final String TAG = SplashActivity.class.getName();
 
     @Override
@@ -31,8 +33,22 @@ public class SplashActivity extends AppCompatActivity {
         context = SplashActivity.this;
 
 
+        DisplayVersionName();
         Navigation();
 
+    }
+
+
+    public void DisplayVersionName() {
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            int verCode = pInfo.versionCode;
+            binding.tvbuildnumber.setText(version);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void Navigation() {

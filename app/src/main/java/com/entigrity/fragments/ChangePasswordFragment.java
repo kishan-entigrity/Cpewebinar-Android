@@ -87,42 +87,7 @@ public class ChangePasswordFragment extends Fragment {
         return view = binding.getRoot();
     }
 
-    public void ConfirmationPopup() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
-        // Setting Dialog Title
-        // alertDialog.setTitle("Confirm Delete...");
-
-        // Setting Dialog Message
-        alertDialog.setMessage(getResources().getString(R.string.exit_validation));
-
-
-        // Setting Positive "Yes" Button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                // Write your code here to invoke YES event
-                dialog.cancel();
-                getActivity().finish();
-
-
-            }
-        });
-
-        // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // Write your code here to invoke NO event
-
-                dialog.cancel();
-            }
-        });
-
-        // Showing Alert Message
-        alertDialog.show();
-
-
-    }
 
     public void ChangePassword(String Authorization, String current_password, String new_password, String confirm_password) {
 

@@ -24,7 +24,9 @@ import android.widget.TextView;
 import com.entigrity.activity.LoginActivity;
 import com.entigrity.adapter.ExpandableListAdapter;
 import com.entigrity.fragments.ChangePasswordFragment;
+import com.entigrity.fragments.CompanyFragment;
 import com.entigrity.fragments.ContactUsFragment;
+import com.entigrity.fragments.InstructorFragment;
 import com.entigrity.fragments.UserDashBoardFragment;
 import com.entigrity.fragments.ViewProfileFragment;
 import com.entigrity.model.MenuModel;
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity
     ChangePasswordFragment changePasswordFragment;
     ViewProfileFragment viewProfileFragment;
     ContactUsFragment contactUsFragment;
+    InstructorFragment instructorFragment;
+    CompanyFragment companyFragment;
     private String[] activityTitles;
     public Context context;
     private static final String TAG = MainActivity.class.getName();
@@ -453,6 +457,18 @@ public class MainActivity extends AppCompatActivity
                             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contactUsFragment, "contactusfragment").addToBackStack("null").commit();
                             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                             drawer.closeDrawer(GravityCompat.START);
+                        } else if (groupPosition == 4) {
+                            setToolbarTitle(4);
+                            instructorFragment = new InstructorFragment();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, instructorFragment, "instructorfragment").addToBackStack("null").commit();
+                            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                            drawer.closeDrawer(GravityCompat.START);
+                        } else if (groupPosition == 5) {
+                            setToolbarTitle(5);
+                            companyFragment = new CompanyFragment();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, companyFragment, "companyfragment").addToBackStack("null").commit();
+                            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                            drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 8) {
                             if (Constant.isNetworkAvailable(context)) {
                                 // ShowPopUp();
@@ -568,7 +584,7 @@ public class MainActivity extends AppCompatActivity
         // alertDialog.setTitle("Confirm Delete...");
 
         // Setting Dialog Message
-        alertDialog.setMessage("Are you sure you want to Logout?");
+        alertDialog.setMessage(getResources().getString(R.string.logout_text));
 
 
         // Setting Positive "Yes" Button

@@ -343,7 +343,6 @@ public class SignUpActivity extends AppCompatActivity {
                     mListrtopicsofinterest.clear();
 
                     for (int j = 0; j < mListtopicsofinterest_filter.size(); j++) {
-
                         if ((mListtopicsofinterest_filter.get(j).getTag().toLowerCase().contains(charSequence.toString().trim().toLowerCase()) ||
                                 mListtopicsofinterest_filter.get(j).getTag().toUpperCase().contains(charSequence.toString().trim().toUpperCase()))) {
                             mListrtopicsofinterest.add(mListtopicsofinterest_filter.get(j));
@@ -363,7 +362,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                     for (int j = 0; j < mListtopicsofinterest_filter.size(); j++) {
                         mListrtopicsofinterest.add(mListtopicsofinterest_filter.get(j));
-
                     }
 
                     if (mListrtopicsofinterest.size() > 0) {

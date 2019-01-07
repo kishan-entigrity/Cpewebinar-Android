@@ -19,7 +19,9 @@
         <item>Change Password</item>
         <item>Profile</item>
         <item>Contact Us</item>
-        <item>Notifications</item>
+        <item>Instructor</item>
+        <item>Company</item>
+
 
     </string-array>
 
@@ -30,7 +32,8 @@
     <string name="device_id">device id</string>
     <string name="no_data_found">No Data Found</string>
     <string name="exit_validation">Are you sure you want to Exit?</string>
-    <string name="valid_email">Please Enter Valid Email Id</string>
+    <string name="valid_email">Please Enter Valid Email Address</string>
+    <string name="logout_text">Are you sure you want to Logout?</string>
 
 
     //pre login
@@ -45,7 +48,7 @@
     <string name="register_now_login">REGISTER NOW</string>
 
 
-    <string name="validate_email_id">Please Enter Email Id</string>
+    <string name="validate_email_id">Please Enter Email Address</string>
     <string name="validate_password">Please Enter Password</string>
     <string name="str_token">login token</string>
 
@@ -102,7 +105,7 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="forgot_password_header">Forgot Password</string>
     <string name="forgot_password_submit_button">SUBMIT</string>
-    <string name="forgot_edit_email">Enter your email</string>
+    <string name="forgot_edit_email">Enter Your Email Address</string>
     <string name="forgot_header_text">Please Enter Your Registered Email</string>
     action_settings
 
@@ -151,7 +154,7 @@
     //validate
     <string name="val_firstname">Please Enter First Name</string>
     <string name="val_lastname">Please Enter Last Name</string>
-    <string name="val_emailid">Please Enter Email</string>
+    <string name="val_emailid">Please Enter Email Address</string>
     <string name="val_password_register">Please Enter Password</string>
     <string name="val_confirm_password_register">Please Enter Confirm Password</string>
     <string name="val_confirm_password_not_match">Password and Confirm Password does not match</string>
@@ -171,13 +174,13 @@
     <string name="cus_valname">Please Enter Name</string>
     <string name="cus_valnumber">Please Enter Contact Number</string>
     <string name="cus_valsubject">Please Select Subject</string>
-    <string name="cus_valemailid">Please Enter Email</string>
+    <string name="cus_valemailid">Please Enter Email Address</string>
     <string name="cus_valmsg">Please Enter Message</string>
     <string name="subject_hint">Subjects</string>
 
 
     //forgot password
-    <string name="forgot_passoword_email">Please Enter Email Id</string>
+    <string name="forgot_passoword_email">Please Enter Email Address</string>
     //logout
     <string name="logout">Are you sure you want to Logout?</string>
 
@@ -196,6 +199,12 @@
     <string name="pass_zipcode">zipcode</string>
     <string name="pass_who_you_are">whoyouare</string>
     <string name="pass_topics_of_interesr">topicsofinterest</string>
+
+
+    //instructor list
+
+    <string name="ints_name">Instructor Name</string>
+    <string name="company_name">Company Name</string>
 
 
 </resources>

@@ -2,10 +2,12 @@ package com.entigrity.webservice;
 
 import com.entigrity.model.changepassword.ChangePasswordModel;
 import com.entigrity.model.city.CityModel;
+import com.entigrity.model.company.CompanyModel;
 import com.entigrity.model.contactus.ContactUsModel;
 import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
 import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
+import com.entigrity.model.instructor.InstructorModel;
 import com.entigrity.model.login.LoginModel;
 import com.entigrity.model.logout.LogoutModel;
 import com.entigrity.model.registration.RegistrationModel;
@@ -34,6 +36,9 @@ public interface APIService {
                         @Field("userId") long userId);*/
 
     //rxjava
+
+
+    //MileStone-1
 
 
     //login
@@ -155,6 +160,18 @@ public interface APIService {
             @Field("tags[]") ArrayList<Integer> tags,
             @Field("user_type_id") int user_type
     );
+
+
+    //MileStone-2
+
+
+    //Instructor List
+    @GET("speaker")
+    Observable<InstructorModel> GetInstructor(@Header("Authorization") String authorization);
+
+    //company List
+    @GET("company")
+    Observable<CompanyModel> GetCompany(@Header("Authorization") String authorization);
 
 
 }
