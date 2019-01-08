@@ -2,6 +2,7 @@ package com.entigrity.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.activity.EditProfileActivity;
+import com.entigrity.activity.InstructorDetailsActivity;
 import com.entigrity.model.instructor.SpeakersItem;
 import com.squareup.picasso.Picasso;
 
@@ -37,7 +40,7 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InstructorAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull InstructorAdapter.ViewHolder viewHolder, final int position) {
 
 
         if (!mList.get(position).getName().equalsIgnoreCase("")) {
@@ -55,8 +58,28 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
                     .into(viewHolder.ivinstrctorprofileimage);
         }
 
+        viewHolder.ivinstrctorprofileimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, InstructorDetailsActivity.class);
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_id), mList.get(position).getId());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_name), mList.get(position).getName());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_email), mList.get(position).getEmail());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_contact_number), mList.get(position).getContactNo());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_logo), mList.get(position).getLogo());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_expiritise), mList.get(position).getExpertise());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_about_speaker), mList.get(position).getAboutSpeaker());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_company), mList.get(position).getCompany());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_state), mList.get(position).getState());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_city), mList.get(position).getCity());
+                mContext.startActivity(i);
+
+            }
+        });
+
 
     }
+
 
     @Override
     public int getItemCount() {

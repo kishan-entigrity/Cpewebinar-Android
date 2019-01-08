@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.EditProfileActivity;
 import com.entigrity.adapter.InstructorAdapter;
 import com.entigrity.databinding.FragmentInstructorBinding;
 import com.entigrity.model.instructor.InstructorModel;
@@ -98,6 +99,7 @@ public class InstructorFragment extends Fragment {
 
         return view = binding.getRoot();
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

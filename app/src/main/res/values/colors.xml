@@ -63,6 +63,10 @@
     //instructor list
 
     <color name="inst_background">#193f70</color>
+    <color name="rating_click_background">#F5F5F7</color>
+    <color name="write_review_text">#BABABC</color>
+    <color name="inst_details_profile_background">#466A9C</color>
+    <color name="inst_company_details">#2E6387</color>
 
 
 </resources>

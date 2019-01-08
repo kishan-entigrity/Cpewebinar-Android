@@ -20,14 +20,14 @@ import android.view.ViewGroup;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
-import com.entigrity.databinding.FragmentHomeBinding;
+import com.entigrity.databinding.FragmentDashboardBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDashBoardFragment extends Fragment {
     View view;
-    private FragmentHomeBinding binding;
+    private FragmentDashboardBinding binding;
     public Context context;
     int pStatus = 0;
     private Handler handler = new Handler();
@@ -36,7 +36,7 @@ public class UserDashBoardFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, null, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, null, false);
         context = getActivity();
 
         setupViewPager(binding.viewpager);

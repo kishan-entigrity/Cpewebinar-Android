@@ -102,6 +102,7 @@ public class CompanyFragment extends Fragment {
         return view = binding.getRoot();
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

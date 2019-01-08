@@ -206,5 +206,56 @@
     <string name="ints_name">Instructor Name</string>
     <string name="company_name">Company Name</string>
 
+    //instructor details
+
+    <string name="instructor_header">Instructor Profiles</string>
+    <string name="instructor_bottom_webinar">MY WEBINARS</string>
+    <string name="write_review">Write a Review</string>
+    <string name="about">ABOUT</string>
+    <string name="company_details">COMPANY DETAILS</string>
+    <string name="str_company_name">Company Name</string>
+    <string name="str_area_expertise">Area of Expertise</string>
+    <string name="str_email_id_inst_details">Email ID</string>
+    <string name="str_mobile_number_inst_details">Mobile Number</string>
+    <string name="str_state_inst_details">State</string>
+    <string name="str_city_inst_details">City</string>
+    <string name="str_rating">Rating</string>
+
+    //pass data from instructor list to details
+
+    <string name="pass_inst_id">id</string>
+    <string name="pass_inst_name">name</string>
+    <string name="pass_inst_email">email</string>
+    <string name="pass_inst_contact_number">contact number</string>
+    <string name="pass_inst_logo">logo</string>
+    <string name="pass_inst_expiritise">expiritise</string>
+    <string name="pass_inst_about_speaker">about</string>
+    <string name="pass_inst_company">company name</string>
+    <string name="pass_inst_state">state name</string>
+    <string name="pass_inst_city">city name</string>
+
+    //company details
+    <string name="company_detail">Company Details</string>
+    <string name="company_webinar">WEBINARS</string>
+    <string name="company_speakers">INSTRUCTOR</string>
+
+    <string name="str_name_company">Name of the Company</string>
+    <string name="str_website_company">Website of the Company</string>
+    <string name="str_number_speaker">Number of Speakers</string>
+    <string name="str_number_webinar">Number of Webinars</string>
+    <string name="str_company_mobile_number">Mobile Number</string>
+
+
+    //pass data from company list to company details
+
+    <string name="pass_company_id">id</string>
+    <string name="pass_company_name">name</string>
+    <string name="pass_company_website">website</string>
+    <string name="pass_company_contact_number">contact_number</string>
+    <string name="pass_company_logo">logo</string>
+    <string name="pass_company_description">description</string>
+    <string name="pass_company_number_of_speaker">number_of_speaker</string>
+    <string name="pass_company_number_of_webinar">number_of_webinar</string>
+
 
 </resources>
