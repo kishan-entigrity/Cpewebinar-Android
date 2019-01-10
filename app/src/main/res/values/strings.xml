@@ -258,4 +258,17 @@
     <string name="pass_company_number_of_webinar">number_of_webinar</string>
 
 
+    //rating popup
+    <string name="review_popup_header">Write Your Review</string>
+    <string name="str_submit">SUBMIT</string>
+    <string name="str_your_name">Your Review</string>
+    <string name="val_review">PLease Enter Review</string>
+
+
+    //favorites
+    <string name="str_speaker">SPEAKER</string>
+    <string name="str_company">COMPANY</string>
+    <string name="str_webinars">WEBINARS</string>
+
+
 </resources>

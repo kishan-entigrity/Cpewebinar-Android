@@ -66,7 +66,6 @@ public class SignUpActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     public boolean boolean_usertype = true;
     private int user_type = 0;
-    public boolean checkedadapter = false;
 
 
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();

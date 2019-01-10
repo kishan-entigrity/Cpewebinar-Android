@@ -68,7 +68,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/_20sdp"
-                    android:src="@mipmap/favorite"
+                    android:src="@mipmap/profile_favorite"
 
                     />
 
@@ -196,10 +196,10 @@
 
             <ImageView
                 android:id="@+id/iv_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/star_blank" />
+                android:src="@mipmap/review_popup_star" />
 
             <com.entigrity.view.CustomTextView
                 android:id="@+id/tv_review"
@@ -207,7 +207,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_rating"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/write_review"
                 android:textColor="@color/write_review_text"
                 android:textSize="@dimen/_10sdp"

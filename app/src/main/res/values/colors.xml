@@ -11,9 +11,6 @@
     <color name="login_do_not_have_account">#C9C9C9</color>
 
 
-    <!-- <color name="transperent">#100FFFFFF</color>-->
-
-
     <color name="background_topics">#C7C6CB</color>
     <color name="background_contact_us">#F5F5F7</color>
 
@@ -67,6 +64,12 @@
     <color name="write_review_text">#BABABC</color>
     <color name="inst_details_profile_background">#466A9C</color>
     <color name="inst_company_details">#2E6387</color>
+
+
+    //write review popup
+
+    <color name="review_header">#878788</color>
+    <color name="submit_button_popup">#00426D</color>
 
 
 </resources>

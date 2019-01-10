@@ -61,10 +61,7 @@
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textSize="@dimen/_12sdp"
-                app:font_edit="SFUIDisplay-Medium.ttf"
-
-
-                />
+                app:font_edit="SFUIDisplay-Medium.ttf" />
 
             <com.entigrity.view.CustomEditTextView
                 android:id="@+id/edtpassword"

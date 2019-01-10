@@ -1,6 +1,7 @@
 package com.entigrity.fragments;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -20,11 +22,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
-import com.entigrity.activity.EditProfileActivity;
 import com.entigrity.adapter.InstructorAdapter;
 import com.entigrity.databinding.FragmentInstructorBinding;
 import com.entigrity.model.instructor.InstructorModel;
@@ -33,6 +33,7 @@ import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.GridSpacingItemDecoration;
+import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 
@@ -43,14 +44,14 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class InstructorFragment extends Fragment {
+public class InstructorFragment extends Fragment implements SearchView.OnQueryTextListener {
     private FragmentInstructorBinding binding;
     public Context context;
     private APIService mAPIService;
     private static final String TAG = InstructorFragment.class.getName();
     ProgressDialog progressDialog;
     private List<SpeakersItem> mListinstructorlist = new ArrayList<SpeakersItem>();
-    private List<SpeakersItem> mListinstructorlist_filter = new ArrayList<SpeakersItem>();
+    // private List<SpeakersItem> mListinstructorlist_filter = new ArrayList<SpeakersItem>();
     public InstructorAdapter instructorAdapter;
     public SearchView searchView;
     View view;
@@ -64,11 +65,16 @@ public class InstructorFragment extends Fragment {
         context = getActivity();
 
         MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
+
+       /* LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        binding.recyclerviewInstructor.setLayoutManager(layoutManager);
+        binding.recyclerviewInstructor.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));*/
+
+
         binding.recyclerviewInstructor.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         int spacing = (int) getResources().getDimension(R.dimen._2sdp); // 50px
         boolean includeEdge = false;
         binding.recyclerviewInstructor.addItemDecoration(new GridSpacingItemDecoration(2, spacing, includeEdge));
-
 
         binding.getRoot().setFocusableInTouchMode(true);
         binding.getRoot().requestFocus();
@@ -88,6 +94,7 @@ public class InstructorFragment extends Fragment {
                 return false;
             }
         });
+
 
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
@@ -109,8 +116,36 @@ public class InstructorFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.searchview, menu);
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        //inflater.inflate(R.menu.searchview, menu);
+        getActivity().getMenuInflater().inflate(R.menu.searchview, menu);
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getActivity().getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        // listening to search query text change
+       /* searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // filter recycler view when query submitted
+                instructorAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                // filter recycler view when text is changed
+                instructorAdapter.getFilter().filter(query);
+                return true;
+            }
+        });*/
+
+
+
+       /* final MenuItem searchItem = menu.findItem(R.id.action_search);
 
         if (searchItem != null) {
             searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -140,21 +175,20 @@ public class InstructorFragment extends Fragment {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     // use this method when query submitted
-                    Toast.makeText(context, query, Toast.LENGTH_SHORT).show();
+                    instructorAdapter.getFilter().filter(query);
                     return false;
                 }
 
                 @Override
-                public boolean onQueryTextChange(String newText) {
+                public boolean onQueryTextChange(String query) {
                     // use this method for auto complete search process
+                    instructorAdapter.getFilter().filter(query);
                     return true;
                 }
             });
+*/
 
 
-        }
-
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -207,7 +241,7 @@ public class InstructorFragment extends Fragment {
 
 
                             mListinstructorlist = instructorModel.getPayload().getSpeakers();
-                            mListinstructorlist_filter = instructorModel.getPayload().getSpeakers();
+                            // mListinstructorlist_filter = instructorModel.getPayload().getSpeakers();
 
 
                         } else {
@@ -238,6 +272,16 @@ public class InstructorFragment extends Fragment {
 
 
                 });
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return true;
     }
 }
 

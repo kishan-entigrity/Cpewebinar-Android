@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/_20sdp"
-                    android:src="@mipmap/favorite"
+                    android:src="@mipmap/profile_favorite"
 
                     />
 

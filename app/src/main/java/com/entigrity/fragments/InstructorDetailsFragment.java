@@ -1,5 +1,6 @@
 package com.entigrity.fragments;
 
+import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,8 @@ public class InstructorDetailsFragment extends Fragment {
 
         return view = binding.getRoot();
     }
+
+
 
 
     public void Setdata() {
