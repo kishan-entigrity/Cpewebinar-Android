@@ -88,7 +88,6 @@ public class ChangePasswordFragment extends Fragment {
     }
 
 
-
     public void ChangePassword(String Authorization, String current_password, String new_password, String confirm_password) {
 
         // RxJava

@@ -21,6 +21,7 @@
         <item>Contact Us</item>
         <item>Instructor</item>
         <item>Company</item>
+        <item>My Favorites</item>
 
 
     </string-array>
@@ -265,7 +266,7 @@
     <string name="val_review">PLease Enter Review</string>
 
 
-    //favorites
+    //favorites List
     <string name="str_speaker">SPEAKER</string>
     <string name="str_company">COMPANY</string>
     <string name="str_webinars">WEBINARS</string>

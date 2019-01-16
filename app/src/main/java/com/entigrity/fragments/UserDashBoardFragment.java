@@ -42,7 +42,7 @@ public class UserDashBoardFragment extends Fragment {
         setupViewPager(binding.viewpager);
         binding.tabs.setupWithViewPager(binding.viewpager);
 
-        MainActivity.getInstance().rel_top_bottom.setVisibility(View.GONE);
+        MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
 
 
         binding.getRoot().setFocusableInTouchMode(true);

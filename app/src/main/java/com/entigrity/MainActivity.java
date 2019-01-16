@@ -26,6 +26,7 @@ import com.entigrity.adapter.ExpandableListAdapter;
 import com.entigrity.fragments.ChangePasswordFragment;
 import com.entigrity.fragments.CompanyFragment;
 import com.entigrity.fragments.ContactUsFragment;
+import com.entigrity.fragments.FavoritesFragment;
 import com.entigrity.fragments.InstructorFragment;
 import com.entigrity.fragments.UserDashBoardFragment;
 import com.entigrity.fragments.ViewProfileFragment;
@@ -58,6 +59,10 @@ public class MainActivity extends AppCompatActivity
     ContactUsFragment contactUsFragment;
     InstructorFragment instructorFragment;
     CompanyFragment companyFragment;
+
+
+    FavoritesFragment favoritesFragment;
+
     private String[] activityTitles;
     public Context context;
     private static final String TAG = MainActivity.class.getName();
@@ -501,6 +506,12 @@ public class MainActivity extends AppCompatActivity
                         setToolbarTitle(1);
                         changePasswordFragment = new ChangePasswordFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, changePasswordFragment, "changePasswordFragment").addToBackStack("null").commit();
+                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        drawer.closeDrawer(GravityCompat.START);
+                    } else if (childPosition == 2) {
+                        setToolbarTitle(6);
+                        favoritesFragment = new FavoritesFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, favoritesFragment, "favoritesFragment").addToBackStack("null").commit();
                         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                         drawer.closeDrawer(GravityCompat.START);
                     }

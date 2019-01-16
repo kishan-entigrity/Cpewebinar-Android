@@ -73,6 +73,7 @@
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:weightSum="2">
 
 

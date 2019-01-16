@@ -3,11 +3,16 @@ package com.entigrity.webservice;
 import com.entigrity.model.changepassword.ChangePasswordModel;
 import com.entigrity.model.city.CityModel;
 import com.entigrity.model.company.CompanyModel;
+import com.entigrity.model.company_like.Company_Like_Model;
+import com.entigrity.model.companyfavorites.Company_Favorite;
 import com.entigrity.model.contactus.ContactUsModel;
 import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
 import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
 import com.entigrity.model.instructor.InstructorModel;
+import com.entigrity.model.instructor_follow.Instructor_Follow_Model;
+import com.entigrity.model.instructor_like.Instructor_Like_Model;
+import com.entigrity.model.instructorfavorites.Instructor_Favorite;
 import com.entigrity.model.login.LoginModel;
 import com.entigrity.model.logout.LogoutModel;
 import com.entigrity.model.registration.RegistrationModel;
@@ -16,6 +21,8 @@ import com.entigrity.model.subject.SubjectModel;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.model.viewprofile.ViewProfileModel;
+import com.entigrity.model.webinar_like.Webinar_Like_Model;
+import com.entigrity.model.webinarfavorites.Webinar_Favorite;
 
 import java.util.ArrayList;
 
@@ -24,6 +31,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 public interface APIService {
@@ -172,6 +181,76 @@ public interface APIService {
     //company List
     @GET("company")
     Observable<CompanyModel> GetCompany(@Header("Authorization") String authorization);
+
+
+    //instructor follow status
+
+    @POST("speaker/follow/{speaker_ids}")
+    @FormUrlEncoded
+    Observable<Instructor_Follow_Model> InstructorFollowStatus(
+            @Path("speaker_ids") String speaker_ids,
+            @Header("Authorization") String authorization,
+            @Field("speaker_id") int speaker_id
+    );
+
+
+    //instructor like status
+
+    @POST("speaker/like/{speaker_ids}")
+    @FormUrlEncoded
+    Observable<Instructor_Like_Model> InstructorFavoriteStatus(
+            @Path("speaker_ids") String speaker_ids,
+            @Header("Authorization") String authorization,
+            @Field("speaker_id") int speaker_id
+    );
+
+
+    //company like status
+
+    @POST("company/like/{company_ids}")
+    @FormUrlEncoded
+    Observable<Company_Like_Model> CompanyFavoriteStatus(
+            @Path("company_ids") String company_ids,
+            @Header("Authorization") String authorization,
+            @Field("company_id") int company_id
+    );
+
+
+    //Webinar like status
+
+    @POST("webinar/like/")
+    @FormUrlEncoded
+    Observable<Webinar_Like_Model> WebinarFavoriteStatus(
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id
+    );
+
+
+    //company favorites list
+
+    @POST("company/my-favorite")
+    Observable<Company_Favorite> CompanyFavoriteList(
+            @Header("Authorization") String authorization
+
+    );
+
+
+    //instructor favorites list
+
+    @POST("speaker/my-favorite")
+    Observable<Instructor_Favorite> InstructorFavoriteList(
+            @Header("Authorization") String authorization
+
+    );
+
+
+    //webinars favorites list
+
+    @POST("webinar/my-favorite")
+    Observable<Webinar_Favorite> WebinarFavoriteList(
+            @Header("Authorization") String authorization
+
+    );
 
 
 }
