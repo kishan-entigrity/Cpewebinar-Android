@@ -272,4 +272,18 @@
     <string name="str_webinars">WEBINARS</string>
 
 
+    //webinar favorite list
+
+    <string name="str_basic_management">Basic Time Management Course</string>
+    <string name="str_date_fav">21 jun 2018</string>
+    <string name="str_time_fav">10:40 PM</string>
+    <string name="str_credit_value">CPE Credit : 1</string>
+    <string name="str_fav_count">334</string>
+    <string name="str_fav_views">45 views</string>
+    <string name="str_fav_instructor_name">JOHN SMITH</string>
+    <string name="str_fav_company_name">XERO</string>
+    <string name="str_fav_duration">20 MIN</string>
+    <string name="str_price_value">$99.00</string>
+
+
 </resources>

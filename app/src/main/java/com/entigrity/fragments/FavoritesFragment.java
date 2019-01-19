@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
-import com.entigrity.activity.InstructorDetailsActivity;
 import com.entigrity.databinding.FragmentFavoritesBinding;
 import com.entigrity.model.companyfavorites.Company_Favorite;
 import com.entigrity.model.companyfavorites.MyFavoriteCompanyItem;
@@ -111,9 +110,6 @@ public class FavoritesFragment extends Fragment {
                 .subscribe(new Subscriber<Instructor_Favorite>() {
                     @Override
                     public void onCompleted() {
-                        setupViewPager(binding.viewpagerFavorite);
-                        binding.tabsFavorite.setupWithViewPager(binding.viewpagerFavorite);
-
                         if (Constant.isNetworkAvailable(context)) {
                             GetCompanyFavoritesList();
                         } else {
@@ -141,8 +137,6 @@ public class FavoritesFragment extends Fragment {
 
 
                             mListfavoritesSpeaker = instructor_favorite.getPayload().getMyFavoriteSpeaker();
-
-                            Constant.Log(TAG, "speaker" + mListfavoritesSpeaker.size());
 
 
                         } else {
@@ -178,7 +172,8 @@ public class FavoritesFragment extends Fragment {
 
     public void GetCompanyFavoritesList() {
 
-        mAPIService.CompanyFavoriteList(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.CompanyFavoriteList(getResources().getString(R.string.bearer)
+                + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYWRtaW4uc3BhYXJnLnRlY2gvYXBpL3NwZWFrZXIvbXktZmF2b3JpdGUiLCJpYXQiOjE1NDc2MTQ4MDAsImV4cCI6MTU0NzkwNDA5NywibmJmIjoxNTQ3ODE3Njk3LCJqdGkiOiJvb0ZlaU1hNG9tWEZxOFZoIiwic3ViIjoxfQ.EXScTSZ86BF1JwMiibA6dedQOu8mayOk2LhbSOhOuwY").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Company_Favorite>() {
                     @Override
                     public void onCompleted() {
@@ -214,8 +209,6 @@ public class FavoritesFragment extends Fragment {
                             mListfavoritesCompany = company_favorite.getPayload().getMyFavoriteCompany();
 
 
-                            // Constant.Log(TAG, "company" + mListfavoritesCompany.size());
-
                         } else {
 
                             if (company_favorite.getPayload().getAccessToken() != null && !company_favorite.getPayload().getAccessToken().equalsIgnoreCase("")) {
@@ -249,12 +242,13 @@ public class FavoritesFragment extends Fragment {
 
     public void GetWebinarFavoritesList() {
 
-        mAPIService.WebinarFavoriteList(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.WebinarFavoriteList(getResources().getString(R.string.bearer) +
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYWRtaW4uc3BhYXJnLnRlY2gvYXBpL3NwZWFrZXIvbXktZmF2b3JpdGUiLCJpYXQiOjE1NDc2MTQ4MDAsImV4cCI6MTU0NzkwNDA5NywibmJmIjoxNTQ3ODE3Njk3LCJqdGkiOiJvb0ZlaU1hNG9tWEZxOFZoIiwic3ViIjoxfQ.EXScTSZ86BF1JwMiibA6dedQOu8mayOk2LhbSOhOuwY").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Favorite>() {
                     @Override
                     public void onCompleted() {
-
-
+                        setupViewPager(binding.viewpagerFavorite);
+                        binding.tabsFavorite.setupWithViewPager(binding.viewpagerFavorite);
                     }
 
                     @Override
@@ -280,7 +274,6 @@ public class FavoritesFragment extends Fragment {
 
                             mListfavoriteswebinar = webinar_favorite.getPayload().getMyFavoriteWebinar();
 
-                            //  Constant.Log(TAG, "webinar" + mListfavoriteswebinar.size());
 
                         } else {
 

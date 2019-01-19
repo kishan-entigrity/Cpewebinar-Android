@@ -72,4 +72,13 @@
     <color name="submit_button_popup">#00426D</color>
 
 
+    //webinar favorite list
+
+    <color name="fav_webinar_title">#0C4973</color>
+    <color name="fav_date_time">#D1D1D2</color>
+    <color name="fav_background_credit">#204B70</color>
+    <color name="view_color">#F5F5F7</color>
+    <color name="fav_bottom_text_color">#7A7A7B</color>
+
+
 </resources>

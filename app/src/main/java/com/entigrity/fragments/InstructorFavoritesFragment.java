@@ -1,6 +1,5 @@
 package com.entigrity.fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -17,17 +16,12 @@ import com.entigrity.adapter.InstructorFavoriteAdapter;
 import com.entigrity.databinding.FragmentInstructorListBinding;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.SimpleDividerItemDecoration;
-import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 
 public class InstructorFavoritesFragment extends Fragment {
     FragmentInstructorListBinding binding;
     View view;
     public Context context;
     private static final String TAG = InstructorFavoritesFragment.class.getName();
-    ProgressDialog progressDialog;
-    private APIService mAPIService;
-
     InstructorFavoriteAdapter instructorFavoriteAdapter;
 
 
@@ -36,7 +30,6 @@ public class InstructorFavoritesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_instructor_list, null, false);
         context = getActivity();
-        mAPIService = ApiUtils.getAPIService();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         binding.recyclerviewFavoriteInstructor.setLayoutManager(layoutManager);
@@ -51,7 +44,7 @@ public class InstructorFavoritesFragment extends Fragment {
         }
 
 
-        Constant.Log(TAG, "speakersize" + FavoritesFragment.getInstance().mListfavoritesSpeaker.size());
+        Constant.Log(TAG, "speaker size" + FavoritesFragment.getInstance().mListfavoritesSpeaker.size());
 
 
         return view = binding.getRoot();

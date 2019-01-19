@@ -11,17 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.entigrity.R;
-import com.entigrity.model.instructorfavorites.MyFavoriteSpeakerItem;
+import com.entigrity.model.companyfavorites.MyFavoriteCompanyItem;
 
 import java.util.List;
 
-public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFavoriteAdapter.ViewHolder> {
+public class CompanyFavoriteAdapter extends RecyclerView.Adapter<CompanyFavoriteAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<MyFavoriteSpeakerItem> mList;
+    private List<MyFavoriteCompanyItem> mList;
     LayoutInflater mInflater;
 
-    public InstructorFavoriteAdapter(Context mContext, List<MyFavoriteSpeakerItem> mList) {
+    public CompanyFavoriteAdapter(Context mContext, List<MyFavoriteCompanyItem> mList) {
         this.mContext = mContext;
         this.mList = mList;
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -30,15 +30,17 @@ public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFa
 
     @NonNull
     @Override
-    public InstructorFavoriteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_instructor_favorite, viewGroup, false);
-        return new InstructorFavoriteAdapter.ViewHolder(v);
+    public CompanyFavoriteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_company_favorite, viewGroup, false);
+        return new CompanyFavoriteAdapter.ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        viewHolder.speakername.setText(mList.get(position).getSpeakerName());
+
+        viewHolder.companyname.setText(mList.get(position).getCompanyName());
+
 
     }
 
@@ -50,14 +52,16 @@ public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFa
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView ivinstructorprofile;
-        TextView speakername;
+
+        ImageView ivcompanylogo;
+        TextView companyname;
 
 
         private ViewHolder(View itemView) {
             super(itemView);
-            ivinstructorprofile = (ImageView) itemView.findViewById(R.id.ivinstructorprofile);
-            speakername = (TextView) itemView.findViewById(R.id.speakername);
+
+            ivcompanylogo = (ImageView) itemView.findViewById(R.id.ivcompanylogo);
+            companyname = (TextView) itemView.findViewById(R.id.companyname);
 
 
         }
