@@ -7,13 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.model.instructorfavorites.MyFavoriteSpeakerItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFavoriteAdapter.ViewHolder> {
 
@@ -38,7 +40,18 @@ public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFa
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        viewHolder.speakername.setText(mList.get(position).getSpeakerName());
+
+        if (!mList.get(position).getSpeakerName().equalsIgnoreCase("")) {
+            viewHolder.speakername.setText(mList.get(position).getSpeakerName());
+        }
+
+
+        if (!mList.get(position).getSpeakerImage().equalsIgnoreCase("")) {
+            Picasso.with(mContext).load(mList.get(position).getSpeakerImage())
+                    .placeholder(R.mipmap.placeholder)
+                    .into(viewHolder.ivinstructorprofile);
+        }
+
 
     }
 
@@ -50,13 +63,13 @@ public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFa
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView ivinstructorprofile;
+        CircleImageView ivinstructorprofile;
         TextView speakername;
 
 
         private ViewHolder(View itemView) {
             super(itemView);
-            ivinstructorprofile = (ImageView) itemView.findViewById(R.id.ivinstructorprofile);
+            ivinstructorprofile = (CircleImageView) itemView.findViewById(R.id.ivinstructorprofile);
             speakername = (TextView) itemView.findViewById(R.id.speakername);
 
 

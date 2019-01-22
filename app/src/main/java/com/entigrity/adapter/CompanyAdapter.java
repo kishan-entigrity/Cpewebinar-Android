@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.entigrity.R;
 import com.entigrity.activity.CompanyDetailsActivity;
 import com.entigrity.model.company.CompanyItem;
+import com.entigrity.model.instructor.SpeakersItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,11 +51,11 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         if (!mList.get(position).getLogo().equalsIgnoreCase("")) {
             Picasso.with(mContext).load(mList.get(position).getLogo())
                     .placeholder(R.mipmap.placeholder)
-                    .into(viewHolder.ivinstrctorprofileimage);
+                    .into(viewHolder.ivcompanylogo);
         }
 
 
-        viewHolder.ivinstrctorprofileimage.setOnClickListener(new View.OnClickListener() {
+        viewHolder.ivcompanylogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, CompanyDetailsActivity.class);
@@ -75,19 +76,25 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
 
     }
 
+    public void setSearchResult(List<CompanyItem> result) {
+        mList = result;
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public int getItemCount() {
         return mList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivinstrctorprofileimage;
+        ImageView ivcompanylogo;
         TextView tv_companyname;
 
 
         private ViewHolder(View itemView) {
             super(itemView);
-            ivinstrctorprofileimage = (ImageView) itemView.findViewById(R.id.ivinstrctorprofileimage);
+            ivcompanylogo = (ImageView) itemView.findViewById(R.id.ivcompanylogo);
             tv_companyname = (TextView) itemView.findViewById(R.id.tv_companyname);
 
 

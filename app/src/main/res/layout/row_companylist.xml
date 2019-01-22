@@ -11,7 +11,7 @@
 
 
         <ImageView
-            android:id="@+id/ivinstrctorprofileimage"
+            android:id="@+id/ivcompanylogo"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_100sdp"
             android:scaleType="centerCrop"

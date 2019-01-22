@@ -16,6 +16,7 @@
             android:layout_height="@dimen/_50sdp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/_10sdp"
+            android:scaleType="centerCrop"
             android:src="@mipmap/placeholder" />
 
 

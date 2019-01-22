@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,19 +17,16 @@ import com.entigrity.activity.InstructorDetailsActivity;
 import com.entigrity.model.instructor.SpeakersItem;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.ViewHolder> {
 
     private Context mContext;
     private List<SpeakersItem> mList;
-    private List<SpeakersItem> mListFiltered;
     LayoutInflater mInflater;
 
-    public InstructorAdapter(Context mContext, List<SpeakersItem> mList) {
+    public InstructorAdapter(Context mContext, List<SpeakersItem> mList, Fragment fragment) {
         this.mContext = mContext;
-        this.mListFiltered = mList;
         this.mList = mList;
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
@@ -90,38 +87,9 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
     }
 
 
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String charString = charSequence.toString();
-                if (charString.isEmpty()) {
-                    mListFiltered = mList;
-                } else {
-                    List<SpeakersItem> filteredList = new ArrayList<>();
-                    for (SpeakersItem row : mList) {
-
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
-                        if (row.getCompany().equalsIgnoreCase(charString)) {
-                            filteredList.add(row);
-                        }
-                    }
-
-                    mListFiltered = filteredList;
-                }
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = mListFiltered;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mListFiltered = (ArrayList<SpeakersItem>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
+    public void setSearchResult(List<SpeakersItem> result) {
+        mList = result;
+        notifyDataSetChanged();
     }
 
 

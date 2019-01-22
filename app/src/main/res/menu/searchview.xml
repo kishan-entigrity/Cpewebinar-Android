@@ -3,8 +3,7 @@
     <item
         android:id="@+id/action_search"
         android:icon="@mipmap/search_menu"
-        android:orderInCategory="100"
-        android:title="Search"
+        android:title="@string/app_name"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="always|collapseActionView" />
 </menu>

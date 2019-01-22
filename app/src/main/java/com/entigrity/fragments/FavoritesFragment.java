@@ -110,11 +110,7 @@ public class FavoritesFragment extends Fragment {
                 .subscribe(new Subscriber<Instructor_Favorite>() {
                     @Override
                     public void onCompleted() {
-                        if (Constant.isNetworkAvailable(context)) {
-                            GetCompanyFavoritesList();
-                        } else {
-                            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
-                        }
+
                     }
 
                     @Override
@@ -137,6 +133,15 @@ public class FavoritesFragment extends Fragment {
 
 
                             mListfavoritesSpeaker = instructor_favorite.getPayload().getMyFavoriteSpeaker();
+
+
+                            Constant.Log(TAG, AppSettings.get_login_token(context));
+
+                            if (Constant.isNetworkAvailable(context)) {
+                                GetCompanyFavoritesList();
+                            } else {
+                                Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                            }
 
 
                         } else {
@@ -173,17 +178,11 @@ public class FavoritesFragment extends Fragment {
     public void GetCompanyFavoritesList() {
 
         mAPIService.CompanyFavoriteList(getResources().getString(R.string.bearer)
-                + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYWRtaW4uc3BhYXJnLnRlY2gvYXBpL3NwZWFrZXIvbXktZmF2b3JpdGUiLCJpYXQiOjE1NDc2MTQ4MDAsImV4cCI6MTU0NzkwNDA5NywibmJmIjoxNTQ3ODE3Njk3LCJqdGkiOiJvb0ZlaU1hNG9tWEZxOFZoIiwic3ViIjoxfQ.EXScTSZ86BF1JwMiibA6dedQOu8mayOk2LhbSOhOuwY").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Company_Favorite>() {
                     @Override
                     public void onCompleted() {
 
-
-                        if (Constant.isNetworkAvailable(context)) {
-                            GetWebinarFavoritesList();
-                        } else {
-                            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
-                        }
 
                     }
 
@@ -207,6 +206,13 @@ public class FavoritesFragment extends Fragment {
 
 
                             mListfavoritesCompany = company_favorite.getPayload().getMyFavoriteCompany();
+
+
+                            if (Constant.isNetworkAvailable(context)) {
+                                GetWebinarFavoritesList();
+                            } else {
+                                Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                            }
 
 
                         } else {
@@ -243,7 +249,7 @@ public class FavoritesFragment extends Fragment {
     public void GetWebinarFavoritesList() {
 
         mAPIService.WebinarFavoriteList(getResources().getString(R.string.bearer) +
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYWRtaW4uc3BhYXJnLnRlY2gvYXBpL3NwZWFrZXIvbXktZmF2b3JpdGUiLCJpYXQiOjE1NDc2MTQ4MDAsImV4cCI6MTU0NzkwNDA5NywibmJmIjoxNTQ3ODE3Njk3LCJqdGkiOiJvb0ZlaU1hNG9tWEZxOFZoIiwic3ViIjoxfQ.EXScTSZ86BF1JwMiibA6dedQOu8mayOk2LhbSOhOuwY").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Favorite>() {
                     @Override
                     public void onCompleted() {

@@ -7,11 +7,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.model.webinarfavorites.MyFavoriteWebinarItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavoriteAdapter.ViewHolder> {
 
@@ -36,6 +41,125 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
+        if (!mList.get(position).getWebinatTitle().equalsIgnoreCase("")) {
+            viewHolder.tv_webinar_title.setText(mList.get(position).getWebinatTitle());
+        }
+
+        if (!mList.get(position).getWebinarDurationMin().equalsIgnoreCase("")) {
+            viewHolder.tv_duration_name.setText(mList.get(position).getWebinarDurationMin() + " MIN");
+        }
+
+
+        if (!mList.get(position).getFee().equalsIgnoreCase("")) {
+
+            if (mList.get(position).getFee().equalsIgnoreCase("Free")) {
+                viewHolder.btnPrice.setText(mList.get(position).getFee());
+            } else {
+                viewHolder.btnPrice.setText(" $ " + mList.get(position).getFee());
+
+            }
+        }
+
+
+        if (!mList.get(position).getCreditNo().equalsIgnoreCase("")) {
+            viewHolder.tv_cpe_credit.setText(mContext.getResources().getString(R.string.str_credit_value) + " "
+                    + mList.get(position).getCreditNo());
+        }
+
+
+        if (!mList.get(position).getSpeakerName().equalsIgnoreCase("")) {
+            viewHolder.tv_favorite_speaker_name.setText(mList.get(position).getSpeakerName());
+        }
+
+
+        if (!mList.get(position).getCompanyName().equalsIgnoreCase("")) {
+            viewHolder.tv_company_name.setText(mList.get(position).getCompanyName());
+        }
+
+
+        if (!mList.get(position).getViewNumber().equalsIgnoreCase("")) {
+            viewHolder.tv_favorite_views.setText(mList.get(position).getViewNumber());
+        }
+
+
+        if (!mList.get(position).getThumbImage().equalsIgnoreCase("")) {
+            Picasso.with(mContext).load(mList.get(position).getThumbImage())
+                    .placeholder(R.mipmap.webinar_placeholder)
+                    .into(viewHolder.ivwebinar_thumbhel);
+        }
+
+
+        if (!mList.get(position).getDate().equalsIgnoreCase("")) {
+
+
+            StringTokenizer tokens = new StringTokenizer(mList.get(position).getDate(), "/");
+            String day = tokens.nextToken();// this will contain day
+            String month = tokens.nextToken();//this will contain month
+            String year = tokens.nextToken();//this will contain year
+
+            year = year.substring(2);
+
+
+            if (month.equalsIgnoreCase("01")) {
+                month = mContext.getResources().getString(R.string.jan);
+
+            } else if (month.equalsIgnoreCase("02")) {
+                month = mContext.getResources().getString(R.string.feb);
+
+            } else if (month.equalsIgnoreCase("03")) {
+                month = mContext.getResources().getString(R.string.march);
+
+            } else if (month.equalsIgnoreCase("04")) {
+                month = mContext.getResources().getString(R.string.april);
+
+            } else if (month.equalsIgnoreCase("05")) {
+                month = mContext.getResources().getString(R.string.may);
+
+            } else if (month.equalsIgnoreCase("06")) {
+                month = mContext.getResources().getString(R.string.june);
+
+            } else if (month.equalsIgnoreCase("07")) {
+                month = mContext.getResources().getString(R.string.july);
+
+            } else if (month.equalsIgnoreCase("08")) {
+                month = mContext.getResources().getString(R.string.aug);
+
+            } else if (month.equalsIgnoreCase("09")) {
+                month = mContext.getResources().getString(R.string.sept);
+
+            } else if (month.equalsIgnoreCase("10")) {
+                month = mContext.getResources().getString(R.string.oct);
+
+            } else if (month.equalsIgnoreCase("11")) {
+                month = mContext.getResources().getString(R.string.nov);
+
+            } else if (month.equalsIgnoreCase("12")) {
+                month = mContext.getResources().getString(R.string.dec);
+
+            }
+
+
+            viewHolder.tv_webinar_date.setText(day + " " + month + " " + year);
+
+
+        }
+
+
+        if (!mList.get(position).getTime().equalsIgnoreCase("")) {
+
+            StringTokenizer tokens = new StringTokenizer(mList.get(position).getTime(), "+");
+            String time = tokens.nextToken();// this will contain day
+            String timezone = tokens.nextToken();//this will contain month
+
+
+            viewHolder.tv_webinar_time.setText(time);
+
+        }
+
+
+        if (mList.get(position).getFavoritescount() != 0) {
+            viewHolder.tv_favorite_count.setText("" + mList.get(position).getFavoritescount());
+        }
 
 
     }
@@ -47,12 +171,30 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tv_webinar_title, tv_duration_name, tv_webinar_date, tv_webinar_time, tv_cpe_credit, tv_favorite_views,
+                tv_favorite_speaker_name, tv_company_name, tv_favorite_count;
+
+        ImageView ivwebinar_thumbhel;
 
 
+        Button btnPrice;
 
 
         private ViewHolder(View itemView) {
             super(itemView);
+            tv_webinar_title = (TextView) itemView.findViewById(R.id.tv_webinar_title);
+            tv_duration_name = (TextView) itemView.findViewById(R.id.tv_duration_name);
+            tv_webinar_date = (TextView) itemView.findViewById(R.id.tv_webinar_date);
+            tv_webinar_time = (TextView) itemView.findViewById(R.id.tv_webinar_time);
+            tv_cpe_credit = (TextView) itemView.findViewById(R.id.tv_cpe_credit);
+            tv_favorite_views = (TextView) itemView.findViewById(R.id.tv_favorite_views);
+            tv_company_name = (TextView) itemView.findViewById(R.id.tv_company_name);
+            tv_favorite_speaker_name = (TextView) itemView.findViewById(R.id.tv_favorite_speaker_name);
+            tv_favorite_count = (TextView) itemView.findViewById(R.id.tv_favorite_count);
+            ivwebinar_thumbhel = (ImageView) itemView.findViewById(R.id.ivwebinar_thumbhel);
+
+
+            btnPrice = (Button) itemView.findViewById(R.id.btnPrice);
 
 
         }

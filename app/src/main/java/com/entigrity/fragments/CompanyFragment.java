@@ -28,6 +28,7 @@ import com.entigrity.adapter.CompanyAdapter;
 import com.entigrity.databinding.FragmentCompanyBinding;
 import com.entigrity.model.company.CompanyItem;
 import com.entigrity.model.company.CompanyModel;
+import com.entigrity.model.instructor.SpeakersItem;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -42,7 +43,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class CompanyFragment extends Fragment {
+public class CompanyFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private FragmentCompanyBinding binding;
     public Context context;
@@ -51,7 +52,7 @@ public class CompanyFragment extends Fragment {
     ProgressDialog progressDialog;
     private List<CompanyItem> mListcompanylist = new ArrayList<CompanyItem>();
     public CompanyAdapter companyAdapter;
-    public SearchView searchView;
+    CompanyFragment companyFragment;
     View view;
 
     @Nullable
@@ -62,6 +63,8 @@ public class CompanyFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company, null, false);
         mAPIService = ApiUtils.getAPIService();
         context = getActivity();
+
+        companyFragment = new CompanyFragment();
 
         MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
 
@@ -112,50 +115,28 @@ public class CompanyFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.searchview, menu);
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        if (searchItem != null) {
-            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-                @Override
-                public boolean onClose() {
-                    //some operation
-                    searchView.onActionViewCollapsed();
-                    return false;
-                }
-            });
-            searchView.setOnSearchClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //some operation
-                }
-            });
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
 
-            EditText searchPlate = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-            searchPlate.setHint("Search");
-            View searchPlateView = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
-            searchPlateView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
-            // use this method for search process
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    // use this method when query submitted
-                    Toast.makeText(context, query, Toast.LENGTH_SHORT).show();
-                    return false;
-                }
+        item.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    // use this method for auto complete search process
-                    return false;
-                }
-            });
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
 
+                return true;
+            }
 
-        }
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Do something when collapsed
+                companyAdapter.setSearchResult(mListcompanylist);
+                return true; // Return true to collapse action view
 
+            }
+        });
 
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
 
@@ -241,4 +222,28 @@ public class CompanyFragment extends Fragment {
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        final List<CompanyItem> filteredModelList = filter(mListcompanylist, newText);
+        companyAdapter.setSearchResult(filteredModelList);
+        return true;
+    }
+
+    private List<CompanyItem> filter(List<CompanyItem> models, String query) {
+        query = query.toLowerCase();
+        final List<CompanyItem> filteredModelList = new ArrayList<>();
+        for (CompanyItem model : models) {
+            final String companyname = model.getName().toLowerCase();
+
+            if (companyname.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
+    }
 }

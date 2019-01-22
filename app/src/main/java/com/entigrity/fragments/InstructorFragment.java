@@ -1,7 +1,6 @@
 package com.entigrity.fragments;
 
 import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -9,10 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,7 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
@@ -33,7 +29,6 @@ import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.GridSpacingItemDecoration;
-import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 
@@ -51,10 +46,9 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
     private static final String TAG = InstructorFragment.class.getName();
     ProgressDialog progressDialog;
     private List<SpeakersItem> mListinstructorlist = new ArrayList<SpeakersItem>();
-    // private List<SpeakersItem> mListinstructorlist_filter = new ArrayList<SpeakersItem>();
     public InstructorAdapter instructorAdapter;
-    public SearchView searchView;
     View view;
+    InstructorFragment instructorFragment;
 
 
     @Nullable
@@ -65,10 +59,7 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
         context = getActivity();
 
         MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
-
-       /* LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        binding.recyclerviewInstructor.setLayoutManager(layoutManager);
-        binding.recyclerviewInstructor.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));*/
+        instructorFragment = new InstructorFragment();
 
 
         binding.recyclerviewInstructor.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -83,7 +74,6 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 
-                    //  ConfirmationPopup();
 
                     Intent i = new Intent(getActivity(), MainActivity.class);
                     startActivity(i);
@@ -116,91 +106,30 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.searchview, menu);
-        getActivity().getMenuInflater().inflate(R.menu.searchview, menu);
+        inflater.inflate(R.menu.searchview, menu);
 
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search)
-                .getActionView();
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getActivity().getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
 
-        // listening to search query text change
-       /* searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        item.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                // filter recycler view when query submitted
-                instructorAdapter.getFilter().filter(query);
-                return false;
+            public boolean onMenuItemActionExpand(MenuItem item) {
+
+                return true;
             }
 
             @Override
-            public boolean onQueryTextChange(String query) {
-                // filter recycler view when text is changed
-                instructorAdapter.getFilter().filter(query);
-                return true;
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Do something when collapsed
+                instructorAdapter.setSearchResult(mListinstructorlist);
+                return true; // Return true to collapse action view
+
             }
-        });*/
+        });
 
 
-
-       /* final MenuItem searchItem = menu.findItem(R.id.action_search);
-
-        if (searchItem != null) {
-            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-                @Override
-                public boolean onClose() {
-                    //some operation
-                    searchView.onActionViewCollapsed();
-                    return false;
-                }
-            });
-            searchView.setOnSearchClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //some operation
-                }
-            });
-
-            EditText searchPlate = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-            searchPlate.setHint("Search");
-            View searchPlateView = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
-            searchPlateView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
-
-
-            // use this method for search process
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    // use this method when query submitted
-                    instructorAdapter.getFilter().filter(query);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String query) {
-                    // use this method for auto complete search process
-                    instructorAdapter.getFilter().filter(query);
-                    return true;
-                }
-            });
-*/
-
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
 
@@ -211,7 +140,7 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
                     @Override
                     public void onCompleted() {
                         if (mListinstructorlist.size() > 0) {
-                            instructorAdapter = new InstructorAdapter(context, mListinstructorlist);
+                            instructorAdapter = new InstructorAdapter(context, mListinstructorlist, instructorFragment);
                             binding.recyclerviewInstructor.setAdapter(instructorAdapter);
                         }
 
@@ -241,7 +170,9 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
 
 
                             mListinstructorlist = instructorModel.getPayload().getSpeakers();
-                            // mListinstructorlist_filter = instructorModel.getPayload().getSpeakers();
+
+
+                            //  Log.e(TAG, AppSettings.get_login_token(context));
 
 
                         } else {
@@ -274,14 +205,31 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
                 });
     }
 
+
     @Override
     public boolean onQueryTextSubmit(String s) {
         return false;
     }
 
     @Override
-    public boolean onQueryTextChange(String s) {
+    public boolean onQueryTextChange(String newText) {
+        final List<SpeakersItem> filteredModelList = filter(mListinstructorlist, newText);
+        instructorAdapter.setSearchResult(filteredModelList);
         return true;
+    }
+
+
+    private List<SpeakersItem> filter(List<SpeakersItem> models, String query) {
+        query = query.toLowerCase();
+        final List<SpeakersItem> filteredModelList = new ArrayList<>();
+        for (SpeakersItem model : models) {
+            final String instructorname = model.getName().toLowerCase();
+            final String companyname = model.getCompany().toLowerCase();
+            if (instructorname.contains(query) || companyname.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
     }
 }
 

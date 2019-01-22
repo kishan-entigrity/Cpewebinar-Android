@@ -26,6 +26,18 @@ public class MyFavoriteWebinarItem {
     @SerializedName("fee")
     private String fee;
 
+    public int getFavoritescount() {
+        return favoritescount;
+    }
+
+    public void setFavoritescount(int favoritescount) {
+        this.favoritescount = favoritescount;
+    }
+
+    @SerializedName("favorites_count")
+    private int favoritescount;
+
+
     @SerializedName("webinat_id")
     private int webinatId;
 
@@ -137,6 +149,7 @@ public class MyFavoriteWebinarItem {
                         ",speaker_name = '" + speakerName + '\'' +
                         ",company_name = '" + companyName + '\'' +
                         ",fee = '" + fee + '\'' +
+                        ",favorites_count = '" + favoritescount + '\'' +
                         ",webinat_id = '" + webinatId + '\'' +
                         ",time = '" + time + '\'' +
                         ",view_number = '" + viewNumber + '\'' +

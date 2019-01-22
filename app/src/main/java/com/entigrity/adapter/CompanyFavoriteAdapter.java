@@ -12,8 +12,11 @@ import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.model.companyfavorites.MyFavoriteCompanyItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CompanyFavoriteAdapter extends RecyclerView.Adapter<CompanyFavoriteAdapter.ViewHolder> {
 
@@ -39,7 +42,15 @@ public class CompanyFavoriteAdapter extends RecyclerView.Adapter<CompanyFavorite
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
 
-        viewHolder.companyname.setText(mList.get(position).getCompanyName());
+        if (!mList.get(position).getCompanyName().equalsIgnoreCase("")) {
+            viewHolder.companyname.setText(mList.get(position).getCompanyName());
+        }
+
+        if (!mList.get(position).getCompanyLogo().equalsIgnoreCase("")) {
+            Picasso.with(mContext).load(mList.get(position).getCompanyLogo())
+                    .placeholder(R.mipmap.placeholder)
+                    .into(viewHolder.ivcompanylogo);
+        }
 
 
     }
@@ -53,14 +64,14 @@ public class CompanyFavoriteAdapter extends RecyclerView.Adapter<CompanyFavorite
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        ImageView ivcompanylogo;
+        CircleImageView ivcompanylogo;
         TextView companyname;
 
 
         private ViewHolder(View itemView) {
             super(itemView);
 
-            ivcompanylogo = (ImageView) itemView.findViewById(R.id.ivcompanylogo);
+            ivcompanylogo = (CircleImageView) itemView.findViewById(R.id.ivcompanylogo);
             companyname = (TextView) itemView.findViewById(R.id.companyname);
 
 
