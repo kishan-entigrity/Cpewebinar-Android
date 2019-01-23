@@ -135,7 +135,8 @@ public class FavoritesFragment extends Fragment {
                             mListfavoritesSpeaker = instructor_favorite.getPayload().getMyFavoriteSpeaker();
 
 
-                            Constant.Log(TAG, AppSettings.get_login_token(context));
+                            //  Constant.Log(TAG, AppSettings.get_login_token(context));
+
 
                             if (Constant.isNetworkAvailable(context)) {
                                 GetCompanyFavoritesList();
@@ -177,12 +178,10 @@ public class FavoritesFragment extends Fragment {
 
     public void GetCompanyFavoritesList() {
 
-        mAPIService.CompanyFavoriteList(getResources().getString(R.string.bearer)
-                + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.CompanyFavoriteList(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Company_Favorite>() {
                     @Override
                     public void onCompleted() {
-
 
                     }
 
@@ -204,7 +203,6 @@ public class FavoritesFragment extends Fragment {
 
                         if (company_favorite.isSuccess()) {
 
-
                             mListfavoritesCompany = company_favorite.getPayload().getMyFavoriteCompany();
 
 
@@ -216,7 +214,6 @@ public class FavoritesFragment extends Fragment {
 
 
                         } else {
-
                             if (company_favorite.getPayload().getAccessToken() != null && !company_favorite.getPayload().getAccessToken().equalsIgnoreCase("")) {
                                 AppSettings.set_login_token(context, company_favorite.getPayload().getAccessToken());
 
@@ -235,6 +232,7 @@ public class FavoritesFragment extends Fragment {
 
                             }
 
+
                         }
 
 
@@ -242,6 +240,7 @@ public class FavoritesFragment extends Fragment {
 
 
                 });
+
 
     }
 

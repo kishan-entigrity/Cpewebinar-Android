@@ -69,8 +69,8 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
         MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
 
         binding.recyclerviewCompany.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        int spacing = (int) getResources().getDimension(R.dimen._2sdp); // 50px
-        boolean includeEdge = false;
+        int spacing = (int) getResources().getDimension(R.dimen._5sdp); // 50px
+        boolean includeEdge = true;
         binding.recyclerviewCompany.addItemDecoration(new GridSpacingItemDecoration(2, spacing, includeEdge));
 
 

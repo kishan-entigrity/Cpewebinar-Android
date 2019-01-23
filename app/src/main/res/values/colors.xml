@@ -59,14 +59,24 @@
 
     //instructor list
 
-    <color name="inst_background">#193f70</color>
+    <color name="inst_background">#CC193f70</color>
     <color name="rating_click_background">#F5F5F7</color>
-    <color name="write_review_text">#BABABC</color>
+    <color name="write_review_text">#A4A4A5</color>
+
+
     <color name="inst_details_profile_background">#466A9C</color>
     <color name="inst_company_details">#2E6387</color>
 
+    <color name="selected_tab_text_color_details">#5B5B5B</color>
+    <color name="Unselected_tab_text_color_details">#E1E1E1</color>
+
+    <color name="instructor_left_panel_color">#DADAE2</color>
+    <color name="instructor_right_panel_color">#486D8F</color>
+    <color name="instructor_details_about_color">#737373</color>
+
 
     //write review popup
+
 
     <color name="review_header">#878788</color>
     <color name="submit_button_popup">#00426D</color>

@@ -2,6 +2,7 @@ package com.entigrity.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.activity.InstructorDetailsActivity;
 import com.entigrity.model.instructorfavorites.MyFavoriteSpeakerItem;
 import com.squareup.picasso.Picasso;
 
@@ -38,7 +40,7 @@ public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFa
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
 
 
         if (!mList.get(position).getSpeakerName().equalsIgnoreCase("")) {
@@ -51,6 +53,28 @@ public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFa
                     .placeholder(R.mipmap.placeholder)
                     .into(viewHolder.ivinstructorprofile);
         }
+
+
+        viewHolder.ivinstructorprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(mContext, InstructorDetailsActivity.class);
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_id), mList.get(position).getSpeakerId());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_name), mList.get(position).getSpeakerName());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_email), mList.get(position).getEmail());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_contact_number), mList.get(position).getSpeakerMobileNo());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_logo), mList.get(position).getLogo());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_expiritise), mList.get(position).getAreaOfExpertise());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_about_speaker), mList.get(position).getAboutSpeaker());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_company), mList.get(position).getCompanyName());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_state), mList.get(position).getState());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_city), mList.get(position).getCity());
+                mContext.startActivity(i);
+
+
+            }
+        });
 
 
     }

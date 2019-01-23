@@ -20,8 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="@string/about"
-            android:textColor="@color/black"
+            android:textColor="@color/instructor_details_about_color"
             android:textSize="@dimen/_12sdp"
             app:font_text="SFUIDisplay-Regular.ttf" />
 

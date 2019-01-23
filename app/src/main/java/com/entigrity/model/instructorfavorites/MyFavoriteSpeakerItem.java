@@ -2,194 +2,204 @@ package com.entigrity.model.instructorfavorites;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MyFavoriteSpeakerItem {
+public class MyFavoriteSpeakerItem{
 
-    @SerializedName("city")
-    private String city;
+	@SerializedName("city")
+	private String city;
 
-    @SerializedName("speaker_name")
-    private String speakerName;
+	@SerializedName("speaker_name")
+	private String speakerName;
 
-    @SerializedName("speaker_id")
-    private int speakerId;
+	@SerializedName("speaker_id")
+	private int speakerId;
 
-    @SerializedName("rating")
-    private String rating;
+	@SerializedName("rating")
+	private String rating;
 
-    @SerializedName("speaker_image")
-    private String speakerImage;
+	@SerializedName("speaker_image")
+	private String speakerImage;
 
-    @SerializedName("favorite_unfavorite_status")
-    private String favoriteUnfavoriteStatus;
+	@SerializedName("favorite_unfavorite_status")
+	private String favoriteUnfavoriteStatus;
 
-    @SerializedName("follow_unfollow_status")
-    private String followUnfollowStatus;
+	@SerializedName("follow_unfollow_status")
+	private String followUnfollowStatus;
 
-    @SerializedName("followers")
-    private String followers;
+	@SerializedName("followers")
+	private String followers;
 
-    @SerializedName("area_of_expertise")
-    private String areaOfExpertise;
+	@SerializedName("area_of_expertise")
+	private String areaOfExpertise;
 
-    @SerializedName("about_speaker")
-    private String aboutSpeaker;
+	@SerializedName("about_speaker")
+	private String aboutSpeaker;
 
-    @SerializedName("company_name")
-    private String companyName;
+	@SerializedName("company_name")
+	private String companyName;
 
-    @SerializedName("no_of_followers_count")
-    private int noOfFollowersCount;
+	@SerializedName("no_of_followers_count")
+	private int noOfFollowersCount;
 
-    @SerializedName("state")
-    private String state;
+	@SerializedName("logo")
+	private String logo;
 
-    @SerializedName("speaker_mobile_no")
-    private String speakerMobileNo;
+	@SerializedName("state")
+	private String state;
 
-    @SerializedName("email")
-    private String email;
+	@SerializedName("speaker_mobile_no")
+	private String speakerMobileNo;
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	@SerializedName("email")
+	private String email;
 
-    public String getCity() {
-        return city;
-    }
+	public void setCity(String city){
+		this.city = city;
+	}
 
-    public void setSpeakerName(String speakerName) {
-        this.speakerName = speakerName;
-    }
+	public String getCity(){
+		return city;
+	}
 
-    public String getSpeakerName() {
-        return speakerName;
-    }
+	public void setSpeakerName(String speakerName){
+		this.speakerName = speakerName;
+	}
 
-    public void setSpeakerId(int speakerId) {
-        this.speakerId = speakerId;
-    }
+	public String getSpeakerName(){
+		return speakerName;
+	}
 
-    public int getSpeakerId() {
-        return speakerId;
-    }
+	public void setSpeakerId(int speakerId){
+		this.speakerId = speakerId;
+	}
 
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
+	public int getSpeakerId(){
+		return speakerId;
+	}
 
-    public String getRating() {
-        return rating;
-    }
+	public void setRating(String rating){
+		this.rating = rating;
+	}
 
-    public void setSpeakerImage(String speakerImage) {
-        this.speakerImage = speakerImage;
-    }
+	public String getRating(){
+		return rating;
+	}
 
-    public String getSpeakerImage() {
-        return speakerImage;
-    }
+	public void setSpeakerImage(String speakerImage){
+		this.speakerImage = speakerImage;
+	}
 
-    public void setFavoriteUnfavoriteStatus(String favoriteUnfavoriteStatus) {
-        this.favoriteUnfavoriteStatus = favoriteUnfavoriteStatus;
-    }
+	public String getSpeakerImage(){
+		return speakerImage;
+	}
 
-    public String getFavoriteUnfavoriteStatus() {
-        return favoriteUnfavoriteStatus;
-    }
+	public void setFavoriteUnfavoriteStatus(String favoriteUnfavoriteStatus){
+		this.favoriteUnfavoriteStatus = favoriteUnfavoriteStatus;
+	}
 
-    public void setFollowUnfollowStatus(String followUnfollowStatus) {
-        this.followUnfollowStatus = followUnfollowStatus;
-    }
+	public String getFavoriteUnfavoriteStatus(){
+		return favoriteUnfavoriteStatus;
+	}
 
-    public String getFollowUnfollowStatus() {
-        return followUnfollowStatus;
-    }
+	public void setFollowUnfollowStatus(String followUnfollowStatus){
+		this.followUnfollowStatus = followUnfollowStatus;
+	}
 
-    public void setFollowers(String followers) {
-        this.followers = followers;
-    }
+	public String getFollowUnfollowStatus(){
+		return followUnfollowStatus;
+	}
 
-    public String getFollowers() {
-        return followers;
-    }
+	public void setFollowers(String followers){
+		this.followers = followers;
+	}
 
-    public void setAreaOfExpertise(String areaOfExpertise) {
-        this.areaOfExpertise = areaOfExpertise;
-    }
+	public String getFollowers(){
+		return followers;
+	}
 
-    public String getAreaOfExpertise() {
-        return areaOfExpertise;
-    }
+	public void setAreaOfExpertise(String areaOfExpertise){
+		this.areaOfExpertise = areaOfExpertise;
+	}
 
-    public void setAboutSpeaker(String aboutSpeaker) {
-        this.aboutSpeaker = aboutSpeaker;
-    }
+	public String getAreaOfExpertise(){
+		return areaOfExpertise;
+	}
 
-    public String getAboutSpeaker() {
-        return aboutSpeaker;
-    }
+	public void setAboutSpeaker(String aboutSpeaker){
+		this.aboutSpeaker = aboutSpeaker;
+	}
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+	public String getAboutSpeaker(){
+		return aboutSpeaker;
+	}
 
-    public String getCompanyName() {
-        return companyName;
-    }
+	public void setCompanyName(String companyName){
+		this.companyName = companyName;
+	}
 
-    public void setNoOfFollowersCount(int noOfFollowersCount) {
-        this.noOfFollowersCount = noOfFollowersCount;
-    }
+	public String getCompanyName(){
+		return companyName;
+	}
 
-    public int getNoOfFollowersCount() {
-        return noOfFollowersCount;
-    }
+	public void setNoOfFollowersCount(int noOfFollowersCount){
+		this.noOfFollowersCount = noOfFollowersCount;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public int getNoOfFollowersCount(){
+		return noOfFollowersCount;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public void setLogo(String logo){
+		this.logo = logo;
+	}
 
-    public void setSpeakerMobileNo(String speakerMobileNo) {
-        this.speakerMobileNo = speakerMobileNo;
-    }
+	public String getLogo(){
+		return logo;
+	}
 
-    public String getSpeakerMobileNo() {
-        return speakerMobileNo;
-    }
+	public void setState(String state){
+		this.state = state;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getState(){
+		return state;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setSpeakerMobileNo(String speakerMobileNo){
+		this.speakerMobileNo = speakerMobileNo;
+	}
 
-    @Override
-    public String toString() {
-        return
-                "MyFavoriteSpeakerItem{" +
-                        "city = '" + city + '\'' +
-                        ",speaker_name = '" + speakerName + '\'' +
-                        ",speaker_id = '" + speakerId + '\'' +
-                        ",rating = '" + rating + '\'' +
-                        ",speaker_image = '" + speakerImage + '\'' +
-                        ",favorite_unfavorite_status = '" + favoriteUnfavoriteStatus + '\'' +
-                        ",follow_unfollow_status = '" + followUnfollowStatus + '\'' +
-                        ",followers = '" + followers + '\'' +
-                        ",area_of_expertise = '" + areaOfExpertise + '\'' +
-                        ",about_speaker = '" + aboutSpeaker + '\'' +
-                        ",company_name = '" + companyName + '\'' +
-                        ",no_of_followers_count = '" + noOfFollowersCount + '\'' +
-                        ",state = '" + state + '\'' +
-                        ",speaker_mobile_no = '" + speakerMobileNo + '\'' +
-                        ",email = '" + email + '\'' +
-                        "}";
-    }
+	public String getSpeakerMobileNo(){
+		return speakerMobileNo;
+	}
+
+	public void setEmail(String email){
+		this.email = email;
+	}
+
+	public String getEmail(){
+		return email;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"MyFavoriteSpeakerItem{" + 
+			"city = '" + city + '\'' + 
+			",speaker_name = '" + speakerName + '\'' + 
+			",speaker_id = '" + speakerId + '\'' + 
+			",rating = '" + rating + '\'' + 
+			",speaker_image = '" + speakerImage + '\'' + 
+			",favorite_unfavorite_status = '" + favoriteUnfavoriteStatus + '\'' + 
+			",follow_unfollow_status = '" + followUnfollowStatus + '\'' + 
+			",followers = '" + followers + '\'' + 
+			",area_of_expertise = '" + areaOfExpertise + '\'' + 
+			",about_speaker = '" + aboutSpeaker + '\'' + 
+			",company_name = '" + companyName + '\'' + 
+			",no_of_followers_count = '" + noOfFollowersCount + '\'' + 
+			",logo = '" + logo + '\'' + 
+			",state = '" + state + '\'' + 
+			",speaker_mobile_no = '" + speakerMobileNo + '\'' + 
+			",email = '" + email + '\'' + 
+			"}";
+		}
 }
-
-

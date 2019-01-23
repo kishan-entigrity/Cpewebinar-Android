@@ -41,8 +41,8 @@
                 android:layout_marginLeft="@dimen/_40sdp"
                 android:text="@string/instructor_header"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_14sdp"
-                app:font_text="SFUIDisplay-Regular.ttf" />
+                android:textSize="@dimen/_16sdp"
+                app:font_text="SFUIDisplay-Bold.ttf" />
 
 
         </RelativeLayout>
@@ -75,8 +75,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivCustImage"
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_60sdp"
                     android:layout_centerHorizontal="true"
                     android:src="@mipmap/placeholder" />
 
@@ -107,10 +107,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/ints_name"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/_10sdp"
-                    app:font_text="SFUIDisplay-Regular.ttf" />
+                    android:textSize="@dimen/_12sdp"
+                    app:font_text="SFUIDisplay-Medium.ttf" />
 
             </RelativeLayout>
 
@@ -173,8 +172,9 @@
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/theme_background"
                 app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/selected_tab_text_color_details"
                 app:tabTextAppearance="@style/MineCustomTabText"
-                app:tabTextColor="@color/write_review_text" />
+                app:tabTextColor="@color/Unselected_tab_text_color_details" />
 
 
             <android.support.v4.view.ViewPager
@@ -213,7 +213,7 @@
                 android:textColor="@color/write_review_text"
                 android:textSize="@dimen/_10sdp"
                 app:font_text="SFUIDisplay-Regular.ttf" />
-
+            Q
 
         </RelativeLayout>
 

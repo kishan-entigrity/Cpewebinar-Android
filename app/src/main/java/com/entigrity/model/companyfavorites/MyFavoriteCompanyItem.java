@@ -2,145 +2,157 @@ package com.entigrity.model.companyfavorites;
 
 import com.google.gson.annotations.SerializedName;
 
+public class MyFavoriteCompanyItem {
 
-public class MyFavoriteCompanyItem{
+    @SerializedName("about_company")
+    private String aboutCompany;
 
-	@SerializedName("about_company")
-	private String aboutCompany;
+    @SerializedName("no_of_speaker")
+    private int noOfSpeaker;
 
-	@SerializedName("no_of_speaker")
-	private int noOfSpeaker;
+    @SerializedName("no_of_webinar")
+    private int noOfWebinar;
 
-	@SerializedName("no_of_webinar")
-	private String noOfWebinar;
+    @SerializedName("company_id")
+    private int companyId;
 
-	@SerializedName("company_logo")
-	private String companyLogo;
+    @SerializedName("city")
+    private String city;
 
-	@SerializedName("company_id")
-	private int companyId;
+    @SerializedName("company_name")
+    private String companyName;
 
-	@SerializedName("city")
-	private String city;
+    @SerializedName("company_website")
+    private String companyWebsite;
 
-	@SerializedName("company_name")
-	private String companyName;
+    @SerializedName("logo")
+    private String logo;
 
-	@SerializedName("company_website")
-	private String companyWebsite;
+    @SerializedName("speaker_image")
+    private String speakerImage;
 
-	@SerializedName("state")
-	private String state;
+    @SerializedName("state")
+    private String state;
 
-	@SerializedName("company_mobile")
-	private String companyMobile;
+    @SerializedName("company_mobile")
+    private String companyMobile;
 
-	@SerializedName("favorite_unfavorite_status")
-	private String favoriteUnfavoriteStatus;
+    @SerializedName("favorite_unfavorite_status")
+    private String favoriteUnfavoriteStatus;
 
-	public void setAboutCompany(String aboutCompany){
-		this.aboutCompany = aboutCompany;
-	}
+    public void setAboutCompany(String aboutCompany) {
+        this.aboutCompany = aboutCompany;
+    }
 
-	public String getAboutCompany(){
-		return aboutCompany;
-	}
+    public String getAboutCompany() {
+        return aboutCompany;
+    }
 
-	public void setNoOfSpeaker(int noOfSpeaker){
-		this.noOfSpeaker = noOfSpeaker;
-	}
+    public void setNoOfSpeaker(int noOfSpeaker) {
+        this.noOfSpeaker = noOfSpeaker;
+    }
 
-	public int getNoOfSpeaker(){
-		return noOfSpeaker;
-	}
+    public int getNoOfSpeaker() {
+        return noOfSpeaker;
+    }
 
-	public void setNoOfWebinar(String noOfWebinar){
-		this.noOfWebinar = noOfWebinar;
-	}
+    public void setNoOfWebinar(int noOfWebinar) {
+        this.noOfWebinar = noOfWebinar;
+    }
 
-	public String getNoOfWebinar(){
-		return noOfWebinar;
-	}
+    public int getNoOfWebinar() {
+        return noOfWebinar;
+    }
 
-	public void setCompanyLogo(String companyLogo){
-		this.companyLogo = companyLogo;
-	}
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
 
-	public String getCompanyLogo(){
-		return companyLogo;
-	}
+    public int getCompanyId() {
+        return companyId;
+    }
 
-	public void setCompanyId(int companyId){
-		this.companyId = companyId;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public int getCompanyId(){
-		return companyId;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setCity(String city){
-		this.city = city;
-	}
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
-	public String getCity(){
-		return city;
-	}
+    public String getCompanyName() {
+        return companyName;
+    }
 
-	public void setCompanyName(String companyName){
-		this.companyName = companyName;
-	}
+    public void setCompanyWebsite(String companyWebsite) {
+        this.companyWebsite = companyWebsite;
+    }
 
-	public String getCompanyName(){
-		return companyName;
-	}
+    public String getCompanyWebsite() {
+        return companyWebsite;
+    }
 
-	public void setCompanyWebsite(String companyWebsite){
-		this.companyWebsite = companyWebsite;
-	}
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
-	public String getCompanyWebsite(){
-		return companyWebsite;
-	}
+    public String getLogo() {
+        return logo;
+    }
 
-	public void setState(String state){
-		this.state = state;
-	}
+    public void setSpeakerImage(String speakerImage) {
+        this.speakerImage = speakerImage;
+    }
 
-	public String getState(){
-		return state;
-	}
+    public String getSpeakerImage() {
+        return speakerImage;
+    }
 
-	public void setCompanyMobile(String companyMobile){
-		this.companyMobile = companyMobile;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public String getCompanyMobile(){
-		return companyMobile;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public void setFavoriteUnfavoriteStatus(String favoriteUnfavoriteStatus){
-		this.favoriteUnfavoriteStatus = favoriteUnfavoriteStatus;
-	}
+    public void setCompanyMobile(String companyMobile) {
+        this.companyMobile = companyMobile;
+    }
 
-	public String getFavoriteUnfavoriteStatus(){
-		return favoriteUnfavoriteStatus;
-	}
+    public String getCompanyMobile() {
+        return companyMobile;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"MyFavoriteCompanyItem{" + 
-			"about_company = '" + aboutCompany + '\'' + 
-			",no_of_speaker = '" + noOfSpeaker + '\'' + 
-			",no_of_webinar = '" + noOfWebinar + '\'' + 
-			",company_logo = '" + companyLogo + '\'' + 
-			",company_id = '" + companyId + '\'' + 
-			",city = '" + city + '\'' + 
-			",company_name = '" + companyName + '\'' + 
-			",company_website = '" + companyWebsite + '\'' + 
-			",state = '" + state + '\'' + 
-			",company_mobile = '" + companyMobile + '\'' + 
-			",favorite_unfavorite_status = '" + favoriteUnfavoriteStatus + '\'' + 
-			"}";
-		}
+    public void setFavoriteUnfavoriteStatus(String favoriteUnfavoriteStatus) {
+        this.favoriteUnfavoriteStatus = favoriteUnfavoriteStatus;
+    }
+
+    public String getFavoriteUnfavoriteStatus() {
+        return favoriteUnfavoriteStatus;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "MyFavoriteCompanyItem{" +
+                        "about_company = '" + aboutCompany + '\'' +
+                        ",no_of_speaker = '" + noOfSpeaker + '\'' +
+                        ",no_of_webinar = '" + noOfWebinar + '\'' +
+                        ",company_id = '" + companyId + '\'' +
+                        ",city = '" + city + '\'' +
+                        ",company_name = '" + companyName + '\'' +
+                        ",company_website = '" + companyWebsite + '\'' +
+                        ",logo = '" + logo + '\'' +
+                        ",speaker_image = '" + speakerImage + '\'' +
+                        ",state = '" + state + '\'' +
+                        ",company_mobile = '" + companyMobile + '\'' +
+                        ",favorite_unfavorite_status = '" + favoriteUnfavoriteStatus + '\'' +
+                        "}";
+    }
 }
+

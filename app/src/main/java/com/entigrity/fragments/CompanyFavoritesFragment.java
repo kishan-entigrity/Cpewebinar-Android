@@ -35,7 +35,6 @@ public class CompanyFavoritesFragment extends Fragment {
         context = getActivity();
 
 
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         binding.recyclerviewFavoriteCompany.setLayoutManager(layoutManager);
 

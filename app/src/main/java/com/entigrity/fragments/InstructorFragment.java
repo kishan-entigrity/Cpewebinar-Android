@@ -63,8 +63,8 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
 
 
         binding.recyclerviewInstructor.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        int spacing = (int) getResources().getDimension(R.dimen._2sdp); // 50px
-        boolean includeEdge = false;
+        int spacing = (int) getResources().getDimension(R.dimen._5sdp); // 50px
+        boolean includeEdge = true;
         binding.recyclerviewInstructor.addItemDecoration(new GridSpacingItemDecoration(2, spacing, includeEdge));
 
         binding.getRoot().setFocusableInTouchMode(true);
@@ -111,6 +111,7 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
         final MenuItem item = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
+
 
         item.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 

@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.entigrity.R;
 import com.entigrity.activity.CompanyDetailsActivity;
 import com.entigrity.model.company.CompanyItem;
-import com.entigrity.model.instructor.SpeakersItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

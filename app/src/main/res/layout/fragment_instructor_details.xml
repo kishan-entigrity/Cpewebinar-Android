@@ -13,7 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F5F7"
+        android:background="@color/White"
         android:scrollIndicators="none"
         android:scrollbars="none">
 
@@ -41,7 +41,7 @@
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
                     android:text="@string/str_company_name"
-                    android:textColor="@color/edit_profile_lable_colcr"
+                    android:textColor="@color/instructor_left_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -59,7 +59,7 @@
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
                     android:text="@string/str_area_expertise"
-                    android:textColor="@color/edit_profile_lable_colcr"
+                    android:textColor="@color/instructor_left_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -76,7 +76,7 @@
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
                     android:text="@string/str_email_id_inst_details"
-                    android:textColor="@color/edit_profile_lable_colcr"
+                    android:textColor="@color/instructor_left_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -93,7 +93,7 @@
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
                     android:text="@string/str_mobile_number_inst_details"
-                    android:textColor="@color/edit_profile_lable_colcr"
+                    android:textColor="@color/instructor_left_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -110,7 +110,7 @@
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
                     android:text="@string/str_state_inst_details"
-                    android:textColor="@color/edit_profile_lable_colcr"
+                    android:textColor="@color/instructor_left_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -127,7 +127,7 @@
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
                     android:text="@string/str_city_inst_details"
-                    android:textColor="@color/edit_profile_lable_colcr"
+                    android:textColor="@color/instructor_left_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -144,7 +144,7 @@
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
                     android:text="@string/str_rating"
-                    android:textColor="@color/edit_profile_lable_colcr"
+                    android:textColor="@color/instructor_left_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -165,7 +165,7 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
-                    android:textColor="@color/inst_company_details"
+                    android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -182,7 +182,7 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
-                    android:textColor="@color/inst_company_details"
+                    android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -199,7 +199,7 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
-                    android:textColor="@color/inst_company_details"
+                    android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -216,7 +216,7 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
-                    android:textColor="@color/inst_company_details"
+                    android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -232,7 +232,7 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
-                    android:textColor="@color/inst_company_details"
+                    android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -249,7 +249,7 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
-                    android:textColor="@color/inst_company_details"
+                    android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
@@ -260,14 +260,14 @@
 
                 <ImageView
                     android:id="@+id/tv_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_40sdp"
                     android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
                     android:paddingLeft="@dimen/_5sdp"
-                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_5sdp"
                     android:paddingBottom="@dimen/_12sdp"
-                    android:src="@mipmap/star_blank_hover_five" />
+                    android:src="@mipmap/review_popup_star_five" />
 
 
             </LinearLayout>

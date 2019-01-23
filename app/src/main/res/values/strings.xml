@@ -204,8 +204,8 @@
 
     //instructor list
 
-    <string name="ints_name">Instructor Name</string>
-    <string name="company_name">Company Name</string>
+    <string name="ints_name">Instructor Name :</string>
+    <string name="company_name">Company Name :</string>
 
     //instructor details
 
