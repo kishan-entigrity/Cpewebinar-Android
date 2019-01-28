@@ -1,9 +1,8 @@
-package com.entigrity.model.instructor;
+package com.entigrity.model.Instructorlist_details;
 
 import com.google.gson.annotations.SerializedName;
 
-
-public class InstructorModel {
+public class Instructor_Details_Model {
 
 	@SerializedName("payload")
 	private Payload payload;
@@ -41,7 +40,7 @@ public class InstructorModel {
 	@Override
  	public String toString(){
 		return 
-			"InstructorModel{" +
+			"Instructor_Details_Model{" +
 			"payload = '" + payload + '\'' + 
 			",success = '" + success + '\'' + 
 			",message = '" + message + '\'' + 

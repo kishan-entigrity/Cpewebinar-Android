@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.model.topicsofinterest.TagsItem;
-import com.entigrity.utility.Constant;
 
 import java.util.ArrayList;
 

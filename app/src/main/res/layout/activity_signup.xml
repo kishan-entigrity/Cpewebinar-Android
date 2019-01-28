@@ -211,7 +211,8 @@
                                 android:layout_height="wrap_content"
                                 android:hint="@string/str_mobile_number"
                                 android:imeOptions="actionDone"
-                                android:inputType="number"
+                                android:inputType="phone"
+                                android:maxLength="14"
                                 android:singleLine="true"
                                 android:textSize="@dimen/_13sdp"
                                 app:font_edit="SFUIDisplay-Medium.ttf" />
@@ -223,7 +224,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10sdp">
+                            android:layout_marginTop="@dimen/_20sdp">
 
                             <Spinner
                                 android:id="@+id/spinner"
@@ -261,7 +262,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_2sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:hint="@string/str_topics_interset"
                             android:textSize="@dimen/_13sdp"
                             app:font_edit="SFUIDisplay-Medium.ttf" />

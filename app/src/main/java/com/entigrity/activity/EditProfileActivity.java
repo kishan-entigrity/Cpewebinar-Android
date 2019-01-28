@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -39,9 +40,11 @@ import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
+import com.entigrity.view.UsPhoneNumberFormatter;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import rx.Subscriber;
@@ -136,6 +139,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
             SetData();
         }
+
+        binding.edtMobileNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
+                new WeakReference<EditText>(binding.edtMobileNumber));
+        binding.edtMobileNumber.addTextChangedListener(addLineNumberFormatter);
 
 
         binding.spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

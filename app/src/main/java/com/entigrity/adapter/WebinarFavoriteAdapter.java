@@ -52,10 +52,10 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
 
         if (!mList.get(position).getFee().equalsIgnoreCase("")) {
 
-            if (mList.get(position).getFee().equalsIgnoreCase("Free")) {
-                viewHolder.btnPrice.setText(mList.get(position).getFee());
-            } else {
+            if (!mList.get(position).getFee().equalsIgnoreCase("Free")) {
                 viewHolder.btnPrice.setText(" $ " + mList.get(position).getFee());
+            } else {
+                viewHolder.btnPrice.setText(mList.get(position).getFee());
 
             }
         }

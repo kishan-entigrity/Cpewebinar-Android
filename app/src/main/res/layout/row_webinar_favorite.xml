@@ -15,7 +15,7 @@
         android:text="@string/str_basic_management"
         android:textColor="@color/fav_webinar_title"
         android:textSize="@dimen/_12sdp"
-        app:font_text="SFUIDisplay-Regular.ttf" />
+        app:font_text="SFUIDisplay-BOld.ttf" />
 
 
     <com.entigrity.view.CustomTextView
@@ -27,7 +27,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:text="@string/str_date_fav"
         android:textColor="@color/fav_date_time"
-        android:textSize="@dimen/_9sdp"
+        android:textSize="@dimen/_10sdp"
         app:font_text="SFUIDisplay-Regular.ttf" />
 
 
@@ -41,7 +41,7 @@
         android:layout_toRightOf="@+id/tv_webinar_date"
         android:text="@string/str_time_fav"
         android:textColor="@color/fav_date_time"
-        android:textSize="@dimen/_9sdp"
+        android:textSize="@dimen/_10sdp"
         app:font_text="SFUIDisplay-Regular.ttf" />
 
 
@@ -83,7 +83,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:text="@string/str_credit_value"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_8sdp"
+                android:textSize="@dimen/_9sdp"
                 app:font_text="SFUIDisplay-Regular.ttf" />
 
 
@@ -93,28 +93,30 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/_5sdp"
-                android:gravity="center_vertical|center_horizontal"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:src="@mipmap/webinars_favorite" />
 
                 <com.entigrity.view.CustomTextView
                     android:id="@+id/tv_favorite_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:text="@string/str_fav_count"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_9sdp"
                     app:font_text="SFUIDisplay-Regular.ttf" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/_15sdp"
                     android:src="@mipmap/webinars_view" />
 
 
@@ -122,10 +124,11 @@
                     android:id="@+id/tv_favorite_views"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:text="@string/str_fav_views"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_9sdp"
                     app:font_text="SFUIDisplay-Regular.ttf" />
 
 
@@ -136,6 +139,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/relbottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rel_bg_score"
@@ -143,9 +147,11 @@
 
 
             <LinearLayout
+                android:id="@+id/lv_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -153,7 +159,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:src="@mipmap/webinars_user" />
 
 
@@ -161,26 +166,36 @@
                     android:id="@+id/tv_favorite_speaker_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     android:text="@string/str_fav_instructor_name"
                     android:textColor="@color/fav_bottom_text_color"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_9sdp"
                     app:font_text="SFUIDisplay-Regular.ttf" />
 
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lv_middle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:background="@mipmap/webinar_vertical_divider"
+
+                    />
+
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_25sdp"
                     android:src="@mipmap/webinars_company" />
 
 
@@ -188,20 +203,30 @@
                     android:id="@+id/tv_company_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     android:text="@string/str_fav_company_name"
                     android:textColor="@color/fav_bottom_text_color"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_9sdp"
                     app:font_text="SFUIDisplay-Regular.ttf" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:background="@mipmap/webinar_vertical_divider"
+
+                    />
 
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -215,15 +240,24 @@
                     android:id="@+id/tv_duration_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_minus1sdp"
                     android:text="@string/str_fav_duration"
                     android:textColor="@color/fav_bottom_text_color"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_9sdp"
                     app:font_text="SFUIDisplay-Regular.ttf" />
 
 
             </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@+id/relbottom"
+            android:visibility="invisible">
 
 
         </RelativeLayout>
@@ -233,24 +267,33 @@
 
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_webinar_date"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_10sdp">
 
         <com.entigrity.view.CustomButtonView
             android:id="@+id/btnPrice"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_gravity="left|center_vertical"
             android:background="@drawable/rectangle"
             android:text="@string/str_price_value"
             android:textColor="@color/White"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_8sdp"
             app:font_button="SFUIDisplay-Regular.ttf"
 
             />
+
+        <ImageView
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:src="@mipmap/register_button" />
 
     </FrameLayout>
 

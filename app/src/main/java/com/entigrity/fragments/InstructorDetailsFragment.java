@@ -40,7 +40,8 @@ public class InstructorDetailsFragment extends Fragment {
         }
 
         if (InstructorDetailsActivity.getInstance().expertise != null && !InstructorDetailsActivity.getInstance().expertise.equalsIgnoreCase("")) {
-            binding.tvExpiritise.setText(InstructorDetailsActivity.getInstance().expertise);
+            String expertise = InstructorDetailsActivity.getInstance().expertise.replaceAll("\\<[^>]*>", "").replace("&nbsp;", " ");
+            binding.tvExpiritise.setText(expertise);
         }
         if (InstructorDetailsActivity.getInstance().company != null && !InstructorDetailsActivity.getInstance().company.equalsIgnoreCase("")) {
             binding.tvCompanyname.setText(InstructorDetailsActivity.getInstance().company);

@@ -64,6 +64,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_contact_number), mList.get(position).getContactNumber());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_logo), mList.get(position).getLogo());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_description), mList.get(position).getDescription());
+                i.putExtra(mContext.getResources().getString(R.string.pass_company_favorite_status), mList.get(position).getFavouriteunfavoritestatus());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_number_of_speaker), mList.get(position).getNumberOfSpeaker());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_number_of_webinar), mList.get(position).getNumberOfWebinar());
 

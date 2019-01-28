@@ -41,8 +41,8 @@
                 android:layout_marginLeft="@dimen/_40sdp"
                 android:text="@string/company_details"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_14sdp"
-                app:font_text="SFUIDisplay-Regular.ttf" />
+                android:textSize="@dimen/_16sdp"
+                app:font_text="SFUIDisplay-Bold.ttf" />
 
 
         </RelativeLayout>
@@ -95,10 +95,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/company_name"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/_10sdp"
-                    app:font_text="SFUIDisplay-Regular.ttf" />
+                    android:textSize="@dimen/_14sdp"
+                    app:font_text="SFUIDisplay-Bold.ttf" />
 
             </RelativeLayout>
 
@@ -144,8 +143,9 @@
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/theme_background"
                 app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/selected_tab_text_color_details"
                 app:tabTextAppearance="@style/MineCustomTabText"
-                app:tabTextColor="@color/write_review_text" />
+                app:tabTextColor="@color/Unselected_tab_text_color_details" />
 
 
             <android.support.v4.view.ViewPager
@@ -182,7 +182,7 @@
                 app:font_text="SFUIDisplay-Bold.ttf" />
 
             <View
-                android:layout_width="0.5dp"
+                android:layout_width="0.1dp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"

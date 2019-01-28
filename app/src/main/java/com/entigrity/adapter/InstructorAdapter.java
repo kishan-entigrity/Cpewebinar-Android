@@ -45,10 +45,14 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
 
         if (!mList.get(position).getName().equalsIgnoreCase("")) {
             viewHolder.tv_instructorname.setText(mList.get(position).getName());
+        } else {
+            viewHolder.tv_instructorname.setVisibility(View.GONE);
         }
 
         if (!mList.get(position).getCompany().equalsIgnoreCase("")) {
             viewHolder.tv_companyname.setText(mList.get(position).getCompany());
+        } else {
+            viewHolder.tv_companyname.setVisibility(View.GONE);
         }
 
 
@@ -63,15 +67,6 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
             public void onClick(View v) {
                 Intent i = new Intent(mContext, InstructorDetailsActivity.class);
                 i.putExtra(mContext.getResources().getString(R.string.pass_inst_id), mList.get(position).getId());
-                i.putExtra(mContext.getResources().getString(R.string.pass_inst_name), mList.get(position).getName());
-                i.putExtra(mContext.getResources().getString(R.string.pass_inst_email), mList.get(position).getEmail());
-                i.putExtra(mContext.getResources().getString(R.string.pass_inst_contact_number), mList.get(position).getContactNo());
-                i.putExtra(mContext.getResources().getString(R.string.pass_inst_logo), mList.get(position).getLogo());
-                i.putExtra(mContext.getResources().getString(R.string.pass_inst_expiritise), mList.get(position).getExpertise());
-                i.putExtra(mContext.getResources().getString(R.string.pass_inst_about_speaker), mList.get(position).getAboutSpeaker());
-                i.putExtra(mContext.getResources().getString(R.string.pass_inst_company), mList.get(position).getCompany());
-                i.putExtra(mContext.getResources().getString(R.string.pass_inst_state), mList.get(position).getState());
-                i.putExtra(mContext.getResources().getString(R.string.pass_inst_city), mList.get(position).getCity());
                 mContext.startActivity(i);
 
             }

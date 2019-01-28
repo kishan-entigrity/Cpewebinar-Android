@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
@@ -55,7 +56,7 @@ public class CompanyFavoriteAdapter extends RecyclerView.Adapter<CompanyFavorite
         }
 
 
-        viewHolder.ivcompanylogo.setOnClickListener(new View.OnClickListener() {
+        viewHolder.relviewnavigate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, CompanyDetailsActivity.class);
@@ -65,6 +66,7 @@ public class CompanyFavoriteAdapter extends RecyclerView.Adapter<CompanyFavorite
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_contact_number), mList.get(position).getCompanyMobile());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_logo), mList.get(position).getLogo());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_description), mList.get(position).getAboutCompany());
+                i.putExtra(mContext.getResources().getString(R.string.pass_company_favorite_status), mList.get(position).getFavoriteUnfavoriteStatus());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_number_of_speaker), mList.get(position).getNoOfSpeaker());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_number_of_webinar), mList.get(position).getNoOfWebinar());
                 mContext.startActivity(i);
@@ -86,6 +88,7 @@ public class CompanyFavoriteAdapter extends RecyclerView.Adapter<CompanyFavorite
 
         CircleImageView ivcompanylogo;
         TextView companyname;
+        RelativeLayout relviewnavigate;
 
 
         private ViewHolder(View itemView) {
@@ -93,6 +96,7 @@ public class CompanyFavoriteAdapter extends RecyclerView.Adapter<CompanyFavorite
 
             ivcompanylogo = (CircleImageView) itemView.findViewById(R.id.ivcompanylogo);
             companyname = (TextView) itemView.findViewById(R.id.companyname);
+            relviewnavigate = (RelativeLayout) itemView.findViewById(R.id.relviewnavigate);
 
 
         }

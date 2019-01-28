@@ -13,7 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/White"
+        android:background="@color/color_background_list"
         android:scrollIndicators="none"
         android:scrollbars="none">
 
@@ -163,7 +163,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
                     android:gravity="center_horizontal"
+                    android:maxLines="1"
                     android:padding="@dimen/_8sdp"
                     android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
@@ -180,7 +182,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
                     android:gravity="center_horizontal"
+                    android:maxLines="1"
                     android:padding="@dimen/_8sdp"
                     android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
@@ -197,7 +201,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
                     android:gravity="center_horizontal"
+                    android:maxLines="1"
                     android:padding="@dimen/_8sdp"
                     android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
@@ -214,7 +220,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
                     android:gravity="center_horizontal"
+                    android:maxLines="1"
                     android:padding="@dimen/_8sdp"
                     android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
@@ -230,7 +238,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
                     android:gravity="center_horizontal"
+                    android:maxLines="1"
                     android:padding="@dimen/_8sdp"
                     android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
@@ -247,7 +257,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
                     android:gravity="center_horizontal"
+                    android:maxLines="1"
                     android:padding="@dimen/_8sdp"
                     android:textColor="@color/instructor_right_panel_color"
                     android:textSize="@dimen/_12sdp"
@@ -259,15 +271,16 @@
                     android:background="#FAFAFB" />
 
                 <ImageView
-                    android:id="@+id/tv_state"
+                    android:id="@+id/tv_rating"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
                     android:gravity="center_horizontal"
+                    android:maxLines="1"
                     android:paddingLeft="@dimen/_5sdp"
                     android:paddingTop="@dimen/_5sdp"
-                    android:paddingBottom="@dimen/_12sdp"
-                    android:src="@mipmap/review_popup_star_five" />
+                    android:paddingBottom="@dimen/_12sdp" />
 
 
             </LinearLayout>

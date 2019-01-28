@@ -3,108 +3,121 @@ package com.entigrity.model.company;
 import com.google.gson.annotations.SerializedName;
 
 
-public class CompanyItem{
+public class CompanyItem {
 
-	@SerializedName("number_of_webinar")
-	private int numberOfWebinar;
+    @SerializedName("number_of_webinar")
+    private int numberOfWebinar;
 
-	@SerializedName("website")
-	private String website;
+    public int getFavouriteunfavoritestatus() {
+        return favouriteunfavoritestatus;
+    }
 
-	@SerializedName("number_of_speaker")
-	private int numberOfSpeaker;
+    public void setFavouriteunfavoritestatus(int favouriteunfavoritestatus) {
+        this.favouriteunfavoritestatus = favouriteunfavoritestatus;
+    }
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("favourite_unfavorite_status")
+    private int favouriteunfavoritestatus;
 
-	@SerializedName("logo")
-	private String logo;
 
-	@SerializedName("description")
-	private String description;
+    @SerializedName("website")
+    private String website;
 
-	@SerializedName("id")
-	private int id;
+    @SerializedName("number_of_speaker")
+    private int numberOfSpeaker;
 
-	@SerializedName("contact_number")
-	private String contactNumber;
+    @SerializedName("name")
+    private String name;
 
-	public void setNumberOfWebinar(int numberOfWebinar){
-		this.numberOfWebinar = numberOfWebinar;
-	}
+    @SerializedName("logo")
+    private String logo;
 
-	public int getNumberOfWebinar(){
-		return numberOfWebinar;
-	}
+    @SerializedName("description")
+    private String description;
 
-	public void setWebsite(String website){
-		this.website = website;
-	}
+    @SerializedName("id")
+    private int id;
 
-	public String getWebsite(){
-		return website;
-	}
+    @SerializedName("contact_number")
+    private String contactNumber;
 
-	public void setNumberOfSpeaker(int numberOfSpeaker){
-		this.numberOfSpeaker = numberOfSpeaker;
-	}
+    public void setNumberOfWebinar(int numberOfWebinar) {
+        this.numberOfWebinar = numberOfWebinar;
+    }
 
-	public int getNumberOfSpeaker(){
-		return numberOfSpeaker;
-	}
+    public int getNumberOfWebinar() {
+        return numberOfWebinar;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public String getWebsite() {
+        return website;
+    }
 
-	public void setLogo(String logo){
-		this.logo = logo;
-	}
+    public void setNumberOfSpeaker(int numberOfSpeaker) {
+        this.numberOfSpeaker = numberOfSpeaker;
+    }
 
-	public String getLogo(){
-		return logo;
-	}
+    public int getNumberOfSpeaker() {
+        return numberOfSpeaker;
+    }
 
-	public void setDescription(String description){
-		this.description = description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getDescription(){
-		return description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setId(int id){
-		this.id = id;
-	}
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
-	public int getId(){
-		return id;
-	}
+    public String getLogo() {
+        return logo;
+    }
 
-	public void setContactNumber(String contactNumber){
-		this.contactNumber = contactNumber;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getContactNumber(){
-		return contactNumber;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"CompanyItem{" + 
-			"number_of_webinar = '" + numberOfWebinar + '\'' + 
-			",website = '" + website + '\'' + 
-			",number_of_speaker = '" + numberOfSpeaker + '\'' + 
-			",name = '" + name + '\'' + 
-			",logo = '" + logo + '\'' + 
-			",description = '" + description + '\'' + 
-			",id = '" + id + '\'' + 
-			",contact_number = '" + contactNumber + '\'' + 
-			"}";
-		}
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "CompanyItem{" +
+                        "number_of_webinar = '" + numberOfWebinar + '\'' +
+                        "favourite_unfavorite_status = '" + favouriteunfavoritestatus + '\'' +
+                        ",website = '" + website + '\'' +
+                        ",number_of_speaker = '" + numberOfSpeaker + '\'' +
+                        ",name = '" + name + '\'' +
+                        ",logo = '" + logo + '\'' +
+                        ",description = '" + description + '\'' +
+                        ",id = '" + id + '\'' +
+                        ",contact_number = '" + contactNumber + '\'' +
+                        "}";
+    }
 }

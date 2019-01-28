@@ -24,7 +24,9 @@ public class AboutInstructorFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, null, false);
 
         if (InstructorDetailsActivity.getInstance().about_speaker != null && !InstructorDetailsActivity.getInstance().about_speaker.equalsIgnoreCase("")) {
-            binding.tvAboutus.setText(InstructorDetailsActivity.getInstance().about_speaker);
+
+            String aboutus = InstructorDetailsActivity.getInstance().about_speaker.replaceAll("\\<[^>]*>", "").replace("&nbsp;", " ");
+            binding.tvAboutus.setText(aboutus);
         }
 
 

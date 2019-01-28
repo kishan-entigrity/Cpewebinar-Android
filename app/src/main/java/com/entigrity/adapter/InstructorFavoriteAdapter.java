@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
@@ -55,7 +56,7 @@ public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFa
         }
 
 
-        viewHolder.ivinstructorprofile.setOnClickListener(new View.OnClickListener() {
+        viewHolder.relviewnavigate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -70,6 +71,9 @@ public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFa
                 i.putExtra(mContext.getResources().getString(R.string.pass_inst_company), mList.get(position).getCompanyName());
                 i.putExtra(mContext.getResources().getString(R.string.pass_inst_state), mList.get(position).getState());
                 i.putExtra(mContext.getResources().getString(R.string.pass_inst_city), mList.get(position).getCity());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_followers), mList.get(position).getNoOfFollowersCount());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_favorite_unfavorite_status), mList.get(position).getFavoriteUnfavoriteStatus());
+                i.putExtra(mContext.getResources().getString(R.string.pass_inst_follow_unfollow_status), mList.get(position).getFollowUnfollowStatus());
                 mContext.startActivity(i);
 
 
@@ -89,12 +93,14 @@ public class InstructorFavoriteAdapter extends RecyclerView.Adapter<InstructorFa
 
         CircleImageView ivinstructorprofile;
         TextView speakername;
+        RelativeLayout relviewnavigate;
 
 
         private ViewHolder(View itemView) {
             super(itemView);
             ivinstructorprofile = (CircleImageView) itemView.findViewById(R.id.ivinstructorprofile);
             speakername = (TextView) itemView.findViewById(R.id.speakername);
+            relviewnavigate = (RelativeLayout) itemView.findViewById(R.id.relviewnavigate);
 
 
         }

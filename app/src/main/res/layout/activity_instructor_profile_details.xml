@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_14sdp"
                     app:font_text="SFUIDisplay-Medium.ttf" />
 
             </RelativeLayout>

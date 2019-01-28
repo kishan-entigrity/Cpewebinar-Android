@@ -36,10 +36,10 @@
             android:layout_below="@+id/rel_login_top"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_minus30sdp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_marginRight="@dimen/_10sdp"
             android:background="@drawable/rounded_background_white"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:padding="@dimen/_20sdp">
 
             <com.entigrity.view.CustomTextView
@@ -56,7 +56,7 @@
                 android:id="@+id/input_email_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_marginTop="@dimen/_20sdp">
 
 
                 <com.entigrity.view.CustomEditTextView
@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_email_username"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_marginTop="@dimen/_5sdp">
 
 
                 <com.entigrity.view.CustomEditTextView

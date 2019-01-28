@@ -10,22 +10,30 @@
             type="com.entigrity.fragments.AboutInstructorFragment" />
     </data>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:scrollIndicators="none"
+        android:scrollbars="none">
 
-        <com.entigrity.view.CustomTextView
-            android:id="@+id/tv_aboutus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/instructor_details_about_color"
-            android:textSize="@dimen/_12sdp"
-            app:font_text="SFUIDisplay-Regular.ttf" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/tv_aboutus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/instructor_details_about_color"
+                android:textSize="@dimen/_12sdp"
+                app:font_text="SFUIDisplay-Regular.ttf" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
 
 
 </layout>

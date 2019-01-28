@@ -35,6 +35,8 @@
     <string name="exit_validation">Are you sure you want to Exit?</string>
     <string name="valid_email">Please Enter Valid Email Address</string>
     <string name="logout_text">Are you sure you want to Logout?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
 
 
     //pre login
@@ -222,6 +224,7 @@
     <string name="str_city_inst_details">City</string>
     <string name="str_rating">Rating</string>
 
+
     //pass data from instructor list to details
 
     <string name="pass_inst_id">id</string>
@@ -234,6 +237,11 @@
     <string name="pass_inst_company">company name</string>
     <string name="pass_inst_state">state name</string>
     <string name="pass_inst_city">city name</string>
+
+    <string name="pass_inst_followers">followers</string>
+    <string name="pass_inst_favorite_unfavorite_status">favorite unfavorite status</string>
+    <string name="pass_inst_follow_unfollow_status">follow unfollow status</string>
+
 
     //company details
     <string name="company_detail">Company Details</string>
@@ -257,6 +265,7 @@
     <string name="pass_company_description">description</string>
     <string name="pass_company_number_of_speaker">number_of_speaker</string>
     <string name="pass_company_number_of_webinar">number_of_webinar</string>
+    <string name="pass_company_favorite_status">company favorite status</string>
 
 
     //rating popup
@@ -284,6 +293,16 @@
     <string name="str_fav_company_name">XERO</string>
     <string name="str_fav_duration">20 MIN</string>
     <string name="str_price_value">$99.00</string>
+
+
+    //check business logic
+
+    <string name="str_company_like">Company like successfully.</string>
+    <string name="str_company_dislike">Company dislike successfully.</string>
+    <string name="str_speaker_like">Speaker like successfully.</string>
+    <string name="str_speaker_dislike">Speaker dislike successfully.</string>
+    <string name="str_speaker_follow">Speaker follow successfully.</string>
+    <string name="str_speaker_unfollow">Speaker unfollow successfully.</string>
 
 
     //month logic from API

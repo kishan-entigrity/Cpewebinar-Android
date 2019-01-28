@@ -25,6 +25,9 @@ import com.entigrity.R;
 import com.entigrity.databinding.ActivityInstructorProfileDetailsBinding;
 import com.entigrity.fragments.AboutInstructorFragment;
 import com.entigrity.fragments.InstructorDetailsFragment;
+import com.entigrity.model.Instructorlist_details.Instructor_Details_Model;
+import com.entigrity.model.Instructorlist_details.Speaker;
+import com.entigrity.model.instructor.SpeakersItem;
 import com.entigrity.model.instructor_follow.Instructor_Follow_Model;
 import com.entigrity.model.instructor_like.Instructor_Like_Model;
 import com.entigrity.utility.AppSettings;
@@ -47,11 +50,13 @@ public class InstructorDetailsActivity extends AppCompatActivity {
     public Context context;
     private static final String TAG = InstructorDetailsActivity.class.getName();
     private static InstructorDetailsActivity instance;
-    public int id = 0;
+    public int instructorid = 0;
     public Dialog myDialog_popup;
     ImageView ivclose;
     EditText edt_your_review;
-    public String name, email, contact_no, logo, expertise, about_speaker, company, state, city;
+
+
+    public String name, email, contact_no, logo, expertise, about_speaker, company, state, city, favorite_unfavorite_status, follow_unfollow_status;
     Button btn_submit;
     private APIService mAPIService;
     ProgressDialog progressDialog;
@@ -65,43 +70,27 @@ public class InstructorDetailsActivity extends AppCompatActivity {
         instance = InstructorDetailsActivity.this;
         mAPIService = ApiUtils.getAPIService();
 
+
         Intent intent = getIntent();
         if (intent != null) {
 
-            id = intent.getIntExtra(getResources().getString(R.string.pass_inst_id), 0);
-            name = intent.getStringExtra(getResources().getString(R.string.pass_inst_name));
-            email = intent.getStringExtra(getResources().getString(R.string.pass_inst_email));
-            contact_no = intent.getStringExtra(getResources().getString(R.string.pass_inst_contact_number));
-            logo = intent.getStringExtra(getResources().getString(R.string.pass_inst_logo));
-            expertise = intent.getStringExtra(getResources().getString(R.string.pass_inst_expiritise));
-            about_speaker = intent.getStringExtra(getResources().getString(R.string.pass_inst_about_speaker));
-            company = intent.getStringExtra(getResources().getString(R.string.pass_inst_company));
-            state = intent.getStringExtra(getResources().getString(R.string.pass_inst_state));
-            city = intent.getStringExtra(getResources().getString(R.string.pass_inst_city));
+            instructorid = intent.getIntExtra(getResources().getString(R.string.pass_inst_id), 0);
+
+
+            if (Constant.isNetworkAvailable(context)) {
+                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                GetInstructor_Details();
+            } else {
+                Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+            }
 
         }
-
-
-        if (!logo.equalsIgnoreCase("")) {
-            Picasso.with(context).load(logo)
-                    .placeholder(R.mipmap.placeholder)
-                    .into(binding.ivCustImage);
-        }
-
-        if (!name.equalsIgnoreCase("")) {
-            binding.tvInstname.setText(name);
-        }
-
-
-        setupViewPager(binding.viewpager);
-        binding.tabs.setupWithViewPager(binding.viewpager);
-
-        //  MainActivity.getInstance().rel_top_bottom.setVisibility(View.GONE);
 
 
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //checkbackpressed = true;
                 finish();
             }
         });
@@ -149,11 +138,111 @@ public class InstructorDetailsActivity extends AppCompatActivity {
 
     }
 
+    private void GetInstructor_Details() {
+
+
+        mAPIService.GetInstructorDetails(String.valueOf(instructorid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Instructor_Details_Model>() {
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Constant.ShowPopUp(message, context);
+
+
+                    }
+
+                    @Override
+                    public void onNext(Instructor_Details_Model instructor_details_model) {
+
+                        if (instructor_details_model.isSuccess() == true) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+
+                            about_speaker = instructor_details_model.getPayload().getSpeaker().getAboutSpeaker();
+
+                            email = instructor_details_model.getPayload().getSpeaker().getEmail();
+                            contact_no = instructor_details_model.getPayload().getSpeaker().getContactNo();
+                            expertise = instructor_details_model.getPayload().getSpeaker().getExpertise();
+                            company = instructor_details_model.getPayload().getSpeaker().getCompany();
+                            state = instructor_details_model.getPayload().getSpeaker().getState();
+                            city = instructor_details_model.getPayload().getSpeaker().getCity();
+
+                            favorite_unfavorite_status = instructor_details_model.getPayload().getSpeaker().getFavoriteUnfavoriteStatus();
+                            follow_unfollow_status = instructor_details_model.getPayload().getSpeaker().getFollowUnfollowStatus();
+
+
+                            if (instructor_details_model.getPayload().getSpeaker().getFavoriteUnfavoriteStatus().equalsIgnoreCase(getResources().getString(R.string.Yes))) {
+                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite_hover);
+                            } else {
+                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite);
+                            }
+
+                            if (instructor_details_model.getPayload().getSpeaker().getFollowUnfollowStatus().equalsIgnoreCase(getResources().getString(R.string.Yes))) {
+                                binding.ivfollowstatus.setImageResource(R.mipmap.following);
+                            } else {
+                                binding.ivfollowstatus.setImageResource(R.mipmap.follow);
+                            }
+
+                            binding.tvInstructorfollowers.setText("" + instructor_details_model.getPayload().getSpeaker().getFollowerCount() + " " + "Followers");
+
+
+                            if (!instructor_details_model.getPayload().getSpeaker().getLogo().equalsIgnoreCase("")) {
+                                Picasso.with(context).load(instructor_details_model.getPayload().getSpeaker().getLogo())
+                                        .placeholder(R.mipmap.placeholder)
+                                        .into(binding.ivCustImage);
+                            }
+
+                            if (!instructor_details_model.getPayload().getSpeaker().getName().equalsIgnoreCase("")) {
+                                binding.tvInstname.setText(instructor_details_model.getPayload().getSpeaker().getName());
+                            }
+
+
+                            setupViewPager(binding.viewpager);
+                            binding.tabs.setupWithViewPager(binding.viewpager);
+
+
+                        } else {
+                            if (instructor_details_model.getPayload().getAccessToken() != null && !instructor_details_model.getPayload().getAccessToken()
+                                    .equalsIgnoreCase("")) {
+
+                                if (Constant.isNetworkAvailable(context)) {
+                                    AppSettings.set_login_token(context, instructor_details_model.getPayload().getAccessToken());
+                                    GetInstructor_Details();
+                                } else {
+                                    Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                                }
+
+                            } else {
+                                Constant.ShowPopUp(instructor_details_model.getMessage(), context);
+                            }
+
+
+                        }
+
+
+                    }
+
+                });
+
+
+    }
+
 
     public void InstructorFavoriteStatus() {
 
 
-        mAPIService.InstructorFavoriteStatus("1", getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), 1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.InstructorFavoriteStatus(String.valueOf(instructorid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), 1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Instructor_Like_Model>() {
                     @Override
                     public void onCompleted() {
@@ -182,8 +271,21 @@ public class InstructorDetailsActivity extends AppCompatActivity {
 
 
                         if (instructor_like_model.isSuccess()) {
+                            if (favorite_unfavorite_status.equalsIgnoreCase(getResources().getString(R.string.Yes))) {
+                                favorite_unfavorite_status = getResources().getString(R.string.No);
+                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite);
+                            } else if (favorite_unfavorite_status.equalsIgnoreCase(getResources().getString(R.string.No))) {
+                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite_hover);
+                                favorite_unfavorite_status = getResources().getString(R.string.Yes);
+                            }
+
+
                             Constant.ShowPopUp(instructor_like_model.getMessage(), context);
-                        } else {
+
+
+                        } else
+
+                        {
 
 
                             if (instructor_like_model.getPayload().getAccessToken() != null && !instructor_like_model.getPayload().getAccessToken()
@@ -211,7 +313,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
 
     public void InstructorFollowStatus() {
 
-        mAPIService.InstructorFollowStatus("1", getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), 1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.InstructorFollowStatus(String.valueOf(instructorid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), 1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Instructor_Follow_Model>() {
                     @Override
                     public void onCompleted() {
@@ -241,6 +343,17 @@ public class InstructorDetailsActivity extends AppCompatActivity {
 
                         if (instructor_follow_model.isSuccess()) {
                             Constant.ShowPopUp(instructor_follow_model.getMessage(), context);
+
+
+                            if (follow_unfollow_status.equalsIgnoreCase(getResources().getString(R.string.Yes))) {
+                                binding.ivfollowstatus.setImageResource(R.mipmap.follow);
+                                follow_unfollow_status = getResources().getString(R.string.No);
+                            } else if (follow_unfollow_status.equalsIgnoreCase(getResources().getString(R.string.No))) {
+                                binding.ivfollowstatus.setImageResource(R.mipmap.following);
+                                follow_unfollow_status = getResources().getString(R.string.Yes);
+                            }
+
+
                         } else {
 
 
@@ -321,6 +434,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        //  checkbackpressed = true;
         finish();
     }
 

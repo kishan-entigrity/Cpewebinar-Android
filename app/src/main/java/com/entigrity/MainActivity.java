@@ -130,8 +130,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 SetImageBackground(1);
+                setToolbarTitle(6);
+                favoritesFragment = new FavoritesFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, favoritesFragment, "favoritesFragment").addToBackStack("null").commit();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
 
-                SetDefault();
 
             }
         });

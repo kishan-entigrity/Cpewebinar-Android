@@ -1,5 +1,6 @@
 package com.entigrity.webservice;
 
+import com.entigrity.model.Instructorlist_details.Instructor_Details_Model;
 import com.entigrity.model.changepassword.ChangePasswordModel;
 import com.entigrity.model.city.CityModel;
 import com.entigrity.model.company.CompanyModel;
@@ -176,6 +177,15 @@ public interface APIService {
     //Instructor List
     @GET("speaker")
     Observable<InstructorModel> GetInstructor(@Header("Authorization") String authorization);
+
+
+    //Instructor Details
+
+    @GET("speaker/{speaker_ids}")
+    Observable<Instructor_Details_Model> GetInstructorDetails(
+            @Path("speaker_ids") String speaker_ids,
+            @Header("Authorization") String authorization);
+
 
     //company List
     @GET("company")

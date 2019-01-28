@@ -23,7 +23,8 @@ public class AboutCompanyFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about_company, null, false);
 
         if (CompanyDetailsActivity.getInstance().description != null && !CompanyDetailsActivity.getInstance().description.equalsIgnoreCase("")) {
-            binding.tvAboutus.setText(CompanyDetailsActivity.getInstance().description);
+            String aboutus = CompanyDetailsActivity.getInstance().description.replaceAll("\\<[^>]*>", "").replace("&nbsp;", " ");
+            binding.tvAboutus.setText(aboutus);
         }
 
 

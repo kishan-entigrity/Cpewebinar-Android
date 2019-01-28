@@ -8,6 +8,18 @@ public class SpeakersItem {
     @SerializedName("city")
     private String city;
 
+    @SerializedName("expertise")
+    private String expertise;
+
+    @SerializedName("follower_count")
+    private int followerCount;
+
+    @SerializedName("favorite_unfavorite_status")
+    private String favoriteUnfavoriteStatus;
+
+    @SerializedName("follow_unfollow_status")
+    private String followUnfollowStatus;
+
     @SerializedName("contact_no")
     private String contactNo;
 
@@ -29,9 +41,6 @@ public class SpeakersItem {
     @SerializedName("state")
     private String state;
 
-    @SerializedName("expertise")
-    private String expertise;
-
     @SerializedName("email")
     private String email;
 
@@ -41,6 +50,38 @@ public class SpeakersItem {
 
     public String getCity() {
         return city;
+    }
+
+    public void setExpertise(String expertise) {
+        this.expertise = expertise;
+    }
+
+    public String getExpertise() {
+        return expertise;
+    }
+
+    public void setFollowerCount(int followerCount) {
+        this.followerCount = followerCount;
+    }
+
+    public int getFollowerCount() {
+        return followerCount;
+    }
+
+    public void setFavoriteUnfavoriteStatus(String favoriteUnfavoriteStatus) {
+        this.favoriteUnfavoriteStatus = favoriteUnfavoriteStatus;
+    }
+
+    public String getFavoriteUnfavoriteStatus() {
+        return favoriteUnfavoriteStatus;
+    }
+
+    public void setFollowUnfollowStatus(String followUnfollowStatus) {
+        this.followUnfollowStatus = followUnfollowStatus;
+    }
+
+    public String getFollowUnfollowStatus() {
+        return followUnfollowStatus;
     }
 
     public void setContactNo(String contactNo) {
@@ -99,14 +140,6 @@ public class SpeakersItem {
         return state;
     }
 
-    public void setExpertise(String expertise) {
-        this.expertise = expertise;
-    }
-
-    public String getExpertise() {
-        return expertise;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -120,6 +153,10 @@ public class SpeakersItem {
         return
                 "SpeakersItem{" +
                         "city = '" + city + '\'' +
+                        ",expertise = '" + expertise + '\'' +
+                        ",follower_count = '" + followerCount + '\'' +
+                        ",favorite_unfavorite_status = '" + favoriteUnfavoriteStatus + '\'' +
+                        ",follow_unfollow_status = '" + followUnfollowStatus + '\'' +
                         ",contact_no = '" + contactNo + '\'' +
                         ",about_speaker = '" + aboutSpeaker + '\'' +
                         ",name = '" + name + '\'' +
@@ -127,7 +164,6 @@ public class SpeakersItem {
                         ",company = '" + company + '\'' +
                         ",id = '" + id + '\'' +
                         ",state = '" + state + '\'' +
-                        ",expertise = '" + expertise + '\'' +
                         ",email = '" + email + '\'' +
                         "}";
     }

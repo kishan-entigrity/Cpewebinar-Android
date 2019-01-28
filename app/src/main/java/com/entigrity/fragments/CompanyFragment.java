@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.SearchView;
@@ -19,16 +18,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.CompanyDetailsActivity;
+import com.entigrity.activity.InstructorDetailsActivity;
 import com.entigrity.adapter.CompanyAdapter;
 import com.entigrity.databinding.FragmentCompanyBinding;
 import com.entigrity.model.company.CompanyItem;
 import com.entigrity.model.company.CompanyModel;
-import com.entigrity.model.instructor.SpeakersItem;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -139,6 +137,30 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        try {
+            if (CompanyDetailsActivity.getInstance().checkbackpressed == true) {
+                Constant.Log(TAG, "onResumecallled");
+                CompanyDetailsActivity.getInstance().checkbackpressed = false;
+                if (Constant.isNetworkAvailable(context)) {
+                    GetCompanyRefresh();
+
+                } else {
+                    Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                }
+
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -205,6 +227,67 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
                                 if (progressDialog.isShowing()) {
                                     progressDialog.dismiss();
                                 }
+
+                                Constant.ShowPopUp(companyModel.getMessage(), context);
+
+                            }
+
+
+                        }
+
+
+                    }
+
+
+                });
+
+    }
+
+    public void GetCompanyRefresh() {
+
+        mAPIService.GetCompany(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<CompanyModel>() {
+                    @Override
+                    public void onCompleted() {
+                        if (mListcompanylist.size() > 0) {
+                            companyAdapter = new CompanyAdapter(context, mListcompanylist);
+                            binding.recyclerviewCompany.setAdapter(companyAdapter);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Constant.ShowPopUp(message, context);
+
+
+                    }
+
+                    @Override
+                    public void onNext(CompanyModel companyModel) {
+
+                        if (companyModel.isSuccess() == true) {
+
+                            mListcompanylist = companyModel.getPayload().getCompany();
+
+
+                        } else {
+
+                            if (companyModel.getPayload().getAccessToken() != null && !companyModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
+                                AppSettings.set_login_token(context, companyModel.getPayload().getAccessToken());
+
+                                if (Constant.isNetworkAvailable(context)) {
+                                    GetCompany();
+                                } else {
+                                    Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                                }
+
+                            } else {
+
 
                                 Constant.ShowPopUp(companyModel.getMessage(), context);
 

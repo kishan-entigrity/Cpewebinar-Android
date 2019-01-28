@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -34,9 +35,11 @@ import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
+import com.entigrity.view.UsPhoneNumberFormatter;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import rx.Subscriber;
@@ -77,6 +80,12 @@ public class SignUpActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
         context = SignUpActivity.this;
         mAPIService = ApiUtils.getAPIService();
+
+
+        binding.edtMobilenumbert.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
+                new WeakReference<EditText>(binding.edtMobilenumbert));
+        binding.edtMobilenumbert.addTextChangedListener(addLineNumberFormatter);
 
 
         if (Constant.isNetworkAvailable(context)) {

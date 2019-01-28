@@ -179,7 +179,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/view_profile_mobile_number"
                         android:imeOptions="actionDone"
-                        android:inputType="number"
+                        android:inputType="phone"
+                        android:maxLength="14"
                         android:singleLine="true"
                         android:textSize="@dimen/_12sdp"
                         app:font_edit="SFUIDisplay-Medium.ttf" />
@@ -217,9 +218,9 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:layout_marginRight="@dimen/_3sdp"
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
                     android:background="#A7A7A8" />
 
                 <RelativeLayout
@@ -251,9 +252,9 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:layout_marginRight="@dimen/_3sdp"
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
                     android:background="#A7A7A8" />
 
                 <RelativeLayout
@@ -342,9 +343,9 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:layout_marginRight="@dimen/_3sdp"
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
                     android:background="#A7A7A8" />
 
                 <com.entigrity.view.CustomTextView

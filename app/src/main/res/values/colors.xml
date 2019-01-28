@@ -57,11 +57,17 @@
     <color name="geolocation_permissions_prompt_background">#ffdddddd</color>
 
 
+    //common
+    <color name="color_background_list">#F5F5F7</color>
+
+
     //instructor list
 
     <color name="inst_background">#CC193f70</color>
     <color name="rating_click_background">#F5F5F7</color>
     <color name="write_review_text">#A4A4A5</color>
+
+    <color name="instructor_company_text_color">#4D4D4D</color>
 
 
     <color name="inst_details_profile_background">#466A9C</color>
@@ -84,11 +90,10 @@
 
     //webinar favorite list
 
-    <color name="fav_webinar_title">#0C4973</color>
-    <color name="fav_date_time">#D1D1D2</color>
-    <color name="fav_background_credit">#204B70</color>
-    <color name="view_color">#F5F5F7</color>
-    <color name="fav_bottom_text_color">#7A7A7B</color>
+    <color name="fav_webinar_title">#00426D</color>
+    <color name="fav_date_time">#9D9D9D</color>
+    <color name="fav_background_credit">#264C70</color>
+    <color name="fav_bottom_text_color">#B8B8B8</color>
 
 
 </resources>

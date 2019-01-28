@@ -40,8 +40,9 @@ public class CompanyDetailsActivity extends AppCompatActivity {
     private static CompanyDetailsActivity instance;
     private APIService mAPIService;
     ProgressDialog progressDialog;
-    public int id = 0, number_of_speaker = 0, number_of_webinar = 0;
+    public int companyid = 0, number_of_speaker = 0, number_of_webinar = 0, company_favorite_status = 0;
     public String name, website, contact_number, logo, description;
+    public boolean checkbackpressed = false;
 
 
     @Override
@@ -54,7 +55,7 @@ public class CompanyDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            id = intent.getIntExtra(getResources().getString(R.string.pass_company_id), 0);
+            companyid = intent.getIntExtra(getResources().getString(R.string.pass_company_id), 0);
             name = intent.getStringExtra(getResources().getString(R.string.pass_company_name));
             website = intent.getStringExtra(getResources().getString(R.string.pass_company_website));
             contact_number = intent.getStringExtra(getResources().getString(R.string.pass_company_contact_number));
@@ -62,12 +63,14 @@ public class CompanyDetailsActivity extends AppCompatActivity {
             description = intent.getStringExtra(getResources().getString(R.string.pass_company_description));
             number_of_speaker = intent.getIntExtra(getResources().getString(R.string.pass_company_number_of_speaker), 0);
             number_of_webinar = intent.getIntExtra(getResources().getString(R.string.pass_company_number_of_webinar), 0);
+            company_favorite_status = intent.getIntExtra(getResources().getString(R.string.pass_company_favorite_status), 0);
 
         }
 
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkbackpressed = true;
                 finish();
             }
         });
@@ -80,6 +83,12 @@ public class CompanyDetailsActivity extends AppCompatActivity {
 
         if (!name.equalsIgnoreCase("")) {
             binding.tvCompanyname.setText(name);
+        }
+
+        if (company_favorite_status == 1) {
+            binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite_hover);
+        } else {
+            binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite);
         }
 
 
@@ -105,9 +114,7 @@ public class CompanyDetailsActivity extends AppCompatActivity {
 
 
     public void CompanyFavoriteStatus() {
-
-
-        mAPIService.CompanyFavoriteStatus("1", getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), 1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.CompanyFavoriteStatus(String.valueOf(companyid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), 1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Company_Like_Model>() {
                     @Override
                     public void onCompleted() {
@@ -136,6 +143,14 @@ public class CompanyDetailsActivity extends AppCompatActivity {
 
 
                         if (company_like_model.isSuccess()) {
+
+                            if (company_like_model.getMessage().equalsIgnoreCase(getResources().getString(R.string.str_company_like))) {
+                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite_hover);
+                            } else {
+                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite);
+                            }
+
+
                             Constant.ShowPopUp(company_like_model.getMessage(), context);
                         } else {
 
@@ -171,6 +186,7 @@ public class CompanyDetailsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        checkbackpressed = true;
         finish();
     }
 

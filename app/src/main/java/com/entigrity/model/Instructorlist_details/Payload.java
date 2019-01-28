@@ -1,8 +1,7 @@
-package com.entigrity.model.instructor;
+package com.entigrity.model.Instructorlist_details;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 
 public class Payload {
 
@@ -19,15 +18,16 @@ public class Payload {
 
     private String accessToken;
 
-    @SerializedName("speakers")
-    private List<SpeakersItem> speakers;
 
-    public void setSpeakers(List<SpeakersItem> speakers) {
-        this.speakers = speakers;
+    @SerializedName("speaker")
+    private Speaker speaker;
+
+    public void setSpeaker(Speaker speaker) {
+        this.speaker = speaker;
     }
 
-    public List<SpeakersItem> getSpeakers() {
-        return speakers;
+    public Speaker getSpeaker() {
+        return speaker;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Payload {
         return
                 "Payload{" +
                         "access_token = '" + accessToken + '\'' +
-                        "speakers = '" + speakers + '\'' +
+                        "speaker = '" + speaker + '\'' +
                         "}";
     }
 }
