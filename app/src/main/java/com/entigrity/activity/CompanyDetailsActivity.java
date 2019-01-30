@@ -17,6 +17,7 @@ import com.entigrity.R;
 import com.entigrity.databinding.ActivityCompanyProfileDetailsBinding;
 import com.entigrity.fragments.AboutCompanyFragment;
 import com.entigrity.fragments.CompanyDetailsFragment;
+import com.entigrity.model.company_details.Company_details_model;
 import com.entigrity.model.company_like.Company_Like_Model;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
@@ -40,9 +41,8 @@ public class CompanyDetailsActivity extends AppCompatActivity {
     private static CompanyDetailsActivity instance;
     private APIService mAPIService;
     ProgressDialog progressDialog;
-    public int companyid = 0, number_of_speaker = 0, number_of_webinar = 0, company_favorite_status = 0;
-    public String name, website, contact_number, logo, description;
-    public boolean checkbackpressed = false;
+    public int companyid = 0, number_of_speaker = 0, number_of_webinar = 0, favorite_unfavorite_status = 0;
+    public String name, website, contact_number, description;
 
 
     @Override
@@ -56,40 +56,23 @@ public class CompanyDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             companyid = intent.getIntExtra(getResources().getString(R.string.pass_company_id), 0);
-            name = intent.getStringExtra(getResources().getString(R.string.pass_company_name));
-            website = intent.getStringExtra(getResources().getString(R.string.pass_company_website));
-            contact_number = intent.getStringExtra(getResources().getString(R.string.pass_company_contact_number));
-            logo = intent.getStringExtra(getResources().getString(R.string.pass_company_logo));
-            description = intent.getStringExtra(getResources().getString(R.string.pass_company_description));
-            number_of_speaker = intent.getIntExtra(getResources().getString(R.string.pass_company_number_of_speaker), 0);
-            number_of_webinar = intent.getIntExtra(getResources().getString(R.string.pass_company_number_of_webinar), 0);
-            company_favorite_status = intent.getIntExtra(getResources().getString(R.string.pass_company_favorite_status), 0);
+
+            if (Constant.isNetworkAvailable(context)) {
+                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                GetCompany_Details();
+            } else {
+                Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+            }
+
 
         }
 
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkbackpressed = true;
                 finish();
             }
         });
-
-        if (!logo.equalsIgnoreCase("")) {
-            Picasso.with(context).load(logo)
-                    .placeholder(R.mipmap.placeholder)
-                    .into(binding.ivCompanylogo);
-        }
-
-        if (!name.equalsIgnoreCase("")) {
-            binding.tvCompanyname.setText(name);
-        }
-
-        if (company_favorite_status == 1) {
-            binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite_hover);
-        } else {
-            binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite);
-        }
 
 
         binding.ivfavoritestatus.setOnClickListener(new View.OnClickListener() {
@@ -112,9 +95,110 @@ public class CompanyDetailsActivity extends AppCompatActivity {
 
     }
 
+    private void GetCompany_Details() {
+
+
+        mAPIService.GetCompanyDetails(String.valueOf(companyid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Company_details_model>() {
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Constant.ShowPopUp(message, context);
+
+
+                    }
+
+                    @Override
+                    public void onNext(Company_details_model company_details_model) {
+
+                        if (company_details_model.isSuccess() == true) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+
+                            name = company_details_model.getPayload().getCompany().getName();
+                            website = company_details_model.getPayload().getCompany().getWebsite();
+                            contact_number = company_details_model.getPayload().getCompany().getContactNumber();
+
+
+                            number_of_speaker = company_details_model.getPayload().getCompany().getNumberOfSpeaker();
+                            number_of_webinar = company_details_model.getPayload().getCompany().getNumberOfWebinar();
+
+
+                            description = company_details_model.getPayload().getCompany().getDescription();
+
+                            favorite_unfavorite_status = company_details_model.getPayload().getCompany().getFavouriteUnfavoriteStatus();
+
+
+                            if (!company_details_model.getPayload().getCompany().getLogo().equalsIgnoreCase("")) {
+                                Picasso.with(context).load(company_details_model.getPayload().getCompany().getLogo())
+                                        .placeholder(R.mipmap.placeholder)
+                                        .into(binding.ivCompanylogo);
+                            }
+
+                            if (!company_details_model.getPayload().getCompany().getName().equalsIgnoreCase("")) {
+                                binding.tvCompanyname.setText(company_details_model.getPayload().getCompany().getName());
+                            }
+
+                            if (company_details_model.getPayload().getCompany().getFavouriteUnfavoriteStatus() == 1) {
+                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite_hover);
+                            } else {
+                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite);
+                            }
+
+                            if (!company_details_model.getPayload().getCompany().getState().equalsIgnoreCase("")) {
+                                binding.tvState.setText(company_details_model.getPayload().getCompany().getState() + ", ");
+                            }
+
+
+                            if (!company_details_model.getPayload().getCompany().getCountry().equalsIgnoreCase("")) {
+                                binding.tvCountry.setText(company_details_model.getPayload().getCompany().getCountry());
+                            }
+
+
+                            setupViewPager(binding.viewpager);
+                            binding.tabs.setupWithViewPager(binding.viewpager);
+
+
+                        } else {
+                            if (company_details_model.getPayload().getAccessToken() != null && !company_details_model.getPayload().getAccessToken()
+                                    .equalsIgnoreCase("")) {
+
+                                if (Constant.isNetworkAvailable(context)) {
+                                    AppSettings.set_login_token(context, company_details_model.getPayload().getAccessToken());
+                                    GetCompany_Details();
+                                } else {
+                                    Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                                }
+
+                            } else {
+                                Constant.ShowPopUp(company_details_model.getMessage(), context);
+                            }
+
+
+                        }
+
+
+                    }
+
+                });
+
+
+    }
+
 
     public void CompanyFavoriteStatus() {
-        mAPIService.CompanyFavoriteStatus(String.valueOf(companyid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), 1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.CompanyFavoriteStatus(String.valueOf(companyid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), companyid).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Company_Like_Model>() {
                     @Override
                     public void onCompleted() {
@@ -144,10 +228,14 @@ public class CompanyDetailsActivity extends AppCompatActivity {
 
                         if (company_like_model.isSuccess()) {
 
-                            if (company_like_model.getMessage().equalsIgnoreCase(getResources().getString(R.string.str_company_like))) {
-                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite_hover);
-                            } else {
+                            if (favorite_unfavorite_status == 1) {
+                                favorite_unfavorite_status = 0;
                                 binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite);
+
+                            } else if (favorite_unfavorite_status == 0) {
+                                favorite_unfavorite_status = 1;
+                                binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite_hover);
+
                             }
 
 
@@ -186,7 +274,6 @@ public class CompanyDetailsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        checkbackpressed = true;
         finish();
     }
 

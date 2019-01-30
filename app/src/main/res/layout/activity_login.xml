@@ -93,7 +93,7 @@
                     android:inputType="textPassword"
                     android:singleLine="true"
                     android:textSize="@dimen/_12sdp"
-                    app:font_edit="SFUIDisplay-Medi um.ttf"
+                    app:font_edit="SFUIDisplay-Medium.ttf"
 
 
                     />

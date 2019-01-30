@@ -136,33 +136,6 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-/*
-        try {
-            if (InstructorDetailsActivity.getInstance().checkbackpressed == true) {
-                Constant.Log(TAG, "onResumecallled");
-                InstructorDetailsActivity.getInstance().checkbackpressed = false;
-                if (Constant.isNetworkAvailable(context)) {
-                    GetInstructor_Refresh();
-                } else {
-                    Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
-                }
-
-
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
-
-    }
-
-
     public void GetInstructor() {
 
         mAPIService.GetInstructor(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -235,73 +208,7 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
                 });
     }
 
-   /* public void GetInstructor_Refresh() {
 
-        mAPIService.GetInstructor(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<InstructorModel>() {
-                    @Override
-                    public void onCompleted() {
-                        if (mListinstructorlist.size() > 0) {
-                            instructorAdapter = new InstructorAdapter(context, mListinstructorlist, instructorFragment);
-                            binding.recyclerviewInstructor.setAdapter(instructorAdapter);
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-
-                        String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
-
-
-                    }
-
-                    @Override
-                    public void onNext(InstructorModel instructorModel) {
-
-                        if (instructorModel.isSuccess() == true) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-
-
-                            mListinstructorlist = instructorModel.getPayload().getSpeakers();
-
-
-                            //  Log.e(TAG, AppSettings.get_login_token(context));
-
-
-                        } else {
-
-                            if (instructorModel.getPayload().getAccessToken() != null && !instructorModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
-                                AppSettings.set_login_token(context, instructorModel.getPayload().getAccessToken());
-
-                                if (Constant.isNetworkAvailable(context)) {
-                                    GetInstructor();
-                                } else {
-                                    Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
-                                }
-
-                            } else {
-
-
-                                Constant.ShowPopUp(instructorModel.getMessage(), context);
-
-                            }
-
-
-                        }
-
-
-                    }
-
-
-                });
-    }*/
 
 
     @Override

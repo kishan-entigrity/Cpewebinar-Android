@@ -18,8 +18,10 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -102,6 +104,45 @@ public class SignUpActivity extends AppCompatActivity {
             Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
         }
 
+        binding.edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    if (!Constant.isValidPassword(Constant.Trim(binding.edtPassword.getText().toString()))) {
+                        Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+                    } else {
+                        binding.edtConfirmpassword.requestFocus();
+
+                        //binding.edtPassword.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                    }
+
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+        binding.edtConfirmpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    if (!Constant.isValidPassword(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
+                        Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+                    } else if (!Constant.Trim(binding.edtPassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
+                        Constant.ShowPopUp(getResources().getString(R.string.val_confirm_password_not_match), context);
+                    } else {
+                        binding.edtFirmname.requestFocus();
+                    }
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
 
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -130,10 +171,10 @@ public class SignUpActivity extends AppCompatActivity {
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        RegisterPost(binding.edtFirmname.getText().toString()
-                                , binding.edtLastname.getText().toString(), binding.edtEmailid.getText().toString(),
-                                binding.edtPassword.getText().toString(), binding.edtConfirmpassword.getText().toString(),
-                                binding.edtFirmname.getText().toString(), binding.edtMobilenumbert.getText().toString(),
+                        RegisterPost(Constant.Trim(binding.edtFirmname.getText().toString())
+                                , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
+                                Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
+                                Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
                                 topicsofinterestAdapteradapter.arraylistselectedtag, user_type);
                     } else {
                         Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
@@ -450,31 +491,37 @@ public class SignUpActivity extends AppCompatActivity {
 
     public Boolean Validation() {
 
-        if (binding.edtFirstname.getText().toString().isEmpty()) {
+        if (Constant.Trim(binding.edtFirstname.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_firstname), context);
             return false;
-        } else if (binding.edtLastname.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtLastname.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_lastname), context);
             return false;
-        } else if (binding.edtEmailid.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtEmailid.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_emailid), context);
             return false;
-        } else if (!Constant.isValidEmailId(binding.edtEmailid.getText().toString())) {
+        } else if (!Constant.isValidEmailId(Constant.Trim(binding.edtEmailid.getText().toString()))) {
             Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
             return false;
-        } else if (binding.edtPassword.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtPassword.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_password_register), context);
             return false;
-        } else if (binding.edtConfirmpassword.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_confirm_password_register), context);
             return false;
-        } else if (!binding.edtPassword.getText().toString().equals(binding.edtConfirmpassword.getText().toString())) {
+        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtPassword.getText().toString()))) {
+            Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+            return false;
+        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
+            Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+            return false;
+        } else if (!Constant.Trim(binding.edtPassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
             Constant.ShowPopUp(getResources().getString(R.string.val_confirm_password_not_match), context);
             return false;
-        } else if (binding.edtFirmname.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtFirmname.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_firm_name_register), context);
             return false;
-        } else if (binding.edtMobilenumbert.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtMobilenumbert.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_mobile_number), context);
             return false;
         } else if (user_type == 0) {

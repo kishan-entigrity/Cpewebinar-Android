@@ -59,14 +59,14 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
             public void onClick(View v) {
                 Intent i = new Intent(mContext, CompanyDetailsActivity.class);
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_id), mList.get(position).getId());
-                i.putExtra(mContext.getResources().getString(R.string.pass_company_name), mList.get(position).getName());
+              /*  i.putExtra(mContext.getResources().getString(R.string.pass_company_name), mList.get(position).getName());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_website), mList.get(position).getWebsite());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_contact_number), mList.get(position).getContactNumber());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_logo), mList.get(position).getLogo());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_description), mList.get(position).getDescription());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_favorite_status), mList.get(position).getFavouriteunfavoritestatus());
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_number_of_speaker), mList.get(position).getNumberOfSpeaker());
-                i.putExtra(mContext.getResources().getString(R.string.pass_company_number_of_webinar), mList.get(position).getNumberOfWebinar());
+                i.putExtra(mContext.getResources().getString(R.string.pass_company_number_of_webinar), mList.get(position).getNumberOfWebinar());*/
 
                 mContext.startActivity(i);
 

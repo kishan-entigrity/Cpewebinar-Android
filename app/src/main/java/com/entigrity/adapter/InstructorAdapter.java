@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
@@ -43,16 +44,26 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
     public void onBindViewHolder(@NonNull InstructorAdapter.ViewHolder viewHolder, final int position) {
 
 
-        if (!mList.get(position).getName().equalsIgnoreCase("")) {
-            viewHolder.tv_instructorname.setText(mList.get(position).getName());
-        } else {
-            viewHolder.tv_instructorname.setVisibility(View.GONE);
-        }
+        if (!mList.get(position).getName().equalsIgnoreCase("") &&
+                !mList.get(position).getCompany().equalsIgnoreCase("")) {
 
-        if (!mList.get(position).getCompany().equalsIgnoreCase("")) {
+            viewHolder.lvall.setVisibility(View.VISIBLE);
+            viewHolder.lvone.setVisibility(View.GONE);
+
+            viewHolder.tv_instructorname.setText(mList.get(position).getName());
             viewHolder.tv_companyname.setText(mList.get(position).getCompany());
         } else {
-            viewHolder.tv_companyname.setVisibility(View.GONE);
+
+            viewHolder.lvall.setVisibility(View.GONE);
+            viewHolder.lvone.setVisibility(View.VISIBLE);
+
+            if (!mList.get(position).getName().equalsIgnoreCase("")) {
+                viewHolder.tv_one.setText(mList.get(position).getName());
+            } else if (!mList.get(position).getCompany().equalsIgnoreCase("")) {
+                viewHolder.tv_one.setText(mList.get(position).getCompany());
+            }
+
+
         }
 
 
@@ -90,7 +101,9 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivinstrctorprofileimage;
-        TextView tv_instructorname, tv_companyname;
+        TextView tv_instructorname, tv_companyname, tv_one;
+
+        LinearLayout lvall, lvone;
 
 
         private ViewHolder(View itemView) {
@@ -98,6 +111,11 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
             ivinstrctorprofileimage = (ImageView) itemView.findViewById(R.id.ivinstrctorprofileimage);
             tv_instructorname = (TextView) itemView.findViewById(R.id.tv_instructorname);
             tv_companyname = (TextView) itemView.findViewById(R.id.tv_companyname);
+
+
+            tv_one = (TextView) itemView.findViewById(R.id.tv_one);
+            lvall = (LinearLayout) itemView.findViewById(R.id.lvall);
+            lvone = (LinearLayout) itemView.findViewById(R.id.lvone);
 
 
         }

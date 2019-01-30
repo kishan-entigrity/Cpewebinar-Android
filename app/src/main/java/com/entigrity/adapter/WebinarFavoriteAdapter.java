@@ -1,6 +1,7 @@
 package com.entigrity.adapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,21 +13,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.model.webinar_like.Webinar_Like_Model;
 import com.entigrity.model.webinarfavorites.MyFavoriteWebinarItem;
+import com.entigrity.utility.AppSettings;
+import com.entigrity.utility.Constant;
+import com.entigrity.view.DialogsUtils;
+import com.entigrity.webservice.APIService;
+import com.entigrity.webservice.ApiUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.StringTokenizer;
 
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavoriteAdapter.ViewHolder> {
 
     private Context mContext;
     private List<MyFavoriteWebinarItem> mList;
+    ProgressDialog progressDialog;
+    private APIService mAPIService;
     LayoutInflater mInflater;
 
     public WebinarFavoriteAdapter(Context mContext, List<MyFavoriteWebinarItem> mList) {
         this.mContext = mContext;
         this.mList = mList;
+        mAPIService = ApiUtils.getAPIService();
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -39,7 +53,7 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
 
         if (!mList.get(position).getWebinatTitle().equalsIgnoreCase("")) {
             viewHolder.tv_webinar_title.setText(mList.get(position).getWebinatTitle());
@@ -53,7 +67,7 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
         if (!mList.get(position).getFee().equalsIgnoreCase("")) {
 
             if (!mList.get(position).getFee().equalsIgnoreCase("Free")) {
-                viewHolder.btnPrice.setText(" $ " + mList.get(position).getFee());
+                viewHolder.btnPrice.setText("$" + mList.get(position).getFee());
             } else {
                 viewHolder.btnPrice.setText(mList.get(position).getFee());
 
@@ -62,8 +76,7 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
 
 
         if (!mList.get(position).getCreditNo().equalsIgnoreCase("")) {
-            viewHolder.tv_cpe_credit.setText(mContext.getResources().getString(R.string.str_credit_value) + " "
-                    + mList.get(position).getCreditNo());
+            viewHolder.tv_cpe_credit.setText(mList.get(position).getCreditNo() + "  " + mContext.getResources().getString(R.string.cpe));
         }
 
 
@@ -152,14 +165,90 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
             String timezone = tokens.nextToken();//this will contain month
 
 
-            viewHolder.tv_webinar_time.setText(time);
+            viewHolder.tv_webinar_time.setText(time + " " + timezone);
 
         }
 
 
-        if (mList.get(position).getFavoritescount() != 0) {
-            viewHolder.tv_favorite_count.setText("" + mList.get(position).getFavoritescount());
-        }
+        viewHolder.ivfavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (Constant.isNetworkAvailable(mContext)) {
+                    progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
+                    WebinarFavoriteStatus(mList.get(position).getWebinatId(), viewHolder.ivfavorite);
+                } else {
+                    Constant.ShowPopUp(mContext.getResources().getString(R.string.please_check_internet_condition), mContext);
+                }
+
+            }
+        });
+
+
+    }
+
+    private void WebinarFavoriteStatus(final int webinarid, final ImageView imageView) {
+
+        mAPIService.WebinarFavoriteStatus(String.valueOf(webinarid), mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext), webinarid).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Webinar_Like_Model>() {
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(mContext, e);
+                        Constant.ShowPopUp(message, mContext);
+
+
+                    }
+
+                    @Override
+                    public void onNext(Webinar_Like_Model webinar_like_model) {
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+
+                        if (webinar_like_model.isSuccess()) {
+                            if (webinar_like_model.getMessage().equalsIgnoreCase(mContext.getResources().getString(R.string.str_webinar_like))) {
+                                imageView.setImageResource(R.mipmap.favorite_hover);
+                            } else {
+                                imageView.setImageResource(R.mipmap.favorite);
+                            }
+
+
+                            Constant.ShowPopUp(webinar_like_model.getMessage(), mContext);
+
+
+                        } else {
+                            if (webinar_like_model.getPayload().getAccessToken() != null && !webinar_like_model.getPayload().getAccessToken()
+                                    .equalsIgnoreCase("")) {
+
+                                if (Constant.isNetworkAvailable(mContext)) {
+                                    AppSettings.set_login_token(mContext, webinar_like_model.getPayload().getAccessToken());
+                                    WebinarFavoriteStatus(webinarid, imageView);
+                                } else {
+                                    Constant.ShowPopUp(mContext.getResources().getString(R.string.please_check_internet_condition), mContext);
+                                }
+
+                            } else {
+                                Constant.ShowPopUp(webinar_like_model.getMessage(), mContext);
+                            }
+
+                        }
+
+
+                    }
+                });
 
 
     }
@@ -174,7 +263,7 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
         TextView tv_webinar_title, tv_duration_name, tv_webinar_date, tv_webinar_time, tv_cpe_credit, tv_favorite_views,
                 tv_favorite_speaker_name, tv_company_name, tv_favorite_count;
 
-        ImageView ivwebinar_thumbhel;
+        ImageView ivwebinar_thumbhel, ivfavorite;
 
 
         Button btnPrice;
@@ -192,8 +281,7 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
             tv_favorite_speaker_name = (TextView) itemView.findViewById(R.id.tv_favorite_speaker_name);
             tv_favorite_count = (TextView) itemView.findViewById(R.id.tv_favorite_count);
             ivwebinar_thumbhel = (ImageView) itemView.findViewById(R.id.ivwebinar_thumbhel);
-
-
+            ivfavorite = (ImageView) itemView.findViewById(R.id.ivfavorite);
             btnPrice = (Button) itemView.findViewById(R.id.btnPrice);
 
 

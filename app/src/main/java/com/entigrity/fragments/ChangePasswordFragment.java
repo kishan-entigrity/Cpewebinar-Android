@@ -14,6 +14,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
@@ -73,13 +75,70 @@ public class ChangePasswordFragment extends Fragment {
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        ChangePassword(AppSettings.get_login_token(context), binding.edtOldpassword.getText().toString(), binding.edtNewpassword.getText().toString(),
-                                binding.edtConfirmpassword.getText().toString());
+                        ChangePassword(AppSettings.get_login_token(context), Constant.Trim(binding.edtOldpassword.getText().toString()),
+                                Constant.Trim(binding.edtNewpassword.getText().toString()),
+                                Constant.Trim(binding.edtConfirmpassword.getText().toString()));
                     } else {
                         Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                     }
                 }
 
+            }
+        });
+
+        binding.edtOldpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    if (!Constant.isValidPassword(Constant.Trim(binding.edtOldpassword.getText().toString()))) {
+                        Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+                    } else {
+                        binding.edtNewpassword.requestFocus();
+                    }
+
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+
+        binding.edtNewpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    if (!Constant.isValidPassword(Constant.Trim(binding.edtNewpassword.getText().toString()))) {
+                        Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+                    } else {
+                        binding.edtConfirmpassword.requestFocus();
+                    }
+
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+        binding.edtConfirmpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (!Constant.isValidPassword(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
+                        Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+                    } else if (!Constant.Trim(binding.edtNewpassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
+                        Constant.ShowPopUp(getResources().getString(R.string.val_new_confirm_password_not_match), context);
+                    } else {
+                        Constant.hideKeyboard(getActivity());
+                    }
+                    return true;
+                }
+
+                return false;
             }
         });
 
@@ -157,16 +216,22 @@ public class ChangePasswordFragment extends Fragment {
 
 
     public Boolean Validation() {
-        if (binding.edtOldpassword.getText().toString().isEmpty()) {
+        if (Constant.Trim(binding.edtOldpassword.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.validate_oldpassword), context);
             return false;
-        } else if (binding.edtNewpassword.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtNewpassword.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.validate_newpassword), context);
             return false;
-        } else if (binding.edtConfirmpassword.getText().toString().isEmpty()) {
+        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtNewpassword.getText().toString()))) {
+            Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+            return false;
+        } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.validate_confirmpassword), context);
             return false;
-        } else if (!binding.edtNewpassword.getText().toString().equals(binding.edtConfirmpassword.getText().toString())) {
+        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
+            Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+            return false;
+        } else if (!Constant.Trim(binding.edtNewpassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
             Constant.ShowPopUp(getResources().getString(R.string.val_new_confirm_password_not_match), context);
             return false;
 

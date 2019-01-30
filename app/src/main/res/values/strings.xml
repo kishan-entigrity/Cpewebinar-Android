@@ -35,8 +35,12 @@
     <string name="exit_validation">Are you sure you want to Exit?</string>
     <string name="valid_email">Please Enter Valid Email Address</string>
     <string name="logout_text">Are you sure you want to Logout?</string>
+    <string name="password_regex_validation">Please enter password atleast 6 characters including 1 uppercase,1 lowercase &amp; 1 number.</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="cpe">CPE</string>
+    <string name="views">views</string>
+    <string name="register">REGISTER</string>
 
 
     //pre login
@@ -293,6 +297,8 @@
     <string name="str_fav_company_name">XERO</string>
     <string name="str_fav_duration">20 MIN</string>
     <string name="str_price_value">$99.00</string>
+    <string name="str_webinar_like">Webinar like successfully.</string>
+    <string name="str_webinar_dislike">Webinar dislike successfully.</string>
 
 
     //check business logic

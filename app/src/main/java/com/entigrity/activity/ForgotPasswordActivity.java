@@ -41,7 +41,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        ForgotPassword(binding.edtEmailId.getText().toString());
+                        ForgotPassword(Constant.Trim(binding.edtEmailId.getText().toString()));
                     } else {
                         Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                     }
@@ -62,10 +62,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     public Boolean Validation() {
 
-        if (binding.edtEmailId.getText().toString().isEmpty()) {
+        if (Constant.Trim(binding.edtEmailId.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.forgot_passoword_email), context);
             return false;
-        } else if (!Constant.isValidEmailId(binding.edtEmailId.getText().toString())) {
+        } else if (!Constant.isValidEmailId(Constant.Trim(binding.edtEmailId.getText().toString()))) {
             Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
             return false;
         } else {

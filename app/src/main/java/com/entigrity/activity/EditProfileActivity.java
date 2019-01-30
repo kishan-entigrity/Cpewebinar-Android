@@ -303,9 +303,9 @@ public class EditProfileActivity extends AppCompatActivity {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                         EditPost(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
-                                binding.edtFirstname.getText().toString(), binding.edtLastname.getText().toString(),
-                                binding.edtEmailname.getText().toString(), binding.edtFirmname.getText().toString(), country_id, state_id, city_id, Integer.parseInt(binding.edtZipcode.getText().toString()), binding.edtMobileNumber.getText()
-                                        .toString(), arraylistselectedtopicsofinterest, who_you_are_pos);
+                                Constant.Trim(binding.edtFirstname.getText().toString()), Constant.Trim(binding.edtLastname.getText().toString()),
+                                Constant.Trim(binding.edtEmailname.getText().toString()), Constant.Trim(binding.edtFirmname.getText().toString()), country_id, state_id, city_id, Integer.parseInt(Constant.Trim(binding.edtZipcode.getText().toString())), Constant.Trim(binding.edtMobileNumber.getText()
+                                        .toString()), arraylistselectedtopicsofinterest, who_you_are_pos);
                     } else {
                         Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                     }
@@ -1017,16 +1017,16 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public Boolean Validation() {
 
-        if (binding.edtFirstname.getText().toString().isEmpty()) {
+        if (Constant.Trim(binding.edtFirstname.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_firstname), context);
             return false;
-        } else if (binding.edtLastname.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtLastname.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_lastname), context);
             return false;
-        } else if (binding.edtFirmname.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtFirmname.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_firm_name_register), context);
             return false;
-        } else if (binding.edtMobileNumber.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtMobileNumber.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_mobile_number), context);
             return false;
         } else if (country_id == 0) {
@@ -1038,7 +1038,7 @@ public class EditProfileActivity extends AppCompatActivity {
         } else if (city_id == 0) {
             Constant.ShowPopUp(getResources().getString(R.string.str_city), context);
             return false;
-        } else if (binding.edtZipcode.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtZipcode.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.val_zipcode), context);
             return false;
         } else if (who_you_are_pos == 0) {

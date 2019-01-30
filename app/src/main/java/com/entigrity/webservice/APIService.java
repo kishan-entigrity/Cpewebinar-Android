@@ -4,6 +4,7 @@ import com.entigrity.model.Instructorlist_details.Instructor_Details_Model;
 import com.entigrity.model.changepassword.ChangePasswordModel;
 import com.entigrity.model.city.CityModel;
 import com.entigrity.model.company.CompanyModel;
+import com.entigrity.model.company_details.Company_details_model;
 import com.entigrity.model.company_like.Company_Like_Model;
 import com.entigrity.model.companyfavorites.Company_Favorite;
 import com.entigrity.model.contactus.ContactUsModel;
@@ -192,6 +193,14 @@ public interface APIService {
     Observable<CompanyModel> GetCompany(@Header("Authorization") String authorization);
 
 
+    //company details
+
+    @GET("company/{company_ids}")
+    Observable<Company_details_model> GetCompanyDetails(
+            @Path("company_ids") String company_ids,
+            @Header("Authorization") String authorization);
+
+
     //instructor follow status
 
     @POST("speaker/follow/{speaker_ids}")
@@ -227,9 +236,10 @@ public interface APIService {
 
     //Webinar like status
 
-    @POST("webinar/like/")
+    @POST("webinar/like/{webinar_ids}")
     @FormUrlEncoded
     Observable<Webinar_Like_Model> WebinarFavoriteStatus(
+            @Path("webinar_ids") String webinar_ids,
             @Header("Authorization") String authorization,
             @Field("webinar_id") int webinar_id
     );

@@ -26,8 +26,6 @@ import com.entigrity.databinding.ActivityInstructorProfileDetailsBinding;
 import com.entigrity.fragments.AboutInstructorFragment;
 import com.entigrity.fragments.InstructorDetailsFragment;
 import com.entigrity.model.Instructorlist_details.Instructor_Details_Model;
-import com.entigrity.model.Instructorlist_details.Speaker;
-import com.entigrity.model.instructor.SpeakersItem;
 import com.entigrity.model.instructor_follow.Instructor_Follow_Model;
 import com.entigrity.model.instructor_like.Instructor_Like_Model;
 import com.entigrity.utility.AppSettings;
@@ -242,7 +240,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
     public void InstructorFavoriteStatus() {
 
 
-        mAPIService.InstructorFavoriteStatus(String.valueOf(instructorid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), 1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.InstructorFavoriteStatus(String.valueOf(instructorid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), instructorid).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Instructor_Like_Model>() {
                     @Override
                     public void onCompleted() {
@@ -313,7 +311,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
 
     public void InstructorFollowStatus() {
 
-        mAPIService.InstructorFollowStatus(String.valueOf(instructorid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), 1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.InstructorFollowStatus(String.valueOf(instructorid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), instructorid).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Instructor_Follow_Model>() {
                     @Override
                     public void onCompleted() {

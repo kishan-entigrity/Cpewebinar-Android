@@ -24,9 +24,11 @@
             android:background="@color/inst_background">
 
             <LinearLayout
+                android:id="@+id/lvall"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="@dimen/_25sdp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <com.entigrity.view.CustomTextView
                     android:id="@+id/tv_instructorname"
@@ -41,6 +43,30 @@
 
                 <com.entigrity.view.CustomTextView
                     android:id="@+id/tv_companyname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/_8sdp"
+                    app:font_text="SFUIDisplay-Regular.ttf" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lvone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_25sdp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <com.entigrity.view.CustomTextView
+                    android:id="@+id/tv_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"

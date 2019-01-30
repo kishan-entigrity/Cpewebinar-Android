@@ -272,21 +272,24 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <ImageView
                                 android:id="@+id/ivcheckbox"
-                                android:layout_width="@dimen/_35sdp"
-                                android:layout_height="@dimen/_15sdp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:src="@mipmap/check_box" />
 
                             <com.entigrity.view.CustomTextView
                                 android:id="@+id/tvterms"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_1sdp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/_5sdp"
                                 android:text="@string/str_accepted"
                                 android:textColor="@color/login_do_not_have_account"
                                 android:textSize="@dimen/_13sdp"
@@ -302,7 +305,7 @@
                             android:layout_below="@+id/str_forgotpassword"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_marginRight="@dimen/_10sdp"
                             android:background="@drawable/rounded_button"
                             android:text="@string/str_register"

@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import com.entigrity.MainActivity;
@@ -53,12 +55,13 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Validation()) {
 
+
+                if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        LoginPost(binding.edtusername.getText().toString(), binding.edtpassword.getText()
-                                .toString(), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
+                        LoginPost(Constant.Trim(binding.edtusername.getText().toString()), Constant.Trim(binding.edtpassword.getText()
+                                .toString()), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
                     } else {
                         Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                     }
@@ -67,6 +70,25 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        binding.edtpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
+                        Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+                    } else {
+                        Constant.hideKeyboard(LoginActivity.this);
+                    }
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+
         binding.tvregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,14 +222,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public Boolean Validation() {
-        if (binding.edtusername.getText().toString().isEmpty()) {
+        if (Constant.Trim(binding.edtusername.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.validate_email_id), context);
             return false;
-        } else if (!Constant.isValidEmailId(binding.edtusername.getText().toString())) {
+        } else if (!Constant.isValidEmailId(Constant.Trim(binding.edtusername.getText().toString()))) {
             Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
             return false;
-        } else if (binding.edtpassword.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtpassword.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.validate_password), context);
+            return false;
+        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
+            Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
             return false;
         } else {
             return true;
@@ -216,33 +241,5 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-   /* public void ShowPopUpSucess(String message, final Context context) {
-        myDialog = new Dialog(context);
-        myDialog.setContentView(R.layout.activity_popup);
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        tv_popup_msg = (TextView) myDialog.findViewById(R.id.tv_popup_msg);
-        tv_popup_submit = (TextView) myDialog.findViewById(R.id.tv_popup_submit);
-
-        tv_popup_msg.setText(message);
-
-
-        tv_popup_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myDialog.isShowing()) {
-                    myDialog.dismiss();
-                }
-
-                Intent i = new Intent(context, MainActivity.class);
-                startActivity(i);
-                finish();
-
-
-            }
-        });
-        myDialog.show();
-
-    }
-*/
 
 }

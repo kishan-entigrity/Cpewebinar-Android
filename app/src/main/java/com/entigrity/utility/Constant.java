@@ -54,6 +54,13 @@ public class Constant {
                 + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
     }
 
+
+    public static boolean isValidPassword(String password) {
+        return Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$").matcher(password).matches();
+
+    }
+
+
     public static String GetReturnResponse(Context context, Throwable e) {
 
 
@@ -86,36 +93,19 @@ public class Constant {
     }
 
 
+    public static String Trim(String inputvalue) {
+
+        String inputreturn = inputvalue.trim();
+        return inputreturn;
+
+    }
+
+
     public static String GetDeviceid(Context context) {
         String android_id = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         return android_id;
     }
-
-
-   /* public static void ShowPopUp(String message, Context context) {
-        myDialog = new Dialog(context);
-        myDialog.setContentView(R.layout.activity_popup);
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        tv_popup_msg = (TextView) myDialog.findViewById(R.id.tv_popup_msg);
-        tv_popup_submit = (TextView) myDialog.findViewById(R.id.tv_popup_submit);
-
-        tv_popup_msg.setText(message);
-
-
-        tv_popup_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myDialog.isShowing()) {
-                    myDialog.dismiss();
-                }
-
-
-            }
-        });
-        myDialog.show();
-
-    }*/
 
 
     public static void toast(Context context, String message) {

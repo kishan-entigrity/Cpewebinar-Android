@@ -112,11 +112,20 @@
 
 
                 <com.entigrity.view.CustomTextView
-                    android:id="@+id/tv_state_country"
+                    android:id="@+id/tv_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="New York,USA"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/_8sdp"
+                    app:font_text="SFUIDisplay_Regular.ttf" />
+
+
+                <com.entigrity.view.CustomTextView
+                    android:id="@+id/tv_country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:textColor="@color/White"
                     android:textSize="@dimen/_8sdp"
                     app:font_text="SFUIDisplay_Regular.ttf" />

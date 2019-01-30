@@ -115,8 +115,9 @@ public class ContactUsFragment extends Fragment {
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        Contactus(binding.spinnerSubject.getSelectedItem().toString(), binding.edtname.getText().toString(),
-                                binding.edtemailid.getText().toString(), binding.edtcontactNumber.getText().toString(), binding.edtmessage.getText().toString());
+                        Contactus(Constant.Trim(binding.spinnerSubject.getSelectedItem().toString()), Constant.Trim(binding.edtname.getText().toString()),
+                                Constant.Trim(binding.edtemailid.getText().toString()), Constant.Trim(binding.edtcontactNumber.getText().toString()),
+                                Constant.Trim(binding.edtmessage.getText().toString()));
                     } else {
                         Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                     }
@@ -127,8 +128,6 @@ public class ContactUsFragment extends Fragment {
 
         return view = binding.getRoot();
     }
-
-
 
 
     public void GetSubject() {
@@ -187,22 +186,22 @@ public class ContactUsFragment extends Fragment {
 
     public Boolean Validation() {
 
-        if (binding.edtname.getText().toString().isEmpty()) {
+        if (Constant.Trim(binding.edtname.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.cus_valname), context);
             return false;
-        } else if (binding.edtcontactNumber.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtcontactNumber.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.cus_valnumber), context);
             return false;
         } else if (subject == 0) {
             Constant.ShowPopUp(getResources().getString(R.string.cus_valsubject), context);
             return false;
-        } else if (binding.edtemailid.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtemailid.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.cus_valemailid), context);
             return false;
-        } else if (!Constant.isValidEmailId(binding.edtemailid.getText().toString())) {
+        } else if (!Constant.isValidEmailId(Constant.Trim(binding.edtemailid.getText().toString()))) {
             Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
             return false;
-        } else if (binding.edtmessage.getText().toString().isEmpty()) {
+        } else if (Constant.Trim(binding.edtmessage.getText().toString()).isEmpty()) {
             Constant.ShowPopUp(getResources().getString(R.string.cus_valmsg), context);
             return false;
         } else {
