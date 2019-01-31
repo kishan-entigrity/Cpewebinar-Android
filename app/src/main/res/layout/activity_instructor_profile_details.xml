@@ -62,24 +62,35 @@
                 android:layout_marginTop="@dimen/_10sdp">
 
 
-                <!--  <ImageView
-                      android:id="@+id/ivfavoritestatus"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_marginLeft="@dimen/_20sdp" />-->
-
-                <CheckBox
-                    android:id="@+id/ivfavoritestatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_40sdp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:background="@drawable/like__details_icon"
-                    android:button="@null"
-                    android:stateListAnimator="@animator/scale" />
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/ivfavoritestatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/like__details_icon"
+                        android:button="@null"
+                        android:stateListAnimator="@animator/scale" />
+
+                    <com.entigrity.view.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivfavoritestatus"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/favorite"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/_8sdp"
+                        app:font_text="SFUIDisplay-Light.ttf" />
+
+
+                </LinearLayout>
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -97,6 +108,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/_20sdp"
+                    android:src="@mipmap/following"
 
 
                     />

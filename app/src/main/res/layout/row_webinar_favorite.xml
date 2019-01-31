@@ -110,24 +110,11 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/_15sdp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
-
-
-                    <CheckBox
-                        android:id="@+id/ivfavorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/_3sdp"
-                        android:background="@drawable/like_icon"
-                        android:button="@null"
-                        android:checked="true"
-                        android:gravity="center_vertical"
-                        android:stateListAnimator="@animator/scale" />
 
 
                     <ImageView
@@ -136,7 +123,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/_15sdp"
-                        android:layout_toRightOf="@+id/ivfavorite"
                         android:src="@mipmap/webinars_view" />
 
 
@@ -303,8 +289,8 @@
 
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
         android:layout_below="@+id/tv_webinar_date"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/_10sdp"
@@ -324,13 +310,17 @@
 
             />
 
-
-        <ImageView
+        <CheckBox
+            android:id="@+id/ivfavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
-            android:src="@mipmap/register_button"
-            android:visibility="gone" />
+            android:layout_marginRight="@dimen/_5sdp"
+            android:background="@drawable/like_icon"
+            android:button="@null"
+            android:checked="true"
+            android:stateListAnimator="@animator/scale" />
+
 
     </FrameLayout>
 
