@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.activity.CompanyDetailsActivity;
-import com.entigrity.activity.InstructorDetailsActivity;
 import com.entigrity.model.companyfavorites.MyFavoriteCompanyItem;
 import com.squareup.picasso.Picasso;
 
@@ -61,14 +60,6 @@ public class CompanyFavoriteAdapter extends RecyclerView.Adapter<CompanyFavorite
             public void onClick(View v) {
                 Intent i = new Intent(mContext, CompanyDetailsActivity.class);
                 i.putExtra(mContext.getResources().getString(R.string.pass_company_id), mList.get(position).getCompanyId());
-               /* i.putExtra(mContext.getResources().getString(R.string.pass_company_name), mList.get(position).getCompanyName());
-                i.putExtra(mContext.getResources().getString(R.string.pass_company_website), mList.get(position).getCompanyWebsite());
-                i.putExtra(mContext.getResources().getString(R.string.pass_company_contact_number), mList.get(position).getCompanyMobile());
-                i.putExtra(mContext.getResources().getString(R.string.pass_company_logo), mList.get(position).getLogo());
-                i.putExtra(mContext.getResources().getString(R.string.pass_company_description), mList.get(position).getAboutCompany());
-                i.putExtra(mContext.getResources().getString(R.string.pass_company_favorite_status), mList.get(position).getFavoriteUnfavoriteStatus());
-                i.putExtra(mContext.getResources().getString(R.string.pass_company_number_of_speaker), mList.get(position).getNoOfSpeaker());
-                i.putExtra(mContext.getResources().getString(R.string.pass_company_number_of_webinar), mList.get(position).getNoOfWebinar());*/
                 mContext.startActivity(i);
 
             }

@@ -135,9 +135,6 @@ public class FavoritesFragment extends Fragment {
                             mListfavoritesSpeaker = instructor_favorite.getPayload().getMyFavoriteSpeaker();
 
 
-                            //  Constant.Log(TAG, AppSettings.get_login_token(context));
-
-
                             if (Constant.isNetworkAvailable(context)) {
                                 GetCompanyFavoritesList();
                             } else {

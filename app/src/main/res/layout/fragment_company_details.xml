@@ -13,7 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_background_list"
+        android:background="@color/background_list"
         android:scrollIndicators="none"
         android:scrollbars="none">
 
@@ -48,7 +48,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="#FAFAFB" />
+                    android:background="@color/background_list" />
 
 
                 <com.entigrity.view.CustomTextView
@@ -66,7 +66,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="#FAFAFB" />
+                    android:background="@color/background_list" />
 
                 <com.entigrity.view.CustomTextView
                     android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="#FAFAFB" />
+                    android:background="@color/background_list" />
 
                 <com.entigrity.view.CustomTextView
                     android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="#FAFAFB" />
+                    android:background="@color/background_list" />
 
                 <com.entigrity.view.CustomTextView
                     android:layout_width="wrap_content"
@@ -140,7 +140,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="#FAFAFB" />
+                    android:background="@color/background_list" />
 
 
                 <com.entigrity.view.CustomTextView
@@ -159,7 +159,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="#FAFAFB" />
+                    android:background="@color/background_list" />
 
 
                 <com.entigrity.view.CustomTextView
@@ -178,7 +178,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="#FAFAFB" />
+                    android:background="@color/background_list" />
 
 
                 <com.entigrity.view.CustomTextView
@@ -197,7 +197,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="#FAFAFB" />
+                    android:background="@color/background_list" />
 
                 <com.entigrity.view.CustomTextView
                     android:id="@+id/tv_mobile_number"

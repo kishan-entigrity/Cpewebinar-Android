@@ -21,8 +21,6 @@ import android.view.ViewGroup;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
-import com.entigrity.activity.CompanyDetailsActivity;
-import com.entigrity.activity.InstructorDetailsActivity;
 import com.entigrity.adapter.CompanyAdapter;
 import com.entigrity.databinding.FragmentCompanyBinding;
 import com.entigrity.model.company.CompanyItem;
@@ -78,8 +76,6 @@ public class CompanyFragment extends Fragment implements SearchView.OnQueryTextL
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-
-                    //  ConfirmationPopup();
 
                     Intent i = new Intent(getActivity(), MainActivity.class);
                     startActivity(i);

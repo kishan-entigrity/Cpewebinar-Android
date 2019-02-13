@@ -88,7 +88,6 @@ public class InstructorDetailsActivity extends AppCompatActivity {
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //checkbackpressed = true;
                 finish();
             }
         });
@@ -115,7 +114,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
         binding.ivfavoritestatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+
 
                 if (Constant.isNetworkAvailable(context)) {
                     binding.ivfavoritestatus.setEnabled(false);
@@ -132,7 +131,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
         binding.ivfollowstatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+
 
                 if (Constant.isNetworkAvailable(context)) {
                     binding.ivfollowstatus.setEnabled(false);
@@ -282,17 +281,11 @@ public class InstructorDetailsActivity extends AppCompatActivity {
                         if (instructor_like_model.isSuccess()) {
                             if (favorite_unfavorite_status.equalsIgnoreCase(getResources().getString(R.string.Yes))) {
                                 favorite_unfavorite_status = getResources().getString(R.string.No);
-                                //binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite);
-
                                 binding.ivfavoritestatus.setChecked(false);
                             } else if (favorite_unfavorite_status.equalsIgnoreCase(getResources().getString(R.string.No))) {
-                                //binding.ivfavoritestatus.setImageResource(R.mipmap.profile_favorite_hover_new);
                                 favorite_unfavorite_status = getResources().getString(R.string.Yes);
                                 binding.ivfavoritestatus.setChecked(true);
                             }
-
-
-                            // Constant.ShowPopUp(instructor_like_model.getMessage(), context);
 
 
                         } else

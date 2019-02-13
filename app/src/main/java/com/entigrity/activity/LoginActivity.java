@@ -1,6 +1,5 @@
 package com.entigrity.activity;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     private boolean checkpasswordvisiblestatus = false;
     private static final String TAG = LoginActivity.class.getName();
     public TextView tv_popup_msg, tv_popup_submit;
-    public Dialog myDialog;
     ProgressDialog progressDialog;
 
 
@@ -197,8 +195,6 @@ public class LoginActivity extends AppCompatActivity {
                             Intent i = new Intent(context, MainActivity.class);
                             startActivity(i);
                             finish();
-
-                            // ShowPopUpSucess(login.getMessage(), context);
 
 
                         } else {

@@ -170,7 +170,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     } else {
 
                         country_id = position;
-                        // Constant.ShowPopUp(context.getString(R.string.str_country), context);
+
                     }
 
 
@@ -210,7 +210,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     } else {
 
                         state_id = position;
-                        //Constant.ShowPopUp(context.getString(R.string.str_state), context);
+
                     }
 
 
@@ -238,7 +238,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         city_id = position;
                     } else {
                         city_id = position;
-                        //Constant.ShowPopUp(context.getString(R.string.str_city), context);
+
                     }
 
 
@@ -261,10 +261,9 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     if (position != 0) {
                         who_you_are_pos = arrayLististusertypeid.get(position - 1);
-                        Constant.Log("value", "value" + who_you_are_pos);
                     } else {
                         who_you_are_pos = position;
-                        //Constant.ShowPopUp(context.getString(R.string.val_user_type), context);
+
                     }
 
 
@@ -402,7 +401,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
-                            //ShowPopUpSucess(editProfileModel.getMessage(), context);
+
 
                             ShowPopUp(editProfileModel.getMessage(), context);
 
@@ -501,13 +500,9 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         for (int i = 0; i < arrayLististusertypeid.size(); i++) {
 
-                           /* Constant.Log(TAG, "values" + arrayLististusertypeid.get(i));
-                            Constant.Log(TAG, "index" + arrayLististusertypeid.indexOf(arrayLististusertypeid.get(i)));*/
 
                             if (who_you_are_pos == arrayLististusertypeid.get(i)) {
                                 who_you_are_pos = arrayLististusertypeid.indexOf(arrayLististusertypeid.get(i) + 1);
-
-                                //who_you_are_pos = who_you_are_pos + 1;
 
 
                             }
@@ -866,7 +861,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             Show_Country_Adapter();
                         } else {
-                            //Constant.ShowPopUp("Country Not Found", context);
+
                         }
 
 
@@ -940,7 +935,6 @@ public class EditProfileActivity extends AppCompatActivity {
                             }
 
 
-                            //Constant.ShowPopUp("City Not Found", context);
                         }
 
 
@@ -1021,7 +1015,6 @@ public class EditProfileActivity extends AppCompatActivity {
                             }
 
 
-                            // Constant.ShowPopUp("State Not Found", context);
                         }
 
 

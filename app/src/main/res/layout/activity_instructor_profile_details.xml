@@ -213,7 +213,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/relbottom"
-            android:background="@color/rating_click_background"
+            android:background="@color/background_list"
             android:padding="@dimen/_10sdp">
 
             <ImageView

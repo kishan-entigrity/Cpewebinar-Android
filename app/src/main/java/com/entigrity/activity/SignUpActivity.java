@@ -67,7 +67,6 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean checkpasswordvisiblestatus = false;
     private boolean checkconfirmpasswordvisiblestatus = false;
     public TextView tv_popup_msg, tv_popup_submit;
-    public Dialog myDialog_popup;
     ProgressDialog progressDialog;
     public boolean boolean_usertype = true;
     private int user_type = 0;
@@ -113,8 +112,6 @@ public class SignUpActivity extends AppCompatActivity {
                         Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
                     } else {
                         binding.edtConfirmpassword.requestFocus();
-
-                        //binding.edtPassword.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                     }
 
                     return true;
@@ -328,35 +325,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-   /* public void ShowPopUpSucess(String message, final Context context) {
-        myDialog_popup = new Dialog(context);
-        myDialog_popup.setContentView(R.layout.activity_popup);
-        myDialog_popup.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        tv_popup_msg = (TextView) myDialog_popup.findViewById(R.id.tv_popup_msg);
-        tv_popup_submit = (TextView) myDialog_popup.findViewById(R.id.tv_popup_submit);
-
-        tv_popup_msg.setText(message);
-
-
-        tv_popup_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myDialog_popup.isShowing()) {
-                    myDialog_popup.dismiss();
-                }
-
-
-                Intent i = new Intent(context, LoginActivity.class);
-                startActivity(i);
-                finish();
-
-
-            }
-        });
-        myDialog_popup.show();
-
-    }*/
-
 
     @Override
     public void onBackPressed() {
@@ -459,9 +427,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
-
-
-        Constant.Log(TAG, "show" + arraylistselectedtopicsofinterest.size());
 
 
         if (mListrtopicsofinterest.size() > 0) {
@@ -599,7 +564,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(TopicsofInterest topicsofInterest) {
-                        //  Constant.Log(TAG, "topicsofinterset" + topicsofInterest.getPayload().getTags());
                         mListrtopicsofinterest.clear();
                         mListtopicsofinterest_filter.clear();
 

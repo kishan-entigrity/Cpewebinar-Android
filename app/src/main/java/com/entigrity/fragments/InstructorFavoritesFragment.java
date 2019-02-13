@@ -44,9 +44,6 @@ public class InstructorFavoritesFragment extends Fragment {
         }
 
 
-        Constant.Log(TAG, "speaker size" + FavoritesFragment.getInstance().mListfavoritesSpeaker.size());
-
-
         return view = binding.getRoot();
     }
 

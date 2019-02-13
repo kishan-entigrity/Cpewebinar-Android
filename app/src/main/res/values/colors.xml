@@ -6,17 +6,19 @@
     <color name="White">#FFFFFF</color>
     <color name="theme_background">#193f70</color>
     <color name="forgot_password_header">#213B5B</color>
+    <color name="company_detail_bottom">#001F44</color>
+
 
 
     <color name="login_do_not_have_account">#C9C9C9</color>
 
 
     <color name="background_topics">#C7C6CB</color>
-    <color name="background_contact_us">#F5F5F7</color>
+    <color name="view_edit_profile">#A7A7A8</color>
 
 
     //Edit Profile
-    <color name="edit_profile_background_color">#F5F5F7</color>
+
     <color name="edit_profile_lable_colcr">#C9C9D5</color>
 
 
@@ -58,13 +60,12 @@
 
 
     //common
-    <color name="color_background_list">#F5F5F7</color>
+    <color name="background_list">#F5F5F7</color>
 
 
     //instructor list
 
     <color name="inst_background">#CC193f70</color>
-    <color name="rating_click_background">#F5F5F7</color>
     <color name="write_review_text">#A4A4A5</color>
 
     <color name="instructor_company_text_color">#4D4D4D</color>

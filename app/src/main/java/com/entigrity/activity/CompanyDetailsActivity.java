@@ -34,7 +34,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class CompanyDetailsActivity extends AppCompatActivity {
-
     ActivityCompanyProfileDetailsBinding binding;
     public Context context;
     private static final String TAG = CompanyDetailsActivity.class.getName();

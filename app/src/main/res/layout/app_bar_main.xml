@@ -16,7 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:visibility="gone"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_header"
+            android:background="?attr/colorPrimary">
+
+
+        </RelativeLayout>
+
 
     </android.support.design.widget.AppBarLayout>
 

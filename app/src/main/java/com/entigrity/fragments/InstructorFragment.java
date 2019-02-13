@@ -175,7 +175,6 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
                             mListinstructorlist = instructorModel.getPayload().getSpeakers();
 
 
-                            //  Log.e(TAG, AppSettings.get_login_token(context));
 
 
                         } else {

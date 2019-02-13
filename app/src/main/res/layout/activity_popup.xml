@@ -36,7 +36,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:text="OK"
+            android:text="@string/ok"
             android:textColor="@color/dialog_submit"
             android:textSize="@dimen/_15sdp"
             app:font_text="SFUIDisplay-Medium.ttf" />

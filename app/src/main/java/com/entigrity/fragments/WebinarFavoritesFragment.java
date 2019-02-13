@@ -46,10 +46,6 @@ public class WebinarFavoritesFragment extends Fragment {
             binding.recyclerviewFavoriteWebinar.setAdapter(webinarFavoriteAdapter);
         }
 
-
-        Constant.Log(TAG, "favorite size" + FavoritesFragment.getInstance().mListfavoritesCompany.size());
-
-
         return view = binding.getRoot();
     }
 }

@@ -329,4 +329,16 @@
     <string name="dec">Dec</string>
 
 
+    //main activity
+    <string name="ok">OK</string>
+    <string name="favorite_fragment">favoritesFragment</string>
+    <string name="viewprofile_fragment">viewprofilefragment</string>
+    <string name="userdashBoard_fragment">userdashboardfragment</string>
+    <string name="contactus_fragment">contactusfragment</string>
+    <string name="instructor_fragment">instructorfragment</string>
+    <string name="company_fragment">companyfragment</string>
+    <string name="changePassword_fragment">changePasswordFragment</string>
+    <string name="add_to_back_stack">null</string>
+
+
 </resources>

@@ -1,11 +1,9 @@
 package com.entigrity;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -47,8 +45,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
@@ -68,10 +65,8 @@ public class MainActivity extends AppCompatActivity
     public Context context;
     private static final String TAG = MainActivity.class.getName();
     private APIService mAPIService;
-    public Dialog myDialog;
     public TextView tv_popup_ok, tv_popup_cancel;
     DrawerLayout drawer;
-    public Dialog myDialog_popup;
     public TextView tv_popup_msg, tv_popup_submit;
     ProgressDialog progressDialog;
     private static MainActivity instance;
@@ -109,7 +104,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                Constant.ShowPopUp("clicked", context);
+                // Constant.ShowPopUp("clicked", context);
 
 
             }
@@ -132,7 +127,8 @@ public class MainActivity extends AppCompatActivity
                 SetImageBackground(1);
                 setToolbarTitle(6);
                 favoritesFragment = new FavoritesFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, favoritesFragment, "favoritesFragment").addToBackStack("null").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, favoritesFragment, getResources()
+                        .getString(R.string.favorite_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -169,7 +165,8 @@ public class MainActivity extends AppCompatActivity
                 SetImageBackground(4);
                 setToolbarTitle(2);
                 viewProfileFragment = new ViewProfileFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, viewProfileFragment, "viewprofilefragment").addToBackStack("null").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, viewProfileFragment, getResources()
+                        .getString(R.string.viewprofile_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
 
@@ -221,9 +218,8 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+        toolbar.setVisibility(View.GONE);
 
-
-        //  navigationView.setNavigationItemSelectedListener(this);
 
         SetDefault();
 
@@ -234,7 +230,7 @@ public class MainActivity extends AppCompatActivity
                 SetImageBackground(4);
                 setToolbarTitle(2);
                 viewProfileFragment = new ViewProfileFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, viewProfileFragment, "viewprofilefragment").addToBackStack("null").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, viewProfileFragment, getResources().getString(R.string.viewprofile_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
             }
@@ -277,44 +273,12 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-   /* public void ShowPopUpSucess(String message, final Context context) {
-        myDialog_popup = new Dialog(context);
-        myDialog_popup.setContentView(R.layout.activity_popup);
-        myDialog_popup.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        tv_popup_msg = (TextView) myDialog_popup.findViewById(R.id.tv_popup_msg);
-        tv_popup_submit = (TextView) myDialog_popup.findViewById(R.id.tv_popup_submit);
-
-        tv_popup_msg.setText(message);
-
-
-        tv_popup_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myDialog_popup.isShowing()) {
-                    myDialog_popup.dismiss();
-                }
-
-
-                AppSettings.removeFromSharedPreferences(context, getResources().getString(R.string.str_token));
-
-
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
-                finish();
-
-
-            }
-        });
-        myDialog_popup.show();
-
-    }*/
-
     public void ShowPopUp(String message, final Context context) {
         final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(
                 context).create();
         alertDialog.setMessage(message);
         // Setting OK Button
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 // Write your code here to execute after dialog closed
                 alertDialog.dismiss();
@@ -344,7 +308,7 @@ public class MainActivity extends AppCompatActivity
         SetImageBackground(0);
         setToolbarTitle(0);
         userDashBoardFragment = new UserDashBoardFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, userDashBoardFragment, "UserDashBoardFragment").addToBackStack("null").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, userDashBoardFragment, getResources().getString(R.string.userdashBoard_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
@@ -361,52 +325,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     private void prepareMenuData() {
         MenuModel menuModel = new MenuModel("My Profile", true, true, "https://www.journaldev.com/9333/android-webview-example-tutorial"); //Menu of Android Tutorial. No sub menus
@@ -456,12 +374,6 @@ public class MainActivity extends AppCompatActivity
         headerList.add(menuModel);
 
 
-
-       /* if (!menuModel.hasChildren) {
-            childList.put(menuModel, null);
-        }*/
-
-
     }
 
     private void setToolbarTitle(int value) {
@@ -479,30 +391,30 @@ public class MainActivity extends AppCompatActivity
 
                 if (headerList.get(groupPosition).isGroup) {
                     if (!headerList.get(groupPosition).hasChildren) {
-                        Constant.Log(TAG, "position" + groupPosition);
                         if (groupPosition == 3) {
                             setToolbarTitle(3);
                             contactUsFragment = new ContactUsFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contactUsFragment, "contactusfragment").addToBackStack("null").commit();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contactUsFragment, getResources().getString(R.string.contactus_fragment)).
+                                    addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
                             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 4) {
                             setToolbarTitle(4);
                             instructorFragment = new InstructorFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, instructorFragment, "instructorfragment").addToBackStack("null").commit();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, instructorFragment, getResources().getString(R.string.instructor_fragment)).addToBackStack(getResources()
+                                    .getString(R.string.add_to_back_stack)).commit();
                             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 5) {
                             setToolbarTitle(5);
                             companyFragment = new CompanyFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, companyFragment, "companyfragment").addToBackStack("null").commit();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, companyFragment, getResources()
+                                    .getString(R.string.company_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
                             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                             drawer.closeDrawer(GravityCompat.START);
                         } else if (groupPosition == 8) {
                             if (Constant.isNetworkAvailable(context)) {
-                                // ShowPopUp();
                                 LogOutPoPUp();
-
                             } else {
                                 Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                             }
@@ -523,28 +435,25 @@ public class MainActivity extends AppCompatActivity
                     if (childPosition == 0) {
                         setToolbarTitle(0);
                         userDashBoardFragment = new UserDashBoardFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, userDashBoardFragment, "UserDashBoardFragment").addToBackStack("null").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, userDashBoardFragment, getResources().getString(R.string.userdashBoard_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
                         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                         drawer.closeDrawer(GravityCompat.START);
                     } else if (childPosition == 1) {
                         setToolbarTitle(1);
                         changePasswordFragment = new ChangePasswordFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, changePasswordFragment, "changePasswordFragment").addToBackStack("null").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, changePasswordFragment, getResources().getString(R.string.changePassword_fragment)).addToBackStack(getResources()
+                                .getString(R.string.add_to_back_stack)).commit();
                         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                         drawer.closeDrawer(GravityCompat.START);
                     } else if (childPosition == 2) {
                         setToolbarTitle(6);
                         favoritesFragment = new FavoritesFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, favoritesFragment, "favoritesFragment").addToBackStack("null").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, favoritesFragment, getResources().getString(R.string.favorite_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
                         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                         drawer.closeDrawer(GravityCompat.START);
                     }
 
-                    /* if (model.url.length() > 0) {
-                     *//* WebView webView = findViewById(R.id.webView);
-                        webView.loadUrl(model.url);*//*
-                        onBackPressed();
-                    }*/
+
                 }
 
                 return false;
@@ -615,15 +524,13 @@ public class MainActivity extends AppCompatActivity
     public void LogOutPoPUp() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
-        // Setting Dialog Title
-        // alertDialog.setTitle("Confirm Delete...");
 
         // Setting Dialog Message
         alertDialog.setMessage(getResources().getString(R.string.logout_text));
 
 
         // Setting Positive "Yes" Button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
                 // Write your code here to invoke YES event
@@ -641,7 +548,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 // Write your code here to invoke NO event
 
@@ -655,46 +562,5 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-    /*public void ShowPopUp()
-    {
-        myDialog = new Dialog(context);
-        myDialog.setContentView(R.layout.activity_popup_logout);
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        tv_popup_ok = (TextView) myDialog.findViewById(R.id.tv_popup_ok);
-        tv_popup_cancel = (TextView) myDialog.findViewById(R.id.tv_popup_cancel);
-
-
-        tv_popup_ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myDialog.isShowing()) {
-                    myDialog.dismiss();
-                }
-
-                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-
-                if (Constant.isNetworkAvailable(context)) {
-                    Logout(AppSettings.get_login_token(context), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
-                } else {
-                    Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
-                }
-
-
-            }
-        });
-
-
-        tv_popup_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myDialog.isShowing()) {
-                    myDialog.dismiss();
-                }
-            }
-        });
-        myDialog.show();
-    }*/
 
 }

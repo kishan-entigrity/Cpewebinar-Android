@@ -48,7 +48,6 @@ public class CompanyFavoritesFragment extends Fragment {
         }
 
 
-        Constant.Log(TAG, "company size" + FavoritesFragment.getInstance().mListfavoritesCompany.size());
 
 
         return view = binding.getRoot();

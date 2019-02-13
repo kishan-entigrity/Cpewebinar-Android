@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_5sdp"
-                android:text="OK"
+                android:text="@string/ok"
                 android:textColor="@color/dialog_submit"
                 android:textSize="@dimen/_15sdp"
                 app:font_text="SFUIDisplay-Medium.ttf" />
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_5sdp"
-                android:text="CANCEL"
+                android:text="@string/str_lable_cancel"
                 android:textColor="@color/dialog_submit"
                 android:textSize="@dimen/_15sdp"
                 app:font_text="SFUIDisplay-Medium.ttf" />
