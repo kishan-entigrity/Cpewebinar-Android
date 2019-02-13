@@ -34,11 +34,13 @@ public class CustomTextView extends TextView {
         super(context, attrs);
         init(attrs);
     }
+
     public CustomTextView(Context context) {
         super(context);
         init(null);
 
     }
+
     private void init(AttributeSet attrs) {
         if (attrs != null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomTextView);

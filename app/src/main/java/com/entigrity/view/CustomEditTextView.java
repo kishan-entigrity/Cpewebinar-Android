@@ -44,7 +44,7 @@ public class CustomEditTextView extends EditText {
             String fontName = a.getString(R.styleable.CustomEditTextView_font_edit);
             try {
                 if (fontName != null) {
-                    Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), "font/" + fontName);
+                    Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), fontName);
                     setTypeface(myTypeface);
                 }
             } catch (Exception e) {
