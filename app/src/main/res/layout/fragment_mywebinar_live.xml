@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <data>
 
         <variable
             name="fragment"
-            type="com.entigrity.fragments.CompletedFragment" />
+            type="com.entigrity.fragments.MyWebinarLiveFragment" />
     </data>
 
     <RelativeLayout
@@ -15,13 +14,14 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="completeed"
-            android:textSize="@dimen/_40sdp"
-            android:textStyle="bold" />
+            android:text="Live Webinar"
+            android:textSize="@dimen/_20sdp" />
+
 
     </RelativeLayout>
+
+
 </layout>

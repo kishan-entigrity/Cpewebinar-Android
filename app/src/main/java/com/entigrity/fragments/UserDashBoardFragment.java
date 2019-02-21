@@ -2,11 +2,8 @@ package com.entigrity.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,10 +14,12 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.FragmentDashboardBinding;
+import com.entigrity.utility.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +28,6 @@ public class UserDashBoardFragment extends Fragment {
     View view;
     private FragmentDashboardBinding binding;
     public Context context;
-    int pStatus = 0;
-    private Handler handler = new Handler();
     private static final String TAG = UserDashBoardFragment.class.getName();
 
 
@@ -40,7 +37,9 @@ public class UserDashBoardFragment extends Fragment {
         context = getActivity();
 
         setupViewPager(binding.viewpager);
-        binding.tabs.setupWithViewPager(binding.viewpager);
+        binding.homeparenttabs.setupWithViewPager(binding.viewpager);
+        setupTabIcons();
+
 
         MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
 
@@ -60,46 +59,17 @@ public class UserDashBoardFragment extends Fragment {
             }
         });
 
-        Resources res = getResources();
-        Drawable drawable = res.getDrawable(R.drawable.progressbar);
-
-        binding.cirecularprogressbar.setProgress(0);   // Main Progress
-        binding.cirecularprogressbar.setSecondaryProgress(100); // Secondary Progress
-        binding.cirecularprogressbar.setMax(100); // Maximum Progress
-        binding.cirecularprogressbar.setProgressDrawable(drawable);
-
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                while (pStatus < 60) {
-                    pStatus += 1;
-
-                    handler.post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            // TODO Auto-generated method stub
-                            binding.cirecularprogressbar.setProgress(pStatus);
-                            binding.progress.setText(pStatus + "%");
-
-                        }
-                    });
-                    try {
-                        // Sleep for 200 milliseconds.
-                        // Just to display the progress slowly
-                        Thread.sleep(16); //thread will take approx 3 seconds to finish
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-
 
         return view = binding.getRoot();
+
+    }
+
+
+    private void setupTabIcons() {
+        TextView tabtwo = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
+        tabtwo.setText(getActivity().getResources().getString(R.string.str_my_webinar));
+        tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_indication_home, 0);
+        binding.homeparenttabs.getTabAt(1).setCustomView(tabtwo);
 
     }
 
@@ -143,10 +113,9 @@ public class UserDashBoardFragment extends Fragment {
 
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(new CompletedFragment(), getActivity().getResources().getString(R.string.str_completed));
-        adapter.addFragment(new OnGoingFragment(), getActivity().getResources().getString(R.string.str_ongoing));
-        adapter.addFragment(new UpComingFragment(), getActivity().getResources().getString(R.string.str_upcoming));
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new HomeAllFragment(), getActivity().getResources().getString(R.string.str_all));
+        adapter.addFragment(new MyWebinarFragment(), getActivity().getResources().getString(R.string.str_my_webinar));
         viewPager.setAdapter(adapter);
     }
 

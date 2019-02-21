@@ -10,16 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.entigrity.R;
-import com.entigrity.databinding.FragmentCompletedBinding;
+import com.entigrity.databinding.FragmentHomeSelfstudyBinding;
 
-public class CompletedFragment extends Fragment {
-    private FragmentCompletedBinding binding;
+public class HomeSelfStudyFragment extends Fragment {
+
+    private FragmentHomeSelfstudyBinding binding;
     View view;
+
+
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_completed, null, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_selfstudy, null, false);
 
 
         return view = binding.getRoot();

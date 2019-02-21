@@ -54,35 +54,38 @@
     <string name="str_password">Password</string>
     <string name="do_not_have_account">Don"'"t have an account?</string>
     <string name="register_now_login">REGISTER NOW</string>
-
-
     <string name="validate_email_id">Please Enter Email Address</string>
     <string name="validate_password">Please Enter Password</string>
     <string name="str_token">login token</string>
 
 
     //dashboard
-
     <string name="str_completed">COMPLETED</string>
     <string name="str_ongoing">ONGOING</string>
     <string name="str_upcoming">UPCOMING</string>
-
     <string name="str_total_credit">Total Credit</string>
     <string name="str_my_favorites">My Favorites</string>
 
 
-    //edit profile
+    //Home Screen
+    <string name="str_home_title">Webinars</string>
+    <string name="str_all">ALL</string>
+    <string name="str_my_webinar">MY WEBINAR</string>
+    <string name="str_live">LIVE</string>
+    <string name="str_self_study">SELF-STUDY</string>
+    <string name="str_archive">ARCHIVE</string>
+    <string name="str_favorite">FAVAROITE</string>
 
+
+    //edit profile
     <string name="view_profile_firstname">First Name</string>
     <string name="view_profile_lastname">Last Name</string>
     <string name="view_profile_email">Email</string>
     <string name="view_profile_firm_name">Firm Name</string>
     <string name="view_profile_mobile_number">Mobile Number</string>
-
     <string name="view_profile_country">Country</string>
     <string name="view_profile_state">State</string>
     <string name="view_profile_city">City</string>
-
     <string name="view_profile_zipcode">Zipcode</string>
     <string name="view_profile_topics_interest">Topics of Interest</string>
     <string name="view_profile_who_you_are">Who you are?</string>
@@ -145,8 +148,6 @@
     <string name="str_login_now">LOGIN NOW</string>
     <string name="str_accepted">I accepted terms and conditions.</string>
     <string name="str_other_option">Please select other option</string>
-
-
     <string name="str_select_country">Select Country</string>
     <string name="str_select_state">Select State</string>
     <string name="str_select_city">Select City</string>
@@ -171,7 +172,6 @@
     <string name="val_terms_and_condition">Please Accept Terms and Condition</string>
     <string name="val_topics">Please select topics of interest</string>
     <string name="val_zipcode">Please enter zipcode</string>
-
     <string name="val_user_type">Please select user type</string>
     <string name="str_country">Please Select Country</string>
     <string name="str_state">Please Select State</string>
@@ -242,7 +242,6 @@
     <string name="pass_inst_company">company name</string>
     <string name="pass_inst_state">state name</string>
     <string name="pass_inst_city">city name</string>
-
     <string name="pass_inst_followers">followers</string>
     <string name="pass_inst_favorite_unfavorite_status">favorite unfavorite status</string>
     <string name="pass_inst_follow_unfollow_status">follow unfollow status</string>
@@ -252,7 +251,6 @@
     <string name="company_detail">Company Details</string>
     <string name="company_webinar">WEBINARS</string>
     <string name="company_speakers">INSTRUCTOR</string>
-
     <string name="str_name_company">Name of the Company</string>
     <string name="str_website_company">Website of the Company</string>
     <string name="str_number_speaker">Number of Speakers</string>

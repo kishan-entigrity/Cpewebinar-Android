@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.entigrity.fragments.HomeAllFragment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/White">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/alltab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/child_tab_background_home"
+            app:tabBackground="@drawable/tab_color_selector"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/White"
+            app:tabTextAppearance="@style/MineCustomTabTextChild"
+            app:tabTextColor="@color/White" />
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/homeallviewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/alltab"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/child_tab_background_home"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+&lt;!&ndash;
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/theme_background"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/str_live"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@drawable/tab_color_selector"
+                android:gravity="center"
+                android:text="@string/str_self_study"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/tab_color_selector"
+                android:gravity="center"
+                android:text="@string/str_archive"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+
+
+                />&ndash;&gt;
+
+
+
+
+        </LinearLayout>-->
+
+
+    </RelativeLayout>
+
+
+</layout>

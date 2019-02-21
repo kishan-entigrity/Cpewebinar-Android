@@ -35,7 +35,6 @@ public class SplashActivity extends AppCompatActivity {
 
         DisplayVersionName();
         Navigation();
-
     }
 
 

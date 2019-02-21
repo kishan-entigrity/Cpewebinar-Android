@@ -7,28 +7,19 @@
     <color name="theme_background">#193f70</color>
     <color name="forgot_password_header">#213B5B</color>
     <color name="company_detail_bottom">#001F44</color>
-
-
-
     <color name="login_do_not_have_account">#C9C9C9</color>
-
-
     <color name="background_topics">#C7C6CB</color>
     <color name="view_edit_profile">#A7A7A8</color>
 
 
     //Edit Profile
-
     <color name="edit_profile_lable_colcr">#C9C9D5</color>
-
 
     //dashboard
     <color name="dashboard_bottom_selected">#0E2B4D</color>
     <color name="dashboard_bottom_unselected">#A6A6A6</color>
 
-
     //menu_drawer
-
     <color name="drawer_header">#00254C</color>
     <color name="drawer_child_background">#004C78</color>
 
@@ -37,26 +28,11 @@
     <color name="dialog_submit">#65788D</color>
 
     //topics of interest
-
     <color name="text_topics_interest">#CECECE</color>
 
 
     //vimeo
-
-    <color name="username_text">#ffffffff</color>
-    <color name="username_edit">#ff000000</color>
-
-    <color name="password_text">#ffffffff</color>
-    <color name="password_edit">#ff000000</color>
-
-    <color name="ssl_text_label">#ffffffff</color>
-    <color name="ssl_text_value">#ffffffff</color>
-
-
     <color name="black">#ff000000</color>
-
-
-    <color name="geolocation_permissions_prompt_background">#ffdddddd</color>
 
 
     //common
@@ -67,36 +43,27 @@
 
     <color name="inst_background">#CC193f70</color>
     <color name="write_review_text">#A4A4A5</color>
-
     <color name="instructor_company_text_color">#4D4D4D</color>
-
-
     <color name="inst_details_profile_background">#466A9C</color>
-    <color name="inst_company_details">#2E6387</color>
-
     <color name="selected_tab_text_color_details">#5B5B5B</color>
     <color name="Unselected_tab_text_color_details">#E1E1E1</color>
-
     <color name="instructor_left_panel_color">#DADAE2</color>
     <color name="instructor_right_panel_color">#486D8F</color>
     <color name="instructor_details_about_color">#737373</color>
-
     <color name="fav_tab_unselected_color">#CCCDCE</color>
 
 
     //write review popup
-
-
     <color name="review_header">#878788</color>
-    <color name="submit_button_popup">#00426D</color>
 
 
     //webinar favorite list
-
     <color name="fav_webinar_title">#00426D</color>
     <color name="fav_date_time">#9D9D9D</color>
-    <color name="fav_background_credit">#CC264C70</color>
     <color name="fav_bottom_text_color">#B8B8B8</color>
+
+    //home
+    <color name="child_tab_background_home">#466A9C</color>
 
 
 </resources>

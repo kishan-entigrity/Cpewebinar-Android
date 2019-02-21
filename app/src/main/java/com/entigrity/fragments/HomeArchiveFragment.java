@@ -10,18 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.entigrity.R;
-import com.entigrity.databinding.FragmentOngoingBinding;
+import com.entigrity.databinding.FragmentHomeArchiveBinding;
 
-public class OnGoingFragment extends Fragment {
+public class HomeArchiveFragment extends Fragment {
 
+
+    private FragmentHomeArchiveBinding binding;
     View view;
-    private FragmentOngoingBinding binding;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_ongoing, null, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_archive, null, false);
 
 
         return view = binding.getRoot();
