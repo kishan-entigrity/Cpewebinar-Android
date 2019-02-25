@@ -22,32 +22,32 @@ public class CustomTextView extends TextView {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public CustomTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(attrs);
+        init(attrs, context);
     }
 
     public CustomTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(attrs);
+        init(attrs, context);
     }
 
     public CustomTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs);
+        init(attrs, context);
     }
 
     public CustomTextView(Context context) {
         super(context);
-        init(null);
+        init(null, context);
 
     }
 
-    private void init(AttributeSet attrs) {
+    private void init(AttributeSet attrs, Context context) {
         if (attrs != null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomTextView);
             String fontName = a.getString(R.styleable.CustomTextView_font_text);
             try {
                 if (fontName != null) {
-                    Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), fontName);
+                    Typeface myTypeface = Typeface.createFromAsset(context.getAssets(), fontName);
                     setTypeface(myTypeface);
                 }
             } catch (Exception e) {

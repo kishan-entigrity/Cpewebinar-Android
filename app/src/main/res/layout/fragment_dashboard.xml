@@ -21,7 +21,7 @@
             android:id="@+id/rvtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/home_topbar_bgcolor"
             android:padding="@dimen/_10sdp">
 
 
@@ -35,7 +35,7 @@
                 android:text="@string/str_home_title"
                 android:textColor="@color/White"
                 android:textSize="@dimen/_16sdp"
-                app:font_text="SFUIDisplay-Regular.ttf" />
+                app:font_text="Montserrat-Bold.ttf" />
 
 
             <ImageView

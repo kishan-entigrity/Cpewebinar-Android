@@ -34,8 +34,8 @@ public class CustomButtonView extends Button {
     }
     private void init(AttributeSet attrs) {
         if (attrs != null) {
-            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomTextView);
-            String fontName = a.getString(R.styleable.CustomTextView_font_text);
+            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomButtonView);
+            String fontName = a.getString(R.styleable.CustomButtonView_font_button);
             try {
                 if (fontName != null) {
                     Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), fontName);

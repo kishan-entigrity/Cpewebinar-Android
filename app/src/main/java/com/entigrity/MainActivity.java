@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
 
 
+    public boolean isclickhome = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         rel_top_bottom = (RelativeLayout) findViewById(R.id.rel_top_bottom);
-
         iv_assesement = (ImageView) findViewById(R.id.iv_assesement);
         iv_favorities = (ImageView) findViewById(R.id.iv_favorities);
         iv_home = (ImageView) findViewById(R.id.iv_home);
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         iv_assesement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isclickhome = false;
 
                 SetImageBackground(0);
                 //SetDefault();
@@ -86,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         iv_favorities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isclickhome = false;
                 SetImageBackground(1);
                 favoritesFragment = new FavoritesFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, favoritesFragment, getResources()
@@ -100,7 +104,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SetDefault();
+                if (!isclickhome) {
+                    isclickhome = true;
+                    SetImageBackground(2);
+                    SetDefault();
+                }
 
 
             }
@@ -109,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         iv_dash_board.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isclickhome = false;
 
                 SetImageBackground(3);
 
@@ -119,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         iv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isclickhome = false;
 
                 SetImageBackground(4);
                 viewProfileFragment = new ViewProfileFragment();
@@ -203,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
     public void SetDefault() {
         userDashBoardFragment = new UserDashBoardFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, userDashBoardFragment, getResources().getString(R.string.userdashBoard_fragment))
-                .addToBackStack(null).commit();
+                .commit();
     }
 
     @Override

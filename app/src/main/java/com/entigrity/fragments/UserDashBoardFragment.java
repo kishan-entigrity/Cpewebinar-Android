@@ -68,7 +68,7 @@ public class UserDashBoardFragment extends Fragment {
     private void setupTabIcons() {
         TextView tabtwo = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
         tabtwo.setText(getActivity().getResources().getString(R.string.str_my_webinar));
-        tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_indication_home, 0);
+        tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_red_dot, 0);
         binding.homeparenttabs.getTabAt(1).setCustomView(tabtwo);
 
     }

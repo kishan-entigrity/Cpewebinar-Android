@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import com.entigrity.R;
 import com.entigrity.adapter.WebinarFavoriteAdapter;
 import com.entigrity.databinding.FragmentWebinarListBinding;
-import com.entigrity.utility.Constant;
 import com.entigrity.view.SimpleDividerItemDecoration;
 
 public class WebinarFavoritesFragment extends Fragment {

@@ -75,6 +75,10 @@
     <string name="str_self_study">SELF-STUDY</string>
     <string name="str_archive">ARCHIVE</string>
     <string name="str_favorite">FAVAROITE</string>
+    <string name="str_price_status">Free</string>
+    <string name="str_credit_score">1 CREDIT</string>
+    <string name="str_webinar_status">RESUME</string>
+    <string name="str_webinar_type">SELF STUDY</string>
 
 
     //edit profile
@@ -294,7 +298,7 @@
     <string name="str_fav_views">45 views</string>
     <string name="str_fav_instructor_name">JOHN SMITH</string>
     <string name="str_fav_company_name">XERO</string>
-    <string name="str_fav_duration">20 MIN</string>
+    <string name="str_fav_duration">20 Min</string>
     <string name="str_price_value">$99.00</string>
     <string name="str_webinar_like">Webinar like successfully.</string>
     <string name="str_webinar_dislike">Webinar dislike successfully.</string>

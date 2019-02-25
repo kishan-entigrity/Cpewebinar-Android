@@ -67,16 +67,11 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
         if (!mList.get(position).getFee().equalsIgnoreCase("")) {
 
             if (!mList.get(position).getFee().equalsIgnoreCase("Free")) {
-                viewHolder.btnPrice.setText("$" + mList.get(position).getFee());
+                viewHolder.credit_status.setText("$" + mList.get(position).getFee());
             } else {
-                viewHolder.btnPrice.setText(mList.get(position).getFee());
+                viewHolder.credit_status.setText(mList.get(position).getFee());
 
             }
-        }
-
-
-        if (!mList.get(position).getCreditNo().equalsIgnoreCase("")) {
-            viewHolder.tv_cpe_credit.setText(mList.get(position).getCreditNo() + "  " + mContext.getResources().getString(R.string.cpe));
         }
 
 
@@ -87,11 +82,6 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
 
         if (!mList.get(position).getCompanyName().equalsIgnoreCase("")) {
             viewHolder.tv_company_name.setText(mList.get(position).getCompanyName());
-        }
-
-
-        if (!mList.get(position).getViewNumber().equalsIgnoreCase("")) {
-            viewHolder.tv_favorite_views.setText(mList.get(position).getViewNumber());
         }
 
 
@@ -168,23 +158,6 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
             viewHolder.tv_webinar_time.setText(time + " " + timezone);
 
         }
-
-
-        viewHolder.ivfavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (Constant.isNetworkAvailable(mContext)) {
-                    // progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
-                    viewHolder.ivfavorite.setEnabled(false);
-                    WebinarFavoriteStatus(mList.get(position).getWebinatId(), viewHolder.ivfavorite);
-                } else {
-                    Constant.ShowPopUp(mContext.getResources().getString(R.string.please_check_internet_condition), mContext);
-                }
-
-            }
-        });
 
 
     }
@@ -270,7 +243,7 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
         CheckBox ivfavorite;
 
 
-        Button btnPrice;
+        Button credit_status;
 
 
         private ViewHolder(View itemView) {
@@ -279,13 +252,12 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
             tv_duration_name = (TextView) itemView.findViewById(R.id.tv_duration_name);
             tv_webinar_date = (TextView) itemView.findViewById(R.id.tv_webinar_date);
             tv_webinar_time = (TextView) itemView.findViewById(R.id.tv_webinar_time);
-            tv_cpe_credit = (TextView) itemView.findViewById(R.id.tv_cpe_credit);
-            tv_favorite_views = (TextView) itemView.findViewById(R.id.tv_favorite_views);
+
             tv_company_name = (TextView) itemView.findViewById(R.id.tv_company_name);
             tv_favorite_speaker_name = (TextView) itemView.findViewById(R.id.tv_favorite_speaker_name);
             ivwebinar_thumbhel = (ImageView) itemView.findViewById(R.id.ivwebinar_thumbhel);
-            ivfavorite = (CheckBox) itemView.findViewById(R.id.ivfavorite);
-            btnPrice = (Button) itemView.findViewById(R.id.btnPrice);
+
+            credit_status = (Button) itemView.findViewById(R.id.credit_status);
 
 
         }

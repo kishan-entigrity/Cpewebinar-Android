@@ -2,39 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/White">
+    android:layout_height="wrap_content">
 
 
     <com.entigrity.view.CustomTextView
         android:id="@+id/tv_webinar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_10sdp"
+        android:layout_toLeftOf="@+id/tv_webinar_price_status"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/str_basic_management"
-        android:textColor="@color/fav_webinar_title"
+        android:textColor="@color/home_topbar_bgcolor"
         android:textSize="@dimen/_11sdp"
-        app:font_text="SFUIDisplay-BOld.ttf" />
+        app:font_text="Montserrat-SemiBold.ttf" />
 
-    <com.entigrity.view.CustomButtonView
-        android:id="@+id/btnRegister"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_20sdp"
+
+    <com.entigrity.view.CustomTextView
+        android:id="@+id/tv_webinar_price_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="right|center_vertical"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_5sdp"
-        android:background="@mipmap/webinar_blue_round"
-        android:text="@string/register"
-        android:textColor="@color/White"
-        android:textSize="@dimen/_9sdp"
-        app:font_button="SFUIDisplay-Bold.ttf"
-
-
-        ></com.entigrity.view.CustomButtonView>
+        android:text="@string/str_price_status"
+        android:textColor="@color/home_topbar_bgcolor"
+        android:textSize="@dimen/_12sdp"
+        app:font_text="Montserrat-Bold.ttf" />
 
 
     <com.entigrity.view.CustomTextView
@@ -42,12 +40,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_webinar_title"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:text="@string/str_date_fav"
         android:textColor="@color/fav_date_time"
         android:textSize="@dimen/_9sdp"
-        app:font_text="SFUIDisplay-Regular.ttf" />
+        app:font_text="Montserrat-Medium.ttf" />
 
 
     <com.entigrity.view.CustomTextView
@@ -55,13 +54,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_webinar_title"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_toRightOf="@+id/tv_webinar_date"
         android:text="@string/str_time_fav"
         android:textColor="@color/fav_date_time"
         android:textSize="@dimen/_9sdp"
-        app:font_text="SFUIDisplay-Regular.ttf" />
+        app:font_text="Montserrat-Medium.ttf" />
+
+    <ImageView
+        android:id="@+id/dv_time_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_10sdp"
+        android:layout_below="@+id/tv_webinar_title"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_toRightOf="@+id/tv_webinar_time"
+        android:background="@mipmap/webinar_vertical_divider" />
+
+
+    <com.entigrity.view.CustomTextView
+        android:id="@+id/tv_duration_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_webinar_title"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_toRightOf="@+id/dv_time_duration"
+        android:text="@string/str_fav_duration"
+        android:textColor="@color/fav_date_time"
+        android:textSize="@dimen/_9sdp"
+        app:font_text="Montserrat-Medium.ttf" />
 
 
     <RelativeLayout
@@ -78,10 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            android:src="@mipmap/webinar_placeholder"
-
-
-            />
+            android:src="@mipmap/webinar_placeholder" />
 
         <FrameLayout
             android:id="@+id/rel_bg_score"
@@ -98,55 +121,85 @@
 
 
                 <com.entigrity.view.CustomTextView
-                    android:id="@+id/tv_cpe_credit"
+                    android:id="@+id/tv_webinar_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="@string/str_webinar_type"
                     android:textColor="@color/White"
                     android:textSize="@dimen/_9sdp"
-                    app:font_text="SFUIDisplay-Regular.ttf" />
+                    app:font_text="Montserrat-Medium.ttf" />
 
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/ivshare"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:background="@drawable/ic_share"
+                        android:button="@null"
+                        android:checked="true"
+                        android:stateListAnimator="@animator/scale" />
+
+
+                    <CheckBox
+                        android:id="@+id/ivfavorite"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_toRightOf="@+id/ivshare"
+                        android:background="@drawable/like_icon"
+                        android:button="@null"
+                        android:checked="true"
+                        android:stateListAnimator="@animator/scale" />
+
+
+                    <com.entigrity.view.CustomTextView
+                        android:id="@+id/tv_favorite_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_toRightOf="@+id/ivfavorite"
+                        android:text="300"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/_11sdp"
+                        app:font_text="Montserrat-Medium.ttf" />
 
 
                     <ImageView
                         android:id="@+id/ivduration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/_15sdp"
-                        android:src="@mipmap/webinars_view" />
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_toRightOf="@+id/tv_favorite_count"
+                        android:src="@drawable/ic_group" />
 
 
                     <com.entigrity.view.CustomTextView
-                        android:id="@+id/tv_favorite_views"
+                        android:id="@+id/tv_attend_views"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/_3sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_2sdp"
                         android:layout_toRightOf="@+id/ivduration"
+                        android:text="45"
                         android:textColor="@color/White"
-                        android:textSize="@dimen/_10sdp"
-                        app:font_text="SFUIDisplay-Regular.ttf" />
-
-                    <com.entigrity.view.CustomTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/tv_favorite_views"
-                        android:layout_marginLeft="@dimen/_2sdp"
-                        android:layout_toRightOf="@+id/tv_favorite_views"
-                        android:text="@string/views"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/_8sdp"
-                        app:font_text="SFUIDisplay-Regular.ttf" />
+                        android:textSize="@dimen/_11sdp"
+                        app:font_text="Montserrat-Medium.ttf" />
 
 
                 </RelativeLayout>
@@ -163,111 +216,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rel_bg_score"
-            android:layout_marginTop="@dimen/_5sdp">
+            android:layout_marginTop="@dimen/_5sdp"
+            android:padding="@dimen/_2sdp">
 
 
             <LinearLayout
-                android:id="@+id/lv_left"
-                android:layout_width="wrap_content"
+                android:id="@+id/lv_bottom"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/webinars_user"
-                    android:visibility="gone" />
-
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <com.entigrity.view.CustomTextView
                     android:id="@+id/tv_favorite_speaker_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_weight="0.9"
                     android:ellipsize="end"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/str_fav_instructor_name"
                     android:textColor="@color/fav_bottom_text_color"
                     android:textSize="@dimen/_10sdp"
-                    app:font_text="SFUIDisplay-Regular.ttf" />
-
+                    app:font_text="Montserrat-Medium.ttf" />
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_gravity="center"
                     android:background="@mipmap/webinar_vertical_divider" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lv_middle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_25sdp"
-                    android:src="@mipmap/webinars_company"
-                    android:visibility="gone" />
-
 
                 <com.entigrity.view.CustomTextView
                     android:id="@+id/tv_company_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
                     android:ellipsize="end"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/str_fav_company_name"
                     android:textColor="@color/fav_bottom_text_color"
                     android:textSize="@dimen/_10sdp"
-                    app:font_text="SFUIDisplay-Regular.ttf" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lv_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/webinars_clock"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_40sdp"
-                    android:background="@mipmap/webinar_vertical_divider"
-
-                    />
-
-
-                <com.entigrity.view.CustomTextView
-                    android:id="@+id/tv_duration_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:text="@string/str_fav_duration"
-                    android:textColor="@color/fav_bottom_text_color"
-                    android:textSize="@dimen/_10sdp"
-                    app:font_text="SFUIDisplay-Regular.ttf" />
+                    app:font_text="Montserrat-Medium.ttf" />
 
 
             </LinearLayout>
@@ -298,28 +289,27 @@
         android:layout_marginRight="@dimen/_10sdp">
 
         <com.entigrity.view.CustomButtonView
-            android:id="@+id/btnPrice"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:id="@+id/credit_status"
+            android:layout_width="@dimen/_65sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_gravity="left|center_vertical"
-            android:background="@mipmap/webinar_blue_round"
-            android:text="@string/str_price_value"
+            android:background="@drawable/rounded_credit_home"
+            android:text="@string/str_credit_score"
             android:textColor="@color/White"
             android:textSize="@dimen/_9sdp"
-            app:font_button="SFUIDisplay-Bold.ttf"
+            app:font_button="Montserrat-Medium.ttf" />
 
-            />
 
-        <CheckBox
-            android:id="@+id/ivfavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.entigrity.view.CustomButtonView
+            android:id="@+id/webinar_status"
+            android:layout_width="@dimen/_65sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:background="@drawable/like_icon"
-            android:button="@null"
-            android:checked="true"
-            android:stateListAnimator="@animator/scale" />
+            android:background="@drawable/rounded_webinar_status"
+            android:text="@string/str_webinar_status"
+            android:textColor="@color/White"
+            android:textSize="@dimen/_9sdp"
+            app:font_button="Montserrat-Medium.ttf" />
 
 
     </FrameLayout>

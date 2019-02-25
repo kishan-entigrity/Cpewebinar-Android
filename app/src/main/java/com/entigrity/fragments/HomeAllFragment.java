@@ -40,7 +40,7 @@ public class HomeAllFragment extends Fragment {
 
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new HomeLiveFragment(), getActivity().getResources().getString(R.string.str_live));
         adapter.addFragment(new HomeSelfStudyFragment(), getActivity().getResources().getString(R.string.str_self_study));
         adapter.addFragment(new HomeArchiveFragment(), getActivity().getResources().getString(R.string.str_archive));
