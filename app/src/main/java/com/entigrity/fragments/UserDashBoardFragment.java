@@ -44,6 +44,15 @@ public class UserDashBoardFragment extends Fragment {
         MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
 
 
+        if (MainActivity.getInstance().setselectedtab == 1) {
+            selectPage(1);
+        } else if (MainActivity.getInstance().setselectedtab == 2) {
+            selectPage(1);
+        } else {
+            selectPage(0);
+        }
+
+
         binding.getRoot().setFocusableInTouchMode(true);
         binding.getRoot().requestFocus();
         binding.getRoot().setOnKeyListener(new View.OnKeyListener() {
@@ -71,6 +80,11 @@ public class UserDashBoardFragment extends Fragment {
         tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_red_dot, 0);
         binding.homeparenttabs.getTabAt(1).setCustomView(tabtwo);
 
+    }
+
+    public void selectPage(int pageIndex) {
+        binding.homeparenttabs.setScrollPosition(pageIndex, 0f, true);
+        binding.viewpager.setCurrentItem(pageIndex);
     }
 
 
@@ -118,6 +132,7 @@ public class UserDashBoardFragment extends Fragment {
         adapter.addFragment(new MyWebinarFragment(), getActivity().getResources().getString(R.string.str_my_webinar));
         viewPager.setAdapter(adapter);
     }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

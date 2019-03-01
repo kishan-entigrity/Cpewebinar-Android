@@ -11,6 +11,7 @@ import com.entigrity.model.contactus.ContactUsModel;
 import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
 import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
+import com.entigrity.model.homewebinarlist.home_webinar_list;
 import com.entigrity.model.instructor.InstructorModel;
 import com.entigrity.model.instructor_follow.Instructor_Follow_Model;
 import com.entigrity.model.instructor_like.Instructor_Like_Model;
@@ -34,6 +35,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 public interface APIService {
@@ -269,6 +271,16 @@ public interface APIService {
     Observable<Webinar_Favorite> WebinarFavoriteList(
             @Header("Authorization") String authorization
 
+    );
+
+
+    //Milestone-3
+
+
+    @GET("webinar")
+    Observable<home_webinar_list> GetHomeList(@Query("webinarFor") String order,
+                                              @Query("WebinarType") String WebinarType,
+                                              @Query("PerticularAreaOfinterests") String PerticularAreaOfinterests
     );
 
 

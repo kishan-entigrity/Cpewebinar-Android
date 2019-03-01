@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -165,7 +166,15 @@ public class EditProfileActivity extends AppCompatActivity {
                         if (Constant.isNetworkAvailable(context)) {
                             GetState(country_id);
                         } else {
-                            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
+                                    .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            GetState(country_id);
+                                        }
+                                    })
+                                    .setActionTextColor(getResources().getColor(R.color.webinar_status))
+                                    .show();
                         }
                     } else {
 
@@ -280,10 +289,20 @@ public class EditProfileActivity extends AppCompatActivity {
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetTopicsOfInterset();
-
-
         } else {
-            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
+                    .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (Constant.isNetworkAvailable(context)) {
+                                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                                GetTopicsOfInterset();
+                            }
+                        }
+                    })
+                    .setActionTextColor(getResources().getColor(R.color.webinar_status))
+                    .show();
+
         }
 
 
@@ -306,7 +325,21 @@ public class EditProfileActivity extends AppCompatActivity {
                                 Constant.Trim(binding.edtEmailname.getText().toString()), Constant.Trim(binding.edtFirmname.getText().toString()), country_id, state_id, city_id, Integer.parseInt(Constant.Trim(binding.edtZipcode.getText().toString())), Constant.Trim(binding.edtMobileNumber.getText()
                                         .toString()), arraylistselectedtopicsofinterest, who_you_are_pos);
                     } else {
-                        Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                        Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
+                                .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (Constant.isNetworkAvailable(context)) {
+                                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                                            EditPost(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
+                                                    Constant.Trim(binding.edtFirstname.getText().toString()), Constant.Trim(binding.edtLastname.getText().toString()),
+                                                    Constant.Trim(binding.edtEmailname.getText().toString()), Constant.Trim(binding.edtFirmname.getText().toString()), country_id, state_id, city_id, Integer.parseInt(Constant.Trim(binding.edtZipcode.getText().toString())), Constant.Trim(binding.edtMobileNumber.getText()
+                                                            .toString()), arraylistselectedtopicsofinterest, who_you_are_pos);
+                                        }
+                                    }
+                                })
+                                .setActionTextColor(getResources().getColor(R.color.webinar_status))
+                                .show();
                     }
 
                 }
@@ -1025,36 +1058,35 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     public Boolean Validation() {
-
         if (Constant.Trim(binding.edtFirstname.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_firstname), context);
+            Snackbar.make(binding.edtFirstname, getResources().getString(R.string.val_firstname), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtLastname.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_lastname), context);
+            Snackbar.make(binding.edtLastname, getResources().getString(R.string.val_lastname), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtFirmname.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_firm_name_register), context);
+            Snackbar.make(binding.edtFirmname, getResources().getString(R.string.val_firm_name_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtMobileNumber.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_mobile_number), context);
+            Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_mobile_number), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (country_id == 0) {
-            Constant.ShowPopUp(getResources().getString(R.string.str_country), context);
+            Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.str_country), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (state_id == 0) {
-            Constant.ShowPopUp(getResources().getString(R.string.str_state), context);
+            Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.str_state), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (city_id == 0) {
-            Constant.ShowPopUp(getResources().getString(R.string.str_city), context);
+            Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.str_city), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtZipcode.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_zipcode), context);
+            Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_zipcode), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (who_you_are_pos == 0) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_user_type), context);
+            Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_user_type), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (arraylistselectedtopicsofinterest.size() == 0) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_topics), context);
+            Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_topics), Snackbar.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

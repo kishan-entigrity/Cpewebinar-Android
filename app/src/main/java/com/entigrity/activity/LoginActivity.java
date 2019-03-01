@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -53,15 +54,27 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                         LoginPost(Constant.Trim(binding.edtusername.getText().toString()), Constant.Trim(binding.edtpassword.getText()
                                 .toString()), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
                     } else {
-                        Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
+                                .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        if (Constant.isNetworkAvailable(context)) {
+                                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                                            LoginPost(Constant.Trim(binding.edtusername.getText().toString()), Constant.Trim(binding.edtpassword.getText()
+                                                    .toString()), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
+
+                                        }
+                                    }
+                                })
+                                .setActionTextColor(getResources().getColor(R.color.webinar_status))
+                                .show();
                     }
 
 
@@ -219,16 +232,16 @@ public class LoginActivity extends AppCompatActivity {
 
     public Boolean Validation() {
         if (Constant.Trim(binding.edtusername.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.validate_email_id), context);
+            Snackbar.make(binding.edtusername, getResources().getString(R.string.validate_email_id), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.isValidEmailId(Constant.Trim(binding.edtusername.getText().toString()))) {
-            Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
+            Snackbar.make(binding.edtusername, getResources().getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtpassword.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.validate_password), context);
+            Snackbar.make(binding.edtpassword, getResources().getString(R.string.validate_password), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
-            Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+            Snackbar.make(binding.edtpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

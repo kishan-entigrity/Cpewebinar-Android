@@ -5,6 +5,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -43,7 +44,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                         ForgotPassword(Constant.Trim(binding.edtEmailId.getText().toString()));
                     } else {
-                        Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
+                                .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (Constant.isNetworkAvailable(context)) {
+                                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                                            ForgotPassword(Constant.Trim(binding.edtEmailId.getText().toString()));
+                                        }
+                                    }
+                                })
+                                .setActionTextColor(getResources().getColor(R.color.webinar_status))
+                                .show();
+
+
                     }
 
                 }
@@ -63,10 +77,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public Boolean Validation() {
 
         if (Constant.Trim(binding.edtEmailId.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.forgot_passoword_email), context);
+            Snackbar.make(binding.edtEmailId, getResources().getString(R.string.forgot_passoword_email), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.isValidEmailId(Constant.Trim(binding.edtEmailId.getText().toString()))) {
-            Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
+            Snackbar.make(binding.edtEmailId, getResources().getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

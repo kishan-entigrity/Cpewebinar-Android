@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.topicsofinterest.TagsItem;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.usertype.UserTypeModel;
+import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
@@ -93,14 +95,40 @@ public class SignUpActivity extends AppCompatActivity {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetUserType();
         } else {
-            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+            Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
+                    .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (Constant.isNetworkAvailable(context)) {
+                                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                                GetUserType();
+
+                            }
+                        }
+                    })
+                    .setActionTextColor(getResources().getColor(R.color.webinar_status))
+                    .show();
         }
 
 
         if (Constant.isNetworkAvailable(context)) {
             GetTopicsOfInterset();
         } else {
-            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+            Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
+                    .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (Constant.isNetworkAvailable(context)) {
+                                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                                GetTopicsOfInterset();
+
+                            }
+                        }
+                    })
+                    .setActionTextColor(getResources().getColor(R.color.webinar_status))
+                    .show();
         }
 
         binding.edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -174,7 +202,28 @@ public class SignUpActivity extends AppCompatActivity {
                                 Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
                                 topicsofinterestAdapteradapter.arraylistselectedtag, user_type);
                     } else {
-                        Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+
+
+                        Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
+                                .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        if (Constant.isNetworkAvailable(context)) {
+                                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                                            RegisterPost(Constant.Trim(binding.edtFirmname.getText().toString())
+                                                    , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
+                                                    Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
+                                                    Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
+                                                    topicsofinterestAdapteradapter.arraylistselectedtag, user_type);
+
+                                        }
+                                    }
+                                })
+                                .setActionTextColor(getResources().getColor(R.color.webinar_status))
+                                .show();
+
+
                     }
                 }
 
@@ -457,46 +506,46 @@ public class SignUpActivity extends AppCompatActivity {
     public Boolean Validation() {
 
         if (Constant.Trim(binding.edtFirstname.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_firstname), context);
+            Snackbar.make(binding.edtFirstname, getResources().getString(R.string.val_firstname), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtLastname.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_lastname), context);
+            Snackbar.make(binding.edtLastname, getResources().getString(R.string.val_lastname), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtEmailid.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_emailid), context);
+            Snackbar.make(binding.edtEmailid, getResources().getString(R.string.val_emailid), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.isValidEmailId(Constant.Trim(binding.edtEmailid.getText().toString()))) {
-            Constant.ShowPopUp(getResources().getString(R.string.valid_email), context);
+            Snackbar.make(binding.edtEmailid, getResources().getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtPassword.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_password_register), context);
+            Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_password_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_confirm_password_register), context);
+            Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.val_confirm_password_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.isValidPassword(Constant.Trim(binding.edtPassword.getText().toString()))) {
-            Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+            Snackbar.make(binding.edtPassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.isValidPassword(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
-            Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+            Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.Trim(binding.edtPassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_confirm_password_not_match), context);
+            Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_confirm_password_not_match), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtFirmname.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_firm_name_register), context);
+            Snackbar.make(binding.edtFirmname, getResources().getString(R.string.val_firm_name_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtMobilenumbert.getText().toString()).isEmpty()) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_mobile_number), context);
+            Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_mobile_number), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (user_type == 0) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_user_type), context);
+            Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_user_type), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (topicsofinterestAdapteradapter.arraylistselectedtag.size() == 0) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_topics), context);
+            Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_topics), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!checkprivacypolicystatus) {
-            Constant.ShowPopUp(getResources().getString(R.string.val_terms_and_condition), context);
+            Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_terms_and_condition), Snackbar.LENGTH_SHORT).show();
             return false;
 
         } else {

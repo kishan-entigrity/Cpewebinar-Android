@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.FragmentMywebinarBinding;
 import com.entigrity.utility.Constant;
@@ -35,8 +36,24 @@ public class MyWebinarFragment extends Fragment {
         binding.mywebinartab.setupWithViewPager(binding.mywebinarviewpager);
 
 
+        if (MainActivity.getInstance().setselectedtab == 1) {
+            selectPage(0);
+        } else if (MainActivity.getInstance().setselectedtab == 2) {
+            selectPage(3);
+        } else {
+            selectPage(0);
+        }
+
+
         return view = binding.getRoot();
     }
+
+
+    public void selectPage(int pageIndex) {
+        binding.mywebinartab.setScrollPosition(pageIndex, 0f, true);
+        binding.mywebinarviewpager.setCurrentItem(pageIndex);
+    }
+
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());

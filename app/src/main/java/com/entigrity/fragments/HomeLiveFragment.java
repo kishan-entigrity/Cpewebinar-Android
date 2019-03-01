@@ -2,11 +2,14 @@ package com.entigrity.fragments;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ public class HomeLiveFragment extends Fragment {
     private FragmentHomeLiveBinding binding;
     View view;
     LiveHomeAdapter adapter;
+    boolean isLoading = false;
 
 
     @Nullable
@@ -33,11 +37,15 @@ public class HomeLiveFragment extends Fragment {
 
         binding.rvhomelive.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
-        adapter = new LiveHomeAdapter(getActivity());
-
-        if (adapter != null) {
-            binding.rvhomelive.setAdapter(adapter);
+        if (getActivity() != null) {
+            adapter = new LiveHomeAdapter(getActivity());
+            if (adapter != null) {
+                binding.rvhomelive.setAdapter(adapter);
+            }
         }
+
+
+        initScrollListener();
 
         binding.swipeRefreshLayouthomelive.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -49,6 +57,54 @@ public class HomeLiveFragment extends Fragment {
 
 
         return view = binding.getRoot();
+    }
+
+
+    private void initScrollListener() {
+        binding.rvhomelive.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                if (!isLoading) {
+                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == 9) {
+                        //bottom of list!
+
+                        Log.e("load more count", "load more count" + linearLayoutManager.findLastCompletelyVisibleItemPosition());
+
+                        loadMore();
+                        isLoading = true;
+                    }
+                }
+            }
+        });
+
+
+    }
+
+    private void loadMore() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() != null) {
+                    adapter = new LiveHomeAdapter(getActivity());
+                    if (adapter != null) {
+                        binding.rvhomelive.setAdapter(adapter);
+                    }
+                }
+
+            }
+        }, 2000);
+
+
     }
 
 
@@ -67,4 +123,6 @@ public class HomeLiveFragment extends Fragment {
         // Stop refresh animation
         binding.swipeRefreshLayouthomelive.setRefreshing(false);
     }
+
+
 }

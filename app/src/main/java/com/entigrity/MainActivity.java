@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public boolean isclickhome = false;
+    public int setselectedtab = 0;
 
 
     @Override
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isclickhome = false;
+                setselectedtab = 0;
 
                 SetImageBackground(0);
                 //SetDefault();
@@ -90,11 +92,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isclickhome = false;
+                setselectedtab = 1;
                 SetImageBackground(1);
-                favoritesFragment = new FavoritesFragment();
+                SetDefault();
+               /* favoritesFragment = new FavoritesFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, favoritesFragment, getResources()
                         .getString(R.string.favorite_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
-
+*/
 
             }
         });
@@ -103,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         iv_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setselectedtab = 0;
 
                 if (!isclickhome) {
                     isclickhome = true;
@@ -117,9 +122,11 @@ public class MainActivity extends AppCompatActivity {
         iv_dash_board.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setselectedtab = 2;
                 isclickhome = false;
 
                 SetImageBackground(3);
+                SetDefault();
 
 
             }
@@ -128,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         iv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setselectedtab = 0;
                 isclickhome = false;
 
                 SetImageBackground(4);

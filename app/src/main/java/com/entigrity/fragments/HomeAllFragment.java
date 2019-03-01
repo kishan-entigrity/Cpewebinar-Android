@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.entigrity.R;
 import com.entigrity.databinding.FragmentAllBinding;
-import com.entigrity.utility.Constant;
 
 import java.util.ArrayList;
 import java.util.List;

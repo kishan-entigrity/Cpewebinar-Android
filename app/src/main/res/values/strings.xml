@@ -42,6 +42,7 @@
     <string name="views">views</string>
     <string name="register">REGISTER</string>
     <string name="favorite">Favorite</string>
+    <string name="retry">Retry</string>
 
 
     //pre login
