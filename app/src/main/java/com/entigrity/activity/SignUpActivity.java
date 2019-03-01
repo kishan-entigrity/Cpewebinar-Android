@@ -506,6 +506,7 @@ public class SignUpActivity extends AppCompatActivity {
     public Boolean Validation() {
 
         if (Constant.Trim(binding.edtFirstname.getText().toString()).isEmpty()) {
+
             Snackbar.make(binding.edtFirstname, getResources().getString(R.string.val_firstname), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtLastname.getText().toString()).isEmpty()) {
