@@ -1,6 +1,5 @@
 package com.entigrity;
 
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     private static MainActivity instance;
     public RelativeLayout rel_top_bottom;
-    public ImageView iv_assesement, iv_favorities, iv_home, iv_dash_board, iv_profile;
+    public ImageView iv_mycredit, iv_mywebinar, iv_home, iv_myfavorite, iv_account;
     private static final String TAG = MainActivity.class.getName();
 
 
@@ -64,18 +63,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         rel_top_bottom = (RelativeLayout) findViewById(R.id.rel_top_bottom);
-        iv_assesement = (ImageView) findViewById(R.id.iv_assesement);
-        iv_favorities = (ImageView) findViewById(R.id.iv_favorities);
+        iv_mycredit = (ImageView) findViewById(R.id.iv_mycredit);
+        iv_mywebinar = (ImageView) findViewById(R.id.iv_mywebinar);
         iv_home = (ImageView) findViewById(R.id.iv_home);
-        iv_dash_board = (ImageView) findViewById(R.id.iv_dash_board);
-        iv_profile = (ImageView) findViewById(R.id.iv_profile);
+        iv_myfavorite = (ImageView) findViewById(R.id.iv_myfavorite);
+        iv_account = (ImageView) findViewById(R.id.iv_account);
 
 
         context = MainActivity.this;
         mAPIService = ApiUtils.getAPIService();
 
 
-        iv_assesement.setOnClickListener(new View.OnClickListener() {
+        iv_mycredit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isclickhome = false;
@@ -88,17 +87,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        iv_favorities.setOnClickListener(new View.OnClickListener() {
+        iv_mywebinar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isclickhome = false;
                 setselectedtab = 1;
                 SetImageBackground(1);
                 SetDefault();
-               /* favoritesFragment = new FavoritesFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, favoritesFragment, getResources()
-                        .getString(R.string.favorite_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
-*/
+
 
             }
         });
@@ -119,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        iv_dash_board.setOnClickListener(new View.OnClickListener() {
+        iv_myfavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setselectedtab = 2;
@@ -132,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        iv_profile.setOnClickListener(new View.OnClickListener() {
+        iv_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setselectedtab = 0;
@@ -157,30 +153,30 @@ public class MainActivity extends AppCompatActivity {
     public void SetImageBackground(int position) {
 
         if (position == 0) {
-            iv_assesement.setImageResource(R.mipmap.assesment_hover);
-            iv_favorities.setImageResource(R.mipmap.favorites);
-            iv_dash_board.setImageResource(R.mipmap.dash_board);
-            iv_profile.setImageResource(R.mipmap.footer_profile);
+            iv_mycredit.setImageResource(R.mipmap.footer_mycredits_select);
+            iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars);
+            iv_myfavorite.setImageResource(R.mipmap.footer_favorites);
+            iv_account.setImageResource(R.mipmap.footer_account);
         } else if (position == 1) {
-            iv_assesement.setImageResource(R.mipmap.assesment);
-            iv_favorities.setImageResource(R.mipmap.favorites_hover);
-            iv_dash_board.setImageResource(R.mipmap.dash_board);
-            iv_profile.setImageResource(R.mipmap.footer_profile);
+            iv_mycredit.setImageResource(R.mipmap.footer_mycredits);
+            iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars_select);
+            iv_myfavorite.setImageResource(R.mipmap.footer_favorites);
+            iv_account.setImageResource(R.mipmap.footer_account);
         } else if (position == 2) {
-            iv_assesement.setImageResource(R.mipmap.assesment);
-            iv_favorities.setImageResource(R.mipmap.favorites);
-            iv_dash_board.setImageResource(R.mipmap.dash_board);
-            iv_profile.setImageResource(R.mipmap.footer_profile);
+            iv_mycredit.setImageResource(R.mipmap.footer_mycredits);
+            iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars);
+            iv_myfavorite.setImageResource(R.mipmap.footer_favorites);
+            iv_account.setImageResource(R.mipmap.footer_account);
         } else if (position == 3) {
-            iv_assesement.setImageResource(R.mipmap.assesment);
-            iv_favorities.setImageResource(R.mipmap.favorites);
-            iv_dash_board.setImageResource(R.mipmap.dash_board_hover);
-            iv_profile.setImageResource(R.mipmap.footer_profile);
+            iv_mycredit.setImageResource(R.mipmap.footer_mycredits);
+            iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars);
+            iv_myfavorite.setImageResource(R.mipmap.footer_favorites_select);
+            iv_account.setImageResource(R.mipmap.footer_account);
         } else if (position == 4) {
-            iv_assesement.setImageResource(R.mipmap.assesment);
-            iv_favorities.setImageResource(R.mipmap.favorites);
-            iv_dash_board.setImageResource(R.mipmap.dash_board);
-            iv_profile.setImageResource(R.mipmap.footer_profile_hover);
+            iv_mycredit.setImageResource(R.mipmap.footer_mycredits);
+            iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars);
+            iv_myfavorite.setImageResource(R.mipmap.footer_favorites);
+            iv_account.setImageResource(R.mipmap.footer_account_select);
         }
 
 

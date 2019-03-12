@@ -60,21 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                         LoginPost(Constant.Trim(binding.edtusername.getText().toString()), Constant.Trim(binding.edtpassword.getText()
                                 .toString()), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
                     } else {
-                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
-                                .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-
-                                        if (Constant.isNetworkAvailable(context)) {
-                                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                                            LoginPost(Constant.Trim(binding.edtusername.getText().toString()), Constant.Trim(binding.edtpassword.getText()
-                                                    .toString()), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
-
-                                        }
-                                    }
-                                })
-                                .setActionTextColor(getResources().getColor(R.color.webinar_status))
-                                .show();
+                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                     }
 
 
@@ -88,7 +74,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
-                        Constant.ShowPopUp(getResources().getString(R.string.password_regex_validation), context);
+
+
+                        Snackbar.make(binding.edtpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
+
                     } else {
                         Constant.hideKeyboard(LoginActivity.this);
                     }
@@ -150,7 +139,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         } else {
 
-                            Constant.ShowPopUp(getResources().getString(R.string.validate_password), context);
+
+                            Snackbar.make(binding.edtpassword, getResources().getString(R.string.validate_password), Snackbar.LENGTH_SHORT).show();
 
                         }
 
@@ -186,7 +176,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
+
+
+                        Snackbar.make(binding.btnSubmit, message, Snackbar.LENGTH_SHORT).show();
 
 
                     }
@@ -215,7 +207,8 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                             }
 
-                            Constant.ShowPopUp(login.getMessage(), context);
+
+                            Snackbar.make(binding.btnSubmit, login.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 
@@ -234,16 +227,16 @@ public class LoginActivity extends AppCompatActivity {
         if (Constant.Trim(binding.edtusername.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtusername, getResources().getString(R.string.validate_email_id), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (!Constant.isValidEmailId(Constant.Trim(binding.edtusername.getText().toString()))) {
+        } /*else if (!Constant.isValidEmailId(Constant.Trim(binding.edtusername.getText().toString()))) {
             Snackbar.make(binding.edtusername, getResources().getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (Constant.Trim(binding.edtpassword.getText().toString()).isEmpty()) {
+        }*/ else if (Constant.Trim(binding.edtpassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtpassword, getResources().getString(R.string.validate_password), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
+        }/* else if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
             Snackbar.make(binding.edtpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else {
+        }*/ else {
             return true;
         }
 

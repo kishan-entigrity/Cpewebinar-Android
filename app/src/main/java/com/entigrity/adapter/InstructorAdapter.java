@@ -102,7 +102,6 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivinstrctorprofileimage;
         TextView tv_instructorname, tv_companyname, tv_one;
-
         LinearLayout lvall, lvone;
 
 

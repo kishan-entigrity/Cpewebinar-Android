@@ -45,7 +45,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:layout_toLeftOf="@+id/ivfilter"
-                android:src="@drawable/ic_notification" />
+                android:src="@mipmap/reminder" />
 
 
             <ImageView
@@ -55,7 +55,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/_5sdp"
-                android:src="@drawable/ic_filter" />
+                android:src="@mipmap/filter" />
 
 
         </RelativeLayout>

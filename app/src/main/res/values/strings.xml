@@ -31,7 +31,7 @@
     <string name="please_check_internet_condition">Please Check Internet Condition</string>
     <string name="device_token">device token</string>
     <string name="device_id">device id</string>
-    <string name="no_data_found">No Data Found</string>
+    <string name="no_data_found">Data Not Found</string>
     <string name="exit_validation">Are you sure you want to Exit?</string>
     <string name="valid_email">Please Enter Valid Email Address</string>
     <string name="logout_text">Are you sure you want to Logout?</string>
@@ -80,6 +80,14 @@
     <string name="str_credit_score">1 CREDIT</string>
     <string name="str_webinar_status">RESUME</string>
     <string name="str_webinar_type">SELF STUDY</string>
+
+
+    //filter option with home screen
+    <string name="str_filter_live">Live</string>
+    <string name="str_filter_selfstudy">SelfStudy</string>
+    <string name="str_filter_archieve">Archieve</string>
+    <string name="str_filter_favourite">Favourite</string>
+    <string name="str_filter_webinar">MyWebinar</string>
 
 
     //edit profile
@@ -299,7 +307,7 @@
     <string name="str_fav_views">45 views</string>
     <string name="str_fav_instructor_name">JOHN SMITH</string>
     <string name="str_fav_company_name">XERO</string>
-    <string name="str_fav_duration">20 Min</string>
+    <string name="str_fav_duration">Min</string>
     <string name="str_price_value">$99.00</string>
     <string name="str_webinar_like">Webinar like successfully.</string>
     <string name="str_webinar_dislike">Webinar dislike successfully.</string>
@@ -342,6 +350,11 @@
     <string name="company_fragment">companyfragment</string>
     <string name="changePassword_fragment">changePasswordFragment</string>
     <string name="add_to_back_stack">null</string>
+
+    <string name="str_no_data_found">NO Data Found</string>
+
+    <string name="time_pm">PM</string>
+    <string name="time_am">AM</string>
 
 
 </resources>

@@ -15,27 +15,110 @@
         android:layout_height="match_parent"
         android:background="@color/White">
 
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/mywebinartab"
+        <LinearLayout
+            android:id="@+id/lv_my_webinar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rvtitle"
-            android:background="@color/child_tab_background_home"
-            app:tabBackground="@drawable/tab_color_selector"
-            app:tabGravity="fill"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/White"
-            app:tabTextAppearance="@style/MineCustomTabText"
-            app:tabTextColor="@color/White" />
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_live"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/home_child_selector_mywebinar"
+                android:gravity="center"
+                android:text="@string/str_live"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf" />
+
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_selfstudy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/home_child_selector_mywebinar"
+                android:gravity="center"
+                android:text="@string/str_self_study"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf" />
+
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_archive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/home_child_selector_mywebinar"
+                android:gravity="center"
+                android:text="@string/str_archive"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf" />
 
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/mywebinarviewpager"
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/home_child_selector_mywebinar"
+                android:gravity="center"
+                android:text="@string/str_favorite"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf" />
+
+
+        </LinearLayout>
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayouthomemywebinar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/mywebinartab"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_below="@+id/lv_my_webinar">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvhomewebinar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_list"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/_30sdp"
+                android:scrollbars="vertical" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_nodatafound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_data_found"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_25sdp"
+            android:visibility="gone"
+            app:font_text="Montserrat-Medium.ttf" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+
+        </FrameLayout>
+
 
     </RelativeLayout>
 

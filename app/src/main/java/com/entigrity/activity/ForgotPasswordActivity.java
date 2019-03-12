@@ -44,19 +44,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                         ForgotPassword(Constant.Trim(binding.edtEmailId.getText().toString()));
                     } else {
-                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
-                                .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (Constant.isNetworkAvailable(context)) {
-                                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                                            ForgotPassword(Constant.Trim(binding.edtEmailId.getText().toString()));
-                                        }
-                                    }
-                                })
-                                .setActionTextColor(getResources().getColor(R.color.webinar_status))
-                                .show();
-
+                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                     }
 
@@ -111,7 +99,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
+                        Snackbar.make(binding.btnSubmit,message, Snackbar.LENGTH_SHORT).show();
+
 
 
                     }
@@ -124,12 +113,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                             }
                             binding.edtEmailId.setText("");
-                            Constant.ShowPopUp(forgotpaawordmodel.getMessage(), context);
+                            Snackbar.make(binding.btnSubmit, forgotpaawordmodel.getMessage(), Snackbar.LENGTH_SHORT).show();
+
                         } else {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
-                            Constant.ShowPopUp(forgotpaawordmodel.getMessage(), context);
+
+                            Snackbar.make(binding.btnSubmit, forgotpaawordmodel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
                     }

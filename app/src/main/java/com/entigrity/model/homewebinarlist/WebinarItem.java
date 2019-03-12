@@ -3,228 +3,278 @@ package com.entigrity.model.homewebinarlist;
 import com.google.gson.annotations.SerializedName;
 
 
-public class WebinarItem{
+public class WebinarItem {
 
-	@SerializedName("speaker_name")
-	private String speakerName;
+    @SerializedName("per_page")
+    private int perPage;
 
-	@SerializedName("fee")
-	private String fee;
+    @SerializedName("fav_webinar_count")
+    private int favWebinarCount;
 
-	@SerializedName("webinar_image")
-	private String webinarImage;
+    @SerializedName("speaker_name")
+    private String speakerName;
 
-	@SerializedName("end_time")
-	private String endTime;
+    @SerializedName("fee")
+    private String fee;
 
-	@SerializedName("webina_type")
-	private String webinaType;
+    @SerializedName("webinar_image")
+    private String webinarImage;
 
-	@SerializedName("people_register_webinar")
-	private int peopleRegisterWebinar;
+    @SerializedName("end_time")
+    private String endTime;
 
-	@SerializedName("time_zone")
-	private String timeZone;
+    @SerializedName("webina_type")
+    private String webinaType;
 
-	@SerializedName("webinar_share_link")
-	private String webinarShareLink;
+    @SerializedName("people_register_webinar")
+    private int peopleRegisterWebinar;
 
-	@SerializedName("duration")
-	private String duration;
+    @SerializedName("time_zone")
+    private String timeZone;
 
-	@SerializedName("start_time")
-	private String startTime;
+    @SerializedName("webinar_share_link")
+    private String webinarShareLink;
 
-	@SerializedName("recorded_date")
-	private String recordedDate;
+    @SerializedName("duration")
+    private String duration;
 
-	@SerializedName("company_name")
-	private String companyName;
+    @SerializedName("start_time")
+    private String startTime;
 
-	@SerializedName("webinar_title")
-	private String webinarTitle;
+    @SerializedName("page_number")
+    private String pageNumber;
 
-	@SerializedName("webinar_thumbnail_image")
-	private String webinarThumbnailImage;
+    @SerializedName("recorded_date")
+    private String recordedDate;
 
-	@SerializedName("cpa_credit")
-	private String cpaCredit;
+    @SerializedName("company_name")
+    private String companyName;
 
-	@SerializedName("id")
-	private int id;
+    @SerializedName("webinar_title")
+    private String webinarTitle;
 
-	@SerializedName("webinar_like")
-	private String webinarLike;
+    @SerializedName("webinar_thumbnail_image")
+    private String webinarThumbnailImage;
 
-	@SerializedName("webinar_status")
-	private String webinarStatus;
+    @SerializedName("cpa_credit")
+    private String cpaCredit;
 
-	public void setSpeakerName(String speakerName){
-		this.speakerName = speakerName;
-	}
+    @SerializedName("id")
+    private int id;
 
-	public String getSpeakerName(){
-		return speakerName;
-	}
+    @SerializedName("webinar_like")
+    private String webinarLike;
 
-	public void setFee(String fee){
-		this.fee = fee;
-	}
+    @SerializedName("webinar_status")
+    private String webinarStatus;
 
-	public String getFee(){
-		return fee;
-	}
+    @SerializedName("total_record")
+    private int totalRecord;
 
-	public void setWebinarImage(String webinarImage){
-		this.webinarImage = webinarImage;
-	}
+    public void setPerPage(int perPage) {
+        this.perPage = perPage;
+    }
 
-	public String getWebinarImage(){
-		return webinarImage;
-	}
+    public int getPerPage() {
+        return perPage;
+    }
 
-	public void setEndTime(String endTime){
-		this.endTime = endTime;
-	}
+    public void setFavWebinarCount(int favWebinarCount) {
+        this.favWebinarCount = favWebinarCount;
+    }
 
-	public String getEndTime(){
-		return endTime;
-	}
+    public int getFavWebinarCount() {
+        return favWebinarCount;
+    }
 
-	public void setWebinaType(String webinaType){
-		this.webinaType = webinaType;
-	}
+    public void setSpeakerName(String speakerName) {
+        this.speakerName = speakerName;
+    }
 
-	public String getWebinaType(){
-		return webinaType;
-	}
+    public String getSpeakerName() {
+        return speakerName;
+    }
 
-	public void setPeopleRegisterWebinar(int peopleRegisterWebinar){
-		this.peopleRegisterWebinar = peopleRegisterWebinar;
-	}
+    public void setFee(String fee) {
+        this.fee = fee;
+    }
 
-	public int getPeopleRegisterWebinar(){
-		return peopleRegisterWebinar;
-	}
+    public String getFee() {
+        return fee;
+    }
 
-	public void setTimeZone(String timeZone){
-		this.timeZone = timeZone;
-	}
+    public void setWebinarImage(String webinarImage) {
+        this.webinarImage = webinarImage;
+    }
 
-	public String getTimeZone(){
-		return timeZone;
-	}
+    public String getWebinarImage() {
+        return webinarImage;
+    }
 
-	public void setWebinarShareLink(String webinarShareLink){
-		this.webinarShareLink = webinarShareLink;
-	}
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
-	public String getWebinarShareLink(){
-		return webinarShareLink;
-	}
+    public String getEndTime() {
+        return endTime;
+    }
 
-	public void setDuration(String duration){
-		this.duration = duration;
-	}
+    public void setWebinaType(String webinaType) {
+        this.webinaType = webinaType;
+    }
 
-	public String getDuration(){
-		return duration;
-	}
+    public String getWebinaType() {
+        return webinaType;
+    }
 
-	public void setStartTime(String startTime){
-		this.startTime = startTime;
-	}
+    public void setPeopleRegisterWebinar(int peopleRegisterWebinar) {
+        this.peopleRegisterWebinar = peopleRegisterWebinar;
+    }
 
-	public String getStartTime(){
-		return startTime;
-	}
+    public int getPeopleRegisterWebinar() {
+        return peopleRegisterWebinar;
+    }
 
-	public void setRecordedDate(String recordedDate){
-		this.recordedDate = recordedDate;
-	}
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
+    }
 
-	public String getRecordedDate(){
-		return recordedDate;
-	}
+    public String getTimeZone() {
+        return timeZone;
+    }
 
-	public void setCompanyName(String companyName){
-		this.companyName = companyName;
-	}
+    public void setWebinarShareLink(String webinarShareLink) {
+        this.webinarShareLink = webinarShareLink;
+    }
 
-	public String getCompanyName(){
-		return companyName;
-	}
+    public String getWebinarShareLink() {
+        return webinarShareLink;
+    }
 
-	public void setWebinarTitle(String webinarTitle){
-		this.webinarTitle = webinarTitle;
-	}
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
-	public String getWebinarTitle(){
-		return webinarTitle;
-	}
+    public String getDuration() {
+        return duration;
+    }
 
-	public void setWebinarThumbnailImage(String webinarThumbnailImage){
-		this.webinarThumbnailImage = webinarThumbnailImage;
-	}
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 
-	public String getWebinarThumbnailImage(){
-		return webinarThumbnailImage;
-	}
+    public String getStartTime() {
+        return startTime;
+    }
 
-	public void setCpaCredit(String cpaCredit){
-		this.cpaCredit = cpaCredit;
-	}
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 
-	public String getCpaCredit(){
-		return cpaCredit;
-	}
+    public String getPageNumber() {
+        return pageNumber;
+    }
 
-	public void setId(int id){
-		this.id = id;
-	}
+    public void setRecordedDate(String recordedDate) {
+        this.recordedDate = recordedDate;
+    }
 
-	public int getId(){
-		return id;
-	}
+    public String getRecordedDate() {
+        return recordedDate;
+    }
 
-	public void setWebinarLike(String webinarLike){
-		this.webinarLike = webinarLike;
-	}
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
-	public String getWebinarLike(){
-		return webinarLike;
-	}
+    public String getCompanyName() {
+        return companyName;
+    }
 
-	public void setWebinarStatus(String webinarStatus){
-		this.webinarStatus = webinarStatus;
-	}
+    public void setWebinarTitle(String webinarTitle) {
+        this.webinarTitle = webinarTitle;
+    }
 
-	public String getWebinarStatus(){
-		return webinarStatus;
-	}
+    public String getWebinarTitle() {
+        return webinarTitle;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"WebinarItem{" + 
-			"speaker_name = '" + speakerName + '\'' + 
-			",fee = '" + fee + '\'' + 
-			",webinar_image = '" + webinarImage + '\'' + 
-			",end_time = '" + endTime + '\'' + 
-			",webina_type = '" + webinaType + '\'' + 
-			",people_register_webinar = '" + peopleRegisterWebinar + '\'' + 
-			",time_zone = '" + timeZone + '\'' + 
-			",webinar_share_link = '" + webinarShareLink + '\'' + 
-			",duration = '" + duration + '\'' + 
-			",start_time = '" + startTime + '\'' + 
-			",recorded_date = '" + recordedDate + '\'' + 
-			",company_name = '" + companyName + '\'' + 
-			",webinar_title = '" + webinarTitle + '\'' + 
-			",webinar_thumbnail_image = '" + webinarThumbnailImage + '\'' + 
-			",cpa_credit = '" + cpaCredit + '\'' + 
-			",id = '" + id + '\'' + 
-			",webinar_like = '" + webinarLike + '\'' + 
-			",webinar_status = '" + webinarStatus + '\'' + 
-			"}";
-		}
+    public void setWebinarThumbnailImage(String webinarThumbnailImage) {
+        this.webinarThumbnailImage = webinarThumbnailImage;
+    }
+
+    public String getWebinarThumbnailImage() {
+        return webinarThumbnailImage;
+    }
+
+    public void setCpaCredit(String cpaCredit) {
+        this.cpaCredit = cpaCredit;
+    }
+
+    public String getCpaCredit() {
+        return cpaCredit;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setWebinarLike(String webinarLike) {
+        this.webinarLike = webinarLike;
+    }
+
+    public String getWebinarLike() {
+        return webinarLike;
+    }
+
+    public void setWebinarStatus(String webinarStatus) {
+        this.webinarStatus = webinarStatus;
+    }
+
+    public String getWebinarStatus() {
+        return webinarStatus;
+    }
+
+    public void setTotalRecord(int totalRecord) {
+        this.totalRecord = totalRecord;
+    }
+
+    public int getTotalRecord() {
+        return totalRecord;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "WebinarItem{" +
+                        "per_page = '" + perPage + '\'' +
+                        ",fav_webinar_count = '" + favWebinarCount + '\'' +
+                        ",speaker_name = '" + speakerName + '\'' +
+                        ",fee = '" + fee + '\'' +
+                        ",webinar_image = '" + webinarImage + '\'' +
+                        ",end_time = '" + endTime + '\'' +
+                        ",webina_type = '" + webinaType + '\'' +
+                        ",people_register_webinar = '" + peopleRegisterWebinar + '\'' +
+                        ",time_zone = '" + timeZone + '\'' +
+                        ",webinar_share_link = '" + webinarShareLink + '\'' +
+                        ",duration = '" + duration + '\'' +
+                        ",start_time = '" + startTime + '\'' +
+                        ",page_number = '" + pageNumber + '\'' +
+                        ",recorded_date = '" + recordedDate + '\'' +
+                        ",company_name = '" + companyName + '\'' +
+                        ",webinar_title = '" + webinarTitle + '\'' +
+                        ",webinar_thumbnail_image = '" + webinarThumbnailImage + '\'' +
+                        ",cpa_credit = '" + cpaCredit + '\'' +
+                        ",id = '" + id + '\'' +
+                        ",webinar_like = '" + webinarLike + '\'' +
+                        ",webinar_status = '" + webinarStatus + '\'' +
+                        ",total_record = '" + totalRecord + '\'' +
+                        "}";
+    }
 }
+
+

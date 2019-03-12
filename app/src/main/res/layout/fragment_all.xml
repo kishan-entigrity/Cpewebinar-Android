@@ -15,80 +15,100 @@
         android:layout_height="match_parent"
         android:background="@color/White">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/alltab"
+
+        <LinearLayout
+            android:id="@+id/lv_home_all_sections"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/child_tab_background_home"
-            app:tabBackground="@drawable/tab_color_selector"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/White"
-            app:tabTextAppearance="@style/MineCustomTabTextChild"
-            app:tabTextColor="@color/White" />
-
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/homeallviewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/alltab"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/child_tab_background_home"
             android:orientation="horizontal"
             android:weightSum="3">
 
-&lt;!&ndash;
-            <TextView
+
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_live"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/theme_background"
+                android:background="@drawable/col_three_bg"
                 android:gravity="center"
-                android:padding="@dimen/_5sdp"
                 android:text="@string/str_live"
                 android:textColor="@color/White"
                 android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf" />
 
-
-                />
-
-            <TextView
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_selfstudy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1"
-                android:background="@drawable/tab_color_selector"
+                android:background="@drawable/col_three_bg"
                 android:gravity="center"
                 android:text="@string/str_self_study"
                 android:textColor="@color/White"
                 android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf" />
 
-
-                />
-
-            <TextView
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_archive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/tab_color_selector"
+                android:background="@drawable/col_three_bg"
                 android:gravity="center"
                 android:text="@string/str_archive"
                 android:textColor="@color/White"
                 android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf"
 
 
-                />&ndash;&gt;
+                />
 
 
+        </LinearLayout>
 
 
-        </LinearLayout>-->
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayouthome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lv_home_all_sections">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvhome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_list"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/_30sdp"
+                android:scrollbars="vertical" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_nodatafound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_25sdp"
+            app:font_text="Montserrat-Medium.ttf" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+
+        </FrameLayout>
 
 
     </RelativeLayout>

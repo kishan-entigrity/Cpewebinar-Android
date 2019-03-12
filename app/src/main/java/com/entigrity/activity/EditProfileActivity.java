@@ -213,7 +213,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         if (Constant.isNetworkAvailable(context)) {
                             GetCity(state_id);
                         } else {
-                            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                         }
 
                     } else {
@@ -325,21 +325,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 Constant.Trim(binding.edtEmailname.getText().toString()), Constant.Trim(binding.edtFirmname.getText().toString()), country_id, state_id, city_id, Integer.parseInt(Constant.Trim(binding.edtZipcode.getText().toString())), Constant.Trim(binding.edtMobileNumber.getText()
                                         .toString()), arraylistselectedtopicsofinterest, who_you_are_pos);
                     } else {
-                        Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
-                                .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (Constant.isNetworkAvailable(context)) {
-                                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                                            EditPost(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
-                                                    Constant.Trim(binding.edtFirstname.getText().toString()), Constant.Trim(binding.edtLastname.getText().toString()),
-                                                    Constant.Trim(binding.edtEmailname.getText().toString()), Constant.Trim(binding.edtFirmname.getText().toString()), country_id, state_id, city_id, Integer.parseInt(Constant.Trim(binding.edtZipcode.getText().toString())), Constant.Trim(binding.edtMobileNumber.getText()
-                                                            .toString()), arraylistselectedtopicsofinterest, who_you_are_pos);
-                                        }
-                                    }
-                                })
-                                .setActionTextColor(getResources().getColor(R.color.webinar_status))
-                                .show();
+                        Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                     }
 
                 }
@@ -424,7 +410,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
+                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
 
                     }
 
@@ -436,7 +422,8 @@ public class EditProfileActivity extends AppCompatActivity {
                             }
 
 
-                            ShowPopUp(editProfileModel.getMessage(), context);
+                            Snackbar.make(binding.btnsubmit, editProfileModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+
 
                         } else if (editProfileModel.isSuccess() == false) {
                             if (editProfileModel.getPayload().getAccessToken() != null && !editProfileModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
@@ -450,7 +437,9 @@ public class EditProfileActivity extends AppCompatActivity {
                                                 binding.edtEmailname.getText().toString(), binding.edtFirmname.getText().toString(), country_id, state_id, city_id, Integer.parseInt(binding.edtZipcode.getText().toString()), binding.edtMobileNumber.getText()
                                                         .toString(), arraylistselectedtopicsofinterest, user_type);
                                     } else {
-                                        Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+
+
+                                        Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                                     }
 
                                 }
@@ -458,7 +447,8 @@ public class EditProfileActivity extends AppCompatActivity {
                                 if (progressDialog.isShowing()) {
                                     progressDialog.dismiss();
                                 }
-                                Constant.ShowPopUp(editProfileModel.getMessage(), context);
+
+                                Snackbar.make(binding.btnsubmit, editProfileModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                             }
 
 
@@ -468,29 +458,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-
-
-    public void ShowPopUp(String message, final Context context) {
-        final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(
-                context).create();
-        alertDialog.setMessage(message);
-        // Setting OK Button
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // Write your code here to execute after dialog closed
-                alertDialog.dismiss();
-
-
-                Intent i = new Intent(context, MainActivity.class);
-                startActivity(i);
-                finish();
-
-
-            }
-        });
-        // Showing Alert Message
-        alertDialog.show();
     }
 
 
@@ -514,7 +481,9 @@ public class EditProfileActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
                         String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
+
+
+                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
 
 
                     }
@@ -684,7 +653,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         if (Constant.isNetworkAvailable(context)) {
                             GetCountry();
                         } else {
-                            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                         }
 
 
@@ -697,7 +666,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
+                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
 
 
                     }
@@ -850,7 +819,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         if (Constant.isNetworkAvailable(context)) {
                             GetState(country_pos);
                         } else {
-                            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                         }
 
 
@@ -863,7 +832,9 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
+
+
+                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
 
 
                     }
@@ -913,7 +884,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         if (Constant.isNetworkAvailable(context)) {
                             GetUserType();
                         } else {
-                            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                         }
 
                     }
@@ -925,7 +896,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
+                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
 
 
                     }
@@ -987,7 +958,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         if (Constant.isNetworkAvailable(context)) {
                             GetCity(state_pos);
                         } else {
-                            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                         }
 
 
@@ -1000,7 +971,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Constant.ShowPopUp(message, context);
+                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
 
 
                     }

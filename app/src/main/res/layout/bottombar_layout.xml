@@ -26,18 +26,18 @@
         android:weightSum="2">
 
         <ImageView
-            android:id="@+id/iv_assesement"
+            android:id="@+id/iv_mycredit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/assesment" />
+            android:src="@mipmap/footer_mycredits" />
 
         <ImageView
-            android:id="@+id/iv_favorities"
+            android:id="@+id/iv_mywebinar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/favorites" />
+            android:src="@mipmap/footer_mywebinars" />
 
     </LinearLayout>
 
@@ -62,18 +62,18 @@
         android:weightSum="2">
 
         <ImageView
-            android:id="@+id/iv_dash_board"
+            android:id="@+id/iv_myfavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/dash_board" />
+            android:src="@mipmap/footer_favorites" />
 
         <ImageView
-            android:id="@+id/iv_profile"
+            android:id="@+id/iv_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/footer_profile" />
+            android:src="@mipmap/footer_account" />
 
     </LinearLayout>
 

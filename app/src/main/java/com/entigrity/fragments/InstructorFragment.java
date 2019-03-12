@@ -175,8 +175,6 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
                             mListinstructorlist = instructorModel.getPayload().getSpeakers();
 
 
-
-
                         } else {
 
                             if (instructorModel.getPayload().getAccessToken() != null && !instructorModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
@@ -206,8 +204,6 @@ public class InstructorFragment extends Fragment implements SearchView.OnQueryTe
 
                 });
     }
-
-
 
 
     @Override

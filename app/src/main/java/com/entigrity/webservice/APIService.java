@@ -11,7 +11,8 @@ import com.entigrity.model.contactus.ContactUsModel;
 import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
 import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
-import com.entigrity.model.homewebinarlist.home_webinar_list;
+
+import com.entigrity.model.homewebinarlist.Webinar_Home;
 import com.entigrity.model.instructor.InstructorModel;
 import com.entigrity.model.instructor_follow.Instructor_Follow_Model;
 import com.entigrity.model.instructor_like.Instructor_Like_Model;
@@ -276,9 +277,19 @@ public interface APIService {
 
     //Milestone-3
 
+    @GET("webinar")
+    Observable<Webinar_Home> GetHomeWebinarList(@Header("Authorization") String authorization,
+                                                @Query("WebinarFor") String webinarfor,
+                                                @Query("page") int page,
+                                                @Query("WebinarType") String WebinarType,
+                                                @Query("PerticularAreaOfinterests") String PerticularAreaOfinterests
+    );
+
 
     @GET("webinar")
-    Observable<home_webinar_list> GetHomeList(@Query("webinarFor") String order,
+    Observable<Webinar_Home> GetMyWebinarList(@Header("Authorization") String authorization,
+                                              @Query("WebinarFor") String webinarfor,
+                                              @Query("page") int page,
                                               @Query("WebinarType") String WebinarType,
                                               @Query("PerticularAreaOfinterests") String PerticularAreaOfinterests
     );

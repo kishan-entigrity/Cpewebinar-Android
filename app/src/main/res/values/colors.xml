@@ -63,10 +63,9 @@
     <color name="fav_bottom_text_color">#303030</color>
 
     //home
-    <color name="child_tab_background_home">#466A9C</color>
+    <color name="child_tab_background_home">#4d699f</color>
     <color name="home_topbar_bgcolor">#193f70</color>
     <color name="webinar_status">#ed9e37</color>
-
 
 
 </resources>

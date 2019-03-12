@@ -5,24 +5,38 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 
-public class Payload{
+public class Payload {
 
-	@SerializedName("webinar")
-	private List<WebinarItem> webinar;
+    public String getAccessToken() {
+        return accessToken;
+    }
 
-	public void setWebinar(List<WebinarItem> webinar){
-		this.webinar = webinar;
-	}
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
 
-	public List<WebinarItem> getWebinar(){
-		return webinar;
-	}
+    @SerializedName("access_token")
 
-	@Override
- 	public String toString(){
-		return 
-			"Payload{" + 
-			"webinar = '" + webinar + '\'' + 
-			"}";
-		}
+    private String accessToken;
+
+
+    @SerializedName("webinar")
+    private List<WebinarItem> webinar;
+
+    public void setWebinar(List<WebinarItem> webinar) {
+        this.webinar = webinar;
+    }
+
+    public List<WebinarItem> getWebinar() {
+        return webinar;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Payload{" +
+                        "access_token = '" + accessToken + '\'' +
+                        "webinar = '" + webinar + '\'' +
+                        "}";
+    }
 }
