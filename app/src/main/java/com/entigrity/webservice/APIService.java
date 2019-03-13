@@ -23,6 +23,7 @@ import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.subject.SubjectModel;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
+import com.entigrity.model.topicsofinterestn.Topicsofinterestmodel;
 import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.model.viewprofile.ViewProfileModel;
 import com.entigrity.model.webinar_like.Webinar_Like_Model;
@@ -293,6 +294,12 @@ public interface APIService {
                                               @Query("WebinarType") String WebinarType,
                                               @Query("PerticularAreaOfinterests") String PerticularAreaOfinterests
     );
+
+
+    //get topics of interest
+
+    @GET("topic-of-interest")
+    Observable<Topicsofinterestmodel> GetTopicsofInterests();
 
 
 }

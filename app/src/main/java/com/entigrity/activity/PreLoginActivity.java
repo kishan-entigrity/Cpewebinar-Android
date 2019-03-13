@@ -26,20 +26,14 @@ public class PreLoginActivity extends AppCompatActivity {
                 Intent i = new Intent(PreLoginActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
-
-
             }
         });
-
-
         binding.strsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PreLoginActivity.this, SignUpActivity.class);
                 startActivity(i);
                 finish();
-
-
             }
         });
 

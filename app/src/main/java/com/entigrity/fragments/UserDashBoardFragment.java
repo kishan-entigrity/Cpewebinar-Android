@@ -2,6 +2,7 @@ package com.entigrity.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.TopicsOfInterestActivity;
 import com.entigrity.databinding.FragmentDashboardBinding;
 
 import java.util.ArrayList;
@@ -50,6 +52,16 @@ public class UserDashBoardFragment extends Fragment {
         } else {
             selectPage(0);
         }
+
+        binding.ivfilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getActivity(), TopicsOfInterestActivity.class);
+                startActivity(i);
+
+            }
+        });
 
 
         binding.getRoot().setFocusableInTouchMode(true);
