@@ -43,20 +43,13 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvtopics_of_interest"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/White"
             android:layout_above="@+id/rel_submit"
-            android:layout_below="@+id/relheader">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvtopics_of_interest"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical" />
-
-
-        </RelativeLayout>
+            android:layout_below="@+id/relheader" />
 
 
         <RelativeLayout

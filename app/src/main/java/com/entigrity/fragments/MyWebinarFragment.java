@@ -150,7 +150,7 @@ public class MyWebinarFragment extends Fragment {
                 progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                 GetMyWebinarList(pagenumber, webinartypemywebinar);
             } else {
-                Snackbar.make(binding.lvMyWebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(binding.rvhomewebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
             }
         }

@@ -45,7 +45,13 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_topicsofinterest);
         mAPIService = ApiUtils.getAPIService();
+
         context = TopicsOfInterestActivity.this;
+
+      /*  linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        binding.rvtopicsOfInterest.setLayoutManager(linearLayoutManager);
+        binding.rvtopicsOfInterest.addItemDecoration(new SimpleDividerItemDecoration(context));
+*/
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         binding.rvtopicsOfInterest.setLayoutManager(linearLayoutManager);
@@ -76,6 +82,7 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
 
     }
 
+
     public void GetTopicsofInterest() {
         mAPIService.GetTopicsofInterests().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Topicsofinterestmodel>() {
@@ -83,6 +90,10 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
                     public void onCompleted() {
                         if (topicsofinterestitem.size() > 0) {
                             adapter = new RecyclerViewSectionAdapter(context, topicsofinterestitem);
+                            /*GridLayoutManager manager = new GridLayoutManager(TopicsOfInterestActivity.this,
+                                    getResources().getInteger(R.integer.grid_span_3));
+                            binding.rvtopicsOfInterest.setLayoutManager(manager);
+                            adapter.setLayoutManager(manager);*/
                             binding.rvtopicsOfInterest.setAdapter(adapter);
                         }
 

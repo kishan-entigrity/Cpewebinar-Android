@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,10 +21,11 @@ import java.util.List;
 public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<RecyclerView.ViewHolder> {
 
     private List<TopicOfInterestsItem> mlist;
-    private Context context;
+    public static Context mContext;
+
 
     public RecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data) {
-        this.context = context;
+        this.mContext = context;
         this.mlist = data;
     }
 
@@ -44,18 +47,21 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
 
         if (!mlist.get(position).getName().equalsIgnoreCase("")) {
             String sectionName = mlist.get(position).getName();
-            SectionViewHolder sectionViewHolder = (SectionViewHolder) holder;
+
 
             if (!sectionName.equalsIgnoreCase("")) {
-                sectionViewHolder.sectionTitle.setText(sectionName);
+
+                ((SectionViewHolder) holder).sectionTitle.setText(sectionName);
             }
+
+
         }
 
 
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, int relativePosition, int absolutePosition) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position, int relativePosition, int absolutePosition) {
 
 
         if (mlist.get(position).getTags().size() > 0) {
@@ -63,12 +69,29 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
 
             String itemName = itemsInSection.get(relativePosition).getTag();
 
-            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
             if (!itemName.equalsIgnoreCase("")) {
-                itemViewHolder.itemTitle.setText(itemName);
+                ((ItemViewHolder) holder).itemTitle.setText(itemName);
             }
         }
+
+        ((ItemViewHolder) holder).lv_topics_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (((ItemViewHolder) holder).cbselection.isChecked() == false) {
+                        ((ItemViewHolder) holder).cbselection.setChecked(true);
+                    } else {
+                        ((ItemViewHolder) holder).cbselection.setChecked(false);
+
+                    }
+                    Toast.makeText(v.getContext(), ((ItemViewHolder) holder).itemTitle.getText(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
 
 
         // Try to put a image . for sample i set background color in xml layout file
@@ -112,20 +135,17 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         final TextView itemTitle;
+        RelativeLayout lv_topics_item;
+        CheckBox cbselection;
 
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             itemTitle = (TextView) itemView.findViewById(R.id.itemTitle);
+            lv_topics_item = (RelativeLayout) itemView.findViewById(R.id.lv_topics_item);
+            cbselection = (CheckBox) itemView.findViewById(R.id.cbselection);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    Toast.makeText(v.getContext(), itemTitle.getText(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
         }
     }
 }

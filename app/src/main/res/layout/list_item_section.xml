@@ -2,16 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#e0e0e0">
+    android:background="@color/uvv_gray"
+    android:padding="@dimen/_5sdp">
 
     <TextView
         android:id="@+id/sectionTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="@dimen/_5sdp"
         android:clickable="false"
         android:text="Sample"
         android:textColor="@color/theme_background"
-        android:textSize="14sp" />
+        android:textSize="@dimen/_14sdp" />
 
 </LinearLayout>
+
+
+
+
+
