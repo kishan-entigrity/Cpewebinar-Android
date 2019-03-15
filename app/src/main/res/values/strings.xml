@@ -357,7 +357,58 @@
     <string name="time_am">AM</string>
 
 
+    //webinar details screen
 
+    <string name="str_webinartitle">HOW THE PRIMARY AND SECONDARY MORTGAGE MARKET WORKS ?</string>
+    <string name="str_webinartime">Thursday,February 28,2019: 17:30 PM,US/Mountain</string>
+    <string name="str_add_to_calendar">Add to Calender</string>
+    <string name="str_overview">OVERVIEW</string>
+    <string name="str_program_desc_header">Program Description</string>
+    <string name="str_program_desc">Kind Of Materials course description is a brief summary of the
+    significant learning experiences for a course Course descriptions
+    appear in individual Course Outlines and in the Program of Studies (POSs) for individual
+    programs.
+    </string>
+    <string name="str_learning_objective">LEARNING OBJECTIVES</string>
+    <string name="str_learning_objectives_value">\u2022 Introduction to Cyber Security</string>
+    <string name="str_about_presenter">ABOUT PRESENTER</string>
+    <string name="str_testimonial">TESTIMONIALS</string>
+    <string name="str_faq">FAQ</string>
+    <string name="str_refund_cancelation_policy">REFUND/CANCELLATION POLICY</string>
+    <string name="str_view_more">View More</string>
+    <string name="str_refund_cancelation_policy_content">For more information regarding refund,complain and
+    program cancellation policies,please connect our offices at 863-337-8573</string>
+    <string name="str_nasba_approved">NASBA APPROVED</string>
+    <string name="str_nasba_address">My Cpe LLC 30N,WY80801</string>
+    <string name="str_nasba_approved_content">my-cpe.org is registered with the National Association of State Boards of Accountancy (NASBA) as a sponsor of continuing professional education on the National Registry of CPE Sponsors. State Boards of Accountancy have the final authority on the acceptance of individual course for CPE credit.</string>
+
+
+    /table form
+    <string name="str_cost">Cost</string>
+    <string name="str_cpe_credit">Cpe Credit</string>
+    <string name="str_duration">Duration</string>
+    <string name="str_subject_area">Subject Area</string>
+    <string name="str_course_level">Course Level</string>
+    <string name="str_instructionalmethod">Instructional Method</string>
+    <string name="str_prerequisite">Prerequisite</string>
+    <string name="str_handout">Presentation Handouts</string>
+    <string name="str_adavance_preparation">Advance Preparation</string>
+    <string name="str_who_should_attend">Who should attend?</string>
+    <string name="str_series">Series</string>
+
+
+    /its value
+    <string name="str_cost_price">$25.00</string>
+    <string name="str_cpe_credit_value">1</string>
+    <string name="str_duration_value">1 Hour</string>
+    <string name="str_subject_area_value">Accounting and  Auditing</string>
+    <string name="str_course_level_value">Basic</string>
+    <string name="str_instructional_value">Group Internet Based</string>
+    <string name="str_prerequisite_value">None</string>
+    <string name="str_handout_value">Download</string>
+    <string name="str_adavance_preparation_value">None</string>
+    <string name="str_who_should_attend_value">None</string>
+    <string name="str_series_value">None</string>
 
 
 </resources>

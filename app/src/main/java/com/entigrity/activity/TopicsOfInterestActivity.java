@@ -48,10 +48,6 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
 
         context = TopicsOfInterestActivity.this;
 
-      /*  linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        binding.rvtopicsOfInterest.setLayoutManager(linearLayoutManager);
-        binding.rvtopicsOfInterest.addItemDecoration(new SimpleDividerItemDecoration(context));
-*/
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         binding.rvtopicsOfInterest.setLayoutManager(linearLayoutManager);
