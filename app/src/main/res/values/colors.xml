@@ -68,4 +68,11 @@
     <color name="webinar_status">#ed9e37</color>
 
 
+    //account
+
+    <color name="viewprofile_lable">#989898</color>
+    <color name="viewprofile_sections">#494949</color>
+
+
+
 </resources>

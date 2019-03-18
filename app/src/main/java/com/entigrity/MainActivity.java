@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.activity.LoginActivity;
+import com.entigrity.fragments.AccountFragment;
 import com.entigrity.fragments.CompanyFragment;
 import com.entigrity.fragments.ContactUsFragment;
 import com.entigrity.fragments.FavoritesFragment;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     UserDashBoardFragment userDashBoardFragment;
     ViewProfileFragment viewProfileFragment;
+    AccountFragment accountFragment;
     FavoritesFragment favoritesFragment;
     ContactUsFragment contactUsFragment;
     InstructorFragment instructorFragment;
@@ -135,9 +137,11 @@ public class MainActivity extends AppCompatActivity {
                 isclickhome = false;
 
                 SetImageBackground(4);
-                viewProfileFragment = new ViewProfileFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, viewProfileFragment, getResources()
-                        .getString(R.string.viewprofile_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
+                //viewProfileFragment = new ViewProfileFragment();
+
+                accountFragment = new AccountFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, accountFragment, getResources()
+                        .getString(R.string.accountFragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
 
 
             }

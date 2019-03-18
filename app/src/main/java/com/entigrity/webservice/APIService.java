@@ -26,6 +26,7 @@ import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.topicsofinterestn.Topicsofinterestmodel;
 import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.model.viewprofile.ViewProfileModel;
+import com.entigrity.model.webinar_details.Webinar_Detail_Model;
 import com.entigrity.model.webinar_like.Webinar_Like_Model;
 import com.entigrity.model.webinarfavorites.Webinar_Favorite;
 
@@ -300,6 +301,14 @@ public interface APIService {
 
     @GET("topic-of-interest")
     Observable<Topicsofinterestmodel> GetTopicsofInterests();
+
+
+    //get webinar details
+
+    @GET("webinar-detail/{webinar_ids}")
+    Observable<Webinar_Detail_Model> GetWebinarDetail(
+            @Path("webinar_ids") String webinar_ids,
+            @Header("Authorization") String authorization);
 
 
 }

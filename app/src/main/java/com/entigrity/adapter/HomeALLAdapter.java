@@ -207,6 +207,8 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
 
                     Intent i = new Intent(mContext, WebinarDetailsActivity.class);
+                    i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
+                            .get(position).getId());
                     mContext.startActivity(i);
 
                 }

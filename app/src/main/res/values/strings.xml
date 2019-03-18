@@ -344,6 +344,7 @@
     <string name="ok">OK</string>
     <string name="favorite_fragment">favoritesFragment</string>
     <string name="viewprofile_fragment">viewprofilefragment</string>
+    <string name="accountFragment">accountFragment</string>
     <string name="userdashBoard_fragment">userdashboardfragment</string>
     <string name="contactus_fragment">contactusfragment</string>
     <string name="instructor_fragment">instructorfragment</string>
@@ -397,7 +398,7 @@
     <string name="str_series">Series</string>
 
 
-    /its value
+    /table form value
     <string name="str_cost_price">$25.00</string>
     <string name="str_cpe_credit_value">1</string>
     <string name="str_duration_value">1 Hour</string>
@@ -409,6 +410,30 @@
     <string name="str_adavance_preparation_value">None</string>
     <string name="str_who_should_attend_value">None</string>
     <string name="str_series_value">None</string>
+
+
+    //Home to Webinar details screen pass data
+    <string name="pass_webinar_id">Webinarid</string>
+
+
+    //account screen
+
+    <string name="str_header_account">Account</string>
+    <string name="str_username">John Smith</string>
+    <string name="str_lable_view">View and edit profile</string>
+
+
+    <string name="str_notification">Notification</string>
+    <string name="str_my_transaction">My Transactions</string>
+    <string name="str_payment_method">Payment Method</string>
+    <string name="str_my_credit">My Credit</string>
+    <string name="str_topics_of_interest">Topic Of Intrest</string>
+    <string name="str_privacy_policy">Privacy Policy</string>
+    <string name="str_terms_condition">Terms and Conditions</string>
+    <string name="str_contact_us">Contact Us</string>
+    <string name="str_faqs">FAQs</string>
+    <string name="str_give_us_your_feedback">Give us your feedback</string>
+    <string name="str_logout">Logout</string>
 
 
 </resources>
