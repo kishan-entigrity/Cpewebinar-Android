@@ -18,6 +18,7 @@ import com.entigrity.fragments.CompanyFragment;
 import com.entigrity.fragments.ContactUsFragment;
 import com.entigrity.fragments.FavoritesFragment;
 import com.entigrity.fragments.InstructorFragment;
+import com.entigrity.fragments.MyCreditsFragment;
 import com.entigrity.fragments.UserDashBoardFragment;
 import com.entigrity.fragments.ViewProfileFragment;
 import com.entigrity.model.logout.LogoutModel;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     UserDashBoardFragment userDashBoardFragment;
     ViewProfileFragment viewProfileFragment;
     AccountFragment accountFragment;
+    MyCreditsFragment myCreditsFragment;
     FavoritesFragment favoritesFragment;
     ContactUsFragment contactUsFragment;
     InstructorFragment instructorFragment;
@@ -84,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
 
                 SetImageBackground(0);
                 //SetDefault();
+                myCreditsFragment = new MyCreditsFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myCreditsFragment, getResources()
+                        .getString(R.string.mycreditfragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
 
 
             }
@@ -141,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
                 accountFragment = new AccountFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, accountFragment, getResources()
-                        .getString(R.string.accountFragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
+                        .getString(R.string.accountfragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
 
 
             }

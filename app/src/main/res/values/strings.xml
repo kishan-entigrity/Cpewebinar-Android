@@ -344,7 +344,8 @@
     <string name="ok">OK</string>
     <string name="favorite_fragment">favoritesFragment</string>
     <string name="viewprofile_fragment">viewprofilefragment</string>
-    <string name="accountFragment">accountFragment</string>
+    <string name="accountfragment">accountFragment</string>
+    <string name="mycreditfragment">mycreditfragment</string>
     <string name="userdashBoard_fragment">userdashboardfragment</string>
     <string name="contactus_fragment">contactusfragment</string>
     <string name="instructor_fragment">instructorfragment</string>
@@ -429,11 +430,21 @@
     <string name="str_my_credit">My Credit</string>
     <string name="str_topics_of_interest">Topic Of Intrest</string>
     <string name="str_privacy_policy">Privacy Policy</string>
-    <string name="str_terms_condition">Terms and Conditions</string>
+    <string name="str_terms_condition">Terms &amp; Conditions</string>
     <string name="str_contact_us">Contact Us</string>
-    <string name="str_faqs">FAQs</string>
+    <string name="str_faqs">FAQ"'"s</string>
     <string name="str_give_us_your_feedback">Give us your feedback</string>
     <string name="str_logout">Logout</string>
+
+
+    //my credits
+
+    <string name="str_mycredit">My Credits</string>
+    <string name="str_user_email_id">johnsmith@gmail.com</string>
+    <string name="str_my_credit_completed"><u>Completed</u></string>
+    <string name="str_my_credit_pending"><u>Pending</u></string>
+    <string name="str_my_credit_upcoming"><u>Upcoming</u></string>
+    <string name="str_download_all"><u>Download All</u></string>
 
 
 </resources>
