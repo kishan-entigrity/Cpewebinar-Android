@@ -446,5 +446,11 @@
     <string name="str_my_credit_upcoming"><u>Upcoming</u></string>
     <string name="str_download_all"><u>Download All</u></string>
 
+    /row file
+
+    <string name="str_instructor_name">judy vordan</string>
+    <string name="str_credit">1 credit</string>
+    <string name="str_accounting">Accounting</string>
+
 
 </resources>
