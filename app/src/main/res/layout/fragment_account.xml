@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/str_username"
-                android:textColor="@color/fav_webinar_title"
+                android:textColor="@color/account_username"
                 android:textSize="@dimen/_18sdp"
                 app:font_text="Montserrat-Bold.ttf" />
 
@@ -64,8 +64,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_username"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/str_lable_view"
-                android:textColor="@color/viewprofile_lable"
+                android:textColor="@color/black_full"
                 android:textSize="@dimen/_10sdp"
                 app:font_text="Montserrat-Regular.ttf" />
 
@@ -75,7 +76,8 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_alignParentRight="true"
-                android:src="@mipmap/webinar_placeholder" />
+                android:src="@mipmap/webinar_placeholder"
+                android:visibility="gone" />
 
 
         </RelativeLayout>
@@ -105,9 +107,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_notification"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -139,9 +141,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_my_transaction"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -173,9 +175,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_payment_method"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -196,6 +198,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/rv_credit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/White"
@@ -207,9 +210,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_my_credit"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -241,9 +244,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_topics_of_interest"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -263,6 +266,7 @@
                     android:background="@color/background_list" />
 
                 <RelativeLayout
+                    android:id="@+id/rv_privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/White"
@@ -274,9 +278,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_privacy_policy"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -296,6 +300,7 @@
                     android:background="@color/background_list" />
 
                 <RelativeLayout
+                    android:id="@+id/rv_terms_condition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/White"
@@ -307,9 +312,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_terms_condition"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -340,9 +345,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_contact_us"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -362,6 +367,7 @@
                     android:background="@color/background_list" />
 
                 <RelativeLayout
+                    android:id="@+id/rv_faq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/White"
@@ -373,9 +379,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_faqs"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -406,9 +412,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_give_us_your_feedback"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView
@@ -428,6 +434,7 @@
                     android:background="@color/background_list" />
 
                 <RelativeLayout
+                    android:id="@+id/rv_logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/White"
@@ -439,9 +446,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_logout"
-                        android:textColor="@color/viewprofile_sections"
+                        android:textColor="@color/black_full"
                         android:textSize="@dimen/_12sdp"
-                        app:font_text="Montserrat-Bold.ttf" />
+                        app:font_text="Montserrat-Regular.ttf" />
 
 
                     <ImageView

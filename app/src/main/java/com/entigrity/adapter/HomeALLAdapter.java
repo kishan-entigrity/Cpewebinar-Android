@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.activity.StripePaymentActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.homewebinarlist.WebinarItem;
 import com.squareup.picasso.Picasso;
@@ -72,6 +73,15 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             }
 
             if (!mList.get(position).getWebinarStatus().equalsIgnoreCase("")) {
+
+                if (mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext
+                        .getResources().getString(R.string.str_webinar_status_register))) {
+                    ((HomeViewHolder) viewHolder).webinar_status.setBackgroundResource(R.drawable.rounded_credit_home);
+                } else {
+                    ((HomeViewHolder) viewHolder).webinar_status.setBackgroundResource(R.drawable.rounded_webinar_status);
+                }
+
+
                 ((HomeViewHolder) viewHolder).webinar_status.setText(mList.get(position).getWebinarStatus());
             }
 
@@ -214,6 +224,22 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                 }
             });
 
+
+            ((HomeViewHolder) viewHolder).webinar_status.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext
+                            .getResources().getString(R.string.str_webinar_status_register))) {
+
+                        Intent i = new Intent(mContext, StripePaymentActivity.class);
+                        mContext.startActivity(i);
+
+                    }
+
+
+                }
+            });
 
             ((HomeViewHolder) viewHolder).ivfavorite.setOnClickListener(new View.OnClickListener() {
                 @Override

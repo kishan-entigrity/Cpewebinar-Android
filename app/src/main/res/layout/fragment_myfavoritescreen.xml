@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.entigrity.fragments.MyFavoriteScreenFragment" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/White"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/rvtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/home_topbar_bgcolor"
+            android:padding="@dimen/_10sdp">
+
+
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/screentitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/str_favorites"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_18sdp"
+                app:font_text="Montserrat-Bold.ttf" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivbanner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/webinar_placeholder" />
+
+
+            <ImageView
+                android:id="@+id/iv_profilepicture"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_below="@+id/ivbanner"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_minus25sdp"
+                android:background="@drawable/favorite_profile_border"
+                android:src="@mipmap/app_icon" />
+
+
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/profilename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_profilepicture"
+                android:layout_centerHorizontal="true"
+                android:text="@string/str_profile_name"
+                android:textColor="@color/theme_background"
+                android:textSize="@dimen/_15sdp"
+                app:font_text="Montserrat-Regular.ttf" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/favorites_webinar_icon" />
+
+
+                    <com.entigrity.view.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@string/str_webinar"
+                        android:textColor="@color/theme_background"
+                        android:textSize="@dimen/_15sdp"
+                        app:font_text="Montserrat-Regular.ttf" />
+
+
+                    <com.entigrity.view.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/str_webinar_count"
+                        android:textColor="@color/theme_background"
+                        android:textSize="@dimen/_15sdp"
+                        app:font_text="Montserrat-Regular.ttf" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/favorites_interests_icon" />
+
+
+                    <com.entigrity.view.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@string/str_interest"
+                        android:textColor="@color/theme_background"
+                        android:textSize="@dimen/_15sdp"
+                        app:font_text="Montserrat-Regular.ttf" />
+
+
+                    <com.entigrity.view.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/str_interest_count"
+                        android:textColor="@color/theme_background"
+                        android:textSize="@dimen/_15sdp"
+                        app:font_text="Montserrat-Regular.ttf" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/favorites_speaker_icon" />
+
+
+                    <com.entigrity.view.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@string/str_webinar"
+                        android:textColor="@color/theme_background"
+                        android:textSize="@dimen/_15sdp"
+                        app:font_text="Montserrat-Regular.ttf" />
+
+
+                    <com.entigrity.view.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/str_speaker_count"
+                        android:textColor="@color/theme_background"
+                        android:textSize="@dimen/_15sdp"
+                        app:font_text="Montserrat-Regular.ttf" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/favorites_company_icon" />
+
+
+                    <com.entigrity.view.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@string/str_interest"
+                        android:textColor="@color/theme_background"
+                        android:textSize="@dimen/_15sdp"
+                        app:font_text="Montserrat-Regular.ttf" />
+
+
+                    <com.entigrity.view.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/str_company_count"
+                        android:textColor="@color/theme_background"
+                        android:textSize="@dimen/_15sdp"
+                        app:font_text="Montserrat-Regular.ttf" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</layout>

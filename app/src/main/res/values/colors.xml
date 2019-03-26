@@ -29,10 +29,14 @@
 
     //topics of interest
     <color name="text_topics_interest">#CECECE</color>
+    <color name="header_topics_interest">#08264c</color>
+    <color name="bottom_submit_footer">#001944</color>
+    <color name="background_color">#efeff4</color>
 
 
     //vimeo
     <color name="black">#ff000000</color>
+    <color name="black_full">#000000</color>
 
 
     //common
@@ -73,6 +77,22 @@
     <color name="viewprofile_lable">#989898</color>
     <color name="viewprofile_sections">#494949</color>
 
+
+    <color name="account_username">#193f70</color>
+
+
+    //my credit
+    <color name="my_credit_header_username">#151431</color>
+    <color name="my_credit_header_email_id">#aeaeae</color>
+    <color name="my_credit_webinar_report">#193f70</color>
+    <color name="my_credit_webinar_count">#2c2c2c</color>
+
+
+
+
+    //webinar details
+    <color name="webinar_detail_titile">#08264c</color>
+    <color name="webinar_detail_form_details">#717171</color>
 
 
 </resources>

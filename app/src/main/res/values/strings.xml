@@ -346,6 +346,7 @@
     <string name="viewprofile_fragment">viewprofilefragment</string>
     <string name="accountfragment">accountFragment</string>
     <string name="mycreditfragment">mycreditfragment</string>
+    <string name="myfavoritescreenfragment">myfavoritescreen</string>
     <string name="userdashBoard_fragment">userdashboardfragment</string>
     <string name="contactus_fragment">contactusfragment</string>
     <string name="instructor_fragment">instructorfragment</string>
@@ -363,7 +364,7 @@
 
     <string name="str_webinartitle">HOW THE PRIMARY AND SECONDARY MORTGAGE MARKET WORKS ?</string>
     <string name="str_webinartime">Thursday,February 28,2019: 17:30 PM,US/Mountain</string>
-    <string name="str_add_to_calendar">Add to Calender</string>
+    <string name="str_add_to_calendar"><u>Add to Calender</u></string>
     <string name="str_overview">OVERVIEW</string>
     <string name="str_program_desc_header">Program Description</string>
     <string name="str_program_desc">Kind Of Materials course description is a brief summary of the
@@ -383,7 +384,8 @@
     <string name="str_nasba_approved">NASBA APPROVED</string>
     <string name="str_nasba_address">My Cpe LLC 30N,WY80801</string>
     <string name="str_nasba_approved_content">my-cpe.org is registered with the National Association of State Boards of Accountancy (NASBA) as a sponsor of continuing professional education on the National Registry of CPE Sponsors. State Boards of Accountancy have the final authority on the acceptance of individual course for CPE credit.</string>
-
+    <string name="str_hour">Hour</string>
+    <string name="str_min">Min</string>
 
     /table form
     <string name="str_cost">Cost</string>
@@ -451,6 +453,37 @@
     <string name="str_instructor_name">judy vordan</string>
     <string name="str_credit">1 credit</string>
     <string name="str_accounting">Accounting</string>
+
+
+    //check condition in webinar details
+    <string name="str_webinar_status_register">Register</string>
+
+    //favorites
+
+    <string name="str_favorites">Favorites</string>
+    <string name="str_profile_name">Saumil Jani</string>
+
+
+    <string name="str_webinar">Webinar</string>
+    <string name="str_webinar_count">(25)</string>
+
+
+    <string name="str_interest">Interests</string>
+    <string name="str_interest_count">(149)</string>
+
+
+    <string name="str_speaker_favorite">Speaker</string>
+    <string name="str_speaker_count">(5)</string>
+
+
+    <string name="str_company_favorite">Company</string>
+    <string name="str_company_count">(10)</string>
+
+    //privacy policy
+    <string name="str_privacy">Privacy Policy</string>
+    <string name="str_terms_and_condition">Terms &amp; Condition</string>
+
+
 
 
 </resources>

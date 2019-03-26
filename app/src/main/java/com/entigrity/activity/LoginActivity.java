@@ -74,10 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
-
-
                         Snackbar.make(binding.edtpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-
                     } else {
                         Constant.hideKeyboard(LoginActivity.this);
                     }

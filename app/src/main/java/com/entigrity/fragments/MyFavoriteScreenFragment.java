@@ -3,56 +3,30 @@ package com.entigrity.fragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.entigrity.R;
-import com.entigrity.adapter.MyCreditAdapter;
-import com.entigrity.databinding.FragmentMycreditBinding;
-import com.entigrity.view.SimpleDividerItemDecoration;
+import com.entigrity.databinding.FragmentMyfavoritescreenBinding;
 
-public class MyCreditsFragment extends Fragment {
-
+public class MyFavoriteScreenFragment extends Fragment {
     View view;
     public Context context;
-    FragmentMycreditBinding binding;
+    FragmentMyfavoritescreenBinding binding;
     private static final String TAG = MyCreditsFragment.class.getName();
-    MyCreditAdapter adapter;
-    Typeface font;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mycredit, null, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_myfavoritescreen, null, false);
         context = getActivity();
-
-        font = Typeface.createFromAsset(getActivity().getAssets(), "Montserrat-Light.ttf");
-
-        binding.btnAll.setTypeface(font);
-        binding.btnDate.setTypeface(font);
-
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        binding.recyclerviewMycredit.setLayoutManager(layoutManager);
-
-        binding.recyclerviewMycredit.addItemDecoration(new SimpleDividerItemDecoration(context));
-
-
-        adapter = new MyCreditAdapter(getActivity());
-
-
-        if (adapter != null) {
-            binding.recyclerviewMycredit.setAdapter(adapter);
-        }
 
         binding.getRoot().setFocusableInTouchMode(true);
         binding.getRoot().requestFocus();
@@ -67,8 +41,8 @@ public class MyCreditsFragment extends Fragment {
             }
         });
 
-
         return view = binding.getRoot();
+
     }
 
     public void ConfirmationPopup() {

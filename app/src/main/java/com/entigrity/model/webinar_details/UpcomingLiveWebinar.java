@@ -2,6 +2,7 @@ package com.entigrity.model.webinar_details;
 
 import com.google.gson.annotations.SerializedName;
 
+
 public class UpcomingLiveWebinar {
 
     @SerializedName("start_time")

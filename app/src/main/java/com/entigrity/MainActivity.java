@@ -19,6 +19,7 @@ import com.entigrity.fragments.ContactUsFragment;
 import com.entigrity.fragments.FavoritesFragment;
 import com.entigrity.fragments.InstructorFragment;
 import com.entigrity.fragments.MyCreditsFragment;
+import com.entigrity.fragments.MyFavoriteScreenFragment;
 import com.entigrity.fragments.UserDashBoardFragment;
 import com.entigrity.fragments.ViewProfileFragment;
 import com.entigrity.model.logout.LogoutModel;
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     ViewProfileFragment viewProfileFragment;
     AccountFragment accountFragment;
     MyCreditsFragment myCreditsFragment;
+    MyFavoriteScreenFragment myFavoriteScreenFragment;
+
+
     FavoritesFragment favoritesFragment;
     ContactUsFragment contactUsFragment;
     InstructorFragment instructorFragment;
@@ -129,7 +133,9 @@ public class MainActivity extends AppCompatActivity {
                 isclickhome = false;
 
                 SetImageBackground(3);
-                SetDefault();
+                myFavoriteScreenFragment = new MyFavoriteScreenFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFavoriteScreenFragment, getResources()
+                        .getString(R.string.myfavoritescreenfragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
 
 
             }
@@ -155,6 +161,19 @@ public class MainActivity extends AppCompatActivity {
 
         SetDefault();
 
+
+    }
+
+
+    public void SetCreditScreen() {
+        isclickhome = false;
+        setselectedtab = 0;
+
+        SetImageBackground(0);
+        //SetDefault();
+        myCreditsFragment = new MyCreditsFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myCreditsFragment, getResources()
+                .getString(R.string.mycreditfragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
 
     }
 

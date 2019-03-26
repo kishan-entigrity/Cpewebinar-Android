@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -18,7 +17,6 @@ import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
 import com.entigrity.model.topicsofinterestn.Topicsofinterestmodel;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
-import com.entigrity.view.DividerItemDecoration;
 import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;

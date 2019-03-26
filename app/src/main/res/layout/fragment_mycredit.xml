@@ -33,7 +33,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/str_mycredit"
                 android:textColor="@color/White"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="@dimen/_18sdp"
                 app:font_text="Montserrat-Bold.ttf" />
 
 
@@ -62,9 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/str_username"
-                android:textColor="@color/black"
+                android:textColor="@color/my_credit_header_username"
                 android:textSize="@dimen/_16sdp"
-                app:font_text="Montserrat-Bold.ttf" />
+                app:font_text="Montserrat-SemiBold.ttf" />
 
 
             <com.entigrity.view.CustomTextView
@@ -73,9 +73,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/str_user_email_id"
-                android:textColor="@color/black"
+                android:textColor="@color/my_credit_header_email_id"
                 android:textSize="@dimen/_12sdp"
-                app:font_text="Montserrat-Regular.ttf" />
+                app:font_text="Montserrat-Medium.ttf" />
 
 
         </LinearLayout>
@@ -101,9 +101,9 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="2"
-                    android:textColor="@color/theme_background"
+                    android:textColor="@color/my_credit_webinar_report"
                     android:textSize="@dimen/_16sdp"
-                    app:font_text="Montserrat-Bold.ttf" />
+                    app:font_text="Montserrat-SemiBold.ttf" />
 
                 <com.entigrity.view.CustomTextView
                     android:layout_width="wrap_content"
@@ -111,9 +111,9 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/str_my_credit_completed"
-                    android:textColor="@color/viewprofile_lable"
+                    android:textColor="@color/my_credit_webinar_count"
                     android:textSize="@dimen/_14sdp"
-                    app:font_text="Montserrat-Bold.ttf" />
+                    app:font_text="Montserrat-Medium.ttf" />
 
 
             </LinearLayout>
@@ -138,9 +138,9 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="8"
-                    android:textColor="@color/theme_background"
+                    android:textColor="@color/my_credit_webinar_report"
                     android:textSize="@dimen/_16sdp"
-                    app:font_text="Montserrat-Bold.ttf" />
+                    app:font_text="Montserrat-SemiBold.ttf" />
 
                 <com.entigrity.view.CustomTextView
                     android:layout_width="wrap_content"
@@ -148,9 +148,9 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/str_my_credit_pending"
-                    android:textColor="@color/viewprofile_lable"
+                    android:textColor="@color/my_credit_webinar_count"
                     android:textSize="@dimen/_14sdp"
-                    app:font_text="Montserrat-Bold.ttf" />
+                    app:font_text="Montserrat-Medium.ttf" />
 
 
             </LinearLayout>
@@ -174,9 +174,9 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="6"
-                    android:textColor="@color/theme_background"
+                    android:textColor="@color/my_credit_webinar_report"
                     android:textSize="@dimen/_16sdp"
-                    app:font_text="Montserrat-Bold.ttf" />
+                    app:font_text="Montserrat-SemiBold.ttf" />
 
                 <com.entigrity.view.CustomTextView
                     android:layout_width="wrap_content"
@@ -184,9 +184,9 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/str_my_credit_upcoming"
-                    android:textColor="@color/viewprofile_lable"
+                    android:textColor="@color/my_credit_webinar_count"
                     android:textSize="@dimen/_14sdp"
-                    app:font_text="Montserrat-Bold.ttf" />
+                    app:font_text="Montserrat-Medium.ttf" />
 
 
             </LinearLayout>
@@ -233,7 +233,7 @@
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ALL" />
+                    android:text="All" />
 
                 <RadioButton
                     android:id="@+id/btn_date"

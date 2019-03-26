@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.homewebinarlist.WebinarItem;
 import com.squareup.picasso.Picasso;
 
@@ -197,6 +199,20 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                 }
             });
 
+
+            ((MyWebinarHolder) viewHolder).rel_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent i = new Intent(mContext, WebinarDetailsActivity.class);
+                    i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
+                            .get(position).getId());
+                    mContext.startActivity(i);
+
+                }
+            });
+
+
             ((MyWebinarHolder) viewHolder).ivfavorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -286,6 +302,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
         ImageView ivwebinar_thumbhel, ivshare;
         Button credit_status, webinar_status;
         ImageView ivfavorite;
+        RelativeLayout rel_item;
 
 
         private MyWebinarHolder(View itemView) {
@@ -306,6 +323,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             tv_attend_views = (TextView) itemView.findViewById(R.id.tv_attend_views);
             tv_favorite_speaker_name = (TextView) itemView.findViewById(R.id.tv_favorite_speaker_name);
             tv_company_name = (TextView) itemView.findViewById(R.id.tv_company_name);
+            rel_item = (RelativeLayout) itemView.findViewById(R.id.rel_item);
 
 
         }
