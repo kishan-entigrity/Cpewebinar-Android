@@ -12,6 +12,10 @@ import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
 import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
 
+import com.entigrity.model.getcontactusinfo.GetContactUsInfo;
+import com.entigrity.model.getfaq.GetFaq;
+import com.entigrity.model.getprivacypolicy.GetPrivacyPolicy;
+import com.entigrity.model.gettermscondition.GetTermsCondition;
 import com.entigrity.model.homewebinarlist.Webinar_Home;
 import com.entigrity.model.instructor.InstructorModel;
 import com.entigrity.model.instructor_follow.Instructor_Follow_Model;
@@ -19,6 +23,9 @@ import com.entigrity.model.instructor_like.Instructor_Like_Model;
 import com.entigrity.model.instructorfavorites.Instructor_Favorite;
 import com.entigrity.model.login.LoginModel;
 import com.entigrity.model.logout.LogoutModel;
+import com.entigrity.model.notification.NotificationModel;
+import com.entigrity.model.postcontactus.PostContactQuery;
+import com.entigrity.model.postfeedback.PostFeedback;
 import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.subject.SubjectModel;
@@ -28,6 +35,7 @@ import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.model.viewprofile.ViewProfileModel;
 import com.entigrity.model.webinar_details.Webinar_Detail_Model;
 import com.entigrity.model.webinar_like.Webinar_Like_Model;
+import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
 import com.entigrity.model.webinarfavorites.Webinar_Favorite;
 
 import java.util.ArrayList;
@@ -308,6 +316,58 @@ public interface APIService {
     @GET("webinar-detail/{webinar_ids}")
     Observable<Webinar_Detail_Model> GetWebinarDetail(
             @Path("webinar_ids") String webinar_ids,
+            @Header("Authorization") String authorization);
+
+
+    //get Faq
+    @GET("cms/faq")
+    Observable<GetFaq> GetFaq(
+            @Header("Accept") String accept);
+
+    //get privacy policy
+    @GET("cms/privacy_policy")
+    Observable<GetPrivacyPolicy> GetPrivacyPolicy(
+            @Header("Accept") String accept);
+
+    //get terms and condition
+    @GET("cms/terms_condition")
+    Observable<GetTermsCondition> GetTermsandCondition(
+            @Header("Accept") String accept);
+
+    //get contact us
+    @GET("contact-us/info")
+    Observable<GetContactUsInfo> GetContactUsInfo(
+            @Header("Accept") String accept);
+
+    //post query
+    @POST("contact-us/query")
+    Observable<PostContactQuery> PostContactUsQuery(
+            @Header("Accept") String accept,
+            @Query("Message") String Message,
+            @Query("Subject") String Subject);
+
+
+    //post feedback
+    @POST("contact-us/review")
+    Observable<PostFeedback> PostContactUsFeedback(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Query("Message") String Message,
+            @Query("Subject") String Subject);
+
+
+    //Webinar like and dislike
+    @POST("webinar/like-dislike")
+    Observable<Webinar_Like_Dislike_Model> PostWebinarLikeDislike(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Query("webinar_id") int webinar_id);
+
+
+    //notification
+    @GET("notification")
+    Observable<NotificationModel> GetNotificationModel(
+            @Header("Accept") String accept,
             @Header("Authorization") String authorization);
 
 

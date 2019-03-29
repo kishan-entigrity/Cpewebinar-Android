@@ -8,6 +8,7 @@
     <string name="action_settings">Settings</string>
     <string name="percentage_value">50%</string>
     <string name="bearer">Bearer</string>
+    <string name="accept">application/json</string>
 
 
     //progress dialog
@@ -36,6 +37,7 @@
     <string name="valid_email">Please Enter Valid Email Address</string>
     <string name="logout_text">Are you sure you want to Logout?</string>
     <string name="password_regex_validation">Please enter password atleast 6 characters including 1 uppercase,1 lowercase &amp; 1 number.</string>
+    <string name="password_length">Password must be in 6 character.</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
     <string name="cpe">CPE</string>
@@ -142,6 +144,11 @@
     <string name="contact_message">Message</string>
     <string name="subject">Subject</string>
     <string name="contact_send">SEND</string>
+    <string name="str_need_help">Need Help?</string>
+    <string name="str_address">Patel Society</string>
+    <string name="str_number">+18002800282</string>
+    <string name="str_contactus_emailid">hello@entigrity.com</string>
+    <string name="str_or">OR</string>
 
 
     //Register
@@ -285,9 +292,11 @@
 
 
     //rating popup
-    <string name="review_popup_header">Write Your Review</string>
+    <string name="review_popup_header">Give us your Feedback</string>
     <string name="str_submit">SUBMIT</string>
     <string name="str_your_name">Your Review</string>
+    <string name="str_subject">Subject</string>
+    <string name="val_subject">PLease Enter Subject</string>
     <string name="val_review">PLease Enter Review</string>
 
 
@@ -479,11 +488,16 @@
     <string name="str_company_favorite">Company</string>
     <string name="str_company_count">(10)</string>
 
+
+    <string name="fav_yes">Y</string>
+    <string name="fav_No">N</string>
+
     //privacy policy
     <string name="str_privacy">Privacy Policy</string>
     <string name="str_terms_and_condition">Terms &amp; Condition</string>
 
-
+    //notification list
+    <string name="str_noti_time">23d ago</string>
 
 
 </resources>

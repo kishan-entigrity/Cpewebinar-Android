@@ -96,7 +96,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
         binding.tvReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowRatingPopup(context);
+               // ShowRatingPopup(context);
 
             }
         });
@@ -105,7 +105,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
         binding.ivRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowRatingPopup(context);
+//                ShowRatingPopup(context);
 
             }
         });
@@ -288,9 +288,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
                             }
 
 
-                        } else
-
-                        {
+                        } else {
 
 
                             if (instructor_like_model.getPayload().getAccessToken() != null && !instructor_like_model.getPayload().getAccessToken()
@@ -385,13 +383,13 @@ public class InstructorDetailsActivity extends AppCompatActivity {
     }
 
 
-    public void ShowRatingPopup(final Context context) {
+   /* public void ShowRatingPopup(final Context context) {
         myDialog_popup = new Dialog(context);
         myDialog_popup.setContentView(R.layout.rating_popup);
         myDialog_popup.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         ivclose = (ImageView) myDialog_popup.findViewById(R.id.ivclose);
-        edt_your_review = (EditText) myDialog_popup.findViewById(R.id.edt_your_review);
+        edt_your_review = (EditText) myDialog_popup.findViewById(R.id.edt_review);
         btn_submit = (Button) myDialog_popup.findViewById(R.id.btn_submit);
 
         edt_your_review.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -430,7 +428,7 @@ public class InstructorDetailsActivity extends AppCompatActivity {
 
     }
 
-
+*/
     public static InstructorDetailsActivity getInstance() {
         return instance;
 

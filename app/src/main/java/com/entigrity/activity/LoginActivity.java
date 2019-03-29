@@ -24,6 +24,7 @@ import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
+import com.entigrity.webservice.ApiUtilsNew;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -43,12 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        mAPIService = ApiUtils.getAPIService();
+        mAPIService = ApiUtilsNew.getAPIService();
         context = LoginActivity.this;
 
 
-        AppSettings.set_device_id(context, Constant.GetDeviceid(context));
-        AppSettings.set_device_token(context, "12345");
+        AppSettings.set_device_id(context, "1");
+        AppSettings.set_device_token(context, "12345678");
 
 
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -230,10 +231,13 @@ public class LoginActivity extends AppCompatActivity {
         }*/ else if (Constant.Trim(binding.edtpassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtpassword, getResources().getString(R.string.validate_password), Snackbar.LENGTH_SHORT).show();
             return false;
-        }/* else if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
+        }
+
+        /* else if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
             Snackbar.make(binding.edtpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
             return false;
-        }*/ else {
+        }*/
+        else {
             return true;
         }
 

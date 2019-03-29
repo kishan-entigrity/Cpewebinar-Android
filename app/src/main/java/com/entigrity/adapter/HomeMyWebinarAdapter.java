@@ -1,9 +1,11 @@
 package com.entigrity.adapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +17,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.activity.StripePaymentActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.homewebinarlist.WebinarItem;
+import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
+import com.entigrity.utility.AppSettings;
+import com.entigrity.utility.Constant;
+import com.entigrity.view.DialogsUtils;
+import com.entigrity.webservice.APIService;
+import com.entigrity.webservice.ApiUtils;
+import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.StringTokenizer;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
     private final int VIEW_ITEM = 1;
@@ -30,11 +44,14 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
     LayoutInflater mInflater;
     private List<WebinarItem> mList;
     private String start_time;
-    public boolean checkfavoritestate = false;
+    //public boolean checkfavoritestate = false;
+    private APIService mAPIService;
+    ProgressDialog progressDialog;
 
     public HomeMyWebinarAdapter(Context mContext, List<WebinarItem> mList) {
         this.mContext = mContext;
         this.mList = mList;
+        mAPIService = ApiUtilsNew.getAPIService();
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -180,10 +197,8 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
 
             if (mList.get(position).getWebinarLike().equalsIgnoreCase(mContext
                     .getResources().getString(R.string.Yes))) {
-                checkfavoritestate = false;
                 ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like_hover);
             } else {
-                checkfavoritestate = true;
                 ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
             }
 
@@ -200,7 +215,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             });
 
 
-            ((MyWebinarHolder) viewHolder).rel_item.setOnClickListener(new View.OnClickListener() {
+            ((MyWebinarHolder) viewHolder).ivwebinar_thumbhel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -212,16 +227,31 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                 }
             });
 
+            ((MyWebinarHolder) viewHolder).webinar_status.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext
+                            .getResources().getString(R.string.str_webinar_status_register))) {
+
+                        Intent i = new Intent(mContext, StripePaymentActivity.class);
+                        mContext.startActivity(i);
+
+                    }
+
+
+                }
+            });
+
 
             ((MyWebinarHolder) viewHolder).ivfavorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (checkfavoritestate == false) {
-                        checkfavoritestate = true;
-                        ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
+                    if (Constant.isNetworkAvailable(mContext)) {
+                        progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
+                        WebinarFavoriteLikeDislike(mList.get(position).getId(), ((MyWebinarHolder) viewHolder).ivfavorite);
                     } else {
-                        checkfavoritestate = false;
-                        ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like_hover);
+                        Snackbar.make(((MyWebinarHolder) viewHolder).ivfavorite, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                     }
 
 
@@ -336,5 +366,55 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             super(v);
             progressBar = (ProgressBar) v.findViewById(R.id.loadmore_progress);
         }
+    }
+
+    private void WebinarFavoriteLikeDislike(final int webinar_id, final ImageView ImageView) {
+
+        mAPIService.PostWebinarLikeDislike(mContext.getResources().getString(R.string.accept),
+                mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext),
+                webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Webinar_Like_Dislike_Model>() {
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(mContext, e);
+                        Snackbar.make(ImageView, message, Snackbar.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onNext(Webinar_Like_Dislike_Model webinar_like_dislike_model) {
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        if (webinar_like_dislike_model.isSuccess()) {
+                            if (webinar_like_dislike_model.getPayload().getIsLike().equalsIgnoreCase(mContext
+                                    .getResources().getString(R.string.fav_yes))) {
+                                ImageView.setImageResource(R.drawable.like_hover);
+                            } else {
+                                ImageView.setImageResource(R.drawable.like);
+                            }
+                            Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        } else {
+                            Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+
+
     }
 }

@@ -464,10 +464,10 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (Constant.Trim(binding.edtEmailid.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtEmailid, getResources().getString(R.string.val_emailid), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (!Constant.isValidEmailId(Constant.Trim(binding.edtEmailid.getText().toString()))) {
+        } /*else if (!Constant.isValidEmailId(Constant.Trim(binding.edtEmailid.getText().toString()))) {
             Snackbar.make(binding.edtEmailid, getResources().getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (Constant.Trim(binding.edtPassword.getText().toString()).isEmpty()) {
+        }*/ else if (Constant.Trim(binding.edtPassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_password_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).isEmpty()) {

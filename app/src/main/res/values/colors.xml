@@ -86,13 +86,18 @@
     <color name="my_credit_header_email_id">#aeaeae</color>
     <color name="my_credit_webinar_report">#193f70</color>
     <color name="my_credit_webinar_count">#2c2c2c</color>
-
-
+    <color name="my_credit_status_">#e5e5e5</color>
 
 
     //webinar details
     <color name="webinar_detail_titile">#08264c</color>
     <color name="webinar_detail_form_details">#717171</color>
+
+
+    //feedback popup
+    <color name="feedback_title">#4a4a4a</color>
+    <color name="feedback_field">#80000000</color>
+
 
 
 </resources>
