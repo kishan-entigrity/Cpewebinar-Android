@@ -3,7 +3,6 @@ package com.entigrity.activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -23,7 +22,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.TopicsofinterestEditProfileAdapter;
 import com.entigrity.databinding.ActivityEditProfileBinding;
@@ -86,7 +84,6 @@ public class EditProfileActivity extends AppCompatActivity {
     public boolean checkedadapter = false;
 
 
-    public TextView tv_popup_msg, tv_popup_submit;
     private int country_id = 0;
     private int state_id = 0;
     private int city_id = 0;
@@ -290,18 +287,7 @@ public class EditProfileActivity extends AppCompatActivity {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetTopicsOfInterset();
         } else {
-            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
-                    .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (Constant.isNetworkAvailable(context)) {
-                                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                                GetTopicsOfInterset();
-                            }
-                        }
-                    })
-                    .setActionTextColor(getResources().getColor(R.color.webinar_status))
-                    .show();
+            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
         }
 

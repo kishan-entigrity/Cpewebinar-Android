@@ -68,66 +68,6 @@ public class ActivityChangePassword extends AppCompatActivity {
             }
         });
 
-        binding.edtOldpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (!Constant.isValidPassword(Constant.Trim(binding.edtOldpassword.getText().toString()))) {
-                        Constant.hideKeyboard(ActivityChangePassword.this);
-                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        binding.edtNewpassword.requestFocus();
-                    }
-
-                    return true;
-                }
-
-                return false;
-            }
-        });
-
-
-        binding.edtNewpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (!Constant.isValidPassword(Constant.Trim(binding.edtNewpassword.getText().toString()))) {
-                        Constant.hideKeyboard(ActivityChangePassword.this);
-                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        binding.edtConfirmpassword.requestFocus();
-                    }
-
-                    return true;
-                }
-
-                return false;
-            }
-        });
-
-        binding.edtConfirmpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (!Constant.isValidPassword(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
-                        Constant.hideKeyboard(ActivityChangePassword.this);
-                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-                    } else if (!Constant.Trim(binding.edtNewpassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
-                        Constant.hideKeyboard(ActivityChangePassword.this);
-                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.val_new_confirm_password_not_match), Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        Constant.hideKeyboard(ActivityChangePassword.this);
-                    }
-                    return true;
-                }
-
-                return false;
-            }
-        });
-
 
     }
 
@@ -207,14 +147,8 @@ public class ActivityChangePassword extends AppCompatActivity {
         } else if (Constant.Trim(binding.edtNewpassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.validate_newpassword), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtNewpassword.getText().toString()))) {
-            Snackbar.make(binding.btnSubmit, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-            return false;
         } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.validate_confirmpassword), Snackbar.LENGTH_SHORT).show();
-            return false;
-        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
-            Snackbar.make(binding.btnSubmit, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.Trim(binding.edtNewpassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.val_new_confirm_password_not_match), Snackbar.LENGTH_SHORT).show();

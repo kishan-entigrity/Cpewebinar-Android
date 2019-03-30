@@ -10,6 +10,7 @@ import com.entigrity.model.companyfavorites.Company_Favorite;
 import com.entigrity.model.contactus.ContactUsModel;
 import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
+import com.entigrity.model.favorites_count.Favorite_Count_Model;
 import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
 
 import com.entigrity.model.getcontactusinfo.GetContactUsInfo;
@@ -367,6 +368,13 @@ public interface APIService {
     //notification
     @GET("notification")
     Observable<NotificationModel> GetNotificationModel(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization);
+
+
+    //favorite count
+    @GET("favorites")
+    Observable<Favorite_Count_Model> GetFavoriteCountModel(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization);
 

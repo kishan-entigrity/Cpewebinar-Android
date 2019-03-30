@@ -37,7 +37,7 @@
     <string name="valid_email">Please Enter Valid Email Address</string>
     <string name="logout_text">Are you sure you want to Logout?</string>
     <string name="password_regex_validation">Please enter password atleast 6 characters including 1 uppercase,1 lowercase &amp; 1 number.</string>
-    <string name="password_length">Password must be in 6 character.</string>
+    <string name="password_length">Password must be at least 6 characters.</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
     <string name="cpe">CPE</string>
@@ -435,7 +435,7 @@
     <string name="str_lable_view">View and edit profile</string>
 
 
-    <string name="str_notification">Notification</string>
+    <string name="str_noti">Notification</string>
     <string name="str_my_transaction">My Transactions</string>
     <string name="str_payment_method">Payment Method</string>
     <string name="str_my_credit">My Credit</string>

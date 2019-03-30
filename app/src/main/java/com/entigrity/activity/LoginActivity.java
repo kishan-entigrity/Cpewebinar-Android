@@ -9,11 +9,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
@@ -23,7 +20,6 @@ import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
 
 import rx.Subscriber;
@@ -36,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     private APIService mAPIService;
     private boolean checkpasswordvisiblestatus = false;
     private static final String TAG = LoginActivity.class.getName();
-    public TextView tv_popup_msg, tv_popup_submit;
     ProgressDialog progressDialog;
 
 
@@ -66,23 +61,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 }
-            }
-        });
-
-        binding.edtpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
-                        Snackbar.make(binding.edtpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        Constant.hideKeyboard(LoginActivity.this);
-                    }
-                    return true;
-                }
-
-                return false;
             }
         });
 
@@ -136,10 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                         } else {
-
-
                             Snackbar.make(binding.edtpassword, getResources().getString(R.string.validate_password), Snackbar.LENGTH_SHORT).show();
-
                         }
 
 
@@ -174,8 +149,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-
-
                         Snackbar.make(binding.btnSubmit, message, Snackbar.LENGTH_SHORT).show();
 
 
@@ -225,19 +198,10 @@ public class LoginActivity extends AppCompatActivity {
         if (Constant.Trim(binding.edtusername.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtusername, getResources().getString(R.string.validate_email_id), Snackbar.LENGTH_SHORT).show();
             return false;
-        } /*else if (!Constant.isValidEmailId(Constant.Trim(binding.edtusername.getText().toString()))) {
-            Snackbar.make(binding.edtusername, getResources().getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show();
-            return false;
-        }*/ else if (Constant.Trim(binding.edtpassword.getText().toString()).isEmpty()) {
+        } else if (Constant.Trim(binding.edtpassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtpassword, getResources().getString(R.string.validate_password), Snackbar.LENGTH_SHORT).show();
             return false;
-        }
-
-        /* else if (!Constant.isValidPassword(Constant.Trim(binding.edtpassword.getText().toString()))) {
-            Snackbar.make(binding.edtpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-            return false;
-        }*/
-        else {
+        } else {
             return true;
         }
 

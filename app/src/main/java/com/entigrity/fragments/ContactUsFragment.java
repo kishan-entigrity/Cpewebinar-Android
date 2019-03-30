@@ -81,8 +81,6 @@ public class ContactUsFragment extends Fragment {
                     boolean_subject = false;
                 } else {
                     subject = position;
-
-
                 }
 
             }

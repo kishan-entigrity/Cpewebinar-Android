@@ -67,10 +67,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         if (Constant.Trim(binding.edtEmailId.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtEmailId, getResources().getString(R.string.forgot_passoword_email), Snackbar.LENGTH_SHORT).show();
             return false;
-        } /*else if (!Constant.isValidEmailId(Constant.Trim(binding.edtEmailId.getText().toString()))) {
-            Snackbar.make(binding.edtEmailId, getResources().getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show();
-            return false;
-        }*/ else {
+        } else {
             return true;
         }
 

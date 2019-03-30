@@ -65,7 +65,6 @@ public class SignUpActivity extends AppCompatActivity {
     public TopicsofinterestAdapter topicsofinterestAdapteradapter;
     private boolean checkpasswordvisiblestatus = false;
     private boolean checkconfirmpasswordvisiblestatus = false;
-    public TextView tv_popup_msg, tv_popup_submit;
     ProgressDialog progressDialog;
     public boolean boolean_usertype = true;
     private int user_type = 0;
@@ -101,44 +100,6 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
             Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
-
-        binding.edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (!Constant.isValidPassword(Constant.Trim(binding.edtPassword.getText().toString()))) {
-                        Snackbar.make(binding.edtPassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        binding.edtConfirmpassword.requestFocus();
-                    }
-
-                    return true;
-                }
-
-                return false;
-            }
-        });
-
-        binding.edtConfirmpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (!Constant.isValidPassword(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
-                        Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-                    } else if (!Constant.Trim(binding.edtPassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
-                        Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.val_confirm_password_not_match), Snackbar.LENGTH_SHORT).show();
-
-                    } else {
-                        binding.edtFirmname.requestFocus();
-                    }
-                    return true;
-                }
-
-                return false;
-            }
-        });
 
 
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -464,20 +425,11 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (Constant.Trim(binding.edtEmailid.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtEmailid, getResources().getString(R.string.val_emailid), Snackbar.LENGTH_SHORT).show();
             return false;
-        } /*else if (!Constant.isValidEmailId(Constant.Trim(binding.edtEmailid.getText().toString()))) {
-            Snackbar.make(binding.edtEmailid, getResources().getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show();
-            return false;
-        }*/ else if (Constant.Trim(binding.edtPassword.getText().toString()).isEmpty()) {
+        } else if (Constant.Trim(binding.edtPassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_password_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.val_confirm_password_register), Snackbar.LENGTH_SHORT).show();
-            return false;
-        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtPassword.getText().toString()))) {
-            Snackbar.make(binding.edtPassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
-            return false;
-        } else if (!Constant.isValidPassword(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
-            Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.password_regex_validation), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.Trim(binding.edtPassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_confirm_password_not_match), Snackbar.LENGTH_SHORT).show();
