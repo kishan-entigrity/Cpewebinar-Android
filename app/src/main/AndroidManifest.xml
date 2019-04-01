@@ -60,6 +60,12 @@
 
 
         <activity
+            android:name=".activity.ActivityNotificationSetting"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
             android:name=".activity.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>

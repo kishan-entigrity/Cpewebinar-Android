@@ -428,8 +428,14 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (Constant.Trim(binding.edtPassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_password_register), Snackbar.LENGTH_SHORT).show();
             return false;
+        } else if (Constant.Trim(binding.edtPassword.getText().toString()).length() < 6) {
+            Snackbar.make(binding.edtPassword, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
+            return false;
         } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.val_confirm_password_register), Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).length() < 6) {
+            Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.Trim(binding.edtPassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_confirm_password_not_match), Snackbar.LENGTH_SHORT).show();

@@ -28,8 +28,10 @@ import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.activity.ActivityChangePassword;
 import com.entigrity.activity.ActivityContactUs;
+import com.entigrity.activity.ActivityNotificationSetting;
 import com.entigrity.activity.FaqActivity;
 import com.entigrity.activity.LoginActivity;
+import com.entigrity.activity.MyTransactionActivity;
 import com.entigrity.activity.NotificationActivity;
 import com.entigrity.activity.PrivacyPolicyActivity;
 import com.entigrity.activity.TermsandConditionActivity;
@@ -194,7 +196,15 @@ public class AccountFragment extends Fragment {
         binding.rvNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), NotificationActivity.class);
+                Intent i = new Intent(getActivity(), ActivityNotificationSetting.class);
+                getActivity().startActivity(i);
+            }
+        });
+
+        binding.tvMytransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), MyTransactionActivity.class);
                 getActivity().startActivity(i);
             }
         });

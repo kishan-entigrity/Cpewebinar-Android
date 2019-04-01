@@ -201,6 +201,9 @@ public class LoginActivity extends AppCompatActivity {
         } else if (Constant.Trim(binding.edtpassword.getText().toString()).isEmpty()) {
             Snackbar.make(binding.edtpassword, getResources().getString(R.string.validate_password), Snackbar.LENGTH_SHORT).show();
             return false;
+        } else if (Constant.Trim(binding.edtpassword.getText().toString()).length() < 6) {
+            Snackbar.make(binding.edtpassword, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
+            return false;
         } else {
             return true;
         }

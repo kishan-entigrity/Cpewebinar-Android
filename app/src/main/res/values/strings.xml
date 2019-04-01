@@ -499,5 +499,25 @@
     //notification list
     <string name="str_noti_time">23d ago</string>
 
+    //transcation list
+    <string name="str_payment_date_label">Payment Date:</string>
+    <string name="str_payment_date">13/02/2019</string>
+    <string name="transcation_str_live">Live</string>
+    <string name="transcation_cost">$25.00</string>
+    <string name="str_trx_label">Trx ID#:</string>
+    <string name="str_trx_value">127856</string>
+    <string name="str_payment_status">Success</string>
+    <string name="str_download_receipt"><u>Download Receipt</u></string>
+
+    //notification settings
+    <string name="str_notification_lable">Push notifications</string>
+    <string name="str_notification_status">Off</string>
+    <string name="str_settings_lable">To enable notification,go to</string>
+    <string name="str_notification">Settings</string>
+    <string name="str_push_notification_lable">PUSH NOTIFICATION</string>
+    <string name="str_webinar_lable">Webinar</string>
+    <string name="str_notification_register">Register</string>
+    <string name="str_notification_reminder">Reminder</string>
+
 
 </resources>

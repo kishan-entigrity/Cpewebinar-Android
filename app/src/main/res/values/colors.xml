@@ -98,6 +98,14 @@
     <color name="feedback_title">#4a4a4a</color>
     <color name="feedback_field">#80000000</color>
 
+    //transcation row
+    <color name="transcation_webinar_status">#dedede</color>
+    <color name="transcation_status">#087000</color>
 
+    //notification settings
+    <color name="notification_switch_status">#08264c</color>
+    <color name="screen_section_notification_background">#CDCDCD</color>
+    <color name="notification_child_color">#a4a4a4</color>
+    <color name="switch_on">#57DA63</color>
 
 </resources>
