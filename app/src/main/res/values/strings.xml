@@ -518,6 +518,11 @@
     <string name="str_webinar_lable">Webinar</string>
     <string name="str_notification_register">Register</string>
     <string name="str_notification_reminder">Reminder</string>
+    <string name="str_webinar_updates">Webinar Updates</string>
+    <string name="str_pending_action">Pending Action</string>
+    <string name="str_quiz_pending">Quiz Pending</string>
+    <string name="str_pending_evolution">Pending Evaluation</string>
+    <string name="str_text">Text</string>
 
 
 </resources>
