@@ -5,24 +5,24 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 
-public class Payload {
+public class Payload{
 
-    @SerializedName("topic_of_interests")
-    private List<TopicOfInterestsItem> topicOfInterests;
+	@SerializedName("topic_of_interests")
+	private List<TopicOfInterestsItem> topicOfInterests;
 
-    public void setTopicOfInterests(List<TopicOfInterestsItem> topicOfInterests) {
-        this.topicOfInterests = topicOfInterests;
-    }
+	public void setTopicOfInterests(List<TopicOfInterestsItem> topicOfInterests){
+		this.topicOfInterests = topicOfInterests;
+	}
 
-    public List<TopicOfInterestsItem> getTopicOfInterests() {
-        return topicOfInterests;
-    }
+	public List<TopicOfInterestsItem> getTopicOfInterests(){
+		return topicOfInterests;
+	}
 
-    @Override
-    public String toString() {
-        return
-                "Payload{" +
-                        "topic_of_interests = '" + topicOfInterests + '\'' +
-                        "}";
-    }
+	@Override
+ 	public String toString(){
+		return 
+			"Payload{" + 
+			"topic_of_interests = '" + topicOfInterests + '\'' + 
+			"}";
+		}
 }

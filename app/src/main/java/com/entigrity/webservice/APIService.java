@@ -310,7 +310,9 @@ public interface APIService {
 
     @GET("topic-of-interest/list")
     Observable<Topicsofinterest> GetTopicsofInterests(
-            @Header("Accept") String accept
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization
+
     );
 
 

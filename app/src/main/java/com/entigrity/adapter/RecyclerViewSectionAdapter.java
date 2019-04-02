@@ -64,6 +64,14 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
 
             String itemName = itemsInSection.get(relativePosition).getName();
 
+            boolean is_checked = itemsInSection.get(relativePosition).isIsChecked();
+
+            if (is_checked == true) {
+                ((ItemViewHolder) holder).cbselection.setChecked(true);
+            } else {
+                ((ItemViewHolder) holder).cbselection.setChecked(false);
+            }
+
 
             if (!itemName.equalsIgnoreCase("")) {
                 ((ItemViewHolder) holder).itemTitle.setText(itemName);

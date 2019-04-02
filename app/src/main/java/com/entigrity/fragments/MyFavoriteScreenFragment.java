@@ -112,29 +112,29 @@ public class MyFavoriteScreenFragment extends Fragment {
                             }
 
                             if (favorite_count_model.getPayload().getWebinarCount() == 0) {
-                                binding.webinarcount.setText("" + 0);
+                                binding.webinarcount.setText("" + "(" + 0 + ")");
                             } else {
-                                binding.webinarcount.setText("" + favorite_count_model.getPayload().getWebinarCount());
+                                binding.webinarcount.setText("" + "( " + favorite_count_model.getPayload().getWebinarCount() + " )");
                             }
 
 
                             if (favorite_count_model.getPayload().getTopicsOfInterestCount() == 0) {
-                                binding.webinartopicsofinterest.setText("" + 0);
+                                binding.webinartopicsofinterest.setText("" + "(" + 0 + ")");
                             } else {
-                                binding.webinartopicsofinterest.setText("" + favorite_count_model.getPayload().getTopicsOfInterestCount());
+                                binding.webinartopicsofinterest.setText("" + "( " + favorite_count_model.getPayload().getTopicsOfInterestCount() + " )");
                             }
 
                             if (favorite_count_model.getPayload().getCompanyCount() == 0) {
-                                binding.companycount.setText("" + 0);
+                                binding.companycount.setText("" + "(" + 0 + ")");
                             } else {
-                                binding.companycount.setText("" + favorite_count_model.getPayload().getCompanyCount());
+                                binding.companycount.setText("" + "( " + favorite_count_model.getPayload().getCompanyCount() + " )");
                             }
 
 
                             if (favorite_count_model.getPayload().getSpeakerCount() == 0) {
-                                binding.speakercount.setText("" + 0);
+                                binding.speakercount.setText("" + "(" + 0 + ")");
                             } else {
-                                binding.companycount.setText("" + favorite_count_model.getPayload().getSpeakerCount());
+                                binding.companycount.setText("" + "( " + favorite_count_model.getPayload().getSpeakerCount() + " )");
                             }
 
 

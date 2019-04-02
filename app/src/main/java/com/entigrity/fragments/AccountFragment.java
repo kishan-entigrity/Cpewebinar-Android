@@ -46,6 +46,7 @@ import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -144,6 +145,19 @@ public class AccountFragment extends Fragment {
 
                             }
 
+                            if (!viewProfileModel.getPayload().getData().getProfilePicture().equalsIgnoreCase("")
+                                    && viewProfileModel.getPayload().getData().getProfilePicture() != null) {
+                                Picasso.with(context).load(viewProfileModel.getPayload().getData().getProfilePicture())
+                                        .placeholder(R.mipmap.placeholder)
+                                        .into(binding.ivprofilepicture);
+                            }
+
+
+                            if (viewProfileModel.getPayload().getData().getFirstName() != null
+                                    && !viewProfileModel.getPayload().getData().getFirstName().equalsIgnoreCase("")) {
+                                binding.tvUsername.setText(viewProfileModel.getPayload().getData().getFirstName());
+                            }
+
 
                             if (viewProfileModel.getPayload().getData().getLastName() != null
                                     && !viewProfileModel.getPayload().getData().getLastName().equalsIgnoreCase("")) {
@@ -201,7 +215,6 @@ public class AccountFragment extends Fragment {
                                     && !viewProfileModel.getPayload().getData().getUserType().equalsIgnoreCase("")) {
                                 whoyouare = viewProfileModel.getPayload().getData().getUserTypeId();
                                 whoyouarevalue = viewProfileModel.getPayload().getData().getUserType();
-
 
 
                             }
@@ -336,7 +349,7 @@ public class AccountFragment extends Fragment {
         });
 
 
-        binding.tvViewprofile.setOnClickListener(new View.OnClickListener() {
+        binding.rvNameProfilepic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigate_ViewProfile();

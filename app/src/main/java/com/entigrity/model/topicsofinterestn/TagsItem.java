@@ -9,7 +9,7 @@ public class TagsItem{
 	private String name;
 
 	@SerializedName("is_checked")
-	private int isChecked;
+	private boolean isChecked;
 
 	@SerializedName("id")
 	private int id;
@@ -22,11 +22,11 @@ public class TagsItem{
 		return name;
 	}
 
-	public void setIsChecked(int isChecked){
+	public void setIsChecked(boolean isChecked){
 		this.isChecked = isChecked;
 	}
 
-	public int getIsChecked(){
+	public boolean isIsChecked(){
 		return isChecked;
 	}
 

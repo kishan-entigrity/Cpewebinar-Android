@@ -93,6 +93,16 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         });
 
 
+        binding.ivnotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WebinarDetailsActivity.this, NotificationActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+
         binding.ivfavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,6 +2,7 @@ package com.entigrity.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.entigrity.R;
+import com.entigrity.activity.ActivityNotificationSetting;
+import com.entigrity.activity.NotificationActivity;
 import com.entigrity.adapter.MyCreditAdapter;
 import com.entigrity.databinding.FragmentMycreditBinding;
 import com.entigrity.view.SimpleDividerItemDecoration;
@@ -64,6 +67,17 @@ public class MyCreditsFragment extends Fragment {
                     return true;
                 }
                 return false;
+            }
+        });
+
+
+        binding.ivnotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getActivity(), NotificationActivity.class);
+                getActivity().startActivity(i);
+
             }
         });
 

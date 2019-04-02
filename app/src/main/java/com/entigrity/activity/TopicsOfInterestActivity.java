@@ -15,13 +15,12 @@ import com.entigrity.adapter.RecyclerViewSectionAdapter;
 import com.entigrity.databinding.ActivityTopicsofinterestBinding;
 import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
 import com.entigrity.model.topicsofinterestn.Topicsofinterest;
+import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -80,7 +79,7 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
 
 
     public void GetTopicsofInterest() {
-        mAPIService.GetTopicsofInterests(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetTopicsofInterests(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Topicsofinterest>() {
                     @Override
                     public void onCompleted() {
