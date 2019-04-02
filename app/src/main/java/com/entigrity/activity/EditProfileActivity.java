@@ -135,7 +135,14 @@ public class EditProfileActivity extends AppCompatActivity {
             who_you_are_pos = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are), 0);
             arraylistselectedtopicsofinterest = intent.getIntegerArrayListExtra(getResources().getString(R.string.pass_topics_of_interesr));
 
-            SetData();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // change UI elements here
+                    SetData();
+                }
+            });
+
         }
 
         binding.edtMobileNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());

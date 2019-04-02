@@ -76,8 +76,7 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_alignParentRight="true"
-                android:src="@mipmap/webinar_placeholder"
-                android:visibility="gone" />
+                android:src="@mipmap/webinar_placeholder" />
 
 
         </RelativeLayout>
@@ -234,6 +233,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/rv_topics_of_interest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/White"

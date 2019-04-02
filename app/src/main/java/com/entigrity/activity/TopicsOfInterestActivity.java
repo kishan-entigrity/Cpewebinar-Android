@@ -14,12 +14,14 @@ import com.entigrity.R;
 import com.entigrity.adapter.RecyclerViewSectionAdapter;
 import com.entigrity.databinding.ActivityTopicsofinterestBinding;
 import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
-import com.entigrity.model.topicsofinterestn.Topicsofinterestmodel;
+import com.entigrity.model.topicsofinterestn.Topicsofinterest;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
+import com.entigrity.webservice.ApiUtilsNew;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -42,7 +44,7 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_topicsofinterest);
-        mAPIService = ApiUtils.getAPIService();
+        mAPIService = ApiUtilsNew.getAPIService();
 
         context = TopicsOfInterestActivity.this;
 
@@ -78,16 +80,12 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
 
 
     public void GetTopicsofInterest() {
-        mAPIService.GetTopicsofInterests().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Topicsofinterestmodel>() {
+        mAPIService.GetTopicsofInterests(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Topicsofinterest>() {
                     @Override
                     public void onCompleted() {
                         if (topicsofinterestitem.size() > 0) {
                             adapter = new RecyclerViewSectionAdapter(context, topicsofinterestitem);
-                            /*GridLayoutManager manager = new GridLayoutManager(TopicsOfInterestActivity.this,
-                                    getResources().getInteger(R.integer.grid_span_3));
-                            binding.rvtopicsOfInterest.setLayoutManager(manager);
-                            adapter.setLayoutManager(manager);*/
                             binding.rvtopicsOfInterest.setAdapter(adapter);
                         }
 
@@ -107,21 +105,23 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(Topicsofinterestmodel topicsofinterestmodel) {
+                    public void onNext(Topicsofinterest topicsofinterest) {
 
                         if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
 
 
-                        if (topicsofinterestmodel.getPayload().getTopicOfInterests().size() > 0) {
+                        if (topicsofinterest.getPayload().getTopicOfInterests().size() > 0) {
 
-                            for (int i = 0; i < topicsofinterestmodel.getPayload().getTopicOfInterests().size(); i++) {
+                            for (int i = 0; i < topicsofinterest.getPayload().getTopicOfInterests().size(); i++) {
                                 TopicOfInterestsItem topicOfInterestsItem = new TopicOfInterestsItem();
-                                topicOfInterestsItem.setName(topicsofinterestmodel.getPayload().getTopicOfInterests().get(i).getName());
-                                topicOfInterestsItem.setId(topicsofinterestmodel.getPayload().getTopicOfInterests().get(i).getId());
-                                topicOfInterestsItem.setTags(topicsofinterestmodel.getPayload()
-                                        .getTopicOfInterests().get(i).getTags());
+                                topicOfInterestsItem.setName(topicsofinterest.getPayload().getTopicOfInterests().get(i).getName());
+                                topicOfInterestsItem.setId(topicsofinterest.getPayload().getTopicOfInterests().get(i).getId());
+                                if (topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags() != null) {
+                                    topicOfInterestsItem.setTags(topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags());
+                                }
+
                                 topicsofinterestitem.add(topicOfInterestsItem);
                             }
 

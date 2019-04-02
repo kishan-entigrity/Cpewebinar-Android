@@ -32,18 +32,22 @@ import com.entigrity.activity.ActivityNotificationSetting;
 import com.entigrity.activity.FaqActivity;
 import com.entigrity.activity.LoginActivity;
 import com.entigrity.activity.MyTransactionActivity;
-import com.entigrity.activity.NotificationActivity;
 import com.entigrity.activity.PrivacyPolicyActivity;
 import com.entigrity.activity.TermsandConditionActivity;
+import com.entigrity.activity.TopicsOfInterestActivity;
+import com.entigrity.activity.ViewProfileActivity;
 import com.entigrity.databinding.FragmentAccountBinding;
 import com.entigrity.model.logout.LogoutModel;
 import com.entigrity.model.postfeedback.PostFeedback;
+import com.entigrity.model.viewprofile.ViewProfileModel;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
+
+import java.util.ArrayList;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -62,6 +66,11 @@ public class AccountFragment extends Fragment {
     public ImageView ivclose;
     public EditText edt_subject, edt_review;
     public Button btn_submit;
+    public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "";
+    public int country_id = 0, state_id = 0, city_id = 0;
+    public String whoyouare = "", whoyouarevalue = "";
+    public String State, City;
+    public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
 
     @Nullable
     @Override
@@ -86,8 +95,142 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        if (Constant.isNetworkAvailable(context)) {
+            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+            GetProfile();
+        } else {
+            Snackbar.make(binding.rvFeedback, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+        }
+
 
         return view = binding.getRoot();
+
+    }
+
+    public void GetProfile() {
+
+        mAPIService_new.GetProfile(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ViewProfileModel>() {
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Snackbar.make(binding.rvFeedback, message, Snackbar.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onNext(ViewProfileModel viewProfileModel) {
+
+                        if (viewProfileModel.isSuccess() == true) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+
+                            if (viewProfileModel.getPayload().getData().getFirstName() != null
+                                    && !viewProfileModel.getPayload().getData().getFirstName().equalsIgnoreCase("")) {
+                                firstname = viewProfileModel.getPayload().getData().getFirstName();
+
+                            }
+
+
+                            if (viewProfileModel.getPayload().getData().getLastName() != null
+                                    && !viewProfileModel.getPayload().getData().getLastName().equalsIgnoreCase("")) {
+                                lastname = viewProfileModel.getPayload().getData().getLastName();
+
+                            }
+
+                            if (viewProfileModel.getPayload().getData().getEmail() != null
+                                    && !viewProfileModel.getPayload().getData().getEmail().equalsIgnoreCase("")) {
+                                email = viewProfileModel.getPayload().getData().getEmail();
+                            }
+
+                            if (viewProfileModel.getPayload().getData().getFirmName() != null
+                                    && !viewProfileModel.getPayload().getData().getFirmName().equalsIgnoreCase("")) {
+                                firmname = viewProfileModel.getPayload().getData().getFirmName();
+                            }
+
+
+                            if (viewProfileModel.getPayload().getData().getContactNo() != null
+                                    && !viewProfileModel.getPayload().getData().getContactNo().equalsIgnoreCase("")) {
+                                mobilenumber = viewProfileModel.getPayload().getData().getContactNo();
+                            }
+
+
+                            if (viewProfileModel.getPayload().getData().getCountry() != null
+                                    && !viewProfileModel.getPayload().getData().getCountry().equalsIgnoreCase("")) {
+                                country_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCountryId());
+                                country = viewProfileModel.getPayload().getData().getCountry();
+                            }
+                            if (viewProfileModel.getPayload().getData().getState() != null
+                                    && !viewProfileModel.getPayload().getData().getState().equalsIgnoreCase("")) {
+                                state_id = Integer.parseInt(viewProfileModel.getPayload().getData().getStateId());
+                                State = viewProfileModel.getPayload().getData().getState();
+                            }
+
+                            if (viewProfileModel.getPayload().getData().getCity() != null
+                                    && !viewProfileModel.getPayload().getData().getCity().equalsIgnoreCase("")) {
+                                city_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCityId());
+                                City = viewProfileModel.getPayload().getData().getCity();
+                            }
+
+
+                            if (viewProfileModel.getPayload().getData().getTags().size() > 0) {
+                                for (int i = 0; i < viewProfileModel.getPayload().getData().getTags().size(); i++) {
+                                    arraylistselectedtopicsofinterest.add(viewProfileModel.getPayload().getData().getTags().get(i).getId());
+                                }
+                            }
+                            if (viewProfileModel.getPayload().getData().getZipcode() != null
+                                    && !viewProfileModel.getPayload().getData().getZipcode().equalsIgnoreCase("")) {
+                                zipcode = viewProfileModel.getPayload().getData().getZipcode();
+                            }
+
+
+                            if (viewProfileModel.getPayload().getData().getUserType() != null
+                                    && !viewProfileModel.getPayload().getData().getUserType().equalsIgnoreCase("")) {
+                                whoyouare = viewProfileModel.getPayload().getData().getUserTypeId();
+                                whoyouarevalue = viewProfileModel.getPayload().getData().getUserType();
+
+
+
+                            }
+
+                        } else {
+                            if (viewProfileModel.getPayload().getAccessToken() != null && !viewProfileModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
+                                AppSettings.set_login_token(context, viewProfileModel.getPayload().getAccessToken());
+
+                                if (Constant.isNetworkAvailable(context)) {
+                                    GetProfile();
+                                } else {
+                                    Snackbar.make(binding.rvFeedback, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                                }
+
+
+                            } else {
+                                if (progressDialog.isShowing()) {
+                                    progressDialog.dismiss();
+                                }
+
+                                Snackbar.make(binding.rvFeedback, viewProfileModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            }
+
+
+                        }
+
+
+                    }
+                });
 
     }
 
@@ -193,6 +336,24 @@ public class AccountFragment extends Fragment {
         });
 
 
+        binding.tvViewprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigate_ViewProfile();
+
+            }
+        });
+
+
+        binding.rvTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), TopicsOfInterestActivity.class);
+                startActivity(i);
+            }
+        });
+
+
         binding.rvNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,6 +437,26 @@ public class AccountFragment extends Fragment {
             }
         });
 
+    }
+
+    public void Navigate_ViewProfile() {
+        Intent i = new Intent(context, ViewProfileActivity.class);
+        i.putExtra(getResources().getString(R.string.pass_fname), firstname);
+        i.putExtra(getResources().getString(R.string.pass_lname), lastname);
+        i.putExtra(getResources().getString(R.string.pass_email), email);
+        i.putExtra(getResources().getString(R.string.pass_firm_name), firmname);
+        i.putExtra(getResources().getString(R.string.pass_country_text), country);
+        i.putExtra(getResources().getString(R.string.pass_mobile_number), mobilenumber);
+        i.putExtra(getResources().getString(R.string.pass_country), country_id);
+        i.putExtra(getResources().getString(R.string.pass_state), state_id);
+        i.putExtra(getResources().getString(R.string.pass_city), city_id);
+        i.putExtra(getResources().getString(R.string.pass_state_text), State);
+        i.putExtra(getResources().getString(R.string.pass_city_text), City);
+        i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
+        i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);
+        i.putExtra(getResources().getString(R.string.pass_who_you_are_text), whoyouarevalue);
+        i.putExtra(getResources().getString(R.string.pass_topics_of_interesr), arraylistselectedtopicsofinterest);
+        startActivity(i);
     }
 
     public void LogOutPoPup() {

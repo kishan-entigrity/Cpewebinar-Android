@@ -3,48 +3,48 @@ package com.entigrity.model.topicsofinterestn;
 import com.google.gson.annotations.SerializedName;
 
 
-public class TagsItem {
+public class TagsItem{
 
-    @SerializedName("id")
-    private int id;
+	@SerializedName("name")
+	private String name;
 
-    @SerializedName("tag")
-    private String tag;
+	@SerializedName("is_checked")
+	private int isChecked;
 
-    @SerializedName("topic_of_interest_id")
-    private int topicOfInterestId;
+	@SerializedName("id")
+	private int id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setName(String name){
+		this.name = name;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public String getName(){
+		return name;
+	}
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
+	public void setIsChecked(int isChecked){
+		this.isChecked = isChecked;
+	}
 
-    public String getTag() {
-        return tag;
-    }
+	public int getIsChecked(){
+		return isChecked;
+	}
 
-    public void setTopicOfInterestId(int topicOfInterestId) {
-        this.topicOfInterestId = topicOfInterestId;
-    }
+	public void setId(int id){
+		this.id = id;
+	}
 
-    public int getTopicOfInterestId() {
-        return topicOfInterestId;
-    }
+	public int getId(){
+		return id;
+	}
 
-    @Override
-    public String toString() {
-        return
-                "TagsItem{" +
-                        "id = '" + id + '\'' +
-                        ",tag = '" + tag + '\'' +
-                        ",topic_of_interest_id = '" + topicOfInterestId + '\'' +
-                        "}";
-    }
+	@Override
+ 	public String toString(){
+		return 
+			"TagsItem{" + 
+			"name = '" + name + '\'' + 
+			",is_checked = '" + isChecked + '\'' + 
+			",id = '" + id + '\'' + 
+			"}";
+		}
 }

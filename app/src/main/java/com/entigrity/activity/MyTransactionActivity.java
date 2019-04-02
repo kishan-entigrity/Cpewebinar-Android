@@ -36,6 +36,13 @@ public class MyTransactionActivity extends AppCompatActivity {
             binding.myTranscationlist.setAdapter(adapter);
         }
 
+        binding.ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         binding.myTranscationlist.setOnClickListener(new View.OnClickListener() {
             @Override

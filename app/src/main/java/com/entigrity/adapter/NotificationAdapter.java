@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,16 @@ import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.model.notification.NotificationListItem;
+import com.entigrity.utility.Constant;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
@@ -52,13 +60,61 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         if (mList.get(position).getTimestamp() != 0) {
 
-            viewHolder.tv_notification_time.setText(""+mList.get(position)
-                    .getTimestamp());
+            String notificationdate = getDateCurrentTimeZone(mList.get(position).getTimestamp());
+            Constant.Log("notifification date", "date" + notificationdate);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            try {
+                Date pastdate = sdf.parse(notificationdate);
+                Date currentdate = new Date();
+                long seconds = TimeUnit.MILLISECONDS.toSeconds(currentdate.getTime() - pastdate.getTime());
+                long minutes = TimeUnit.MILLISECONDS.toMinutes(currentdate.getTime() - pastdate.getTime());
+                long hours = TimeUnit.MILLISECONDS.toHours(currentdate.getTime() - pastdate.getTime());
+                long days = TimeUnit.MILLISECONDS.toDays(currentdate.getTime() - pastdate.getTime());
+
+
+                if (seconds < 60) {
+                    viewHolder.tv_notification_time.setText("" + seconds + " seconds ago");
+                } else if (minutes < 60) {
+                    viewHolder.tv_notification_time.setText("" + minutes + " minutes ago");
+                } else if (hours < 24) {
+                    viewHolder.tv_notification_time.setText("" + hours + " hours ago");
+                } else {
+                    viewHolder.tv_notification_time.setText("" + days + " days ago");
+                }
+
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+
+
+
+
+         /*   viewHolder.tv_notification_time.setText("" + mList.get(position)
+                    .getTimestamp());*/
 
 
         }
 
 
+    }
+
+    public String getDateCurrentTimeZone(long timestamp) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            TimeZone tz = TimeZone.getDefault();
+            calendar.setTimeInMillis(timestamp * 1000);
+            calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date currenTimeZone = (Date) calendar.getTime();
+            return sdf.format(currenTimeZone);
+        } catch (Exception e) {
+        }
+        return "";
     }
 
 

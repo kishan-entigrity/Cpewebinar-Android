@@ -31,7 +31,7 @@ import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.subject.SubjectModel;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
-import com.entigrity.model.topicsofinterestn.Topicsofinterestmodel;
+import com.entigrity.model.topicsofinterestn.Topicsofinterest;
 import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.model.viewprofile.ViewProfileModel;
 import com.entigrity.model.webinar_details.Webinar_Detail_Model;
@@ -308,8 +308,10 @@ public interface APIService {
 
     //get topics of interest
 
-    @GET("topic-of-interest")
-    Observable<Topicsofinterestmodel> GetTopicsofInterests();
+    @GET("topic-of-interest/list")
+    Observable<Topicsofinterest> GetTopicsofInterests(
+            @Header("Accept") String accept
+    );
 
 
     //get webinar details

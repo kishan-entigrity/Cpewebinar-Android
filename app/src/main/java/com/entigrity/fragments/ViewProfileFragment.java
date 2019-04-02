@@ -42,7 +42,8 @@ public class ViewProfileFragment extends Fragment {
     private static final String TAG = ViewProfileFragment.class.getName();
     ProgressDialog progressDialog;
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "";
-    public int country_id = 0, state_id = 0, city_id = 0, whoyouare = 0;
+    public int country_id = 0, state_id = 0, city_id = 0;
+    public  String whoyouare="";
 
     public String State, City;
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();

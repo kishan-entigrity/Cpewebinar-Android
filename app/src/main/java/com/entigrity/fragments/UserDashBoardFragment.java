@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.NotificationActivity;
 import com.entigrity.activity.TopicsOfInterestActivity;
 import com.entigrity.databinding.FragmentDashboardBinding;
 
@@ -58,6 +59,15 @@ public class UserDashBoardFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent i = new Intent(getActivity(), TopicsOfInterestActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+        binding.ivnotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), NotificationActivity.class);
                 startActivity(i);
 
             }

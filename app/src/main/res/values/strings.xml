@@ -224,8 +224,10 @@
     <string name="pass_city">city</string>
     <string name="pass_state_text">statetext</string>
     <string name="pass_city_text">citytext</string>
+    <string name="pass_country_text">countrytext</string>
     <string name="pass_zipcode">zipcode</string>
     <string name="pass_who_you_are">whoyouare</string>
+    <string name="pass_who_you_are_text">whoyouare</string>
     <string name="pass_topics_of_interesr">topicsofinterest</string>
 
 
@@ -523,6 +525,10 @@
     <string name="str_quiz_pending">Quiz Pending</string>
     <string name="str_pending_evolution">Pending Evaluation</string>
     <string name="str_text">Text</string>
+
+
+    //view profile
+    <string name="str_header_profile">Profile</string>
 
 
 </resources>

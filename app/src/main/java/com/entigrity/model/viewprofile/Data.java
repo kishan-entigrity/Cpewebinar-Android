@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-
 public class Data{
 
 	@SerializedName("country")
@@ -15,6 +14,9 @@ public class Data{
 
 	@SerializedName("last_name")
 	private String lastName;
+
+	@SerializedName("profile_picture")
+	private String profilePicture;
 
 	@SerializedName("ptin_number")
 	private String ptinNumber;
@@ -35,7 +37,7 @@ public class Data{
 	private String firmName;
 
 	@SerializedName("user_type_id")
-	private int userTypeId;
+	private String userTypeId;
 
 	@SerializedName("id")
 	private int id;
@@ -88,6 +90,14 @@ public class Data{
 		return lastName;
 	}
 
+	public void setProfilePicture(String profilePicture){
+		this.profilePicture = profilePicture;
+	}
+
+	public String getProfilePicture(){
+		return profilePicture;
+	}
+
 	public void setPtinNumber(String ptinNumber){
 		this.ptinNumber = ptinNumber;
 	}
@@ -136,11 +146,11 @@ public class Data{
 		return firmName;
 	}
 
-	public void setUserTypeId(int userTypeId){
+	public void setUserTypeId(String userTypeId){
 		this.userTypeId = userTypeId;
 	}
 
-	public int getUserTypeId(){
+	public String getUserTypeId(){
 		return userTypeId;
 	}
 
@@ -223,6 +233,7 @@ public class Data{
 			"country = '" + country + '\'' + 
 			",city = '" + city + '\'' + 
 			",last_name = '" + lastName + '\'' + 
+			",profile_picture = '" + profilePicture + '\'' + 
 			",ptin_number = '" + ptinNumber + '\'' + 
 			",tags = '" + tags + '\'' + 
 			",zipcode = '" + zipcode + '\'' + 

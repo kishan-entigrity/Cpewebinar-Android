@@ -38,8 +38,6 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
     @Override
     public int getItemCount(int position) {
         return mlist.get(position).getTags().size();
-
-
     }
 
     @Override
@@ -47,10 +45,7 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
 
         if (!mlist.get(position).getName().equalsIgnoreCase("")) {
             String sectionName = mlist.get(position).getName();
-
-
             if (!sectionName.equalsIgnoreCase("")) {
-
                 ((SectionViewHolder) holder).sectionTitle.setText(sectionName);
             }
 
@@ -67,7 +62,7 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
         if (mlist.get(position).getTags().size() > 0) {
             List<TagsItem> itemsInSection = mlist.get(position).getTags();
 
-            String itemName = itemsInSection.get(relativePosition).getTag();
+            String itemName = itemsInSection.get(relativePosition).getName();
 
 
             if (!itemName.equalsIgnoreCase("")) {
@@ -101,9 +96,7 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, boolean header) {
         View v = null;
-        if (header)
-
-        {
+        if (header) {
             v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.list_item_section, parent, false);
             return new SectionViewHolder(v);

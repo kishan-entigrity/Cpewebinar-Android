@@ -2,7 +2,6 @@ package com.entigrity.model.viewprofile;
 
 import com.google.gson.annotations.SerializedName;
 
-
 public class TagsItem{
 
 	@SerializedName("id")

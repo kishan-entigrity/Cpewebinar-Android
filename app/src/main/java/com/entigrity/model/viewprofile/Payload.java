@@ -2,11 +2,8 @@ package com.entigrity.model.viewprofile;
 
 import com.google.gson.annotations.SerializedName;
 
-
 public class Payload {
-
-    @SerializedName("data")
-    private Data data;
+    private String accessToken;
 
     public String getAccessToken() {
         return accessToken;
@@ -16,9 +13,8 @@ public class Payload {
         this.accessToken = accessToken;
     }
 
-    @SerializedName("access_token")
-
-    private String accessToken;
+    @SerializedName("data")
+    private Data data;
 
     public void setData(Data data) {
         this.data = data;
