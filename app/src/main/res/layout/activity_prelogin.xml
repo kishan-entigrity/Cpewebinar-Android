@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.entigrity.activity.PreLoginActivity" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_background">
+
+        <ImageView
+            android:id="@+id/iv_mycpe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/login_logo" />
+
+        <com.entigrity.view.CustomButtonView
+            android:id="@+id/strsignup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_mycpe"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/rounded_transperent_background"
+            android:text="@string/str_signup"
+            android:textColor="@color/White"
+            android:textSize="@dimen/_12sdp" />
+
+
+        <com.entigrity.view.CustomButtonView
+            android:id="@+id/strlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/strsignup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/rounded_button"
+            android:text="@string/str_login"
+            android:textColor="@color/White"
+            android:textSize="@dimen/_12sdp"
+            app:font_button="SFUIDisplay-Bold.ttf" />
+
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.entigrity.fragments.HomeAllFragment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/White">
+
+
+        <LinearLayout
+            android:id="@+id/lv_home_all_sections"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_live"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/col_three_bg"
+                android:gravity="center"
+                android:text="@string/str_live"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf" />
+
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_selfstudy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/col_three_bg"
+                android:gravity="center"
+                android:text="@string/str_self_study"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf" />
+
+            <com.entigrity.view.CustomButtonView
+                android:id="@+id/btn_archive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/col_three_bg"
+                android:gravity="center"
+                android:text="@string/str_archive"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_12sdp"
+                app:font_text="Montserrat-Medium.ttf"
+
+
+                />
+
+
+        </LinearLayout>
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayouthome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lv_home_all_sections">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvhome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_list"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/_30sdp"
+                android:scrollbars="vertical" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_nodatafound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_25sdp"
+            app:font_text="Montserrat-Medium.ttf" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+
+        </FrameLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

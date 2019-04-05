@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:background="@color/White">
+
+    <RelativeLayout
+        android:id="@+id/relviewnavigate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivcompanylogo"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/placeholder" />
+
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/companyname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_toRightOf="@+id/ivcompanylogo"
+            android:textColor="@color/instructor_company_text_color"
+            android:textSize="@dimen/_14sdp"
+            app:font_text="SFUIDisplay-Regular.ttf" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.entigrity">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name=".MyCpe"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.PreLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.WebinarDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.EditProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"></activity>
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.StripePaymentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.ActivityNotificationSetting"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.ViewTopicsOfInterestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.ViewProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.InstructorDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.CompanyDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.TopicsOfInterestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.TermsandConditionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.PrivacyPolicyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.FaqActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.ActivityChangePassword"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.ActivityContactUs"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.MyTransactionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.NotificationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <service android:name=".fcm.FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".fcm.ReceiveFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="2b3d0f35639dc408866173ec68ee656a579f3f7a" />
+    </application>
+
+</manifest>

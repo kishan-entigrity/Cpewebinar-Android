@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.entigrity.fragments.UserDashBoardFragment" />
+
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/White">
+
+        <RelativeLayout
+            android:id="@+id/rvtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/home_topbar_bgcolor"
+            android:padding="@dimen/_10sdp">
+
+
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/screentitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_home_title"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_16sdp"
+                app:font_text="Montserrat-Bold.ttf" />
+
+
+                      <ImageView
+                android:id="@+id/ivnotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_toLeftOf="@+id/ivfilter"
+                android:src="@mipmap/reminder" />
+
+
+            <ImageView
+                android:id="@+id/ivfilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:src="@mipmap/filter" />
+
+
+        </RelativeLayout>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/homeparenttabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rvtitle"
+            android:background="@color/colorPrimary"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/White"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/White"
+            app:tabTextAppearance="@style/MineCustomTabText"
+            app:tabTextColor="@color/fav_tab_unselected_color" />
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/homeparenttabs"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    </RelativeLayout>
+</layout>
