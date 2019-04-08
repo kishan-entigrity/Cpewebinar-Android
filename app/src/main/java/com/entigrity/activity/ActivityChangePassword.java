@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityChangePasswordBinding;
@@ -20,6 +17,7 @@ import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
+import com.entigrity.webservice.ApiUtilsNew;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -30,6 +28,7 @@ public class ActivityChangePassword extends AppCompatActivity {
     ActivityChangePasswordBinding binding;
     public Context context;
     private APIService mAPIService;
+    private APIService mAPIService_new;
     private static final String TAG = ActivityChangePassword.class.getName();
     ProgressDialog progressDialog;
     View view;
@@ -39,6 +38,7 @@ public class ActivityChangePassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_change_password);
         mAPIService = ApiUtils.getAPIService();
+        mAPIService_new = ApiUtilsNew.getAPIService();
         context = ActivityChangePassword.this;
 
 
@@ -74,7 +74,7 @@ public class ActivityChangePassword extends AppCompatActivity {
     public void ChangePassword(String Authorization, String current_password, String new_password, String confirm_password) {
 
         // RxJava
-        mAPIService.changepassword(getResources().getString(R.string.bearer) + Authorization, current_password
+        mAPIService_new.changepassword(getResources().getString(R.string.accept),getResources().getString(R.string.bearer) + Authorization, current_password
                 , new_password, confirm_password).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ChangePasswordModel>() {
                     @Override

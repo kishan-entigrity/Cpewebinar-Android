@@ -17,10 +17,8 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -31,7 +29,6 @@ import com.entigrity.adapter.TopicsofinterestAdapter;
 import com.entigrity.databinding.ActivitySignupBinding;
 import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.topicsofinterest.TagsItem;
-import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -39,6 +36,7 @@ import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.view.UsPhoneNumberFormatter;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
+import com.entigrity.webservice.ApiUtilsNew;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -53,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
     public Context context;
     ActivitySignupBinding binding;
     private APIService mAPIService;
+    private APIService mAPIService_new;
     private static final String TAG = SignUpActivity.class.getName();
     private ArrayList<String> arrayLististusertype = new ArrayList<String>();
     public boolean checkprivacypolicystatus = false;
@@ -79,6 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
         context = SignUpActivity.this;
         mAPIService = ApiUtils.getAPIService();
+        mAPIService_new = ApiUtilsNew.getAPIService();
 
 
         binding.edtMobilenumbert.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
@@ -95,12 +95,12 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
 
-        if (Constant.isNetworkAvailable(context)) {
+       /* if (Constant.isNetworkAvailable(context)) {
             GetTopicsOfInterset();
         } else {
             Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
-
+*/
 
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -118,6 +118,14 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+
+            }
+        });
+
+
+        binding.relTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
@@ -275,10 +283,12 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        binding.tvTopicsofinterset.setOnClickListener(new View.OnClickListener() {
+        binding.relTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowTopicsOfInterestPopup();
+                Intent i = new Intent(SignUpActivity.this, TopicsOfInterestActivity.class);
+                startActivity(i);
+
             }
         });
 
@@ -461,7 +471,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void GetUserType() {
-        mAPIService.Getusertype().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.Getusertype(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserTypeModel>() {
                     @Override
                     public void onCompleted() {
@@ -483,6 +493,11 @@ public class SignUpActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(UserTypeModel userTypeModel) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+
                         arrayLististusertype.clear();
                         arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
 
@@ -496,7 +511,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    public void GetTopicsOfInterset() {
+   /* public void GetTopicsOfInterset() {
         mAPIService.GetTopicsofInterest().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<TopicsofInterest>() {
                     @Override
@@ -533,14 +548,14 @@ public class SignUpActivity extends AppCompatActivity {
 
                     }
                 });
-    }
+    }*/
 
     public void RegisterPost(String first_name, String last_name, String email, String password, String confirm_password,
                              String firm_name, String contact_no, ArrayList<Integer> tags, int user_type
     ) {
 
         // RxJava
-        mAPIService.Register(first_name, last_name
+        mAPIService_new.Register(getResources().getString(R.string.accept), first_name, last_name
                 , email, password, confirm_password, firm_name, contact_no, tags, user_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<RegistrationModel>() {
                     @Override

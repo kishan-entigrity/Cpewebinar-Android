@@ -125,6 +125,28 @@ public class MyFavoriteScreenFragment extends Fragment {
                                 progressDialog.dismiss();
                             }
 
+
+                            if (!AppSettings.get_profile_picture(context).equalsIgnoreCase("")
+                                    && AppSettings.get_profile_picture(context) != null) {
+
+                                Picasso.with(context).load("https://picsum.photos/200/300")
+                                        .placeholder(R.mipmap.placeholder)
+                                        .into(binding.ivProfilepicture);
+
+                                Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
+
+
+                            }
+
+
+                            if (!AppSettings.get_profile_username(context).equalsIgnoreCase("")
+                                    && AppSettings.get_profile_username(context) != null) {
+                                binding.profilename.setText("" + AppSettings.get_profile_username(context));
+
+
+                            }
+
+
                             if (!favorite_count_model.getPayload().getBannerImage().equalsIgnoreCase("")) {
                                 Picasso.with(context).load(favorite_count_model.getPayload().getBannerImage())
                                         .placeholder(R.mipmap.placeholder)

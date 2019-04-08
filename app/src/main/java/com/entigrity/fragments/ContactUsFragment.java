@@ -98,7 +98,7 @@ public class ContactUsFragment extends Fragment {
 
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-            GetSubject();
+            //  GetSubject();
         } else {
             Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
         }
@@ -110,9 +110,9 @@ public class ContactUsFragment extends Fragment {
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        Contactus(Constant.Trim(binding.spinnerSubject.getSelectedItem().toString()), Constant.Trim(binding.edtname.getText().toString()),
+                       /* Contactus(Constant.Trim(binding.spinnerSubject.getSelectedItem().toString()), Constant.Trim(binding.edtname.getText().toString()),
                                 Constant.Trim(binding.edtemailid.getText().toString()), Constant.Trim(binding.edtcontactNumber.getText().toString()),
-                                Constant.Trim(binding.edtmessage.getText().toString()));
+                                Constant.Trim(binding.edtmessage.getText().toString()));*/
                     } else {
                         Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                     }
@@ -125,7 +125,7 @@ public class ContactUsFragment extends Fragment {
     }
 
 
-    public void GetSubject() {
+   /* public void GetSubject() {
         mAPIService.GetSubject().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SubjectModel>() {
                     @Override
@@ -161,7 +161,7 @@ public class ContactUsFragment extends Fragment {
 
                     }
                 });
-    }
+    }*/
 
 
     public void ShowAdapter() {
@@ -207,7 +207,7 @@ public class ContactUsFragment extends Fragment {
     }
 
 
-    public void Contactus(String subject, String name, String email, String contact_number, String message) {
+    /*public void Contactus(String subject, String name, String email, String contact_number, String message) {
 
         // RxJava
         mAPIService.contactus(subject, name, email, contact_number, message).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -250,7 +250,7 @@ public class ContactUsFragment extends Fragment {
                     }
                 });
 
-    }
+    }*/
 
 
 }

@@ -14,6 +14,7 @@ import android.text.Html;
 import android.view.View;
 
 import com.entigrity.R;
+
 import com.entigrity.databinding.ActivityWebinardetailsBinding;
 import com.entigrity.model.webinar_details.Webinar_Detail_Model;
 import com.entigrity.utility.AppSettings;
@@ -141,7 +142,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
     private void GetWebinarDetails() {
-        mAPIService.GetWebinarDetail(String.valueOf(webinarid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetWebinarDetail(getResources().getString(R.string.accept),String.valueOf(webinarid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Detail_Model>() {
                     @Override
                     public void onCompleted() {

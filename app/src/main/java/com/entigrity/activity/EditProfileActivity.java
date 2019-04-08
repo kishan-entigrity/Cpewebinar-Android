@@ -33,7 +33,6 @@ import com.entigrity.model.editProfile.EditProfileModel;
 import com.entigrity.model.state.StateItem;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.topicsofinterest.TagsItem;
-import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
@@ -42,6 +41,7 @@ import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.view.UsPhoneNumberFormatter;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
+import com.entigrity.webservice.ApiUtilsNew;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -56,6 +56,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public Dialog myDialog;
     public Context context;
     private APIService mAPIService;
+    private APIService mAPIService_new;
     public RecyclerView recyclerview_topics_interest;
     public TopicsofinterestEditProfileAdapter topicsofinterestEditProfileAdapteradapter;
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
@@ -122,6 +123,7 @@ public class EditProfileActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         context = EditProfileActivity.this;
         mAPIService = ApiUtils.getAPIService();
+        mAPIService_new = ApiUtilsNew.getAPIService();
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -305,13 +307,13 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
 
-        if (Constant.isNetworkAvailable(context)) {
+       /* if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetTopicsOfInterset();
         } else {
             Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
-        }
+        }*/
 
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
@@ -321,6 +323,12 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        if (Constant.isNetworkAvailable(context)) {
+            GetCountry();
+        } else {
+            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+        }
 
         binding.btnsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -418,7 +426,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         // RxJava
-        mAPIService.Ediprofile(Authorization, first_name, last_name, email
+        mAPIService_new.Ediprofile(getResources().getString(R.string.accept), Authorization, first_name, last_name, email
                 , firm_name, country_id, state_id, city_id, zipcode, contact_no, tags, user_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<EditProfileModel>() {
                     @Override
@@ -486,7 +494,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     public void GetUserType() {
-        mAPIService.Getusertype().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.Getusertype(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserTypeModel>() {
                     @Override
                     public void onCompleted() {
@@ -668,7 +676,7 @@ public class EditProfileActivity extends AppCompatActivity {
         finish();
     }
 
-    public void GetTopicsOfInterset() {
+   /* public void GetTopicsOfInterset() {
         mAPIService.GetTopicsofInterest().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<TopicsofInterest>() {
                     @Override
@@ -712,7 +720,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     }
                 });
-    }
+    }*/
 
 
     public void ShowTopicsOfInterestPopup() {
@@ -834,12 +842,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void GetCountry() {
 
-        mAPIService.GetCountry().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetCountry(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<CountryModel>() {
                     @Override
                     public void onCompleted() {
-
-
                         if (Constant.isNetworkAvailable(context)) {
                             GetState(country_pos);
                         } else {
@@ -901,7 +907,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void GetCity(int state_id) {
 
-        mAPIService.GetCity(state_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetCity(getResources().getString(R.string.accept), state_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<CityModel>() {
                     @Override
                     public void onCompleted() {
@@ -973,12 +979,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void GetState(int country_id) {
 
-        mAPIService.GetState(country_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetState(getResources().getString(R.string.accept), country_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<StateModel>() {
                     @Override
                     public void onCompleted() {
-
-
                         if (Constant.isNetworkAvailable(context)) {
                             GetCity(state_pos);
                         } else {

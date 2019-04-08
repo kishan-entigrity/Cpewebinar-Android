@@ -28,6 +28,7 @@ import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
+import com.entigrity.webservice.ApiUtilsNew;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class HomeAllFragment extends Fragment {
     HomeALLAdapter adapter;
     private static final String TAG = HomeAllFragment.class.getName();
     private APIService mAPIService;
+    private APIService mAPIService_new;
     ProgressDialog progressDialog;
     LinearLayoutManager linearLayoutManager;
     private List<WebinarItem> arrHomelist = new ArrayList<WebinarItem>();
@@ -61,6 +63,8 @@ public class HomeAllFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_all, null, false);
         mAPIService = ApiUtils.getAPIService();
+        mAPIService_new = ApiUtilsNew.getAPIService();
+
         context = getActivity();
 
 
@@ -83,7 +87,7 @@ public class HomeAllFragment extends Fragment {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetHomeList(pagenumber, webinartype);
         } else {
-            Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
         }
 
@@ -290,7 +294,7 @@ public class HomeAllFragment extends Fragment {
 
     public void GetHomeList(final int pagenumber, final String webinartype) {
 
-        mAPIService.GetHomeWebinarList(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)
+        mAPIService_new.GetHomeWebinarList(getResources().getString(R.string.accept),getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)
                 , getResources().getString(R.string.str_all), pagenumber, webinartype, "").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Home>() {
                     @Override

@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     public void LoginPost(String username, String password, String device_id, String device_token, String device_type) {
 
         // RxJava
-        mAPIService.login(username, password
+        mAPIService.login(getResources().getString(R.string.accept), username, password
                 , device_id, device_token, device_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<LoginModel>() {
                     @Override
@@ -164,6 +164,11 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             AppSettings.set_login_token(context, login.getPayload().getToken());
+
+                            AppSettings.set_profile_picture(context, login.getPayload().getProfilePicture());
+
+                            AppSettings.set_profile_username(context, login.getPayload().getFirstName());
+
 
                             Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
 

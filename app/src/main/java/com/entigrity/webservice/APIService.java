@@ -70,18 +70,23 @@ public interface APIService {
     //login
     @POST("login")
     @FormUrlEncoded
-    Observable<LoginModel> login(@Field("email") String email,
-                                 @Field("password") String password,
-                                 @Field("device_id") String device_id,
-                                 @Field("device_token") String device_token,
-                                 @Field("device_type") String device_type);
+    Observable<LoginModel> login(
+            @Header("Accept") String accept,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("device_id") String device_id,
+            @Field("device_token") String device_token,
+            @Field("device_type") String device_type);
 
 
     //user type
     @GET("user-type")
-    Observable<UserTypeModel> Getusertype();
+    Observable<UserTypeModel> Getusertype(
+            @Header("Accept") String accept
+    );
 
 
+    //NA
     //tags
     @GET("tags")
     Observable<TopicsofInterest> GetTopicsofInterest();
@@ -90,15 +95,17 @@ public interface APIService {
     //registration
     @POST("registration")
     @FormUrlEncoded
-    Observable<RegistrationModel> Register(@Field("first_name") String first_name,
-                                           @Field("last_name") String last_name,
-                                           @Field("email") String email,
-                                           @Field("password") String password,
-                                           @Field("confirm_password") String confirm_password,
-                                           @Field("firm_name") String firm_name,
-                                           @Field("contact_no") String contact_no,
-                                           @Field("tags[]") ArrayList<Integer> tags,
-                                           @Field("user_type_id") int user_type_id
+    Observable<RegistrationModel> Register(
+            @Header("Accept") String accept,
+            @Field("first_name") String first_name,
+            @Field("last_name") String last_name,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("confirm_password") String confirm_password,
+            @Field("firm_name") String firm_name,
+            @Field("contact_no") String contact_no,
+            @Field("tags") ArrayList<Integer> tags,
+            @Field("user_type_id") int user_type_id
     );
 
 
@@ -106,6 +113,7 @@ public interface APIService {
     @POST("logout")
     @FormUrlEncoded
     Observable<LogoutModel> logout(
+            @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("device_id") String device_id,
             @Field("device_token") String device_token,
@@ -116,6 +124,7 @@ public interface APIService {
     @POST("change-password")
     @FormUrlEncoded
     Observable<ChangePasswordModel> changepassword(
+            @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("current_password") String current_password,
             @Field("new_password") String new_password,
@@ -128,10 +137,12 @@ public interface APIService {
     @POST("forgot-password")
     @FormUrlEncoded
     Observable<Forgotpaawordmodel> forgotpassword(
+            @Header("Accept") String accept,
             @Field("email") String email
     );
 
 
+    //NA
     //contact us
     @POST("contact-us")
     @FormUrlEncoded
@@ -142,6 +153,8 @@ public interface APIService {
             @Field("contact_number") String contact_number,
             @Field("message") String message);
 
+
+    //NA
     //get subject
     @GET("subject")
     Observable<SubjectModel> GetSubject();
@@ -149,30 +162,31 @@ public interface APIService {
 
     //view-profile
     @GET("view-profile")
-    Observable<ViewProfileModel> GetProfile(@Header("Authorization") String authorization);
+    Observable<ViewProfileModel> GetProfile(@Header("Accept") String accept, @Header("Authorization") String authorization);
 
 
     //get country
     @GET("country")
-    Observable<CountryModel> GetCountry();
+    Observable<CountryModel> GetCountry(@Header("Accept") String accept);
 
 
     //get state
     @POST("state")
     @FormUrlEncoded
-    Observable<StateModel> GetState(@Field("country_id") int country_id);
+    Observable<StateModel> GetState(@Header("Accept") String accept, @Field("country_id") int country_id);
 
 
     //get city
     @POST("city")
     @FormUrlEncoded
-    Observable<CityModel> GetCity(@Field("state_id") int state_id);
+    Observable<CityModel> GetCity(@Header("Accept") String accept, @Field("state_id") int state_id);
 
 
     //edit profile
     @POST("edit-profile")
     @FormUrlEncoded
     Observable<EditProfileModel> Ediprofile(
+            @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("first_name") String first_name,
             @Field("last_name") String last_name,
@@ -183,7 +197,7 @@ public interface APIService {
             @Field("city_id") int city_id,
             @Field("zipcode") int zipcode,
             @Field("contact_no") String contact_no,
-            @Field("tags[]") ArrayList<Integer> tags,
+            @Field("tags") ArrayList<Integer> tags,
             @Field("user_type_id") int user_type
     );
 
@@ -191,11 +205,13 @@ public interface APIService {
     //MileStone-2
 
 
+    //NA
     //Instructor List
     @GET("speaker")
     Observable<InstructorModel> GetInstructor(@Header("Authorization") String authorization);
 
 
+    //NA
     //Instructor Details
 
     @GET("speaker/{speaker_ids}")
@@ -204,11 +220,13 @@ public interface APIService {
             @Header("Authorization") String authorization);
 
 
+    //NA
     //company List
     @GET("company")
     Observable<CompanyModel> GetCompany(@Header("Authorization") String authorization);
 
 
+    //NA
     //company details
 
     @GET("company/{company_ids}")
@@ -217,6 +235,7 @@ public interface APIService {
             @Header("Authorization") String authorization);
 
 
+    //NA
     //instructor follow status
 
     @POST("speaker/follow/{speaker_ids}")
@@ -228,6 +247,7 @@ public interface APIService {
     );
 
 
+    //NA
     //instructor like status
 
     @POST("speaker/like/{speaker_ids}")
@@ -239,6 +259,7 @@ public interface APIService {
     );
 
 
+    //NA
     //company like status
 
     @POST("company/like/{company_ids}")
@@ -250,6 +271,7 @@ public interface APIService {
     );
 
 
+    //NA
     //Webinar like status
 
     @POST("webinar/like/{webinar_ids}")
@@ -260,7 +282,7 @@ public interface APIService {
             @Field("webinar_id") int webinar_id
     );
 
-
+    //NA
     //company favorites list
 
     @POST("company/my-favorite")
@@ -270,6 +292,7 @@ public interface APIService {
     );
 
 
+    //NA
     //instructor favorites list
 
     @POST("speaker/my-favorite")
@@ -279,6 +302,7 @@ public interface APIService {
     );
 
 
+    //NA
     //webinars favorites list
 
     @POST("webinar/my-favorite")
@@ -291,7 +315,7 @@ public interface APIService {
     //Milestone-3
 
     @GET("webinar")
-    Observable<Webinar_Home> GetHomeWebinarList(@Header("Authorization") String authorization,
+    Observable<Webinar_Home> GetHomeWebinarList(@Header("Accept") String accept, @Header("Authorization") String authorization,
                                                 @Query("WebinarFor") String webinarfor,
                                                 @Query("page") int page,
                                                 @Query("WebinarType") String WebinarType,
@@ -300,7 +324,7 @@ public interface APIService {
 
 
     @GET("webinar")
-    Observable<Webinar_Home> GetMyWebinarList(@Header("Authorization") String authorization,
+    Observable<Webinar_Home> GetMyWebinarList(@Header("Accept") String accept, @Header("Authorization") String authorization,
                                               @Query("WebinarFor") String webinarfor,
                                               @Query("page") int page,
                                               @Query("WebinarType") String WebinarType,
@@ -308,7 +332,7 @@ public interface APIService {
     );
 
 
-    //get topics of interest
+    //get topics of interest for logged user
 
     @GET("topic-of-interest/list")
     Observable<Topicsofinterest> GetTopicsofInterests(
@@ -319,9 +343,11 @@ public interface APIService {
 
 
     //get webinar details
+    //NA
 
     @GET("webinar-detail/{webinar_ids}")
     Observable<Webinar_Detail_Model> GetWebinarDetail(
+            @Header("Accept") String accept,
             @Path("webinar_ids") String webinar_ids,
             @Header("Authorization") String authorization);
 
@@ -398,6 +424,16 @@ public interface APIService {
             @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("ids") String ids);
+
+
+    //get topics of interest for sign up user
+
+    //get topics of interest for logged user
+
+    @GET("topic-of-interest/list")
+    Observable<Topicsofinterest> GetTopicsofInterestsSignUp(
+            @Header("Accept") String accept
+    );
 
 
 }

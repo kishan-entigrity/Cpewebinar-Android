@@ -59,12 +59,12 @@ public class ViewProfileFragment extends Fragment {
         MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
 
 
-        if (Constant.isNetworkAvailable(context)) {
+      /*  if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetProfile();
         } else {
             Snackbar.make(binding.tvEmailname, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-        }
+        }*/
 
 
         binding.getRoot().setFocusableInTouchMode(true);
@@ -135,7 +135,7 @@ public class ViewProfileFragment extends Fragment {
     }
 
 
-    public void GetProfile() {
+   /* public void GetProfile() {
 
         mAPIService.GetProfile(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ViewProfileModel>() {
@@ -265,7 +265,7 @@ public class ViewProfileFragment extends Fragment {
                     }
                 });
 
-    }
+    }*/
 
 
 }

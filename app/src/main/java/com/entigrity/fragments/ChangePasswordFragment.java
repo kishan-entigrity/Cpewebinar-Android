@@ -65,7 +65,7 @@ public class ChangePasswordFragment extends Fragment {
             }
         });
 
-        binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
+      /*  binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -81,7 +81,7 @@ public class ChangePasswordFragment extends Fragment {
                 }
 
             }
-        });
+        });*/
 
         binding.edtOldpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -144,7 +144,7 @@ public class ChangePasswordFragment extends Fragment {
     }
 
 
-    public void ChangePassword(String Authorization, String current_password, String new_password, String confirm_password) {
+    /*public void ChangePassword(String Authorization, String current_password, String new_password, String confirm_password) {
 
         // RxJava
         mAPIService.changepassword(getResources().getString(R.string.bearer) + Authorization, current_password
@@ -202,7 +202,7 @@ public class ChangePasswordFragment extends Fragment {
                     }
                 });
 
-    }
+    }*/
 
     private void ClearData() {
 

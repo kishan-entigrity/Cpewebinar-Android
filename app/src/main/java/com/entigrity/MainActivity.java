@@ -57,10 +57,9 @@ public class MainActivity extends AppCompatActivity {
     public RelativeLayout rel_top_bottom;
     public ImageView iv_mycredit, iv_mywebinar, iv_home, iv_myfavorite, iv_account;
     private static final String TAG = MainActivity.class.getName();
-
-
     public boolean isclickhome = false;
     public int setselectedtab = 0;
+    public int selectmywebinardtab=0;
 
 
     @Override
@@ -87,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 isclickhome = false;
                 setselectedtab = 0;
+                selectmywebinardtab=0;
 
                 SetImageBackground(0);
                 //SetDefault();
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 isclickhome = false;
                 setselectedtab = 1;
+                selectmywebinardtab = 1;
                 SetImageBackground(1);
                 SetDefault();
 
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setselectedtab = 0;
+                selectmywebinardtab=0;
 
                 if (!isclickhome) {
                     isclickhome = true;
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setselectedtab = 2;
+                selectmywebinardtab=0;
                 isclickhome = false;
 
                 SetImageBackground(3);
@@ -145,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setselectedtab = 0;
+                selectmywebinardtab=0;
                 isclickhome = false;
 
                 SetImageBackground(4);
@@ -168,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
     public void SetCreditScreen() {
         isclickhome = false;
         setselectedtab = 0;
+        selectmywebinardtab=0;
 
         SetImageBackground(0);
         //SetDefault();
@@ -211,31 +216,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void ShowPopUp(String message, final Context context) {
-        final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(
-                context).create();
-        alertDialog.setMessage(message);
-        // Setting OK Button
-        alertDialog.setButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // Write your code here to execute after dialog closed
-                alertDialog.dismiss();
-
-                AppSettings.removeFromSharedPreferences(context, getResources().getString(R.string.str_token));
-
-
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
-                finish();
-
-
-            }
-        });
-
-        // Showing Alert Message
-        alertDialog.show();
-    }
-
     public static MainActivity getInstance() {
         return instance;
 
@@ -252,6 +232,8 @@ public class MainActivity extends AppCompatActivity {
     public void SetFavoriteTab() {
         isclickhome = false;
         setselectedtab = 1;
+        selectmywebinardtab=2;
+        SetImageBackground(2);
 
         userDashBoardFragment = new UserDashBoardFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, userDashBoardFragment, getResources().getString(R.string.userdashBoard_fragment))
@@ -264,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void Logout(String Authorization, String device_id, String device_token, String device_type) {
+    /*public void Logout(String Authorization, String device_id, String device_token, String device_type) {
 
         // RxJava
         mAPIService.logout(getResources().getString(R.string.bearer) + Authorization, device_id
@@ -321,10 +303,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-    }
+    }*/
 
 
-    public void LogOutPoPUp() {
+   /* public void LogOutPoPUp() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
 
@@ -363,7 +345,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
 
 
-    }
+    }*/
 
 
 }

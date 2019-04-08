@@ -36,7 +36,6 @@ import com.entigrity.activity.PrivacyPolicyActivity;
 import com.entigrity.activity.TermsandConditionActivity;
 import com.entigrity.activity.TopicsOfInterestActivity;
 import com.entigrity.activity.ViewProfileActivity;
-import com.entigrity.adapter.ViewTopicsOfInterestAdapter;
 import com.entigrity.databinding.FragmentAccountBinding;
 import com.entigrity.model.logout.LogoutModel;
 import com.entigrity.model.postfeedback.PostFeedback;
@@ -174,7 +173,7 @@ public class AccountFragment extends Fragment {
 
     public void GetProfile() {
 
-        mAPIService_new.GetProfile(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetProfile(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ViewProfileModel>() {
                     @Override
                     public void onCompleted() {
@@ -590,7 +589,7 @@ public class AccountFragment extends Fragment {
     public void Logout(String Authorization, String device_id, String device_token, String device_type) {
 
         // RxJava
-        mAPIService.logout(getResources().getString(R.string.bearer) + Authorization, device_id
+        mAPIService_new.logout(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + Authorization, device_id
                 , device_token, device_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<LogoutModel>() {
                     @Override

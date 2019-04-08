@@ -58,7 +58,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/_minus25sdp"
                 android:background="@drawable/favorite_profile_border"
-                android:src="@mipmap/app_icon" />
+                android:scaleType="centerCrop" />
 
 
             <com.entigrity.view.CustomTextView
@@ -67,7 +67,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_profilepicture"
                 android:layout_centerHorizontal="true"
-                android:text="@string/str_profile_name"
                 android:textColor="@color/theme_background"
                 android:textSize="@dimen/_15sdp"
                 app:font_text="Montserrat-Regular.ttf" />

@@ -257,15 +257,55 @@
                             android:background="#A7A7A8" />
 
 
-                        <com.entigrity.view.CustomTextView
-                            android:id="@+id/tv_topicsofinterset"
+                        <RelativeLayout
+                            android:id="@+id/rel_topics_of_interest"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_2sdp"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:hint="@string/str_topics_interset"
-                            android:textSize="@dimen/_13sdp"
-                            app:font_edit="SFUIDisplay-Medium.ttf" />
+                            android:layout_marginTop="@dimen/_5sdp">
+
+
+                            <com.entigrity.view.CustomTextView
+                                android:id="@+id/topics_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_2sdp"
+                                android:hint="@string/str_topics_interset"
+                                android:textSize="@dimen/_13sdp"
+                                app:font_edit="SFUIDisplay-Medium.ttf" />
+
+
+                            <com.entigrity.view.CustomTextView
+                                android:id="@+id/tv_topics"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/topics_label"
+                                android:layout_marginLeft="@dimen/_2sdp"
+                                android:background="@drawable/my_credit_status"
+                                android:gravity="center_horizontal"
+                                android:padding="@dimen/_2sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp"
+                                android:visibility="gone"
+                                app:font_text="SFUIDisplay-Medium.ttf" />
+
+
+                            <com.entigrity.view.CustomTextView
+                                android:id="@+id/tv_topics_more"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/topics_label"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_toRightOf="@+id/tv_topics"
+                                android:background="@drawable/my_credit_status"
+                                android:gravity="center_horizontal"
+                                android:padding="@dimen/_2sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp"
+                                android:visibility="gone"
+                                app:font_text="SFUIDisplay-Medium.ttf" />
+
+
+                        </RelativeLayout>
 
 
                         <LinearLayout

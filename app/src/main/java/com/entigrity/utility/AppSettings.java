@@ -99,9 +99,36 @@ public class AppSettings {
     }
 
 
+    //user profile picture
 
-   /* public static void deleteAllSharePrefs() {
-        mPrefs.edit().clear().commit();
-    }*/
+
+    public static void set_profile_picture(Context context, String profile_picture) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefsEditor = mPrefs.edit();
+        prefsEditor.putString(context.getResources().getString(R.string.str_profile_picture), profile_picture);
+        prefsEditor.commit();
+    }
+
+    public static String get_profile_picture(Context context) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return mPrefs.getString(context.getResources().getString(R.string.str_profile_picture), "");
+
+    }
+
+    //username
+
+    public static void set_profile_username(Context context, String username) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefsEditor = mPrefs.edit();
+        prefsEditor.putString(context.getResources().getString(R.string.str_profile_username), username);
+        prefsEditor.commit();
+    }
+
+    public static String get_profile_username(Context context) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return mPrefs.getString(context.getResources().getString(R.string.str_profile_username), "");
+
+    }
+
 
 }

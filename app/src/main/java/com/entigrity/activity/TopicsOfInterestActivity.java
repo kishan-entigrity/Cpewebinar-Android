@@ -26,8 +26,6 @@ import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -43,7 +41,6 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
     public ArrayList<Integer> arraylistselected = new ArrayList<Integer>();
     LinearLayoutManager linearLayoutManager;
     RecyclerViewSectionAdapter adapter;
-    int selectedvalues;
 
 
     @Override
@@ -73,8 +70,6 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
 
                 if (adapter.arraylistselectedtopicsofinterest.size() > 0) {
                     arraylistselected = adapter.arraylistselectedtopicsofinterest;
-
-
                     Constant.Log(TAG, "store_id" + arraylistselected.size());
                 }
 

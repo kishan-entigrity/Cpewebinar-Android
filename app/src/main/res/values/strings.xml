@@ -51,6 +51,8 @@
     <string name="str_signup">SIGN UP</string>
     <string name="str_login">LOGIN</string>
     <string name="str_contactus">Contact Us</string>
+    <string name="str_profile_picture">Profile Picture</string>
+    <string name="str_profile_username">Profile Username</string>
 
     //login
     <string name="str_email">Email</string>
