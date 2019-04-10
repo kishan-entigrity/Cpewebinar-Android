@@ -1,23 +1,24 @@
 package com.entigrity.utility;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.entigrity.model.SaveTopicsSignUpModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import retrofit2.adapter.rxjava.HttpException;
@@ -26,17 +27,17 @@ import retrofit2.adapter.rxjava.HttpException;
 public class Constant {
     public static boolean developer_mode = true;
     public static String device_type = "a";  //1 for android
-    public static Dialog myDialog;
-    public static TextView tv_popup_msg, tv_popup_submit;
     public static String failure_message = "";
     public static String access_token = "";
+    public static ArrayList<SaveTopicsSignUpModel> arraylistselected = new ArrayList<SaveTopicsSignUpModel>();
+    public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
 
 
     public static boolean isNetworkAvailable(Context con) {
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) con
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetworkInfo = connectivityManager
+            @SuppressLint("MissingPermission") NetworkInfo activeNetworkInfo = connectivityManager
                     .getActiveNetworkInfo();
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
         } catch (Exception e) {

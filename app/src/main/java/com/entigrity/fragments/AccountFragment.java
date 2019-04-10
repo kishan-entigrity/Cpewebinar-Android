@@ -71,7 +71,8 @@ public class AccountFragment extends Fragment {
     public Button btn_submit;
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "";
     public int country_id = 0, state_id = 0, city_id = 0;
-    public String whoyouare = "", whoyouarevalue = "";
+    public String whoyouarevalue = "";
+    public int whoyouare = 0;
     public String State, City;
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
@@ -282,7 +283,7 @@ public class AccountFragment extends Fragment {
 
                             if (viewProfileModel.getPayload().getData().getUserType() != null
                                     && !viewProfileModel.getPayload().getData().getUserType().equalsIgnoreCase("")) {
-                                whoyouare = viewProfileModel.getPayload().getData().getUserTypeId();
+                                whoyouare = Integer.parseInt(viewProfileModel.getPayload().getData().getUserTypeId());
                                 whoyouarevalue = viewProfileModel.getPayload().getData().getUserType();
 
 
@@ -537,9 +538,8 @@ public class AccountFragment extends Fragment {
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
         i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);
         i.putExtra(getResources().getString(R.string.pass_who_you_are_text), whoyouarevalue);
-        i.putExtra(getResources().getString(R.string.pass_topics_of_interesr), arraylistselectedtopicsofinterest);
         i.putParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest), topicsofinterestitem);
-        // i.putExtra(getResources().getString(R.string.pass_topics_of_interesr), ArrayList<TopicOfInterestsItem>topicsofinterestitem);
+
 
         startActivity(i);
     }

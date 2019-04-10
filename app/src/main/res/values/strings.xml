@@ -228,11 +228,12 @@
     <string name="pass_city_text">citytext</string>
     <string name="pass_country_text">countrytext</string>
     <string name="pass_zipcode">zipcode</string>
-    <string name="pass_who_you_are">whoyouare</string>
+    <string name="pass_who_you_are">whoyouareposition</string>
     <string name="pass_who_you_are_text">whoyouare</string>
     <string name="pass_topics_of_interesr">topicsofinterest</string>
     <string name="pass_view_topics_of_interest">viewtopicsofinterest</string>
     <string name="pass_selected_list">selectedlist</string>
+    <string name="pass_selected_signup_list">signupselected</string>
 
 
     //instructor list

@@ -1,44 +1,28 @@
 package com.entigrity.activity;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.entigrity.R;
-import com.entigrity.adapter.TopicsofinterestAdapter;
 import com.entigrity.databinding.ActivitySignupBinding;
 import com.entigrity.model.registration.RegistrationModel;
-import com.entigrity.model.topicsofinterest.TagsItem;
 import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
-import com.entigrity.view.SimpleDividerItemDecoration;
-import com.entigrity.view.UsPhoneNumberFormatter;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import rx.Subscriber;
@@ -50,26 +34,17 @@ public class SignUpActivity extends AppCompatActivity {
 
     public Context context;
     ActivitySignupBinding binding;
-    private APIService mAPIService;
     private APIService mAPIService_new;
     private static final String TAG = SignUpActivity.class.getName();
     private ArrayList<String> arrayLististusertype = new ArrayList<String>();
     public boolean checkprivacypolicystatus = false;
-    public RecyclerView recyclerview_topics_interest;
-    public TextView tv_apply, tv_cancel;
-    public EditText edt_search;
-    private ArrayList<TagsItem> mListrtopicsofinterest = new ArrayList<TagsItem>();
-    private ArrayList<TagsItem> mListtopicsofinterest_filter = new ArrayList<TagsItem>();
-    public Dialog myDialog;
-    public TopicsofinterestAdapter topicsofinterestAdapteradapter;
     private boolean checkpasswordvisiblestatus = false;
     private boolean checkconfirmpasswordvisiblestatus = false;
     ProgressDialog progressDialog;
     public boolean boolean_usertype = true;
     private int user_type = 0;
-
-
-    public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
+    public int subcategoryremains = 0;
+    public String subcategory = "";
 
 
     @Override
@@ -77,14 +52,13 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
         context = SignUpActivity.this;
-        mAPIService = ApiUtils.getAPIService();
         mAPIService_new = ApiUtilsNew.getAPIService();
 
 
-        binding.edtMobilenumbert.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+       /* binding.edtMobilenumbert.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
                 new WeakReference<EditText>(binding.edtMobilenumbert));
-        binding.edtMobilenumbert.addTextChangedListener(addLineNumberFormatter);
+        binding.edtMobilenumbert.addTextChangedListener(addLineNumberFormatter);*/
 
 
         if (Constant.isNetworkAvailable(context)) {
@@ -94,13 +68,6 @@ public class SignUpActivity extends AppCompatActivity {
             Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
 
-
-       /* if (Constant.isNetworkAvailable(context)) {
-            GetTopicsOfInterset();
-        } else {
-            Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-        }
-*/
 
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -123,14 +90,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-        binding.relTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
                                 Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
                                 Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
-                                topicsofinterestAdapteradapter.arraylistselectedtag, user_type);
+                                Constant.arraylistselectedvalue, user_type);
                     } else {
                         Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -278,15 +237,15 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(context, LoginActivity.class);
                 startActivity(i);
-
-
             }
         });
 
         binding.relTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SignUpActivity.this, TopicsOfInterestActivity.class);
+                Constant.arraylistselected.clear();
+                Constant.arraylistselectedvalue.clear();
+                Intent i = new Intent(SignUpActivity.this, TopicsofInterestSignUpActivity.class);
                 startActivity(i);
 
             }
@@ -297,115 +256,32 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
+    protected void onResume() {
+        super.onResume();
+        Constant.Log(TAG, "onResume called");
 
-    public void ShowTopicsOfInterestPopup() {
-        myDialog = new Dialog(context);
-        myDialog.setContentView(R.layout.activity_topics_of_interest);
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        recyclerview_topics_interest = (RecyclerView) myDialog.findViewById(R.id.recyclerview_topics_interest);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        recyclerview_topics_interest.setLayoutManager(layoutManager);
-        recyclerview_topics_interest.addItemDecoration(new SimpleDividerItemDecoration(this));
-
-        tv_apply = (TextView) myDialog.findViewById(R.id.tv_apply);
-        tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel);
-        edt_search = (EditText) myDialog.findViewById(R.id.edt_search);
-
-
-        edt_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        if (Constant.arraylistselected.size() > 0) {
+            subcategory = Constant.arraylistselected.get(0).getTopicsofinterest();
+            binding.tvTopics.setText(subcategory);
+            binding.tvTopics.setVisibility(View.VISIBLE);
+            if (Constant.arraylistselected.size() > 1) {
+                subcategoryremains = Constant.arraylistselected.size() - 1;
+                binding.tvTopicsMore.setVisibility(View.VISIBLE);
+                binding.tvTopicsMore.setText("" + subcategoryremains + "+" + "  " + "more");
+            } else {
+                binding.tvTopicsMore.setVisibility(View.GONE);
             }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-
-
-                if (charSequence != null && charSequence.toString().trim().length() > 0) {
-                    mListrtopicsofinterest.clear();
-
-                    for (int j = 0; j < mListtopicsofinterest_filter.size(); j++) {
-                        if ((mListtopicsofinterest_filter.get(j).getTag().toLowerCase().contains(charSequence.toString().trim().toLowerCase()) ||
-                                mListtopicsofinterest_filter.get(j).getTag().toUpperCase().contains(charSequence.toString().trim().toUpperCase()))) {
-                            mListrtopicsofinterest.add(mListtopicsofinterest_filter.get(j));
-                        }
-                    }
-
-                    if (mListrtopicsofinterest.size() > 0) {
-                        recyclerview_topics_interest.setVisibility(View.VISIBLE);
-                        topicsofinterestAdapteradapter.notifyDataSetChanged();
-                    } else {
-                        recyclerview_topics_interest.setVisibility(View.GONE);
-                    }
-
-
-                } else {
-                    mListrtopicsofinterest.clear();
-
-                    for (int j = 0; j < mListtopicsofinterest_filter.size(); j++) {
-                        mListrtopicsofinterest.add(mListtopicsofinterest_filter.get(j));
-                    }
-
-                    if (mListrtopicsofinterest.size() > 0) {
-                        recyclerview_topics_interest.setVisibility(View.VISIBLE);
-                        topicsofinterestAdapteradapter.notifyDataSetChanged();
-                    } else {
-                        recyclerview_topics_interest.setVisibility(View.GONE);
-
-
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-            }
-        });
-
-
-        tv_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (myDialog.isShowing()) {
-                    myDialog.dismiss();
-                }
-
-            }
-        });
-
-        tv_apply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                arraylistselectedtopicsofinterest = topicsofinterestAdapteradapter.arraylistselectedtag;
-
-                if (myDialog.isShowing()) {
-                    myDialog.dismiss();
-                }
-
-            }
-        });
-
-
-        if (mListrtopicsofinterest.size() > 0) {
-            topicsofinterestAdapteradapter = new TopicsofinterestAdapter(context, mListrtopicsofinterest, arraylistselectedtopicsofinterest);
-            recyclerview_topics_interest.setAdapter(topicsofinterestAdapteradapter);
         }
 
-        myDialog.show();
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Constant.arraylistselected.clear();
+        Constant.arraylistselectedvalue.clear();
+        finish();
     }
 
 
@@ -458,7 +334,7 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (user_type == 0) {
             Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_user_type), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (topicsofinterestAdapteradapter.arraylistselectedtag.size() == 0) {
+        } else if (Constant.arraylistselected.size() == 0) {
             Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_topics), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!checkprivacypolicystatus) {
@@ -511,45 +387,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-   /* public void GetTopicsOfInterset() {
-        mAPIService.GetTopicsofInterest().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<TopicsofInterest>() {
-                    @Override
-                    public void onCompleted() {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-
-                        String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnRegister, message, Snackbar.LENGTH_SHORT).show();
-
-
-                    }
-
-                    @Override
-                    public void onNext(TopicsofInterest topicsofInterest) {
-                        mListrtopicsofinterest.clear();
-                        mListtopicsofinterest_filter.clear();
-
-                        for (int i = 0; i < topicsofInterest.getPayload().getTags().size(); i++) {
-                            TagsItem tagsItem = new TagsItem();
-                            tagsItem.setId(topicsofInterest.getPayload().getTags().get(i).getId());
-                            tagsItem.setTag(topicsofInterest.getPayload().getTags().get(i).getTag());
-                            mListrtopicsofinterest.add(tagsItem);
-                            mListtopicsofinterest_filter.add(tagsItem);
-                        }
-
-                    }
-                });
-    }*/
-
     public void RegisterPost(String first_name, String last_name, String email, String password, String confirm_password,
                              String firm_name, String contact_no, ArrayList<Integer> tags, int user_type
     ) {
@@ -584,9 +421,12 @@ public class SignUpActivity extends AppCompatActivity {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
-
-
+                            Constant.arraylistselected.clear();
+                            Constant.arraylistselectedvalue.clear();
                             Snackbar.make(binding.btnRegister, registrationModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+                            startActivity(i);
+
 
                         } else if (registrationModel.isSuccess() == false) {
                             if (progressDialog.isShowing()) {

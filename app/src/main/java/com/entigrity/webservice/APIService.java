@@ -18,6 +18,7 @@ import com.entigrity.model.getfaq.GetFaq;
 import com.entigrity.model.getprivacypolicy.GetPrivacyPolicy;
 import com.entigrity.model.gettermscondition.GetTermsCondition;
 import com.entigrity.model.homewebinarlist.Webinar_Home;
+import com.entigrity.model.homewebinarnew.Webinar_Home_New;
 import com.entigrity.model.instructor.InstructorModel;
 import com.entigrity.model.instructor_follow.Instructor_Follow_Model;
 import com.entigrity.model.instructor_like.Instructor_Like_Model;
@@ -197,7 +198,6 @@ public interface APIService {
             @Field("city_id") int city_id,
             @Field("zipcode") int zipcode,
             @Field("contact_no") String contact_no,
-            @Field("tags") ArrayList<Integer> tags,
             @Field("user_type_id") int user_type
     );
 
@@ -332,6 +332,20 @@ public interface APIService {
     );
 
 
+    //get home list
+    @POST("webinar")
+    Observable<Webinar_Home_New> GetHomeWebinarListNew(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization);
+
+    //get my webinar list
+
+    @POST("webinar")
+    Observable<Webinar_Home_New> GetMyWebinarListNew(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization);
+
+
     //get topics of interest for logged user
 
     @GET("topic-of-interest/list")
@@ -428,7 +442,6 @@ public interface APIService {
 
     //get topics of interest for sign up user
 
-    //get topics of interest for logged user
 
     @GET("topic-of-interest/list")
     Observable<Topicsofinterest> GetTopicsofInterestsSignUp(

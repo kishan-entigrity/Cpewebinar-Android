@@ -48,7 +48,7 @@ public class WebinarFavoriteAdapter extends RecyclerView.Adapter<WebinarFavorite
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_webinar_favorite, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_webinar, viewGroup, false);
         return new ViewHolder(v);
     }
 

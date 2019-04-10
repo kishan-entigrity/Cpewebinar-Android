@@ -10,9 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.model.SaveTopicsSignUpModel;
 import com.entigrity.model.topicsofinterestn.TagsItem;
 import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
-import com.entigrity.utility.Constant;
 import com.entigrity.view.SectionedRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -23,14 +23,15 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
 
     private List<TopicOfInterestsItem> mlist;
     public static Context mContext;
-    public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
-    //  private int ids = 0;
+    public ArrayList<SaveTopicsSignUpModel> arraylistselectedtopicsofinterest = new ArrayList<SaveTopicsSignUpModel>();
     List<TagsItem> itemsInSection;
+    SaveTopicsSignUpModel saveTopicsSignUpModel;
 
 
-    public SignUpRecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data) {
+    public SignUpRecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data, ArrayList<SaveTopicsSignUpModel> arraylistselectedtopicsofinterest) {
         this.mContext = context;
         this.mlist = data;
+        this.arraylistselectedtopicsofinterest = arraylistselectedtopicsofinterest;
     }
 
 
@@ -53,11 +54,11 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
                 ((SectionViewHolder) holder).sectionTitle.setText(sectionName);
             }
 
-
         }
 
 
     }
+
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position, final int relativePosition, final int absolutePosition) {
@@ -69,21 +70,7 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
             String itemName = itemsInSection.get(relativePosition).getName();
 
 
-            boolean is_checked = itemsInSection.get(relativePosition).isIsChecked();
-
-
-            //  ids = mlist.get(position).getTags().get(relativePosition).getId();
-
-
-            if (is_checked == true) {
-                ((ItemViewHolder) holder).cbselection.setChecked(true);
-                arraylistselectedtopicsofinterest.add(mlist.get(position).getTags().get(relativePosition).getId());
-
-                // Constant.Log("store_id", "store_id" + arraylistselectedtopicsofinterest.size());
-
-            } else {
-                ((ItemViewHolder) holder).cbselection.setChecked(false);
-            }
+            //do oposite for same..
 
 
             if (!itemName.equalsIgnoreCase("")) {
@@ -97,26 +84,19 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
         ((ItemViewHolder) holder).lv_topics_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 try {
                     if (((ItemViewHolder) holder).cbselection.isChecked() == false) {
-
-                        //ids = mlist.get(position).getTags().get(relativePosition).getId();
-                        arraylistselectedtopicsofinterest.add(mlist.get(position).getTags().get(relativePosition).getId());
-                        Constant.Log("store_id", "add_store_id" + arraylistselectedtopicsofinterest.size() + "......"
-                        );
+                        saveTopicsSignUpModel = new SaveTopicsSignUpModel();
+                        saveTopicsSignUpModel.setId(mlist.get(position).getTags().get(relativePosition).getId());
+                        saveTopicsSignUpModel.setIschecked(true);
+                        saveTopicsSignUpModel.setTopicsofinterest(mlist.get(position).getTags().get(relativePosition).getName());
+                        arraylistselectedtopicsofinterest.add(saveTopicsSignUpModel);
                         ((ItemViewHolder) holder).cbselection.setChecked(true);
                     } else {
                         ((ItemViewHolder) holder).cbselection.setChecked(false);
-                        int removed_position = arraylistselectedtopicsofinterest.indexOf(mlist.get(position).getTags().get(relativePosition).getId());
-
-                        arraylistselectedtopicsofinterest.remove(removed_position);
-                        Constant.Log("removed_position", "position" + removed_position);
-
-
+                        arraylistselectedtopicsofinterest.remove(relativePosition);
                     }
-                    //Toast.makeText(v.getContext(), ((ItemViewHolder) holder).itemTitle.getText(), Toast.LENGTH_SHORT).show();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

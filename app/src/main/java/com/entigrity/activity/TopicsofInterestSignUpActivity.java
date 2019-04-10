@@ -37,10 +37,9 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
     RecyclerView rvtopics_of_interest;
     TextView tv_submit;
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
-    public ArrayList<Integer> arraylistselected = new ArrayList<Integer>();
+
     LinearLayoutManager linearLayoutManager;
     SignUpRecyclerViewSectionAdapter adapter;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,18 +48,14 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
         mAPIService = ApiUtilsNew.getAPIService();
         context = TopicsofInterestSignUpActivity.this;
 
-        Init();
-        Onclick();
-
-        if (adapter.arraylistselectedtopicsofinterest.size() > 0) {
-            arraylistselected = adapter.arraylistselectedtopicsofinterest;
-            Constant.Log(TAG, "store_id" + arraylistselected.size());
-        }
+        init();
+        onclick();
 
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         rvtopics_of_interest.setLayoutManager(linearLayoutManager);
         rvtopics_of_interest.addItemDecoration(new SimpleDividerItemDecoration(context));
+
 
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(com.entigrity.R.string.progrees_msg));
@@ -71,31 +66,44 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
     }
 
-    private void Onclick() {
+    private void onclick() {
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (arraylistselected.size() > 0) {
-                    StringBuilder commaSepValueBuilder = new StringBuilder();
-
-                    //Looping through the list
-                    for (int i = 0; i < arraylistselected.size(); i++) {
-                        //append the value into the builder
-                        commaSepValueBuilder.append(arraylistselected.get(i));
-
-                        //if the value is not the last element of the list
-                        //then append the comma(,) as well
-                        if (i != arraylistselected.size() - 1) {
-                            commaSepValueBuilder.append(", ");
-                        }
-                    }
-                    //System.out.println(commaSepValueBuilder.toString());
-                    String selectedlist = commaSepValueBuilder.toString();
-
-                    System.out.println(selectedlist);
+                if (adapter.arraylistselectedtopicsofinterest.size() > 0) {
+                    Constant.arraylistselected = adapter.arraylistselectedtopicsofinterest;
                 }
 
+                if (Constant.arraylistselected.size() > 0) {
+                    for (int i = 0; i < Constant.arraylistselected.size(); i++) {
+                        Constant.arraylistselectedvalue.add(Constant.arraylistselected.get(i).getId());
+
+                    }
+                }
+
+
+                finish();
+
+
+            }
+        });
+
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (adapter.arraylistselectedtopicsofinterest.size() > 0) {
+                    Constant.arraylistselected = adapter.arraylistselectedtopicsofinterest;
+                }
+
+                if (Constant.arraylistselected.size() > 0) {
+                    for (int i = 0; i < Constant.arraylistselected.size(); i++) {
+                        Constant.arraylistselectedvalue.add(Constant.arraylistselected.get(i).getId());
+
+                    }
+                }
+
+                finish();
 
             }
         });
@@ -103,7 +111,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
     }
 
-    private void Init() {
+    private void init() {
         ivback = (ImageView) findViewById(com.entigrity.R.id.ivback);
         rvtopics_of_interest = (RecyclerView) findViewById(com.entigrity.R.id.rvtopics_of_interest);
         tv_submit = (TextView) findViewById(com.entigrity.R.id.tv_submit);
@@ -115,7 +123,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted() {
                         if (topicsofinterestitem.size() > 0) {
-                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem);
+                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, Constant.arraylistselected);
                             rvtopics_of_interest.setAdapter(adapter);
                         }
 
@@ -148,15 +156,10 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                                 TopicOfInterestsItem topicOfInterestsItem = new TopicOfInterestsItem();
                                 topicOfInterestsItem.setName(topicsofinterest.getPayload().getTopicOfInterests().get(i).getName());
                                 topicOfInterestsItem.setId(topicsofinterest.getPayload().getTopicOfInterests().get(i).getId());
-                                if (topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags() != null) {
-                                    topicOfInterestsItem.setTags(topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags());
-                                }
-
+                                topicOfInterestsItem.setTags(topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags());
                                 topicsofinterestitem.add(topicOfInterestsItem);
+
                             }
-
-
-                            //Constant.Log(TAG, "size" + topicsofinterestitem.size());
 
                         }
 

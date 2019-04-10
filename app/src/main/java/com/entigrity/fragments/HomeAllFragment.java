@@ -11,8 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +19,7 @@ import com.entigrity.R;
 import com.entigrity.adapter.HomeALLAdapter;
 import com.entigrity.databinding.FragmentAllBinding;
 import com.entigrity.model.homewebinarlist.WebinarItem;
-import com.entigrity.model.homewebinarlist.Webinar_Home;
+import com.entigrity.model.homewebinarnew.Webinar_Home_New;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -47,6 +45,7 @@ public class HomeAllFragment extends Fragment {
     ProgressDialog progressDialog;
     LinearLayoutManager linearLayoutManager;
     private List<WebinarItem> arrHomelist = new ArrayList<WebinarItem>();
+    private List<com.entigrity.model.homewebinarnew.WebinarItem> arrHomelistnew = new ArrayList<com.entigrity.model.homewebinarnew.WebinarItem>();
     private int pagenumber = 1;
     private String webinartype = "";
     private List<Boolean> arrsavebooleanstate = new ArrayList();
@@ -85,14 +84,15 @@ public class HomeAllFragment extends Fragment {
 
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-            GetHomeList(pagenumber, webinartype);
+            //GetHomeList(pagenumber, webinartype);
+            GetHomeListNew();
         } else {
             Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
         }
 
 
-        binding.rvhome.addOnScrollListener(new RecyclerView.OnScrollListener() {
+       /* binding.rvhome.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (dy > 0) //check for scroll down
@@ -116,7 +116,7 @@ public class HomeAllFragment extends Fragment {
                     }
                 }
             }
-        });
+        });*/
 
 
         binding.swipeRefreshLayouthome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -162,7 +162,8 @@ public class HomeAllFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetHomeList(pagenumber, webinartype);
+                    // GetHomeList(pagenumber, webinartype);
+                    GetHomeListNew();
                 } else {
                     Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -210,7 +211,8 @@ public class HomeAllFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetHomeList(pagenumber, webinartype);
+                    //   GetHomeList(pagenumber, webinartype);
+                    GetHomeListNew();
                 } else {
                     Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -251,7 +253,8 @@ public class HomeAllFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetHomeList(pagenumber, webinartype);
+                    // GetHomeList(pagenumber, webinartype);
+                    GetHomeListNew();
                 } else {
                     Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -267,7 +270,7 @@ public class HomeAllFragment extends Fragment {
     private void loadNextPage() {
 
         if (Constant.isNetworkAvailable(context)) {
-            GetHomeList(pagenumber, webinartype);
+            //   GetHomeList(pagenumber, webinartype);
         } else {
             Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -288,114 +291,172 @@ public class HomeAllFragment extends Fragment {
         // ...
 
         // Stop refresh animation
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+
         binding.swipeRefreshLayouthome.setRefreshing(false);
     }
 
 
-    public void GetHomeList(final int pagenumber, final String webinartype) {
+    /*  public void GetHomeList(final int pagenumber, final String webinartype) {
 
-        mAPIService_new.GetHomeWebinarList(getResources().getString(R.string.accept),getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)
-                , getResources().getString(R.string.str_all), pagenumber, webinartype, "").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Webinar_Home>() {
+          mAPIService_new.GetHomeWebinarList(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)
+                  , getResources().getString(R.string.str_all), pagenumber, webinartype, "").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                  .subscribe(new Subscriber<Webinar_Home>() {
+                      @Override
+                      public void onCompleted() {
+
+                          if (pagenumber == 1) {
+                              if (arrHomelist.size() > 0) {
+                                  adapter = new HomeALLAdapter(context, arrHomelist);
+                                  binding.rvhome.setAdapter(adapter);
+                              }
+                          } else {
+                              adapter.addLoadingFooter();
+                          }
+                      }
+
+                      @Override
+                      public void onError(Throwable e) {
+                          if (pagenumber == 1) {
+                              if (progressDialog.isShowing()) {
+                                  progressDialog.dismiss();
+                              }
+                          } else {
+                              binding.progressBar.setVisibility(View.GONE);
+                          }
+
+
+                          String message = Constant.GetReturnResponse(context, e);
+                          Snackbar.make(binding.rvhome, message, Snackbar.LENGTH_SHORT).show();
+
+
+                      }
+
+                      @Override
+                      public void onNext(Webinar_Home webinar_home) {
+
+                          if (webinar_home.isSuccess() == true) {
+                              if (pagenumber == 1) {
+                                  if (arrHomelist.size() > 0) {
+                                      arrHomelist.clear();
+                                  }
+                                  if (progressDialog.isShowing()) {
+                                      progressDialog.dismiss();
+                                  }
+                              } else {
+                                  binding.progressBar.setVisibility(View.GONE);
+                              }
+
+
+                              Constant.Log(TAG, "pagenumber" + pagenumber);
+
+                              if (pagenumber == 1) {
+                                  arrHomelist = webinar_home.getPayload().getWebinar();
+                              } else {
+                                  List<WebinarItem> webinaritems = webinar_home.getPayload().getWebinar();
+                                  adapter.addAll(webinaritems);
+
+
+                              }
+
+                              if (arrHomelist.size() > 0) {
+                                  total_record = webinar_home.getPayload().getWebinar().get(0).getTotalRecord();
+                              }
+
+
+                              // Constant.Log(TAG, "comma" + webinartype);
+
+                              if (arrHomelist.size() > 0) {
+                                  binding.swipeRefreshLayouthome.setVisibility(View.VISIBLE);
+                                  binding.tvNodatafound.setVisibility(View.GONE);
+                              } else {
+                                  binding.swipeRefreshLayouthome.setVisibility(View.GONE);
+                                  binding.tvNodatafound.setVisibility(View.VISIBLE);
+                              }
+
+
+                          } else {
+
+                              if (webinar_home.getPayload().getAccessToken() != null && !webinar_home.getPayload().getAccessToken().equalsIgnoreCase("")) {
+                                  AppSettings.set_login_token(context, webinar_home.getPayload().getAccessToken());
+
+                                  if (Constant.isNetworkAvailable(context)) {
+                                      GetHomeList(pagenumber, webinartype);
+                                  } else {
+                                      Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                                  }
+
+                              } else {
+                                  if (pagenumber == 1) {
+                                      if (progressDialog.isShowing()) {
+                                          progressDialog.dismiss();
+                                      }
+                                  } else {
+                                      binding.progressBar.setVisibility(View.GONE);
+                                  }
+
+
+                                  Snackbar.make(binding.rvhome, webinar_home.getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                              }
+
+
+                          }
+
+
+                      }
+
+
+                  });
+
+
+      }
+  */
+    public void GetHomeListNew() {
+
+        mAPIService_new.GetHomeWebinarListNew(getResources().getString(R.string.accept),
+                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Webinar_Home_New>() {
                     @Override
                     public void onCompleted() {
 
-                        if (pagenumber == 1) {
-                            if (arrHomelist.size() > 0) {
-                                adapter = new HomeALLAdapter(context, arrHomelist);
-                                binding.rvhome.setAdapter(adapter);
-                            }
-                        } else {
-                            adapter.addLoadingFooter();
+                        if (arrHomelistnew.size() > 0) {
+                            adapter = new HomeALLAdapter(context, arrHomelistnew);
+                            binding.rvhome.setAdapter(adapter);
                         }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        if (pagenumber == 1) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-                        } else {
-                            binding.progressBar.setVisibility(View.GONE);
-                        }
-
 
                         String message = Constant.GetReturnResponse(context, e);
                         Snackbar.make(binding.rvhome, message, Snackbar.LENGTH_SHORT).show();
-
-
                     }
 
                     @Override
-                    public void onNext(Webinar_Home webinar_home) {
+                    public void onNext(Webinar_Home_New webinar_home_new) {
 
-                        if (webinar_home.isSuccess() == true) {
-                            if (pagenumber == 1) {
-                                if (arrHomelist.size() > 0) {
-                                    arrHomelist.clear();
-                                }
-                                if (progressDialog.isShowing()) {
-                                    progressDialog.dismiss();
-                                }
-                            } else {
-                                binding.progressBar.setVisibility(View.GONE);
+                        if (webinar_home_new.isSuccess() == true) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
                             }
+                            arrHomelistnew = webinar_home_new.getPayload().getWebinar();
 
-
-                            Constant.Log(TAG, "pagenumber" + pagenumber);
-
-                            if (pagenumber == 1) {
-                                arrHomelist = webinar_home.getPayload().getWebinar();
-                            } else {
-                                List<WebinarItem> webinaritems = webinar_home.getPayload().getWebinar();
-                                adapter.addAll(webinaritems);
-
-
-                            }
-
-                            if (arrHomelist.size() > 0) {
-                                total_record = webinar_home.getPayload().getWebinar().get(0).getTotalRecord();
-                            }
-
-
-                            // Constant.Log(TAG, "comma" + webinartype);
-
-                            if (arrHomelist.size() > 0) {
+                            if (arrHomelistnew.size() > 0) {
                                 binding.swipeRefreshLayouthome.setVisibility(View.VISIBLE);
                                 binding.tvNodatafound.setVisibility(View.GONE);
                             } else {
                                 binding.swipeRefreshLayouthome.setVisibility(View.GONE);
                                 binding.tvNodatafound.setVisibility(View.VISIBLE);
                             }
-
-
                         } else {
-
-                            if (webinar_home.getPayload().getAccessToken() != null && !webinar_home.getPayload().getAccessToken().equalsIgnoreCase("")) {
-                                AppSettings.set_login_token(context, webinar_home.getPayload().getAccessToken());
-
-                                if (Constant.isNetworkAvailable(context)) {
-                                    GetHomeList(pagenumber, webinartype);
-                                } else {
-                                    Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                                }
-
-                            } else {
-                                if (pagenumber == 1) {
-                                    if (progressDialog.isShowing()) {
-                                        progressDialog.dismiss();
-                                    }
-                                } else {
-                                    binding.progressBar.setVisibility(View.GONE);
-                                }
-
-
-                                Snackbar.make(binding.rvhome, webinar_home.getMessage(), Snackbar.LENGTH_SHORT).show();
-
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
                             }
-
-
+                            Snackbar.make(binding.rvhome, webinar_home_new.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 

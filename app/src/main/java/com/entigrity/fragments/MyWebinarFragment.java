@@ -11,8 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,7 @@ import com.entigrity.R;
 import com.entigrity.adapter.HomeMyWebinarAdapter;
 import com.entigrity.databinding.FragmentMywebinarBinding;
 import com.entigrity.model.homewebinarlist.WebinarItem;
-import com.entigrity.model.homewebinarlist.Webinar_Home;
+import com.entigrity.model.homewebinarnew.Webinar_Home_New;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -49,6 +47,7 @@ public class MyWebinarFragment extends Fragment {
     ProgressDialog progressDialog;
     LinearLayoutManager linearLayoutManager;
     private List<WebinarItem> arrHomeMyWebinarlist = new ArrayList<WebinarItem>();
+    private List<com.entigrity.model.homewebinarnew.WebinarItem> arrHomeMyWebinarlistnew = new ArrayList<com.entigrity.model.homewebinarnew.WebinarItem>();
     private int pagenumber = 1;
     private String webinartypemywebinar = "";
     private List<Boolean> arrsavebooleanstateMyWebinar = new ArrayList();
@@ -85,7 +84,7 @@ public class MyWebinarFragment extends Fragment {
         arraysavefilterMyWebinar.add(3, "");
 
 
-        binding.rvhomewebinar.addOnScrollListener(new RecyclerView.OnScrollListener() {
+       /* binding.rvhomewebinar.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (dy > 0) //check for scroll down
@@ -110,7 +109,7 @@ public class MyWebinarFragment extends Fragment {
                 }
             }
         });
-
+*/
 
         if (MainActivity.getInstance().selectmywebinardtab == 2) {
             MainActivity.getInstance().selectmywebinardtab = 0;
@@ -144,7 +143,9 @@ public class MyWebinarFragment extends Fragment {
 
             if (Constant.isNetworkAvailable(context)) {
                 progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                GetMyWebinarList(pagenumber, webinartypemywebinar);
+                // GetMyWebinarList(pagenumber, webinartypemywebinar);
+
+                GetMyWebinarListNew();
             } else {
                 Snackbar.make(binding.rvhomewebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -154,9 +155,10 @@ public class MyWebinarFragment extends Fragment {
         } else {
             if (Constant.isNetworkAvailable(context)) {
                 progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                GetMyWebinarList(pagenumber, webinartypemywebinar);
+                //GetMyWebinarList(pagenumber, webinartypemywebinar);
+                GetMyWebinarListNew();
             } else {
-                Snackbar.make(binding.rvhomewebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(binding.lvMyWebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
             }
         }
@@ -204,7 +206,9 @@ public class MyWebinarFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    // GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    GetMyWebinarListNew();
+
                 } else {
                     Snackbar.make(binding.rvhomewebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -252,7 +256,8 @@ public class MyWebinarFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    //GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    GetMyWebinarListNew();
                 } else {
                     Snackbar.make(binding.rvhomewebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -296,7 +301,8 @@ public class MyWebinarFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    //  GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    GetMyWebinarListNew();
                 } else {
                     Snackbar.make(binding.rvhomewebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -339,7 +345,8 @@ public class MyWebinarFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    // GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    GetMyWebinarListNew();
                 } else {
                     Snackbar.make(binding.rvhomewebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -373,7 +380,8 @@ public class MyWebinarFragment extends Fragment {
 
     private void loadNextPage() {
         if (Constant.isNetworkAvailable(context)) {
-            GetMyWebinarList(pagenumber, webinartypemywebinar);
+            // GetMyWebinarList(pagenumber, webinartypemywebinar);
+            GetMyWebinarListNew();
         } else {
             Snackbar.make(binding.rvhomewebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -382,7 +390,7 @@ public class MyWebinarFragment extends Fragment {
     }
 
 
-    public void GetMyWebinarList(final int pagenumber, final String webinartype) {
+   /* public void GetMyWebinarList(final int pagenumber, final String webinartype) {
 
         mAPIService_new.GetMyWebinarList(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)
                 , getResources().getString(R.string.str_filter_webinar), pagenumber, webinartype, "").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -496,6 +504,59 @@ public class MyWebinarFragment extends Fragment {
 
                 });
 
+
+    }*/
+
+    public void GetMyWebinarListNew() {
+
+        mAPIService_new.GetMyWebinarListNew(getResources().getString(R.string.accept),
+                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Webinar_Home_New>() {
+                    @Override
+                    public void onCompleted() {
+
+                        if (arrHomeMyWebinarlistnew.size() > 0) {
+                            adapter = new HomeMyWebinarAdapter(context, arrHomeMyWebinarlistnew);
+                            binding.rvhomewebinar.setAdapter(adapter);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Snackbar.make(binding.rvhomewebinar, message, Snackbar.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(Webinar_Home_New webinar_home_new) {
+
+                        if (webinar_home_new.isSuccess() == true) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            arrHomeMyWebinarlistnew = webinar_home_new.getPayload().getWebinar();
+
+                            if (arrHomeMyWebinarlistnew.size() > 0) {
+                                binding.swipeRefreshLayouthomemywebinar.setVisibility(View.VISIBLE);
+                                binding.tvNodatafound.setVisibility(View.GONE);
+                            } else {
+                                binding.swipeRefreshLayouthomemywebinar.setVisibility(View.GONE);
+                                binding.tvNodatafound.setVisibility(View.VISIBLE);
+                            }
+                        } else {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            Snackbar.make(binding.rvhomewebinar, webinar_home_new.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+
+
+                });
 
     }
 

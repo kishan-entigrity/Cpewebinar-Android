@@ -1,10 +1,7 @@
 package com.entigrity.fcm;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 
-import com.entigrity.utility.Constant;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -19,12 +16,15 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
     public ReceiveFirebaseMessagingService() {
     }
 
+
+
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         context = this;
 
-      //  Constant.Log("onmessage", "onmessage" + remoteMessage.getNotification().getBody());
+
     }
 
 

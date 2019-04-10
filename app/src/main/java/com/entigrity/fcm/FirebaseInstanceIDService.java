@@ -1,6 +1,5 @@
 package com.entigrity.fcm;
 
-import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
@@ -13,10 +12,11 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     }
 
+
     @Override
     public void onTokenRefresh() {
-     /*   String deviceToken = FirebaseInstanceId.getInstance().getToken();
-        AppConfig.deviceToken = deviceToken;*/
+        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+        AppConfig.deviceToken = deviceToken;
 
 
         Constant.Log("device token", "device token" + FirebaseInstanceId.getInstance().getToken());

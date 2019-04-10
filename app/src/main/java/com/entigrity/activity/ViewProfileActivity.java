@@ -24,13 +24,12 @@ public class ViewProfileActivity extends AppCompatActivity {
     public Context context;
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "";
     public int country_id = 0, state_id = 0, city_id = 0;
-    public String whoyouare = "", whoyouarevalue = "";
+    public String whoyouarevalue = "";
     public String State, City;
     private int country_pos = 0;
     private int state_pos = 0;
     private int city_pos = 0;
     private int who_you_are_pos = 0;
-    public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
     private ArrayList<String> arraylistsubcategory = new ArrayList<>();
     public int subcategoryremains = 0;
@@ -52,15 +51,14 @@ public class ViewProfileActivity extends AppCompatActivity {
             firmname = intent.getStringExtra(getResources().getString(R.string.pass_firm_name));
             country = intent.getStringExtra(getResources().getString(R.string.pass_country_text));
             mobilenumber = intent.getStringExtra(getResources().getString(R.string.pass_mobile_number));
+            whoyouarevalue = intent.getStringExtra(getResources().getString(R.string.pass_who_you_are_text));
             State = intent.getStringExtra(getResources().getString(R.string.pass_state_text));
             City = intent.getStringExtra(getResources().getString(R.string.pass_city_text));
             zipcode = intent.getStringExtra(getResources().getString(R.string.pass_zipcode));
             country_pos = intent.getIntExtra(getResources().getString(R.string.pass_country), 0);
             state_pos = intent.getIntExtra(getResources().getString(R.string.pass_state), 0);
             city_pos = intent.getIntExtra(getResources().getString(R.string.pass_city), 0);
-            whoyouarevalue = intent.getStringExtra(getResources().getString(R.string.pass_who_you_are_text));
             who_you_are_pos = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are), 0);
-            arraylistselectedtopicsofinterest = intent.getIntegerArrayListExtra(getResources().getString(R.string.pass_topics_of_interesr));
             topicsofinterestitem = intent.getParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest));
 
             Constant.Log(TAG, "topics_size" + topicsofinterestitem.size());
@@ -212,8 +210,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         i.putExtra(getResources().getString(R.string.pass_state_text), State);
         i.putExtra(getResources().getString(R.string.pass_city_text), City);
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
-        i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);
-        i.putExtra(getResources().getString(R.string.pass_topics_of_interesr), arraylistselectedtopicsofinterest);
+        i.putExtra(getResources().getString(R.string.pass_who_you_are), who_you_are_pos);
         i.putStringArrayListExtra(getResources().getString(R.string.pass_selected_list), arraylistsubcategory);
         startActivity(i);
     }

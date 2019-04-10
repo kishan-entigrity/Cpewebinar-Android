@@ -118,13 +118,6 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
             }
         });
 
-       /* binding.tvSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });*/
-
 
     }
 
