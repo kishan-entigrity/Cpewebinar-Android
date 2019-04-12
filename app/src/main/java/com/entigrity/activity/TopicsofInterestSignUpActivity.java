@@ -27,6 +27,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.entigrity.utility.Constant.ischeckedregistered;
+
 
 public class TopicsofInterestSignUpActivity extends AppCompatActivity {
     public Context context;
@@ -37,6 +39,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
     RecyclerView rvtopics_of_interest;
     TextView tv_submit;
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
+
 
     LinearLayoutManager linearLayoutManager;
     SignUpRecyclerViewSectionAdapter adapter;
@@ -75,10 +78,14 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                     Constant.arraylistselected = adapter.arraylistselectedtopicsofinterest;
                 }
 
+                if (adapter.topicsofinterestchecked.size() > 0) {
+                    Constant.topicsofinterestchecked = adapter.topicsofinterestchecked;
+                }
+
+
                 if (Constant.arraylistselected.size() > 0) {
                     for (int i = 0; i < Constant.arraylistselected.size(); i++) {
                         Constant.arraylistselectedvalue.add(Constant.arraylistselected.get(i).getId());
-
                     }
                 }
 
@@ -96,10 +103,14 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                     Constant.arraylistselected = adapter.arraylistselectedtopicsofinterest;
                 }
 
+                if (adapter.topicsofinterestchecked.size() > 0) {
+                    Constant.topicsofinterestchecked = adapter.topicsofinterestchecked;
+                }
+
+
                 if (Constant.arraylistselected.size() > 0) {
                     for (int i = 0; i < Constant.arraylistselected.size(); i++) {
                         Constant.arraylistselectedvalue.add(Constant.arraylistselected.get(i).getId());
-
                     }
                 }
 
@@ -123,8 +134,11 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted() {
                         if (topicsofinterestitem.size() > 0) {
-                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, Constant.arraylistselected);
+
+                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, Constant.arraylistselected
+                                    , Constant.topicsofinterestchecked);
                             rvtopics_of_interest.setAdapter(adapter);
+
                         }
 
 
@@ -161,6 +175,17 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
                             }
 
+                        }
+
+                        if (!ischeckedregistered) {
+                            if (topicsofinterestitem.size() > 0) {
+                                for (int k = 0; k < topicsofinterestitem.size(); k++) {
+                                    for (int m = 0; m < topicsofinterestitem.get(k).getTags().size(); m++) {
+                                        Constant.topicsofinterestchecked.add(topicsofinterestitem.get(k).getTags().get(m).isIsChecked());
+                                    }
+                                }
+                                ischeckedregistered = true;
+                            }
                         }
 
 

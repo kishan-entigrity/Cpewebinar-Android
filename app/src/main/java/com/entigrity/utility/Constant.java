@@ -31,6 +31,8 @@ public class Constant {
     public static String access_token = "";
     public static ArrayList<SaveTopicsSignUpModel> arraylistselected = new ArrayList<SaveTopicsSignUpModel>();
     public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
+    public static boolean ischeckedregistered = false;
+    public static ArrayList<Boolean> topicsofinterestchecked = new ArrayList<>();
 
 
     public static boolean isNetworkAvailable(Context con) {

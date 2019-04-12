@@ -109,6 +109,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private String State, City;
 
+
+    private int country_set = 0, state_set = 0, city_set = 0;
+
+
     private static final String TAG = EditProfileActivity.class.getName();
 
 
@@ -171,32 +175,16 @@ public class EditProfileActivity extends AppCompatActivity {
                     boolean_country_spinner = false;
                 } else {
 
-                    if (position != 0) {
 
+                    country_id = getcountryarray.get(position).getId();
 
-                        country_id = getcountryarray.get(position - 1).getId();
+                    State = "";
 
-                        State = "";
-
-                        if (Constant.isNetworkAvailable(context)) {
-                            GetState(country_id);
-                        } else {
-                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_INDEFINITE)
-                                    .setAction(getResources().getString(R.string.retry), new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            GetState(country_id);
-                                        }
-                                    })
-                                    .setActionTextColor(getResources().getColor(R.color.webinar_status))
-                                    .show();
-                        }
+                    if (Constant.isNetworkAvailable(context)) {
+                        GetState(country_id);
                     } else {
-
-                        country_id = position;
-
+                        Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                     }
-
 
                 }
 
@@ -217,24 +205,13 @@ public class EditProfileActivity extends AppCompatActivity {
                     boolean_state_spinner = false;
                 } else {
 
-                    if (position != 0) {
+                    state_id = getstatearray.get(position).getId();
+                    City = "";
 
-
-                        state_id = getstatearray.get(position - 1).getId();
-
-
-                        City = "";
-
-                        if (Constant.isNetworkAvailable(context)) {
-                            GetCity(state_id);
-                        } else {
-                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                        }
-
+                    if (Constant.isNetworkAvailable(context)) {
+                        GetCity(state_id);
                     } else {
-
-                        state_id = position;
-
+                        Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                     }
 
 
@@ -258,12 +235,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     boolean_city_spinner = false;
                 } else {
 
-                    if (position != 0) {
-                        city_id = position;
-                    } else {
-                        city_id = position;
-
-                    }
+                    city_id = getcityarray.get(position).getId();
 
 
                 }
@@ -514,12 +486,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                         for (int i = 0; i < arrayLististusertypeid.size(); i++) {
-
-
                             if (who_you_are_pos == arrayLististusertypeid.get(i)) {
                                 who_you_are_pos = arrayLististusertypeid.indexOf(arrayLististusertypeid.get(i) + 1);
-
-
                             }
                         }
 
@@ -557,7 +525,8 @@ public class EditProfileActivity extends AppCompatActivity {
             //Setting the ArrayAdapter data on the Spinner
             binding.spinnerCountry.setAdapter(aa);
 
-            binding.spinnerCountry.setSelection(country_pos);
+
+            binding.spinnerCountry.setSelection(country_set);
 
 
         }
@@ -598,7 +567,7 @@ public class EditProfileActivity extends AppCompatActivity {
             if (checkcityarray == true) {
                 binding.spinnerCity.setSelection(1);
             } else {
-                binding.spinnerCity.setSelection(city_pos);
+                binding.spinnerCity.setSelection(city_set);
             }
 
 
@@ -623,7 +592,7 @@ public class EditProfileActivity extends AppCompatActivity {
             if (checkstatearray == true) {
                 binding.spinnerState.setSelection(1);
             } else {
-                binding.spinnerState.setSelection(state_pos);
+                binding.spinnerState.setSelection(state_set);
             }
 
 
@@ -689,12 +658,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(CountryModel CountryModel) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
 
 
                         getcountryarraylist.clear();
                         getcountryarray.clear();
 
-                        getcountryarraylist.add(getResources().getString(R.string.str_select_country));
+                        // getcountryarraylist.add(getResources().getString(R.string.str_select_country));
 
 
                         if (CountryModel.getPayload().getCountry().size() > 0) {
@@ -710,6 +682,14 @@ public class EditProfileActivity extends AppCompatActivity {
                                 }
                                 getcountryarray.add(countryItem);
                             }
+
+
+                            for (int i = 0; i < getcountryarray.size(); i++) {
+                                if (country_pos == getcountryarray.get(i).getId()) {
+                                    country_set = getcountryarray.indexOf(getcountryarray.get(i));
+                                }
+                            }
+
 
                             Show_Country_Adapter();
                         }
@@ -752,7 +732,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         getcityarraylist.clear();
                         getcityarray.clear();
 
-                        getcityarraylist.add(getResources().getString(R.string.str_select_city));
+                        //   getcityarraylist.add(getResources().getString(R.string.str_select_city));
 
 
                         if (cityModel.getPayload().getCity().size() > 0) {
@@ -769,6 +749,14 @@ public class EditProfileActivity extends AppCompatActivity {
                                 getcityarray.add(cityItem);
 
                             }
+
+
+                            for (int i = 0; i < getcityarray.size(); i++) {
+                                if (city_pos == getcityarray.get(i).getId()) {
+                                    city_set = getcityarray.indexOf(getcityarray.get(i));
+                                }
+                            }
+
                             checkcityarray = false;
 
                             Show_City_Adapter();
@@ -826,7 +814,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         getstatearralist.clear();
                         getstatearray.clear();
 
-                        getstatearralist.add(getResources().getString(R.string.str_select_state));
+                        // getstatearralist.add(getResources().getString(R.string.str_select_state));
 
 
                         if (stateModel.getPayload().getState().size() > 0) {
@@ -846,6 +834,14 @@ public class EditProfileActivity extends AppCompatActivity {
                                 }
                                 getstatearray.add(stateItem);
                             }
+
+                            for (int i = 0; i < getstatearray.size(); i++) {
+                                if (state_pos == getstatearray.get(i).getId()) {
+                                    state_set = getstatearray.indexOf(getstatearray.get(i));
+
+                                }
+                            }
+
 
                             checkstatearray = false;
 

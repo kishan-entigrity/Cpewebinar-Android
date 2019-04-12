@@ -13,6 +13,7 @@ import com.entigrity.R;
 import com.entigrity.model.SaveTopicsSignUpModel;
 import com.entigrity.model.topicsofinterestn.TagsItem;
 import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
+import com.entigrity.utility.Constant;
 import com.entigrity.view.SectionedRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -26,12 +27,16 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
     public ArrayList<SaveTopicsSignUpModel> arraylistselectedtopicsofinterest = new ArrayList<SaveTopicsSignUpModel>();
     List<TagsItem> itemsInSection;
     SaveTopicsSignUpModel saveTopicsSignUpModel;
+    public ArrayList<Boolean> topicsofinterestchecked = new ArrayList<>();
+    public int positionselected = 0;
 
 
-    public SignUpRecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data, ArrayList<SaveTopicsSignUpModel> arraylistselectedtopicsofinterest) {
+    public SignUpRecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data, ArrayList<SaveTopicsSignUpModel> arraylistselectedtopicsofinterest,
+                                            ArrayList<Boolean> topicsofinterestchecked) {
         this.mContext = context;
         this.mlist = data;
         this.arraylistselectedtopicsofinterest = arraylistselectedtopicsofinterest;
+        this.topicsofinterestchecked = topicsofinterestchecked;
     }
 
 
@@ -67,14 +72,20 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
         if (mlist.get(position).getTags().size() > 0) {
             itemsInSection = mlist.get(position).getTags();
 
+            ((ItemViewHolder) holder).cbselection.setTag(mlist.get(position).getTags().get(relativePosition));
+
             String itemName = itemsInSection.get(relativePosition).getName();
-
-
-            //do oposite for same..
 
 
             if (!itemName.equalsIgnoreCase("")) {
                 ((ItemViewHolder) holder).itemTitle.setText(itemName);
+            }
+
+
+            if (topicsofinterestchecked.get(relativePosition) == true) {
+                ((ItemViewHolder) holder).cbselection.setChecked(true);
+            } else {
+                ((ItemViewHolder) holder).cbselection.setChecked(false);
             }
 
 
@@ -86,18 +97,40 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
             public void onClick(View v) {
                 try {
                     if (((ItemViewHolder) holder).cbselection.isChecked() == false) {
+
                         saveTopicsSignUpModel = new SaveTopicsSignUpModel();
                         saveTopicsSignUpModel.setId(mlist.get(position).getTags().get(relativePosition).getId());
                         saveTopicsSignUpModel.setIschecked(true);
                         saveTopicsSignUpModel.setTopicsofinterest(mlist.get(position).getTags().get(relativePosition).getName());
                         arraylistselectedtopicsofinterest.add(saveTopicsSignUpModel);
                         ((ItemViewHolder) holder).cbselection.setChecked(true);
+
+                        int id = mlist.get(position).getTags().get(relativePosition).getId();
+
+                        for (int i = 0; i < mlist.size(); i++) {
+                            for (int j = 0; j < mlist.get(i).getTags().size(); j++) {
+                                if (id == mlist.get(i).getTags().get(j).getId()) {
+                                    positionselected = j;
+                                }
+                            }
+
+                        }
+
+
+                      /*  positionselected = mlist.indexOf(mlist.get(position)
+                                .getId());
+
+                        Constant.Log("postion", "+++" + positionselected);*/
+                        Constant.Log("postion", "+++" + positionselected);
+                        // topicsofinterestchecked.set(positionselected, true);
                     } else {
                         ((ItemViewHolder) holder).cbselection.setChecked(false);
                         arraylistselectedtopicsofinterest.remove(relativePosition);
+                        topicsofinterestchecked.set(positionselected, false);
                     }
 
-                } catch (Exception e) {
+                } catch (
+                        Exception e) {
                     e.printStackTrace();
                 }
 

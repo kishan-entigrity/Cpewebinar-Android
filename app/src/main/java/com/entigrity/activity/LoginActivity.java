@@ -182,6 +182,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
 
+                            Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
+
 
                             Intent i = new Intent(context, MainActivity.class);
                             startActivity(i);

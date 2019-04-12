@@ -215,11 +215,23 @@ public class AccountFragment extends Fragment {
 
                             }
 
-                            if (!viewProfileModel.getPayload().getData().getProfilePicture().equalsIgnoreCase("")
+                           /* if (!viewProfileModel.getPayload().getData().getProfilePicture().equalsIgnoreCase("")
                                     && viewProfileModel.getPayload().getData().getProfilePicture() != null) {
                                 Picasso.with(context).load(viewProfileModel.getPayload().getData().getProfilePicture())
                                         .placeholder(R.mipmap.placeholder)
                                         .into(binding.ivprofilepicture);
+                            }*/
+
+                            if (!AppSettings.get_profile_picture(context).equalsIgnoreCase("")
+                                    && AppSettings.get_profile_picture(context) != null) {
+
+                                Picasso.with(context).load(AppSettings.get_profile_picture(context))
+                                        .placeholder(R.mipmap.placeholder)
+                                        .into(binding.ivprofilepicture);
+
+                                Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
+
+
                             }
 
 
@@ -270,11 +282,11 @@ public class AccountFragment extends Fragment {
                             }
 
 
-                            if (viewProfileModel.getPayload().getData().getTags().size() > 0) {
+                           /* if (viewProfileModel.getPayload().getData().getTags().size() > 0) {
                                 for (int i = 0; i < viewProfileModel.getPayload().getData().getTags().size(); i++) {
                                     arraylistselectedtopicsofinterest.add(viewProfileModel.getPayload().getData().getTags().get(i).getId());
                                 }
-                            }
+                            }*/
                             if (viewProfileModel.getPayload().getData().getZipcode() != null
                                     && !viewProfileModel.getPayload().getData().getZipcode().equalsIgnoreCase("")) {
                                 zipcode = viewProfileModel.getPayload().getData().getZipcode();

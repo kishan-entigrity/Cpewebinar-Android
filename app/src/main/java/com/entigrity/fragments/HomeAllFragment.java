@@ -165,7 +165,7 @@ public class HomeAllFragment extends Fragment {
                     // GetHomeList(pagenumber, webinartype);
                     GetHomeListNew();
                 } else {
-                    Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -214,7 +214,7 @@ public class HomeAllFragment extends Fragment {
                     //   GetHomeList(pagenumber, webinartype);
                     GetHomeListNew();
                 } else {
-                    Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -256,7 +256,7 @@ public class HomeAllFragment extends Fragment {
                     // GetHomeList(pagenumber, webinartype);
                     GetHomeListNew();
                 } else {
-                    Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 

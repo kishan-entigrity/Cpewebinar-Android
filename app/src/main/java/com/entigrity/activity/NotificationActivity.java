@@ -72,7 +72,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     private void GetNotificationList() {
 
-        mAPIService.GetNotificationModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vdGVzdC5hZG1pbi5teS1jcGUuY29tL2FwaS9ub3RpZmljYXRpb24iLCJpYXQiOjE1NTM3OTIzNjUsImV4cCI6MTU1NDI4ODQ3NiwibmJmIjoxNTU0MjAyMDc2LCJqdGkiOiJmc1FFRXNpSjh0VVVhT3ljIiwic3ViIjoxfQ.o1aBE5C8gR6qnFobB0CWj_K05B0UqvYJ1d5fnJV42Lg").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetNotificationModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<NotificationModel>() {
                     @Override
                     public void onCompleted() {

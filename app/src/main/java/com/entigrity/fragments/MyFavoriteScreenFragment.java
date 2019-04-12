@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +19,8 @@ import android.view.ViewGroup;
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.activity.TopicsOfInterestActivity;
-import com.entigrity.adapter.NotificationAdapter;
 import com.entigrity.databinding.FragmentMyfavoritescreenBinding;
 import com.entigrity.model.favorites_count.Favorite_Count_Model;
-import com.entigrity.model.notification.NotificationModel;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -129,7 +126,7 @@ public class MyFavoriteScreenFragment extends Fragment {
                             if (!AppSettings.get_profile_picture(context).equalsIgnoreCase("")
                                     && AppSettings.get_profile_picture(context) != null) {
 
-                                Picasso.with(context).load("https://picsum.photos/200/300")
+                                Picasso.with(context).load(AppSettings.get_profile_picture(context))
                                         .placeholder(R.mipmap.placeholder)
                                         .into(binding.ivProfilepicture);
 
