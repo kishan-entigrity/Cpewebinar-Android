@@ -104,7 +104,7 @@ public class AccountFragment extends Fragment {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetProfile();
         } else {
-            Snackbar.make(binding.rvFeedback, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
 
 
@@ -182,7 +182,7 @@ public class AccountFragment extends Fragment {
                         if (Constant.isNetworkAvailable(context)) {
                             GetTopicsofInterest();
                         } else {
-                            Snackbar.make(binding.rvFeedback, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                         }
 
 

@@ -29,6 +29,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.entigrity.utility.Constant.setselected;
+
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -423,7 +425,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                             Constant.arraylistselected.clear();
                             Constant.arraylistselectedvalue.clear();
-                            Constant.ischeckedregistered = false;
+                            setselected.clear();
                             Snackbar.make(binding.btnRegister, registrationModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
                             startActivity(i);

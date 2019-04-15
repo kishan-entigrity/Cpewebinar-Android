@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.entigrity.adapter.SignUpRecyclerViewSectionAdapter;
+import com.entigrity.model.SaveTopicsSignUpModel;
 import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
 import com.entigrity.model.topicsofinterestn.Topicsofinterest;
 import com.entigrity.utility.Constant;
@@ -27,7 +28,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static com.entigrity.utility.Constant.ischeckedregistered;
+import static com.entigrity.utility.Constant.checkclick;
 
 
 public class TopicsofInterestSignUpActivity extends AppCompatActivity {
@@ -37,12 +38,15 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     ImageView ivback;
     RecyclerView rvtopics_of_interest;
+
     TextView tv_submit;
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
 
 
     LinearLayoutManager linearLayoutManager;
     SignUpRecyclerViewSectionAdapter adapter;
+    SaveTopicsSignUpModel saveTopicsSignUpModel;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,20 +79,27 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (adapter.arraylistselectedtopicsofinterest.size() > 0) {
-                    Constant.arraylistselected = adapter.arraylistselectedtopicsofinterest;
+                    for (int i = 0; i < adapter.arraylistselectedtopicsofinterest.size(); i++) {
+                        if (adapter.arraylistselectedtopicsofinterest.get(i).isIschecked()) {
+                            saveTopicsSignUpModel = new SaveTopicsSignUpModel();
+                            saveTopicsSignUpModel.setId(adapter.arraylistselectedtopicsofinterest.get(i).getId());
+                            Constant.arraylistselectedvalue.add(adapter.arraylistselectedtopicsofinterest.get(i).getId());
+                            saveTopicsSignUpModel.setTopicsofinterest(adapter.arraylistselectedtopicsofinterest.get(i).getTopicsofinterest());
+                            Constant.arraylistselected.add(saveTopicsSignUpModel);
+                        } else {
+                            Constant.arraylistselected.remove(i);
+                        }
+                    }
+
                 }
 
-                if (adapter.topicsofinterestchecked.size() > 0) {
-                    Constant.topicsofinterestchecked = adapter.topicsofinterestchecked;
-                }
 
-
-                if (Constant.arraylistselected.size() > 0) {
+             /*   if (Constant.arraylistselected.size() > 0) {
                     for (int i = 0; i < Constant.arraylistselected.size(); i++) {
                         Constant.arraylistselectedvalue.add(Constant.arraylistselected.get(i).getId());
                     }
                 }
-
+*/
 
                 finish();
 
@@ -100,19 +111,25 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (adapter.arraylistselectedtopicsofinterest.size() > 0) {
-                    Constant.arraylistselected = adapter.arraylistselectedtopicsofinterest;
+                    for (int i = 0; i < adapter.arraylistselectedtopicsofinterest.size(); i++) {
+                        if (adapter.arraylistselectedtopicsofinterest.get(i).isIschecked()) {
+                            saveTopicsSignUpModel = new SaveTopicsSignUpModel();
+                            saveTopicsSignUpModel.setId(adapter.arraylistselectedtopicsofinterest.get(i).getId());
+                            Constant.arraylistselectedvalue.add(adapter.arraylistselectedtopicsofinterest.get(i).getId());
+                            saveTopicsSignUpModel.setTopicsofinterest(adapter.arraylistselectedtopicsofinterest.get(i).getTopicsofinterest());
+                            Constant.arraylistselected.add(saveTopicsSignUpModel);
+                        } else {
+                            Constant.arraylistselected.remove(i);
+                        }
+                    }
+
                 }
 
-                if (adapter.topicsofinterestchecked.size() > 0) {
-                    Constant.topicsofinterestchecked = adapter.topicsofinterestchecked;
-                }
-
-
-                if (Constant.arraylistselected.size() > 0) {
+                /*if (Constant.arraylistselected.size() > 0) {
                     for (int i = 0; i < Constant.arraylistselected.size(); i++) {
                         Constant.arraylistselectedvalue.add(Constant.arraylistselected.get(i).getId());
                     }
-                }
+                }*/
 
                 finish();
 
@@ -135,9 +152,10 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                     public void onCompleted() {
                         if (topicsofinterestitem.size() > 0) {
 
-                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, Constant.arraylistselected
-                                    , Constant.topicsofinterestchecked);
+                            System.out.println(Constant.setselected);
+                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem);
                             rvtopics_of_interest.setAdapter(adapter);
+
 
                         }
 
@@ -165,26 +183,21 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
 
                         if (topicsofinterest.getPayload().getTopicOfInterests().size() > 0) {
-
                             for (int i = 0; i < topicsofinterest.getPayload().getTopicOfInterests().size(); i++) {
                                 TopicOfInterestsItem topicOfInterestsItem = new TopicOfInterestsItem();
                                 topicOfInterestsItem.setName(topicsofinterest.getPayload().getTopicOfInterests().get(i).getName());
                                 topicOfInterestsItem.setId(topicsofinterest.getPayload().getTopicOfInterests().get(i).getId());
                                 topicOfInterestsItem.setTags(topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags());
                                 topicsofinterestitem.add(topicOfInterestsItem);
-
                             }
-
                         }
 
-                        if (!ischeckedregistered) {
-                            if (topicsofinterestitem.size() > 0) {
-                                for (int k = 0; k < topicsofinterestitem.size(); k++) {
-                                    for (int m = 0; m < topicsofinterestitem.get(k).getTags().size(); m++) {
-                                        Constant.topicsofinterestchecked.add(topicsofinterestitem.get(k).getTags().get(m).isIsChecked());
-                                    }
+                        if (checkclick == false) {
+                            checkclick = true;
+                            for (int k = 0; k < topicsofinterestitem.size(); k++) {
+                                for (int j = 0; j < topicsofinterestitem.get(k).getTags().size(); j++) {
+                                    Constant.setselected.put(topicsofinterestitem.get(k).getTags().get(j).getName(), false);
                                 }
-                                ischeckedregistered = true;
                             }
                         }
 

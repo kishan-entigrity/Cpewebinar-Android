@@ -14,32 +14,41 @@
         android:layout_marginRight="@dimen/_20sdp"
         android:background="@color/White">
 
-        <com.entigrity.view.CustomTextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rel_top"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center_vertical"
-            android:text="@string/review_popup_header"
-            android:textColor="@color/feedback_title"
-            android:textSize="@dimen/_15sdp"
-            app:font_text="SFUIDisplay-Bold.ttf" />
+            android:layout_marginTop="@dimen/_5sdp">
 
-        <ImageView
-            android:id="@+id/ivclose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:gravity="center_vertical"
-            android:src="@mipmap/review_popup_close" />
+
+            <com.entigrity.view.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/review_popup_header"
+                android:textColor="@color/feedback_title"
+                android:textSize="@dimen/_15sdp"
+                app:font_text="SFUIDisplay-Bold.ttf" />
+
+            <ImageView
+                android:id="@+id/ivclose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:src="@mipmap/review_popup_close" />
+
+
+        </RelativeLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ivclose"
+            android:layout_below="@+id/rel_top"
             android:layout_marginTop="@dimen/_5sdp"
             android:gravity="center"
             android:orientation="vertical">

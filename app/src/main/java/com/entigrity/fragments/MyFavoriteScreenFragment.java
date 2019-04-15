@@ -65,7 +65,8 @@ public class MyFavoriteScreenFragment extends Fragment {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetFavoriteDetails();
         } else {
-            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
         }
 
         binding.lvTopicsofinterest.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +83,22 @@ public class MyFavoriteScreenFragment extends Fragment {
             public void onClick(View v) {
                 MainActivity.getInstance().SetFavoriteTab();
 
+            }
+        });
+
+
+        binding.lvSpeaker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(binding.lvSpeaker, getResources().getString(R.string.str_comming_soon), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+
+        binding.lvCompany.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(binding.lvCompany, getResources().getString(R.string.str_comming_soon), Snackbar.LENGTH_SHORT).show();
             }
         });
 

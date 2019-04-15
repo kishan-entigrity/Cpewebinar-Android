@@ -28,7 +28,6 @@ import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
 import com.entigrity.model.state.StateItem;
 import com.entigrity.model.state.StateModel;
-import com.entigrity.model.topicsofinterest.TagsItem;
 import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
@@ -61,14 +60,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private ArrayList<String> arrayLististusertype = new ArrayList<String>();
     private ArrayList<Integer> arrayLististusertypeid = new ArrayList<Integer>();
 
-
-    private ArrayList<TagsItem> mListrtopicsofinterest = new ArrayList<TagsItem>();
-    private ArrayList<TagsItem> mListtopicsofinterest_filter = new ArrayList<TagsItem>();
-
-
     public ArrayList<String> getcountryarraylist = new ArrayList<String>();
     public ArrayList<CountryItem> getcountryarray = new ArrayList<CountryItem>();
-
 
     public ArrayList<String> getstatearralist = new ArrayList<String>();
     public ArrayList<StateItem> getstatearray = new ArrayList<>();
@@ -111,6 +104,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     private int country_set = 0, state_set = 0, city_set = 0;
+    public boolean checkflagset = false;
 
 
     private static final String TAG = EditProfileActivity.class.getName();
@@ -140,13 +134,17 @@ public class EditProfileActivity extends AppCompatActivity {
             who_you_are_pos = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are), 0);
             arraylistsubcategory = intent.getStringArrayListExtra(getResources().getString(R.string.pass_selected_list));
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // change UI elements here
-                    SetData();
-                }
-            });
+            if (Constant.isNetworkAvailable(context)) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // change UI elements here
+                        SetData();
+                    }
+                });
+            } else {
+                Snackbar.make(binding.relTopicsOfInterest, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            }
 
         }
 
@@ -177,8 +175,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                     country_id = getcountryarray.get(position).getId();
+                    checkflagset = true;
 
                     State = "";
+
 
                     if (Constant.isNetworkAvailable(context)) {
                         GetState(country_id);
@@ -206,7 +206,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 } else {
 
                     state_id = getstatearray.get(position).getId();
+
                     City = "";
+
 
                     if (Constant.isNetworkAvailable(context)) {
                         GetCity(state_id);
@@ -351,6 +353,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (arraylistsubcategory.size() > 0) {
             subcategory = arraylistsubcategory.get(0);
+            binding.tvTopics.setVisibility(View.VISIBLE);
             binding.tvTopics.setText(subcategory);
             if (arraylistsubcategory.size() > 1) {
                 subcategoryremains = arraylistsubcategory.size() - 1;
@@ -359,6 +362,9 @@ public class EditProfileActivity extends AppCompatActivity {
             } else {
                 binding.tvTopicsMore.setVisibility(View.GONE);
             }
+        } else {
+            binding.tvTopics.setVisibility(View.GONE);
+            binding.tvTopicsMore.setVisibility(View.GONE);
         }
 
 
@@ -658,41 +664,48 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(CountryModel CountryModel) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
 
 
-                        getcountryarraylist.clear();
-                        getcountryarray.clear();
+                        if (CountryModel.isSuccess() == true) {
+                            getcountryarraylist.clear();
+                            getcountryarray.clear();
 
-                        // getcountryarraylist.add(getResources().getString(R.string.str_select_country));
+                            // getcountryarraylist.add(getResources().getString(R.string.str_select_country));
 
 
-                        if (CountryModel.getPayload().getCountry().size() > 0) {
-                            for (int i = 0; i < CountryModel.getPayload().getCountry().size(); i++) {
-                                getcountryarraylist.add(CountryModel.getPayload().getCountry().get(i).getName());
-                            }
-
-                            for (int j = 0; j < CountryModel.getPayload().getCountry().size(); j++) {
-                                CountryItem countryItem = new CountryItem();
+                            if (CountryModel.getPayload().getCountry().size() > 0) {
                                 for (int i = 0; i < CountryModel.getPayload().getCountry().size(); i++) {
-                                    countryItem.setName(CountryModel.getPayload().getCountry().get(j).getName());
-                                    countryItem.setId(CountryModel.getPayload().getCountry().get(j).getId());
+                                    getcountryarraylist.add(CountryModel.getPayload().getCountry().get(i).getName());
                                 }
-                                getcountryarray.add(countryItem);
+
+                                for (int j = 0; j < CountryModel.getPayload().getCountry().size(); j++) {
+                                    CountryItem countryItem = new CountryItem();
+                                    for (int i = 0; i < CountryModel.getPayload().getCountry().size(); i++) {
+                                        countryItem.setName(CountryModel.getPayload().getCountry().get(j).getName());
+                                        countryItem.setId(CountryModel.getPayload().getCountry().get(j).getId());
+                                    }
+                                    getcountryarray.add(countryItem);
+                                }
+
+
+                                for (int i = 0; i < getcountryarray.size(); i++) {
+                                    if (country_pos == getcountryarray.get(i).getId()) {
+                                        country_set = getcountryarray.indexOf(getcountryarray.get(i));
+                                    }
+                                }
+
+
+                                Show_Country_Adapter();
+                            }
+                        } else {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
                             }
 
+                            Snackbar.make(binding.btnsubmit, CountryModel.getMessage(), Snackbar.LENGTH_SHORT).show();
 
-                            for (int i = 0; i < getcountryarray.size(); i++) {
-                                if (country_pos == getcountryarray.get(i).getId()) {
-                                    country_set = getcountryarray.indexOf(getcountryarray.get(i));
-                                }
-                            }
-
-
-                            Show_Country_Adapter();
                         }
+
 
                     }
                 });
@@ -729,49 +742,62 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onNext(CityModel cityModel) {
 
-                        getcityarraylist.clear();
-                        getcityarray.clear();
 
-                        //   getcityarraylist.add(getResources().getString(R.string.str_select_city));
+                        if (cityModel.isSuccess() == true) {
 
 
-                        if (cityModel.getPayload().getCity().size() > 0) {
-                            for (int i = 0; i < cityModel.getPayload().getCity().size(); i++) {
-                                getcityarraylist.add(cityModel.getPayload().getCity().get(i).getName());
-                            }
+                            getcityarraylist.clear();
+                            getcityarray.clear();
 
-                            for (int j = 0; j < cityModel.getPayload().getCity().size(); j++) {
-                                CityItem cityItem = new CityItem();
+                            //   getcityarraylist.add(getResources().getString(R.string.str_select_city));
+
+
+                            if (cityModel.getPayload().getCity().size() > 0) {
                                 for (int i = 0; i < cityModel.getPayload().getCity().size(); i++) {
-                                    cityItem.setId(cityModel.getPayload().getCity().get(i).getId());
-                                    cityItem.setName(cityModel.getPayload().getCity().get(i).getName());
+                                    getcityarraylist.add(cityModel.getPayload().getCity().get(i).getName());
                                 }
-                                getcityarray.add(cityItem);
+
+                                for (int j = 0; j < cityModel.getPayload().getCity().size(); j++) {
+                                    CityItem cityItem = new CityItem();
+                                    for (int i = 0; i < cityModel.getPayload().getCity().size(); i++) {
+                                        cityItem.setId(cityModel.getPayload().getCity().get(i).getId());
+                                        cityItem.setName(cityModel.getPayload().getCity().get(i).getName());
+                                    }
+                                    getcityarray.add(cityItem);
+
+                                }
+
+
+                                for (int i = 0; i < getcityarray.size(); i++) {
+                                    if (city_pos == getcityarray.get(i).getId()) {
+                                        city_set = getcityarray.indexOf(getcityarray.get(i));
+                                    }
+                                }
+
+                                checkcityarray = false;
+
+                                Show_City_Adapter();
+
+                            } else {
+
+                                if (!City.equalsIgnoreCase("") && City != null) {
+                                    checkcityarray = true;
+                                    getcityarraylist.add(City);
+                                    Show_City_Adapter();
+                                } else {
+                                    Show_City_else_Adapter();
+                                }
+
 
                             }
 
-
-                            for (int i = 0; i < getcityarray.size(); i++) {
-                                if (city_pos == getcityarray.get(i).getId()) {
-                                    city_set = getcityarray.indexOf(getcityarray.get(i));
-                                }
-                            }
-
-                            checkcityarray = false;
-
-                            Show_City_Adapter();
 
                         } else {
-
-                            if (!City.equalsIgnoreCase("") && City != null) {
-                                checkcityarray = true;
-                                getcityarraylist.add(City);
-                                Show_City_Adapter();
-                            } else {
-                                Show_City_else_Adapter();
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
                             }
 
-
+                            Snackbar.make(binding.btnsubmit, cityModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 
@@ -786,10 +812,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<StateModel>() {
                     @Override
                     public void onCompleted() {
-                        if (Constant.isNetworkAvailable(context)) {
-                            GetCity(state_pos);
-                        } else {
-                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                        if (!checkflagset) {
+
+                            if (Constant.isNetworkAvailable(context)) {
+                                GetCity(state_pos);
+                            } else {
+                                Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                            }
                         }
 
 
@@ -811,53 +840,64 @@ public class EditProfileActivity extends AppCompatActivity {
                     public void onNext(StateModel stateModel) {
 
 
-                        getstatearralist.clear();
-                        getstatearray.clear();
+                        if (stateModel.isSuccess() == true) {
 
-                        // getstatearralist.add(getResources().getString(R.string.str_select_state));
+                            getstatearralist.clear();
+                            getstatearray.clear();
+
+                            // getstatearralist.add(getResources().getString(R.string.str_select_state));
 
 
-                        if (stateModel.getPayload().getState().size() > 0) {
-                            for (int i = 0; i < stateModel.getPayload().getState().size(); i++) {
-                                getstatearralist.add(stateModel.getPayload().getState().get(i).getName());
-
-                            }
-
-                            for (int j = 0; j < stateModel.getPayload().getState().size(); j++) {
-
-                                StateItem stateItem = new StateItem();
-
+                            if (stateModel.getPayload().getState().size() > 0) {
                                 for (int i = 0; i < stateModel.getPayload().getState().size(); i++) {
-                                    stateItem.setId(stateModel.getPayload().getState().get(j).getId());
-                                    stateItem.setName(stateModel.getPayload().getState().get(j).getName());
+                                    getstatearralist.add(stateModel.getPayload().getState().get(i).getName());
 
                                 }
-                                getstatearray.add(stateItem);
-                            }
 
-                            for (int i = 0; i < getstatearray.size(); i++) {
-                                if (state_pos == getstatearray.get(i).getId()) {
-                                    state_set = getstatearray.indexOf(getstatearray.get(i));
+                                for (int j = 0; j < stateModel.getPayload().getState().size(); j++) {
 
+                                    StateItem stateItem = new StateItem();
+
+                                    for (int i = 0; i < stateModel.getPayload().getState().size(); i++) {
+                                        stateItem.setId(stateModel.getPayload().getState().get(j).getId());
+                                        stateItem.setName(stateModel.getPayload().getState().get(j).getName());
+
+                                    }
+                                    getstatearray.add(stateItem);
                                 }
-                            }
+
+                                for (int i = 0; i < getstatearray.size(); i++) {
+                                    if (state_pos == getstatearray.get(i).getId()) {
+                                        state_set = getstatearray.indexOf(getstatearray.get(i));
+
+                                    }
+                                }
 
 
-                            checkstatearray = false;
+                                checkstatearray = false;
 
 
-                            Show_State_Adapter();
-                        } else {
-
-                            if (!State.equalsIgnoreCase("") && State != null) {
-                                checkstatearray = true;
-                                getstatearralist.add(State);
                                 Show_State_Adapter();
                             } else {
-                                Show_State_else_Adapter();
+
+                                if (!State.equalsIgnoreCase("") && State != null) {
+                                    checkstatearray = true;
+                                    getstatearralist.add(State);
+                                    Show_State_Adapter();
+                                } else {
+                                    Show_State_else_Adapter();
+                                }
+
+
                             }
 
 
+                        } else {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+
+                            Snackbar.make(binding.btnsubmit, stateModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 

@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:padding="@dimen/_5sdp"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:src="@mipmap/back" />
 
@@ -442,6 +443,7 @@
                         android:id="@+id/tv_topics"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_centerHorizontal="true"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_toLeftOf="@+id/tv_topics_more"
@@ -458,6 +460,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:visibility="gone"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/my_credit_status"
                         android:gravity="center_horizontal"

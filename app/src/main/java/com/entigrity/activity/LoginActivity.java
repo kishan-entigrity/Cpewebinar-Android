@@ -43,18 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         context = LoginActivity.this;
 
 
-        AppSettings.set_device_id(context, "1");
-        AppSettings.set_device_token(context, "12345678");
-
-
-        /*FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String newToken = instanceIdResult.getToken();
-                Log.e("newToken", newToken);
-
-            }
-        });*/
+        AppSettings.set_device_id(context, Constant.GetDeviceid(context));
 
 
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {

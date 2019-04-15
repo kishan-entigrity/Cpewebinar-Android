@@ -24,7 +24,6 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
     private List<TopicOfInterestsItem> mlist;
     public static Context mContext;
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
-    //  private int ids = 0;
     List<TagsItem> itemsInSection;
 
 
@@ -78,8 +77,6 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
             if (is_checked == true) {
                 ((ItemViewHolder) holder).cbselection.setChecked(true);
                 arraylistselectedtopicsofinterest.add(mlist.get(position).getTags().get(relativePosition).getId());
-
-                // Constant.Log("store_id", "store_id" + arraylistselectedtopicsofinterest.size());
 
             } else {
                 ((ItemViewHolder) holder).cbselection.setChecked(false);

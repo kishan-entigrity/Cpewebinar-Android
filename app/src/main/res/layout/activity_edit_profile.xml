@@ -41,7 +41,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_5sdp"
-                android:padding="@dimen/_2sdp"
+                android:padding="@dimen/_5sdp"
                 android:src="@mipmap/back" />
 
 
@@ -373,6 +373,7 @@
                         android:background="@drawable/my_credit_status"
                         android:gravity="center_horizontal"
                         android:padding="@dimen/_2sdp"
+                        android:visibility="gone"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_10sdp"
                         app:font_text="SFUIDisplay-Medium.ttf" />
@@ -384,6 +385,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_toRightOf="@+id/tv_topics"
+                        android:visibility="gone"
                         android:background="@drawable/my_credit_status"
                         android:gravity="center_horizontal"
                         android:padding="@dimen/_2sdp"

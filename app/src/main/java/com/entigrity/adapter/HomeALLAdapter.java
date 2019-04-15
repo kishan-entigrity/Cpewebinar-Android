@@ -130,8 +130,11 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
 
             if (!mList.get(position).getDuration().equalsIgnoreCase("")) {
+                ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.VISIBLE);
                 ((HomeViewHolder) viewHolder).tv_duration_name.setText(mList.get(position).getDuration() + " " + mContext.getResources().getString(R.string.str_fav_duration));
 
+            } else {
+                ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.GONE);
             }
 
 

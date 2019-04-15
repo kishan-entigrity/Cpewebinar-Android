@@ -96,7 +96,7 @@ public class MyWebinarFragment extends Fragment {
                     if (loading) {
                         if (total_record >= 10) {
                             if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                                binding.progressBar.setVisibility(View.VISIBLE);
+                                getActivity().findViewById(android.R.id.content).setVisibility(View.VISIBLE);
                                 loading = false;
                                 pagenumber = pagenumber + 1;
                                 Log.v("...", "Last Item Wow !");
@@ -147,7 +147,7 @@ public class MyWebinarFragment extends Fragment {
 
                 GetMyWebinarListNew();
             } else {
-                Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
             }
 
@@ -158,7 +158,7 @@ public class MyWebinarFragment extends Fragment {
                 //GetMyWebinarList(pagenumber, webinartypemywebinar);
                 GetMyWebinarListNew();
             } else {
-                Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
             }
         }
@@ -210,7 +210,7 @@ public class MyWebinarFragment extends Fragment {
                     GetMyWebinarListNew();
 
                 } else {
-                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -259,7 +259,7 @@ public class MyWebinarFragment extends Fragment {
                     //GetMyWebinarList(pagenumber, webinartypemywebinar);
                     GetMyWebinarListNew();
                 } else {
-                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -304,7 +304,7 @@ public class MyWebinarFragment extends Fragment {
                     //  GetMyWebinarList(pagenumber, webinartypemywebinar);
                     GetMyWebinarListNew();
                 } else {
-                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -348,7 +348,7 @@ public class MyWebinarFragment extends Fragment {
                     // GetMyWebinarList(pagenumber, webinartypemywebinar);
                     GetMyWebinarListNew();
                 } else {
-                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -383,7 +383,7 @@ public class MyWebinarFragment extends Fragment {
             // GetMyWebinarList(pagenumber, webinartypemywebinar);
             GetMyWebinarListNew();
         } else {
-            Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
         }
 
@@ -419,7 +419,7 @@ public class MyWebinarFragment extends Fragment {
                                 progressDialog.dismiss();
                             }
                         } else {
-                            binding.progressBar.setVisibility(View.GONE);
+                            getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
                         }
 
 
@@ -442,7 +442,7 @@ public class MyWebinarFragment extends Fragment {
                                     progressDialog.dismiss();
                                 }
                             } else {
-                                binding.progressBar.setVisibility(View.GONE);
+                                getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
                             }
 
 
@@ -489,7 +489,7 @@ public class MyWebinarFragment extends Fragment {
                                         progressDialog.dismiss();
                                     }
                                 } else {
-                                    binding.progressBar.setVisibility(View.GONE);
+                                    getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
                                 }
                                 Snackbar.make(binding.rvhomewebinar, webinar_home.getMessage(), Snackbar.LENGTH_SHORT).show();
 

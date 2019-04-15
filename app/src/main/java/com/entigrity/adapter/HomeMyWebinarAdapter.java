@@ -118,8 +118,11 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
 
 
             if (!mList.get(position).getDuration().equalsIgnoreCase("")) {
+                ((MyWebinarHolder) viewHolder).tv_duration_name.setVisibility(View.VISIBLE);
                 ((MyWebinarHolder) viewHolder).tv_duration_name.setText(mList.get(position).getDuration() + " " + mContext.getResources().getString(R.string.str_fav_duration));
 
+            } else {
+                ((MyWebinarHolder) viewHolder).tv_duration_name.setVisibility(View.GONE);
             }
 
 

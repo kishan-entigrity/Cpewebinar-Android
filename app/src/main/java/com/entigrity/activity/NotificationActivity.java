@@ -64,7 +64,7 @@ public class NotificationActivity extends AppCompatActivity {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetNotificationList();
         } else {
-            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+            Snackbar.make(binding.rvNotificationlist, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
 
 

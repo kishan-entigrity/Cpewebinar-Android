@@ -81,7 +81,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public void ForgotPassword(String emailid) {
 
         // RxJava
-        mAPIService_new.forgotpassword(getResources().getString(R.string.accept),emailid
+        mAPIService_new.forgotpassword(getResources().getString(R.string.accept), emailid
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Forgotpaawordmodel>() {
                     @Override

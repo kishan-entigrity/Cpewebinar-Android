@@ -11,6 +11,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/lv_top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White"
@@ -180,6 +181,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/lv_speaker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -218,6 +220,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/lv_company"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

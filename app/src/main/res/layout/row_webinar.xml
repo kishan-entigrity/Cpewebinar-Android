@@ -87,6 +87,7 @@
         android:text="@string/str_fav_duration"
         android:textColor="@color/fav_date_time"
         android:textSize="@dimen/_9sdp"
+        android:visibility="gone"
         app:font_text="Montserrat-Medium.ttf" />
 
 

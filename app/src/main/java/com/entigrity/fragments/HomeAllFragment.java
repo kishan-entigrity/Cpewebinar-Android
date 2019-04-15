@@ -87,7 +87,7 @@ public class HomeAllFragment extends Fragment {
             //GetHomeList(pagenumber, webinartype);
             GetHomeListNew();
         } else {
-            Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
         }
 
@@ -104,7 +104,7 @@ public class HomeAllFragment extends Fragment {
                     if (loading) {
                         if (total_record >= 10) {
                             if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                                binding.progressBar.setVisibility(View.VISIBLE);
+                                getActivity().findViewById(android.R.id.content).setVisibility(View.VISIBLE);
                                 loading = false;
                                 pagenumber = pagenumber + 1;
                                 Log.v("...", "Last Item Wow !");
@@ -165,7 +165,7 @@ public class HomeAllFragment extends Fragment {
                     // GetHomeList(pagenumber, webinartype);
                     GetHomeListNew();
                 } else {
-                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -214,7 +214,7 @@ public class HomeAllFragment extends Fragment {
                     //   GetHomeList(pagenumber, webinartype);
                     GetHomeListNew();
                 } else {
-                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -256,7 +256,7 @@ public class HomeAllFragment extends Fragment {
                     // GetHomeList(pagenumber, webinartype);
                     GetHomeListNew();
                 } else {
-                    Snackbar.make(binding.progressBar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -324,7 +324,7 @@ public class HomeAllFragment extends Fragment {
                                   progressDialog.dismiss();
                               }
                           } else {
-                              binding.progressBar.setVisibility(View.GONE);
+                              getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
                           }
 
 
@@ -346,7 +346,7 @@ public class HomeAllFragment extends Fragment {
                                       progressDialog.dismiss();
                                   }
                               } else {
-                                  binding.progressBar.setVisibility(View.GONE);
+                                  getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
                               }
 
 
@@ -394,7 +394,7 @@ public class HomeAllFragment extends Fragment {
                                           progressDialog.dismiss();
                                       }
                                   } else {
-                                      binding.progressBar.setVisibility(View.GONE);
+                                      getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
                                   }
 
 

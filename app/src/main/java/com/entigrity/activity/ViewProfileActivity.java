@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -99,13 +100,17 @@ public class ViewProfileActivity extends AppCompatActivity {
             }
 
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // change UI elements here
-                    SetData();
-                }
-            });
+            if (Constant.isNetworkAvailable(context)) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // change UI elements here
+                        SetData();
+                    }
+                });
+            } else {
+                Snackbar.make(binding.relTopicsOfInterest, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            }
 
 
         }

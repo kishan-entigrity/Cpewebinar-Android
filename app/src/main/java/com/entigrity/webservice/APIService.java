@@ -333,14 +333,14 @@ public interface APIService {
 
 
     //get home list
-    @POST("webinar")
+    @POST("webinar/list")
     Observable<Webinar_Home_New> GetHomeWebinarListNew(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization);
 
     //get my webinar list
 
-    @POST("webinar")
+    @POST("webinar/list")
     Observable<Webinar_Home_New> GetMyWebinarListNew(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization);

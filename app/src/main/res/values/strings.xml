@@ -45,6 +45,14 @@
     <string name="register">REGISTER</string>
     <string name="favorite">Favorite</string>
     <string name="retry">Retry</string>
+    <string name="str_comming_soon">Comming Soon</string>
+
+
+    //hashmap key
+
+    <string name="topics_selected">topics</string>
+
+
 
 
     //pre login
