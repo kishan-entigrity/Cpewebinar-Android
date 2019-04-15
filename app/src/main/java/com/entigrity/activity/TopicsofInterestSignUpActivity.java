@@ -66,6 +66,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(com.entigrity.R.string.progrees_msg));
+
             GetTopicsofInterest();
         } else {
             Snackbar.make(tv_submit, getResources().getString(com.entigrity.R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
@@ -86,8 +87,6 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                             Constant.arraylistselectedvalue.add(adapter.arraylistselectedtopicsofinterest.get(i).getId());
                             saveTopicsSignUpModel.setTopicsofinterest(adapter.arraylistselectedtopicsofinterest.get(i).getTopicsofinterest());
                             Constant.arraylistselected.add(saveTopicsSignUpModel);
-                        } else {
-                            Constant.arraylistselected.remove(i);
                         }
                     }
 
@@ -118,8 +117,6 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                             Constant.arraylistselectedvalue.add(adapter.arraylistselectedtopicsofinterest.get(i).getId());
                             saveTopicsSignUpModel.setTopicsofinterest(adapter.arraylistselectedtopicsofinterest.get(i).getTopicsofinterest());
                             Constant.arraylistselected.add(saveTopicsSignUpModel);
-                        } else {
-                            Constant.arraylistselected.remove(i);
                         }
                     }
 
@@ -154,6 +151,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
                             System.out.println(Constant.setselected);
                             adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem);
+
                             rvtopics_of_interest.setAdapter(adapter);
 
 

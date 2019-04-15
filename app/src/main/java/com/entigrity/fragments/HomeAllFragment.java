@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,14 +48,18 @@ public class HomeAllFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     private List<WebinarItem> arrHomelist = new ArrayList<WebinarItem>();
     private List<com.entigrity.model.homewebinarnew.WebinarItem> arrHomelistnew = new ArrayList<com.entigrity.model.homewebinarnew.WebinarItem>();
-    private int pagenumber = 1;
+    //private int pagenumber = 1;
     private String webinartype = "";
+    private String topicsofinterest = "";
     private List<Boolean> arrsavebooleanstate = new ArrayList();
     private List<String> arraysavefilter = new ArrayList<String>();
     public int total_record = 0;
 
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
+    public int start = 0, limit = 9;
+
+    public boolean islast = false;
 
     View view;
 
@@ -85,14 +91,14 @@ public class HomeAllFragment extends Fragment {
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             //GetHomeList(pagenumber, webinartype);
-            GetHomeListNew();
+            GetHomeListNew(webinartype, topicsofinterest, start, limit);
         } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
         }
 
 
-       /* binding.rvhome.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.rvhome.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (dy > 0) //check for scroll down
@@ -101,12 +107,16 @@ public class HomeAllFragment extends Fragment {
                     totalItemCount = linearLayoutManager.getItemCount();
                     pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
 
+
+                    Constant.Log(TAG, "tags" + "   " + visibleItemCount + "    " + pastVisiblesItems + "    " + totalItemCount);
+
                     if (loading) {
-                        if (total_record >= 10) {
+                        if (!islast) {
                             if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                                getActivity().findViewById(android.R.id.content).setVisibility(View.VISIBLE);
+                                // getActivity().findViewById(android.R.id.content).setVisibility(View.VISIBLE);
                                 loading = false;
-                                pagenumber = pagenumber + 1;
+                                start = start + 9;
+                                limit = 10;
                                 Log.v("...", "Last Item Wow !");
                                 //Do pagination.. i.e. fetch new data
                                 loadNextPage();
@@ -116,7 +126,7 @@ public class HomeAllFragment extends Fragment {
                     }
                 }
             }
-        });*/
+        });
 
 
         binding.swipeRefreshLayouthome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -131,8 +141,8 @@ public class HomeAllFragment extends Fragment {
         binding.btnLive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pagenumber = 1;
-                loading = true;
+                start = 0;
+                limit = 9;
 
 
                 if (arrsavebooleanstate.get(0) == false) {
@@ -163,7 +173,7 @@ public class HomeAllFragment extends Fragment {
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                     // GetHomeList(pagenumber, webinartype);
-                    GetHomeListNew();
+                    GetHomeListNew(webinartype, topicsofinterest, start, limit);
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -177,7 +187,8 @@ public class HomeAllFragment extends Fragment {
         binding.btnSelfstudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pagenumber = 1;
+                start = 0;
+                limit = 9;
                 loading = true;
 
 
@@ -212,7 +223,7 @@ public class HomeAllFragment extends Fragment {
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                     //   GetHomeList(pagenumber, webinartype);
-                    GetHomeListNew();
+                    GetHomeListNew(webinartype, topicsofinterest, start, limit);
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -225,7 +236,8 @@ public class HomeAllFragment extends Fragment {
         binding.btnArchive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pagenumber = 1;
+                start = 0;
+                limit = 9;
                 loading = true;
 
 
@@ -254,7 +266,7 @@ public class HomeAllFragment extends Fragment {
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                     // GetHomeList(pagenumber, webinartype);
-                    GetHomeListNew();
+                    GetHomeListNew(webinartype, topicsofinterest, start, limit);
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -268,12 +280,11 @@ public class HomeAllFragment extends Fragment {
     }
 
     private void loadNextPage() {
-
         if (Constant.isNetworkAvailable(context)) {
-            //   GetHomeList(pagenumber, webinartype);
+            binding.progressBar.setVisibility(View.VISIBLE);
+            GetHomeListNew(webinartype, topicsofinterest, start, limit);
         } else {
             Snackbar.make(binding.rvhome, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-
         }
     }
 
@@ -414,23 +425,46 @@ public class HomeAllFragment extends Fragment {
 
       }
   */
-    public void GetHomeListNew() {
+    public void GetHomeListNew(final String webinartype, final String topicsofinterest, final int start, final int limit) {
 
         mAPIService_new.GetHomeWebinarListNew(getResources().getString(R.string.accept),
-                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Home_New>() {
                     @Override
                     public void onCompleted() {
 
-                        if (arrHomelistnew.size() > 0) {
-                            adapter = new HomeALLAdapter(context, arrHomelistnew);
-                            binding.rvhome.setAdapter(adapter);
+                        if (binding.progressBar.getVisibility() == View.VISIBLE) {
+                            binding.progressBar.setVisibility(View.GONE);
                         }
+
+
+                        if (start == 0 && limit == 9) {
+                            if (arrHomelistnew.size() > 0) {
+                                adapter = new HomeALLAdapter(context, arrHomelistnew);
+                                binding.rvhome.setAdapter(adapter);
+                            }
+                        } else {
+                            adapter.addLoadingFooter();
+                        }
+
 
                     }
 
+
                     @Override
                     public void onError(Throwable e) {
+
+
+                        if (start == 0 && limit == 9) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                        } else {
+                            if (binding.progressBar.getVisibility() == View.VISIBLE) {
+                                binding.progressBar.setVisibility(View.GONE);
+                            }
+                            // getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
+                        }
 
                         String message = Constant.GetReturnResponse(context, e);
                         Snackbar.make(binding.rvhome, message, Snackbar.LENGTH_SHORT).show();
@@ -443,7 +477,32 @@ public class HomeAllFragment extends Fragment {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
-                            arrHomelistnew = webinar_home_new.getPayload().getWebinar();
+
+
+                            islast = webinar_home_new.getPayload().isIsLast();
+
+
+                            if (start == 0 && limit == 9) {
+                                if (arrHomelistnew.size() > 0) {
+                                    arrHomelistnew.clear();
+                                }
+                                if (progressDialog.isShowing()) {
+                                    progressDialog.dismiss();
+                                }
+                            } else {
+                                // getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
+                            }
+
+
+                            Constant.Log(TAG, "start" + start + "limit" + limit);
+
+                            if (start == 0 && limit == 9) {
+                                arrHomelistnew = webinar_home_new.getPayload().getWebinar();
+                            } else {
+                                List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
+                                adapter.addAll(webinaritems);
+                            }
+
 
                             if (arrHomelistnew.size() > 0) {
                                 binding.swipeRefreshLayouthome.setVisibility(View.VISIBLE);

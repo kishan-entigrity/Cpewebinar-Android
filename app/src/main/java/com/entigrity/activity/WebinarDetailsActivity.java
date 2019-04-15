@@ -14,14 +14,14 @@ import android.text.Html;
 import android.view.View;
 
 import com.entigrity.R;
-
 import com.entigrity.databinding.ActivityWebinardetailsBinding;
 import com.entigrity.model.webinar_details.Webinar_Detail_Model;
+import com.entigrity.model.webinar_details_new.Webinar_details;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
+import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -47,7 +47,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_webinardetails);
         context = WebinarDetailsActivity.this;
-        mAPIService = ApiUtils.getAPIService();
+        mAPIService = ApiUtilsNew.getAPIService();
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -57,7 +57,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
             if (Constant.isNetworkAvailable(context)) {
                 progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                GetWebinarDetails();
+                GetWebinarDetailsNew();
             } else {
                 Snackbar.make(binding.relView, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
             }
@@ -142,7 +142,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
     private void GetWebinarDetails() {
-        mAPIService.GetWebinarDetail(getResources().getString(R.string.accept),String.valueOf(webinarid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetWebinarDetail(getResources().getString(R.string.accept), String.valueOf(webinarid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Detail_Model>() {
                     @Override
                     public void onCompleted() {
@@ -368,6 +368,49 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
                 });
 
+
+    }
+
+    private void GetWebinarDetailsNew() {
+        mAPIService.GetWebinardetails(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), webinarid).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Webinar_details>() {
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Snackbar.make(binding.relView, message, Snackbar.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onNext(Webinar_details webinar_details) {
+
+                        if (webinar_details.isSuccess() == true) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+
+
+                        } else {
+                            Snackbar.make(binding.relView, webinar_details.getMessage(), Snackbar.LENGTH_SHORT).show();
+
+
+                        }
+
+
+                    }
+
+                });
 
     }
 

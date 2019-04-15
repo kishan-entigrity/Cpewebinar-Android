@@ -38,6 +38,7 @@ import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.model.view_topics_of_interest.View_Topics_Interest_Model;
 import com.entigrity.model.viewprofile.ViewProfileModel;
 import com.entigrity.model.webinar_details.Webinar_Detail_Model;
+import com.entigrity.model.webinar_details_new.Webinar_details;
 import com.entigrity.model.webinar_like.Webinar_Like_Model;
 import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
 import com.entigrity.model.webinarfavorites.Webinar_Favorite;
@@ -334,9 +335,14 @@ public interface APIService {
 
     //get home list
     @POST("webinar/list")
+    @FormUrlEncoded
     Observable<Webinar_Home_New> GetHomeWebinarListNew(
             @Header("Accept") String accept,
-            @Header("Authorization") String authorization);
+            @Header("Authorization") String authorization,
+            @Field("start") int start,
+            @Field("limit") int limit,
+            @Field("webinar_type") String webinar_type,
+            @Field("topic_of_interest") String topic_of_interest);
 
     //get my webinar list
 
@@ -447,6 +453,16 @@ public interface APIService {
     Observable<Topicsofinterest> GetTopicsofInterestsSignUp(
             @Header("Accept") String accept
     );
+
+
+    //get webinar details
+
+    @POST("webinar/detail")
+    @FormUrlEncoded
+    Observable<Webinar_details> GetWebinardetails(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id);
 
 
 }

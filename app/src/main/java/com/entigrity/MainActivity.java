@@ -2,17 +2,13 @@ package com.entigrity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.entigrity.activity.LoginActivity;
 import com.entigrity.fragments.AccountFragment;
 import com.entigrity.fragments.CompanyFragment;
 import com.entigrity.fragments.ContactUsFragment;
@@ -22,16 +18,8 @@ import com.entigrity.fragments.MyCreditsFragment;
 import com.entigrity.fragments.MyFavoriteScreenFragment;
 import com.entigrity.fragments.UserDashBoardFragment;
 import com.entigrity.fragments.ViewProfileFragment;
-import com.entigrity.model.logout.LogoutModel;
-import com.entigrity.utility.AppSettings;
-import com.entigrity.utility.Constant;
-import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
-
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     public boolean isclickhome = false;
     public int setselectedtab = 0;
-    public int selectmywebinardtab=0;
+    public int selectmywebinardtab = 0;
 
 
     @Override
@@ -86,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 isclickhome = false;
                 setselectedtab = 0;
-                selectmywebinardtab=0;
+                selectmywebinardtab = 0;
 
                 SetImageBackground(0);
                 //SetDefault();
@@ -116,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setselectedtab = 0;
-                selectmywebinardtab=0;
+                selectmywebinardtab = 0;
 
                 if (!isclickhome) {
                     isclickhome = true;
@@ -132,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setselectedtab = 2;
-                selectmywebinardtab=0;
+                selectmywebinardtab = 0;
                 isclickhome = false;
 
                 SetImageBackground(3);
@@ -148,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setselectedtab = 0;
-                selectmywebinardtab=0;
+                selectmywebinardtab = 0;
                 isclickhome = false;
 
                 SetImageBackground(4);
@@ -172,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
     public void SetCreditScreen() {
         isclickhome = false;
         setselectedtab = 0;
-        selectmywebinardtab=0;
+        selectmywebinardtab = 0;
 
         SetImageBackground(0);
         //SetDefault();
@@ -232,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     public void SetFavoriteTab() {
         isclickhome = false;
         setselectedtab = 1;
-        selectmywebinardtab=2;
+        selectmywebinardtab = 2;
         SetImageBackground(2);
 
         userDashBoardFragment = new UserDashBoardFragment();

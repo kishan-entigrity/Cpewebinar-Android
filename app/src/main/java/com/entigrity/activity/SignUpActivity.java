@@ -426,6 +426,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Constant.arraylistselected.clear();
                             Constant.arraylistselectedvalue.clear();
                             setselected.clear();
+                            Constant.checkclick = false;
                             Snackbar.make(binding.btnRegister, registrationModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
                             startActivity(i);
