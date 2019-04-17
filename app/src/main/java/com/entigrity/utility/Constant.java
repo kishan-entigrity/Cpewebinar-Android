@@ -35,10 +35,6 @@ public class Constant {
     public static HashMap<String, Boolean> setselected = new HashMap<String, Boolean>();
     public static boolean checkclick = false;
 
-    //public static boolean ischeckedregistered = false;
-    //public static ArrayList<Boolean> topicsofinterestchecked = new ArrayList<>();
-
-
     public static boolean isNetworkAvailable(Context con) {
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) con

@@ -12,7 +12,6 @@ import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
 import com.entigrity.model.favorites_count.Favorite_Count_Model;
 import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
-
 import com.entigrity.model.getcontactusinfo.GetContactUsInfo;
 import com.entigrity.model.getfaq.GetFaq;
 import com.entigrity.model.getprivacypolicy.GetPrivacyPolicy;
@@ -35,6 +34,7 @@ import com.entigrity.model.subject.SubjectModel;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.topicsofinterestn.Topicsofinterest;
 import com.entigrity.model.usertype.UserTypeModel;
+import com.entigrity.model.view_interest_favorite.ViewTopicsFavorite;
 import com.entigrity.model.view_topics_of_interest.View_Topics_Interest_Model;
 import com.entigrity.model.viewprofile.ViewProfileModel;
 import com.entigrity.model.webinar_details.Webinar_Detail_Model;
@@ -436,6 +436,19 @@ public interface APIService {
     Observable<View_Topics_Interest_Model> GetViewTopicsOfInterest(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization);
+
+
+
+    //get view topics of interest from favorite
+    @GET("topic-of-interest/save")
+    Observable<ViewTopicsFavorite> GetViewTopicsOfInterestFavorite(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization);
+
+
+
+
+
 
     //post topics of interest
     @POST("topic-of-interest/save")

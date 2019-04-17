@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -11,7 +13,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityWebinardetailsBinding;
@@ -23,6 +28,7 @@ import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
+import com.universalvideoview.UniversalVideoView;
 
 import java.util.Calendar;
 import java.util.StringTokenizer;
@@ -31,7 +37,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class WebinarDetailsActivity extends AppCompatActivity {
+public class WebinarDetailsActivity extends AppCompatActivity implements UniversalVideoView.VideoViewCallback {
     public Context context;
     ActivityWebinardetailsBinding binding;
     private APIService mAPIService;
@@ -41,6 +47,15 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     private String webinar_share_link = "";
     private String is_favorite = "";
     public boolean checkfavoritestate = false;
+    private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
+    private static final String VIDEO_URL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
+
+    TextView mStart;
+
+    private int mSeekPosition;
+    private int cachedHeight;
+    private boolean isFullscreen;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,7 +152,148 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             }
         });
 
+        binding.videoView.setMediaController(binding.mediaController);
+        setVideoAreaSize();
+        binding.videoView.setVideoViewCallback(this);
 
+        if (mSeekPosition > 0) {
+            binding.videoView.seekTo(mSeekPosition);
+        }
+
+        binding.videoView.start();
+
+
+        mStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mSeekPosition > 0) {
+                    binding.videoView.seekTo(mSeekPosition);
+                }
+
+                binding.videoView.start();
+            }
+        });
+
+        binding.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                Log.d(TAG, "onCompletion ");
+            }
+        });
+
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause ");
+        if (binding.videoView != null && binding.videoView.isPlaying()) {
+            mSeekPosition = binding.videoView.getCurrentPosition();
+            Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
+            binding.videoView.pause();
+        }
+    }
+
+    /**
+     * 置视频区域大小
+     */
+    private void setVideoAreaSize() {
+        binding.videoLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = binding.videoLayout.getWidth();
+                cachedHeight = (int) (width * 405f / 720f);
+//                cachedHeight = (int) (width * 3f / 4f);
+//                cachedHeight = (int) (width * 9f / 16f);
+                ViewGroup.LayoutParams videoLayoutParams = binding.videoLayout.getLayoutParams();
+                videoLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                videoLayoutParams.height = cachedHeight;
+                binding.videoLayout.setLayoutParams(videoLayoutParams);
+                Uri video = Uri.parse(VIDEO_URL);
+                binding.videoView.setVideoURI(video);
+                // binding.videoView.requestFocus();
+            }
+        });
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState Position=" + binding.videoView.getCurrentPosition());
+        outState.putInt(SEEK_POSITION_KEY, mSeekPosition);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle outState) {
+        super.onRestoreInstanceState(outState);
+        mSeekPosition = outState.getInt(SEEK_POSITION_KEY);
+        Log.d(TAG, "onRestoreInstanceState Position=" + mSeekPosition);
+    }
+
+
+    @Override
+    public void onScaleChange(boolean isFullscreen) {
+        this.isFullscreen = isFullscreen;
+        if (isFullscreen) {
+            ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            binding.videoLayout.setLayoutParams(layoutParams);
+
+
+        } else {
+            ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = this.cachedHeight;
+            binding.videoLayout.setLayoutParams(layoutParams);
+
+        }
+
+        switchTitleBar(!isFullscreen);
+    }
+
+
+    private void switchTitleBar(boolean show) {
+        android.support.v7.app.ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            if (show) {
+                supportActionBar.show();
+            } else {
+                supportActionBar.hide();
+            }
+        }
+    }
+
+    @Override
+    public void onPause(MediaPlayer mediaPlayer) {
+        Log.d(TAG, "onPause UniversalVideoView callback");
+    }
+
+    @Override
+    public void onStart(MediaPlayer mediaPlayer) {
+        Log.d(TAG, "onStart UniversalVideoView callback");
+    }
+
+    @Override
+    public void onBufferingStart(MediaPlayer mediaPlayer) {
+        Log.d(TAG, "onBufferingStart UniversalVideoView callback");
+    }
+
+    @Override
+    public void onBufferingEnd(MediaPlayer mediaPlayer) {
+        Log.d(TAG, "onBufferingEnd UniversalVideoView callback");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (this.isFullscreen) {
+            binding.videoView.setFullscreen(false);
+        } else {
+            super.onBackPressed();
+        }
     }
 
 

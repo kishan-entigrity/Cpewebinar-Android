@@ -31,8 +31,9 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
     SaveTopicsSignUpModel saveTopicsSignUpModel;
 
 
-    public SignUpRecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data) {
+    public SignUpRecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data, ArrayList<SaveTopicsSignUpModel> arraylistselected) {
         this.mContext = context;
+        this.arraylistselectedtopicsofinterest = arraylistselectedtopicsofinterest;
         this.mlist = data;
 
     }
@@ -82,22 +83,22 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
 
                 Boolean checkvalue = Constant.setselected.get(mlist.get(position).getTags().get(relativePosition).getName());
 
-                Constant.Log("chekvalue", "checkvalue" + checkvalue);
+                int positions = mlist.indexOf(mlist.get(position).getTags().get(relativePosition).getName());
 
+                Constant.Log("positions", "positions" + positions);
+                saveTopicsSignUpModel = new SaveTopicsSignUpModel();
                 if (checkvalue) {
                     ((ItemViewHolder) holder).cbselection.setChecked(true);
-                    saveTopicsSignUpModel = new SaveTopicsSignUpModel();
                     saveTopicsSignUpModel.setId(mlist.get(position).getTags().get(relativePosition).getId());
-                    saveTopicsSignUpModel.setIschecked(true);
+                    saveTopicsSignUpModel.setIschecked(checkvalue);
                     saveTopicsSignUpModel.setTopicsofinterest(mlist.get(position).getTags().get(relativePosition).getName());
-                    arraylistselectedtopicsofinterest.add(saveTopicsSignUpModel);
                 } else {
-                    saveTopicsSignUpModel = new SaveTopicsSignUpModel();
                     saveTopicsSignUpModel.setId(mlist.get(position).getTags().get(relativePosition).getId());
-                    saveTopicsSignUpModel.setIschecked(false);
+                    saveTopicsSignUpModel.setIschecked(checkvalue);
                     saveTopicsSignUpModel.setTopicsofinterest(mlist.get(position).getTags().get(relativePosition).getName());
-                    arraylistselectedtopicsofinterest.add(saveTopicsSignUpModel);
                 }
+
+                arraylistselectedtopicsofinterest.set(positions, saveTopicsSignUpModel);
 
 
             }
@@ -111,12 +112,12 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
             public void onClick(View v) {
                 try {
                     if (((ItemViewHolder) holder).cbselection.isChecked() == false) {
-
+                        int positions = mlist.indexOf(mlist.get(position).getTags().get(relativePosition).getName());
                         saveTopicsSignUpModel = new SaveTopicsSignUpModel();
                         saveTopicsSignUpModel.setId(mlist.get(position).getTags().get(relativePosition).getId());
                         saveTopicsSignUpModel.setIschecked(true);
                         saveTopicsSignUpModel.setTopicsofinterest(mlist.get(position).getTags().get(relativePosition).getName());
-                        arraylistselectedtopicsofinterest.add(saveTopicsSignUpModel);
+                        arraylistselectedtopicsofinterest.set(positions, saveTopicsSignUpModel);
                         setselected.put(mlist.get(position).getTags().get(relativePosition).getName(), true);
                         ((ItemViewHolder) holder).cbselection.setChecked(true);
                         System.out.println(setselected);
@@ -124,27 +125,29 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
                     } else {
                         setselected.put(mlist.get(position).getTags().get(relativePosition).getName(), false);
                         ((ItemViewHolder) holder).cbselection.setChecked(false);
-                        saveTopicsSignUpModel = new SaveTopicsSignUpModel();
+
+                       /* boolean position_new = arraylistselectedtopicsofinterest.get(position).isIschecked();
+                        System.out.println(position_new);*/
+                        //Boolean checkvalue = Constant.setselected.get(mlist.get(position).getTags().get(relativePosition).getName());
+
+
+                        arraylistselectedtopicsofinterest.remove(Constant.setselected.get(mlist.get(position).getTags().get(relativePosition).getName()));
+
+
+                      /*  saveTopicsSignUpModel = new SaveTopicsSignUpModel();
                         saveTopicsSignUpModel.setId(mlist.get(position).getTags().get(relativePosition).getId());
                         saveTopicsSignUpModel.setIschecked(false);
                         saveTopicsSignUpModel.setTopicsofinterest(mlist.get(position).getTags().get(relativePosition).getName());
-                        arraylistselectedtopicsofinterest.add(saveTopicsSignUpModel);
+                        arraylistselectedtopicsofinterest.add(saveTopicsSignUpModel);*/
 
-                        for (int i = 0; i < arraylistselectedtopicsofinterest.size(); i++) {
-                            if (arraylistselectedtopicsofinterest.get(i).isIschecked() == false) {
-                                arraylistselectedtopicsofinterest.remove(i);
-                                //  int pos=arraylistselectedtopicsofinterest.get(i).getId();
 
-                            }
-                        }
 
                         /*int position_new = arraylistselectedtopicsofinterest.get(position).getId();
                         System.out.println(position_new);
                         arraylistselectedtopicsofinterest.remove(position_new);*/
                     }
 
-                } catch (
-                        Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 

@@ -53,8 +53,6 @@
     <string name="topics_selected">topics</string>
 
 
-
-
     //pre login
     <string name="str_signup">SIGN UP</string>
     <string name="str_login">LOGIN</string>
@@ -542,6 +540,11 @@
 
     //view profile
     <string name="str_header_profile">Profile</string>
+
+
+    <string name="str_get_key_screen">getkey</string>
+    <string name="from_favorite">favorite</string>
+    <string name="from_view_profile">viewprofile</string>
 
 
 </resources>

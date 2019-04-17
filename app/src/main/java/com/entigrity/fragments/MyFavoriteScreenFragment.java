@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
-import com.entigrity.activity.TopicsOfInterestActivity;
+import com.entigrity.activity.ViewTopicsOfInterestActivity;
 import com.entigrity.databinding.FragmentMyfavoritescreenBinding;
 import com.entigrity.model.favorites_count.Favorite_Count_Model;
 import com.entigrity.utility.AppSettings;
@@ -72,7 +72,8 @@ public class MyFavoriteScreenFragment extends Fragment {
         binding.lvTopicsofinterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), TopicsOfInterestActivity.class);
+                Intent i = new Intent(getActivity(), ViewTopicsOfInterestActivity.class);
+                i.putExtra(getResources().getString(R.string.str_get_key_screen),getResources().getString(R.string.from_favorite));
                 startActivity(i);
 
             }

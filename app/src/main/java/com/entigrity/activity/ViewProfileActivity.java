@@ -222,6 +222,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     public void Navigate_ViewProfile() {
         Intent i = new Intent(context, ViewTopicsOfInterestActivity.class);
+        i.putExtra(getResources().getString(R.string.str_get_key_screen), getResources().getString(R.string.from_view_profile));
         i.putParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest), topicsofinterestitem);
         startActivity(i);
     }

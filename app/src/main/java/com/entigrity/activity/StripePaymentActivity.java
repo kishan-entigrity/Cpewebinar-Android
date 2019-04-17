@@ -29,6 +29,10 @@ public class StripePaymentActivity extends AppCompatActivity {
         context = StripePaymentActivity.this;
 
 
+
+
+
+
         cardToSave = binding.cardInputWidget.getCard();
         if (cardToSave == null) {
             Snackbar.make(binding.cardInputWidget, "Invalid Card Data", Snackbar.LENGTH_SHORT).show();

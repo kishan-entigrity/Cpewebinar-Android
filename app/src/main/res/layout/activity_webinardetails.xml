@@ -69,14 +69,14 @@
                 android:layout_height="@dimen/_150sdp"
                 android:scaleType="fitXY"
                 android:src="@mipmap/webinar_placeholder"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <FrameLayout
                 android:id="@+id/video_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="200dp"
                 android:background="@android:color/black"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.universalvideoview.UniversalVideoView
                     android:id="@+id/videoView"

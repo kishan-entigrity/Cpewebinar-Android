@@ -178,6 +178,10 @@ public class EditProfileActivity extends AppCompatActivity {
                     checkflagset = true;
 
                     State = "";
+                    state_set = 0;
+                    city_set = 0;
+                    state_pos = 0;
+                    city_pos = 0;
 
 
                     if (Constant.isNetworkAvailable(context)) {
@@ -208,6 +212,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     state_id = getstatearray.get(position).getId();
 
                     City = "";
+                    // checkflagset = true;
 
 
                     if (Constant.isNetworkAvailable(context)) {
@@ -574,6 +579,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 binding.spinnerCity.setSelection(1);
             } else {
                 binding.spinnerCity.setSelection(city_set);
+
             }
 
 
@@ -639,10 +645,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<CountryModel>() {
                     @Override
                     public void onCompleted() {
-                        if (Constant.isNetworkAvailable(context)) {
-                            GetState(country_pos);
-                        } else {
-                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
+                        if (!checkflagset) {
+                            if (Constant.isNetworkAvailable(context)) {
+                                GetState(country_pos);
+                            } else {
+                                Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                            }
                         }
 
 

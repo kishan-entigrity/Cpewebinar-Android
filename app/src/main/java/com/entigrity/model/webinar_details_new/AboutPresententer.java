@@ -2,6 +2,7 @@ package com.entigrity.model.webinar_details_new;
 
 import com.google.gson.annotations.SerializedName;
 
+
 public class AboutPresententer{
 
 	@SerializedName("desgnination")

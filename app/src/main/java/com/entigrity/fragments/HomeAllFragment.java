@@ -57,7 +57,7 @@ public class HomeAllFragment extends Fragment {
 
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
-    public int start = 0, limit = 9;
+    public int start = 0, limit = 10;
 
     public boolean islast = false;
 
@@ -101,21 +101,54 @@ public class HomeAllFragment extends Fragment {
         binding.rvhome.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) //check for scroll down
+
+                int visibleItemCount = linearLayoutManager.getChildCount();
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+
+                // Constant.Log(TAG, "tags" + "   " + visibleItemCount + "    " + firstVisibleItemPosition + "    " + totalItemCount);
+                // Constant.Log(TAG, "isloading" + loading);
+               /* Constant.Log(TAG, "boolean" + ((visibleItemCount + firstVisibleItemPosition) >=
+                        totalItemCount && firstVisibleItemPosition >= 0));*/
+
+
+                if (loading) {
+                    if (!islast) {
+                        Log.v("...", "++++" + isLastVisible());
+                        if (isLastVisible()) {
+                            Log.v("...", "++++" + isLastVisible());
+                            loading = false;
+                            start = start + 10;
+                            limit = 10;
+                            Log.v("...", "Last Item Wow !");
+                            //Do pagination.. i.e. fetch new data
+                            loadNextPage();
+                        }
+                    }
+                }
+
+
+             /*   if (dy > 0) //check for scroll down
                 {
                     visibleItemCount = linearLayoutManager.getChildCount();
-                    totalItemCount = linearLayoutManager.getItemCount();
+                    //  totalItemCount = linearLayoutManager.getItemCount();
+
+                    totalItemCount = adapter.getItemCount();
                     pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
 
 
                     Constant.Log(TAG, "tags" + "   " + visibleItemCount + "    " + pastVisiblesItems + "    " + totalItemCount);
+
+
+                    Constant.Log(TAG, "isloading" + loading);
+                    //Constant.Log(TAG, "start" + start);
 
                     if (loading) {
                         if (!islast) {
                             if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                                 // getActivity().findViewById(android.R.id.content).setVisibility(View.VISIBLE);
                                 loading = false;
-                                start = start + 9;
+                                start = start + 10;
                                 limit = 10;
                                 Log.v("...", "Last Item Wow !");
                                 //Do pagination.. i.e. fetch new data
@@ -124,7 +157,7 @@ public class HomeAllFragment extends Fragment {
                         }
 
                     }
-                }
+                }*/
             }
         });
 
@@ -142,7 +175,9 @@ public class HomeAllFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 start = 0;
-                limit = 9;
+                limit = 10;
+
+                loading = true;
 
 
                 if (arrsavebooleanstate.get(0) == false) {
@@ -169,6 +204,8 @@ public class HomeAllFragment extends Fragment {
                     binding.btnLive.setBackgroundResource(R.drawable.col_three_bg);
                 }
 
+                // Constant.Log(TAG, "webinar_type" + webinartype);
+
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
@@ -188,7 +225,7 @@ public class HomeAllFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 start = 0;
-                limit = 9;
+                limit = 10;
                 loading = true;
 
 
@@ -220,6 +257,9 @@ public class HomeAllFragment extends Fragment {
                 }
 
 
+                //Constant.Log(TAG, "webinar_type" + webinartype);
+
+
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                     //   GetHomeList(pagenumber, webinartype);
@@ -237,7 +277,7 @@ public class HomeAllFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 start = 0;
-                limit = 9;
+                limit = 10;
                 loading = true;
 
 
@@ -280,6 +320,7 @@ public class HomeAllFragment extends Fragment {
     }
 
     private void loadNextPage() {
+
         if (Constant.isNetworkAvailable(context)) {
             binding.progressBar.setVisibility(View.VISIBLE);
             GetHomeListNew(webinartype, topicsofinterest, start, limit);
@@ -291,6 +332,8 @@ public class HomeAllFragment extends Fragment {
 
     public void refreshItems() {
         // Load items
+       /* start = 0;
+        limit = 10;*/
         // ...
 
         // Load complete
@@ -302,11 +345,20 @@ public class HomeAllFragment extends Fragment {
         // ...
 
         // Stop refresh animation
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
+        start = 0;
+        limit = 10;
+        loading = true;
+
+        if (Constant.isNetworkAvailable(context)) {
+            // progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+            //GetHomeList(pagenumber, webinartype);
+            GetHomeListNew(webinartype, topicsofinterest, start, limit);
+        } else {
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
         }
 
-        binding.swipeRefreshLayouthome.setRefreshing(false);
+
     }
 
 
@@ -438,15 +490,17 @@ public class HomeAllFragment extends Fragment {
                         }
 
 
-                        if (start == 0 && limit == 9) {
+                        loading = true;
+
+                        if (start == 0 && limit == 10) {
                             if (arrHomelistnew.size() > 0) {
                                 adapter = new HomeALLAdapter(context, arrHomelistnew);
                                 binding.rvhome.setAdapter(adapter);
                             }
                         } else {
                             adapter.addLoadingFooter();
-                        }
 
+                        }
 
                     }
 
@@ -455,7 +509,7 @@ public class HomeAllFragment extends Fragment {
                     public void onError(Throwable e) {
 
 
-                        if (start == 0 && limit == 9) {
+                        if (start == 0 && limit == 10) {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
@@ -463,7 +517,6 @@ public class HomeAllFragment extends Fragment {
                             if (binding.progressBar.getVisibility() == View.VISIBLE) {
                                 binding.progressBar.setVisibility(View.GONE);
                             }
-                            // getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
@@ -476,32 +529,44 @@ public class HomeAllFragment extends Fragment {
                         if (webinar_home_new.isSuccess() == true) {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
+                            } else {
+                                if (binding.swipeRefreshLayouthome.isRefreshing()) {
+                                    binding.swipeRefreshLayouthome.setRefreshing(false);
+                                }
                             }
 
 
                             islast = webinar_home_new.getPayload().isIsLast();
 
 
-                            if (start == 0 && limit == 9) {
+                            if (start == 0 && limit == 10) {
                                 if (arrHomelistnew.size() > 0) {
                                     arrHomelistnew.clear();
                                 }
-                                if (progressDialog.isShowing()) {
-                                    progressDialog.dismiss();
-                                }
-                            } else {
-                                // getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
+
                             }
 
 
-                            Constant.Log(TAG, "start" + start + "limit" + limit);
-
-                            if (start == 0 && limit == 9) {
+                            if (start == 0 && limit == 10) {
                                 arrHomelistnew = webinar_home_new.getPayload().getWebinar();
                             } else {
+
+                                for (int i = 0; i < arrHomelistnew.size(); i++) {
+
+                                    if (i == arrHomelistnew.size() - 1) {
+                                        arrHomelistnew.remove(i);
+                                    }
+
+
+                                }
+
+
                                 List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
                                 adapter.addAll(webinaritems);
                             }
+
+                            Constant.Log(TAG, "start" + start + "   " + "limit" + limit);
+                            Constant.Log(TAG, "size" + arrHomelistnew.size());
 
 
                             if (arrHomelistnew.size() > 0) {
@@ -511,9 +576,15 @@ public class HomeAllFragment extends Fragment {
                                 binding.swipeRefreshLayouthome.setVisibility(View.GONE);
                                 binding.tvNodatafound.setVisibility(View.VISIBLE);
                             }
+
+
                         } else {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
+                            } else {
+                                if (binding.swipeRefreshLayouthome.isRefreshing()) {
+                                    binding.swipeRefreshLayouthome.setRefreshing(false);
+                                }
                             }
                             Snackbar.make(binding.rvhome, webinar_home_new.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
@@ -525,6 +596,16 @@ public class HomeAllFragment extends Fragment {
                 });
 
 
+    }
+
+    boolean isLastVisible() {
+        LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvhome.getLayoutManager());
+        int pos = layoutManager.findLastCompletelyVisibleItemPosition();
+        int numItems = binding.rvhome.getAdapter().getItemCount() - 1;
+
+        Constant.Log(TAG, "pos + numitem" + pos + "  " + "  " + numItems);
+
+        return (pos >= numItems);
     }
 
 

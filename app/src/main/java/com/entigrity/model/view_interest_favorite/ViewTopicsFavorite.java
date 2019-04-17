@@ -1,9 +1,8 @@
-package com.entigrity.model.webinar_details_new;
+package com.entigrity.model.view_interest_favorite;
 
 import com.google.gson.annotations.SerializedName;
 
-
-public class Webinar_details {
+public class ViewTopicsFavorite {
 
 	@SerializedName("payload")
 	private Payload payload;
@@ -41,7 +40,7 @@ public class Webinar_details {
 	@Override
  	public String toString(){
 		return 
-			"Webinar_details{" +
+			"ViewTopicsFavorite{" +
 			"payload = '" + payload + '\'' + 
 			",success = '" + success + '\'' + 
 			",message = '" + message + '\'' + 

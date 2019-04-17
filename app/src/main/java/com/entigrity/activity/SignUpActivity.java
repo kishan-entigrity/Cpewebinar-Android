@@ -245,7 +245,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding.relTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Constant.arraylistselected.clear();
+                //Constant.arraylistselected.clear();
                 Constant.arraylistselectedvalue.clear();
                 Intent i = new Intent(SignUpActivity.this, TopicsofInterestSignUpActivity.class);
                 startActivity(i);
