@@ -57,6 +57,7 @@ public class UserDashBoardFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent i = new Intent(getActivity(), TopicsOfInterestActivity.class);
+                i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_home_screen));
                 startActivity(i);
 
             }

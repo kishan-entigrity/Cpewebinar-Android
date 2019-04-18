@@ -542,9 +542,20 @@
     <string name="str_header_profile">Profile</string>
 
 
+    //pass data between view profile and favorite screen
+
     <string name="str_get_key_screen">getkey</string>
     <string name="from_favorite">favorite</string>
     <string name="from_view_profile">viewprofile</string>
+
+
+    //pass data between home screen to topics of interest
+
+    <string name="str_get_key_screen_key">getkey</string>
+    <string name="from_home_screen">homescreen</string>
+    <string name="from_edit_profile">editscreen</string>
+    <string name="from_account_screen">accountscreen</string>
+
 
 
 </resources>

@@ -444,6 +444,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), TopicsOfInterestActivity.class);
+                i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_account_screen));
                 startActivity(i);
             }
         });

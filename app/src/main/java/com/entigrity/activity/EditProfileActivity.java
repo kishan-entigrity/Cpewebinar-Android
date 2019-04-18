@@ -158,6 +158,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(EditProfileActivity.this, TopicsOfInterestActivity.class);
+                i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_edit_profile));
                 startActivity(i);
 
             }

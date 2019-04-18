@@ -41,6 +41,7 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
     public ArrayList<Integer> arraylistselected = new ArrayList<Integer>();
     LinearLayoutManager linearLayoutManager;
     RecyclerViewSectionAdapter adapter;
+    private String fromscreen = "";
 
 
     @Override
@@ -49,6 +50,12 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_topicsofinterest);
         mAPIService = ApiUtilsNew.getAPIService();
         context = TopicsOfInterestActivity.this;
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            fromscreen = intent.getStringExtra(getResources().getString(R.string.str_get_key_screen_key));
+
+        }
 
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -211,9 +218,16 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
 
                         if (saveTopicsInterest.isSuccess() == true) {
                             Snackbar.make(binding.tvSubmit, saveTopicsInterest.getMessage(), Snackbar.LENGTH_SHORT).show();
-                            Intent i = new Intent(context, MainActivity.class);
-                            startActivity(i);
-                            finish();
+
+                            if (fromscreen.equalsIgnoreCase(getResources().getString(R.string.from_home_screen))) {
+                                Intent i = new Intent(context, MainActivity.class);
+                                startActivity(i);
+                                finish();
+                            } else {
+                                Intent i = new Intent(context, MainActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
 
 
                         } else {
