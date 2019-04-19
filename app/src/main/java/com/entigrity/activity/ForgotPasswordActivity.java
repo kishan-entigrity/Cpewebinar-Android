@@ -107,17 +107,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Forgotpaawordmodel forgotpaawordmodel) {
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                         if (forgotpaawordmodel.isSuccess()) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
+
                             binding.edtEmailId.setText("");
                             Snackbar.make(binding.btnSubmit, forgotpaawordmodel.getMessage(), Snackbar.LENGTH_SHORT).show();
 
                         } else {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
+
 
                             Snackbar.make(binding.btnSubmit, forgotpaawordmodel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }

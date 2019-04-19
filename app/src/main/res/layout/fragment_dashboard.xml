@@ -38,12 +38,12 @@
                 app:font_text="Montserrat-Bold.ttf" />
 
 
-                      <ImageView
+            <ImageView
                 android:id="@+id/ivnotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:layout_toLeftOf="@+id/ivfilter"
                 android:src="@mipmap/reminder" />
 

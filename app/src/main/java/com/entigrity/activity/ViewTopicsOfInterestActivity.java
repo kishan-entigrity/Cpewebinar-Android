@@ -127,25 +127,30 @@ public class ViewTopicsOfInterestActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
 
+                        if (viewTopicsFavorite.isSuccess()) {
+                            if (viewTopicsFavorite.getPayload().getTopicOfInterests().size() > 0) {
 
-                        if (viewTopicsFavorite.getPayload().getTopicOfInterests().size() > 0) {
+                                for (int i = 0; i < viewTopicsFavorite.getPayload().getTopicOfInterests().size(); i++) {
 
-                            for (int i = 0; i < viewTopicsFavorite.getPayload().getTopicOfInterests().size(); i++) {
+                                    com.entigrity.model.view_interest_favorite.TopicOfInterestsItem topicOfInterestsItem = new
+                                            com.entigrity.model.view_interest_favorite.TopicOfInterestsItem();
+                                    topicOfInterestsItem.setName(viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getName());
+                                    topicOfInterestsItem.setId(viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getId());
+                                    if (viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getTags() != null) {
+                                        topicOfInterestsItem.setTags(viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getTags());
+                                    }
 
-                                com.entigrity.model.view_interest_favorite.TopicOfInterestsItem topicOfInterestsItem = new
-                                        com.entigrity.model.view_interest_favorite.TopicOfInterestsItem();
-                                topicOfInterestsItem.setName(viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getName());
-                                topicOfInterestsItem.setId(viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getId());
-                                if (viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getTags() != null) {
-                                    topicOfInterestsItem.setTags(viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getTags());
+                                    topicsofinterestitemfavorite.add(topicOfInterestsItem);
                                 }
 
-                                topicsofinterestitemfavorite.add(topicOfInterestsItem);
+
+                                Constant.Log(TAG, "size" + topicsofinterestitemfavorite.size());
+
                             }
 
 
-                            Constant.Log(TAG, "size" + topicsofinterestitemfavorite.size());
-
+                        } else {
+                            Snackbar.make(binding.rvtopicsOfInterest, viewTopicsFavorite.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 

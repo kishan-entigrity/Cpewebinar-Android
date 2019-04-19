@@ -160,19 +160,9 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
             binding.videoView.seekTo(mSeekPosition);
         }
 
+
         binding.videoView.start();
 
-
-        mStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mSeekPosition > 0) {
-                    binding.videoView.seekTo(mSeekPosition);
-                }
-
-                binding.videoView.start();
-            }
-        });
 
         binding.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override

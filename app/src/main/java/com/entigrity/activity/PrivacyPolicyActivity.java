@@ -3,10 +3,12 @@ package com.entigrity.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -14,7 +16,6 @@ import android.webkit.WebViewClient;
 
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityPrivacypolicyBinding;
-import com.entigrity.model.getfaq.GetFaq;
 import com.entigrity.model.getprivacypolicy.GetPrivacyPolicy;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -56,6 +57,15 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && binding.webview.canGoBack()) {
+            binding.webview.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     public void GetPrivacyPolicy() {
         mAPIService.GetPrivacyPolicy(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -82,9 +92,7 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
                     public void onNext(GetPrivacyPolicy getPrivacyPolicy) {
 
                         if (getPrivacyPolicy.isSuccess() == true) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
+
                             binding.webview.setWebViewClient(new CustomWebViewClient());
                             WebSettings webSetting = binding.webview.getSettings();
                             webSetting.setJavaScriptEnabled(true);
@@ -108,10 +116,29 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
 
     private class CustomWebViewClient extends WebViewClient {
         @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url, favicon);
+        }
+
+
+        @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
         }
+
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            // TODO Auto-generated method stub
+            super.onPageFinished(view, url);
+
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+        }
+
     }
 
 }

@@ -3,4 +3,7 @@
     android:id="@+id/tab"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:textSize="@dimen/_10sdp"
+    android:drawablePadding="@dimen/_5sdp"
+    android:drawableRight="@mipmap/red_dot"
     android:textColor="@drawable/tab_text_selector" />

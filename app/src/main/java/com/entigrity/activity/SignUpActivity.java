@@ -375,14 +375,18 @@ public class SignUpActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
 
+                        if (userTypeModel.isSuccess()) {
+                            arrayLististusertype.clear();
+                            arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
 
-                        arrayLististusertype.clear();
-                        arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
 
-
-                        for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
-                            arrayLististusertype.add(userTypeModel.getPayload().getUserType().get(i).getName());
+                            for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
+                                arrayLististusertype.add(userTypeModel.getPayload().getUserType().get(i).getName());
+                            }
+                        } else {
+                            Snackbar.make(binding.btnRegister, userTypeModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
+
 
                     }
                 });

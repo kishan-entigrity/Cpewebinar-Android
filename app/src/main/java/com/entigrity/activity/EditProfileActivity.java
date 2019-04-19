@@ -488,19 +488,23 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onNext(UserTypeModel userTypeModel) {
 
-                        arrayLististusertype.clear();
-                        arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
+                        if (!userTypeModel.isSuccess()) {
+                            arrayLististusertype.clear();
+                            arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
 
-                        for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
-                            arrayLististusertype.add(userTypeModel.getPayload().getUserType().get(i).getName());
-                            arrayLististusertypeid.add(userTypeModel.getPayload().getUserType().get(i).getId());
-                        }
-
-
-                        for (int i = 0; i < arrayLististusertypeid.size(); i++) {
-                            if (who_you_are_pos == arrayLististusertypeid.get(i)) {
-                                who_you_are_pos = arrayLististusertypeid.indexOf(arrayLististusertypeid.get(i) + 1);
+                            for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
+                                arrayLististusertype.add(userTypeModel.getPayload().getUserType().get(i).getName());
+                                arrayLististusertypeid.add(userTypeModel.getPayload().getUserType().get(i).getId());
                             }
+
+
+                            for (int i = 0; i < arrayLististusertypeid.size(); i++) {
+                                if (who_you_are_pos == arrayLististusertypeid.get(i)) {
+                                    who_you_are_pos = arrayLististusertypeid.indexOf(arrayLististusertypeid.get(i) + 1);
+                                }
+                            }
+                        } else {
+                            Snackbar.make(binding.btnsubmit, userTypeModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 

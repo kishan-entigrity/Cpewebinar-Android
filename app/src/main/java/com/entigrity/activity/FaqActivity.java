@@ -3,11 +3,12 @@ package com.entigrity.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.nfc.Tag;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -15,15 +16,11 @@ import android.webkit.WebViewClient;
 
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityFaqBinding;
-import com.entigrity.model.company_details.Company_details_model;
 import com.entigrity.model.getfaq.GetFaq;
-import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
-import com.squareup.picasso.Picasso;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -62,6 +59,15 @@ public class FaqActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && binding.webview.canGoBack()) {
+            binding.webview.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     public void GetFaq() {
         mAPIService.GetFaq(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GetFaq>() {
@@ -87,9 +93,7 @@ public class FaqActivity extends AppCompatActivity {
                     public void onNext(GetFaq getFaq) {
 
                         if (getFaq.isSuccess() == true) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
+
                             binding.webview.setWebViewClient(new CustomWebViewClient());
                             WebSettings webSetting = binding.webview.getSettings();
                             webSetting.setJavaScriptEnabled(true);
@@ -113,10 +117,28 @@ public class FaqActivity extends AppCompatActivity {
 
     private class CustomWebViewClient extends WebViewClient {
         @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
         }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            // TODO Auto-generated method stub
+            super.onPageFinished(view, url);
+
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+        }
+
+
     }
 
 

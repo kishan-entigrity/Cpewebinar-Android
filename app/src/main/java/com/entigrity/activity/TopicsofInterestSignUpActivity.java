@@ -149,20 +149,14 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted() {
 
-                        if(Constant.arraylistselected.size() > 0)
-                        {
-                           // System.out.println(Constant.arraylistselected);
+                        if (Constant.arraylistselected.size() > 0) {
+                            // System.out.println(Constant.arraylistselected);
                             adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, Constant.arraylistselected);
                             rvtopics_of_interest.setAdapter(adapter);
-                        }else
-                        {
+                        } else {
                             adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, arraylisttopicsofinterest);
                             rvtopics_of_interest.setAdapter(adapter);
                         }
-
-
-
-
 
 
                     }
@@ -186,30 +180,34 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
 
-
-                        if (topicsofinterest.getPayload().getTopicOfInterests().size() > 0) {
-                            for (int i = 0; i < topicsofinterest.getPayload().getTopicOfInterests().size(); i++) {
-                                TopicOfInterestsItem topicOfInterestsItem = new TopicOfInterestsItem();
-                                topicOfInterestsItem.setName(topicsofinterest.getPayload().getTopicOfInterests().get(i).getName());
-                                topicOfInterestsItem.setId(topicsofinterest.getPayload().getTopicOfInterests().get(i).getId());
-                                topicOfInterestsItem.setTags(topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags());
-                                topicsofinterestitem.add(topicOfInterestsItem);
-                            }
-                        }
-
-                        if (checkclick == false) {
-                            checkclick = true;
-                            for (int k = 0; k < topicsofinterestitem.size(); k++) {
-                                for (int j = 0; j < topicsofinterestitem.get(k).getTags().size(); j++) {
-                                    SaveTopicsSignUpModel saveTopicsSignUpModel = new SaveTopicsSignUpModel();
-                                    saveTopicsSignUpModel.setIschecked(topicsofinterestitem.get(k).getTags().get(j).isIsChecked());
-                                    saveTopicsSignUpModel.setId(topicsofinterestitem.get(k).getTags().get(j).getId());
-                                    saveTopicsSignUpModel.setTopicsofinterest(topicsofinterestitem.get(k)
-                                            .getTags().get(j).getName());
-                                    arraylisttopicsofinterest.add(saveTopicsSignUpModel);
-                                    Constant.setselected.put(topicsofinterestitem.get(k).getTags().get(j).getName(), false);
+                        if (topicsofinterest.isSuccess()) {
+                            if (topicsofinterest.getPayload().getTopicOfInterests().size() > 0) {
+                                for (int i = 0; i < topicsofinterest.getPayload().getTopicOfInterests().size(); i++) {
+                                    TopicOfInterestsItem topicOfInterestsItem = new TopicOfInterestsItem();
+                                    topicOfInterestsItem.setName(topicsofinterest.getPayload().getTopicOfInterests().get(i).getName());
+                                    topicOfInterestsItem.setId(topicsofinterest.getPayload().getTopicOfInterests().get(i).getId());
+                                    topicOfInterestsItem.setTags(topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags());
+                                    topicsofinterestitem.add(topicOfInterestsItem);
                                 }
                             }
+
+                            if (checkclick == false) {
+                                checkclick = true;
+                                for (int k = 0; k < topicsofinterestitem.size(); k++) {
+                                    for (int j = 0; j < topicsofinterestitem.get(k).getTags().size(); j++) {
+                                        SaveTopicsSignUpModel saveTopicsSignUpModel = new SaveTopicsSignUpModel();
+                                        saveTopicsSignUpModel.setIschecked(topicsofinterestitem.get(k).getTags().get(j).isIsChecked());
+                                        saveTopicsSignUpModel.setId(topicsofinterestitem.get(k).getTags().get(j).getId());
+                                        saveTopicsSignUpModel.setTopicsofinterest(topicsofinterestitem.get(k)
+                                                .getTags().get(j).getName());
+                                        arraylisttopicsofinterest.add(saveTopicsSignUpModel);
+                                        Constant.setselected.put(topicsofinterestitem.get(k).getTags().get(j).getName(), false);
+                                    }
+                                }
+                            }
+
+                        } else {
+                            Snackbar.make(tv_submit, topicsofinterest.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 

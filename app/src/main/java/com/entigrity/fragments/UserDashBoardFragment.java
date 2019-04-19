@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.entigrity.MainActivity;
@@ -107,7 +108,11 @@ public class UserDashBoardFragment extends Fragment {
     private void setupTabIcons() {
         TextView tabtwo = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
         tabtwo.setText(getActivity().getResources().getString(R.string.str_my_webinar));
-        tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.red_dot, 0);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 0, 0, 0);
+        tabtwo.setLayoutParams(params);
+        tabtwo.setPadding(0, 0, 0, 0);
+        //tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.red_dot, 0);
         binding.homeparenttabs.getTabAt(1).setCustomView(tabtwo);
 
     }

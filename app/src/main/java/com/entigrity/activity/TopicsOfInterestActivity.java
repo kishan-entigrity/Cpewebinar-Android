@@ -157,27 +157,34 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
                     @Override
                     public void onNext(Topicsofinterest topicsofinterest) {
 
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
 
-
-                        if (topicsofinterest.getPayload().getTopicOfInterests().size() > 0) {
-
-                            for (int i = 0; i < topicsofinterest.getPayload().getTopicOfInterests().size(); i++) {
-                                TopicOfInterestsItem topicOfInterestsItem = new TopicOfInterestsItem();
-                                topicOfInterestsItem.setName(topicsofinterest.getPayload().getTopicOfInterests().get(i).getName());
-                                topicOfInterestsItem.setId(topicsofinterest.getPayload().getTopicOfInterests().get(i).getId());
-                                if (topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags() != null) {
-                                    topicOfInterestsItem.setTags(topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags());
-                                }
-
-                                topicsofinterestitem.add(topicOfInterestsItem);
+                        if (topicsofinterest.isSuccess()) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
                             }
 
 
-                            //Constant.Log(TAG, "size" + topicsofinterestitem.size());
+                            if (topicsofinterest.getPayload().getTopicOfInterests().size() > 0) {
 
+                                for (int i = 0; i < topicsofinterest.getPayload().getTopicOfInterests().size(); i++) {
+                                    TopicOfInterestsItem topicOfInterestsItem = new TopicOfInterestsItem();
+                                    topicOfInterestsItem.setName(topicsofinterest.getPayload().getTopicOfInterests().get(i).getName());
+                                    topicOfInterestsItem.setId(topicsofinterest.getPayload().getTopicOfInterests().get(i).getId());
+                                    if (topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags() != null) {
+                                        topicOfInterestsItem.setTags(topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags());
+                                    }
+
+                                    topicsofinterestitem.add(topicOfInterestsItem);
+                                }
+
+
+                                //Constant.Log(TAG, "size" + topicsofinterestitem.size());
+
+                            }
+
+
+                        } else {
+                            Snackbar.make(binding.tvSubmit, topicsofinterest.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 

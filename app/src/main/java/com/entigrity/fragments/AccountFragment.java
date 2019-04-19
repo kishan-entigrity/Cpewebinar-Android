@@ -693,13 +693,15 @@ public class AccountFragment extends Fragment {
 
                     @Override
                     public void onNext(PostFeedback postFeedback) {
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                        if (myDialog.isShowing()) {
+                            myDialog.dismiss();
+                        }
                         if (postFeedback.isSuccess()) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-                            if (myDialog.isShowing()) {
-                                myDialog.dismiss();
-                            }
+
                             Snackbar.make(binding.rvFeedback, postFeedback.getMessage(), Snackbar.LENGTH_SHORT).show();
                         } else {
                             Snackbar.make(binding.rvFeedback, postFeedback.getMessage(), Snackbar.LENGTH_SHORT).show();

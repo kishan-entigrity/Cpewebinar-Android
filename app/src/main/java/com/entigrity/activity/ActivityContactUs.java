@@ -145,10 +145,11 @@ public class ActivityContactUs extends AppCompatActivity {
 
                     @Override
                     public void onNext(PostContactQuery postContactQuery) {
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                         if (postContactQuery.isSuccess()) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
                             Snackbar.make(binding.btnsubmit, postContactQuery.getMessage(), Snackbar.LENGTH_SHORT).show();
                         } else {
                             Snackbar.make(binding.btnsubmit, postContactQuery.getMessage(), Snackbar.LENGTH_SHORT).show();

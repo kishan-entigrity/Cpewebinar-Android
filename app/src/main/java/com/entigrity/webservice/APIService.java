@@ -346,7 +346,7 @@ public interface APIService {
 
     //get my webinar list
 
-    @POST("webinar/list")
+    @POST("webinar/my-webinar")
     Observable<Webinar_Home_New> GetMyWebinarListNew(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization);
@@ -438,16 +438,11 @@ public interface APIService {
             @Header("Authorization") String authorization);
 
 
-
     //get view topics of interest from favorite
     @GET("topic-of-interest/save")
     Observable<ViewTopicsFavorite> GetViewTopicsOfInterestFavorite(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization);
-
-
-
-
 
 
     //post topics of interest
