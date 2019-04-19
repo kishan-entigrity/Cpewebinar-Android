@@ -37,6 +37,25 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
+
+        <activity
+            android:name=".activity.ActivityReviewQuestion"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.ActivityEvolutionForm"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.ActivityFinalQuiz"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
         <activity
             android:name=".activity.WebinarDetailsActivity"
             android:screenOrientation="portrait"
@@ -154,12 +173,12 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
 
-      <!--  <service android:name=".fcm.FirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
--->
+        <!--  <service android:name=".fcm.FirebaseInstanceIDService">
+              <intent-filter>
+                  <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+              </intent-filter>
+          </service>
+  -->
         <service android:name=".fcm.ReceiveFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

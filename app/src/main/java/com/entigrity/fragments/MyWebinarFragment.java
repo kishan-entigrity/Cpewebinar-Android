@@ -111,57 +111,63 @@ public class MyWebinarFragment extends Fragment {
         });
 */
 
-        if (MainActivity.getInstance().selectmywebinardtab == 2) {
-            MainActivity.getInstance().selectmywebinardtab = 0;
+        if (!AppSettings.get_login_token(context).isEmpty()) {
+            if (MainActivity.getInstance().selectmywebinardtab == 2) {
+                MainActivity.getInstance().selectmywebinardtab = 0;
 
-            pagenumber = 1;
-            loading = true;
+                pagenumber = 1;
+                loading = true;
 
 
-            if (arrsavebooleanstateMyWebinar.get(3) == false) {
-                arrsavebooleanstateMyWebinar.set(3, true);
-                arraysavefilterMyWebinar.set(3, getResources().getString(R.string.str_filter_favourite));
-                webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
-                        .replace(" ", "");
-                binding.btnFavorite.setBackgroundResource(R.drawable.col_four_bg_hover);
-            } else {
-                arrsavebooleanstateMyWebinar.set(3, false);
-                arraysavefilterMyWebinar.set(3, "");
-                if (arraysavefilterMyWebinar.get(0).equalsIgnoreCase("") &&
-                        arraysavefilterMyWebinar.get(1).equalsIgnoreCase("") &&
-                        arraysavefilterMyWebinar.get(2).equalsIgnoreCase("")
-                        && arraysavefilterMyWebinar.get(3).equalsIgnoreCase("")) {
-                    webinartypemywebinar = "";
-                } else {
+                if (arrsavebooleanstateMyWebinar.get(3) == false) {
+                    arrsavebooleanstateMyWebinar.set(3, true);
+                    arraysavefilterMyWebinar.set(3, getResources().getString(R.string.str_filter_favourite));
                     webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
                             .replace(" ", "");
+                    binding.btnFavorite.setBackgroundResource(R.drawable.col_four_bg_hover);
+                } else {
+                    arrsavebooleanstateMyWebinar.set(3, false);
+                    arraysavefilterMyWebinar.set(3, "");
+                    if (arraysavefilterMyWebinar.get(0).equalsIgnoreCase("") &&
+                            arraysavefilterMyWebinar.get(1).equalsIgnoreCase("") &&
+                            arraysavefilterMyWebinar.get(2).equalsIgnoreCase("")
+                            && arraysavefilterMyWebinar.get(3).equalsIgnoreCase("")) {
+                        webinartypemywebinar = "";
+                    } else {
+                        webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
+                                .replace(" ", "");
+                    }
+
+                    binding.btnFavorite.setBackgroundResource(R.drawable.col_four_bg);
                 }
 
-                binding.btnFavorite.setBackgroundResource(R.drawable.col_four_bg);
-            }
+
+                if (Constant.isNetworkAvailable(context)) {
+                    progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                    // GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    GetMyWebinarListNew();
+                } else {
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
+                }
 
 
-            if (Constant.isNetworkAvailable(context)) {
-                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                // GetMyWebinarList(pagenumber, webinartypemywebinar);
-
-                GetMyWebinarListNew();
             } else {
-                Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                if (Constant.isNetworkAvailable(context)) {
+                    progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                    //GetMyWebinarList(pagenumber, webinartypemywebinar);
+                    GetMyWebinarListNew();
+                } else {
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
+                }
             }
-
 
         } else {
-            if (Constant.isNetworkAvailable(context)) {
-                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                //GetMyWebinarList(pagenumber, webinartypemywebinar);
-                GetMyWebinarListNew();
-            } else {
-                Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-
-            }
+            binding.swipeRefreshLayouthomemywebinar.setVisibility(View.GONE);
+            binding.tvNodatafound.setVisibility(View.VISIBLE);
         }
+
 
         binding.swipeRefreshLayouthomemywebinar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

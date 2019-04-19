@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivitySplashBinding;
-import com.entigrity.utility.AppSettings;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -20,8 +19,6 @@ public class SplashActivity extends AppCompatActivity {
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 3000;
     ActivitySplashBinding binding;
-
-
     public Context context;
 
     private static final String TAG = SplashActivity.class.getName();
@@ -64,18 +61,19 @@ public class SplashActivity extends AppCompatActivity {
                 // Start your app main activity
 
 
-                if (!AppSettings.get_login_token(context).isEmpty()) {
+              /*  if (!AppSettings.get_login_token(context).isEmpty()) {
 
+
+
+                } else {
                     Intent i = new Intent(context, MainActivity.class);
                     startActivity(i);
                     finish();
-
-                } else {
-                    Intent i = new Intent(context, PreLoginActivity.class);
-                    startActivity(i);
-                    finish();
                 }
-
+*/
+                Intent i = new Intent(context, MainActivity.class);
+                startActivity(i);
+                finish();
 
             }
         }, SPLASH_TIME_OUT);

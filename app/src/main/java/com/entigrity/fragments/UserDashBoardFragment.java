@@ -22,6 +22,7 @@ import com.entigrity.R;
 import com.entigrity.activity.NotificationActivity;
 import com.entigrity.activity.TopicsOfInterestActivity;
 import com.entigrity.databinding.FragmentDashboardBinding;
+import com.entigrity.utility.AppSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +57,14 @@ public class UserDashBoardFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(getActivity(), TopicsOfInterestActivity.class);
-                i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_home_screen));
-                startActivity(i);
+                if (!AppSettings.get_login_token(context).isEmpty()) {
+                    Intent i = new Intent(getActivity(), TopicsOfInterestActivity.class);
+                    i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_home_screen));
+                    startActivity(i);
+                } else {
+                    MainActivity.getInstance().ShowPopUp();
+                }
+
 
             }
         });
@@ -66,8 +72,14 @@ public class UserDashBoardFragment extends Fragment {
         binding.ivnotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), NotificationActivity.class);
-                startActivity(i);
+                if (!AppSettings.get_login_token(context).isEmpty()) {
+                    Intent i = new Intent(getActivity(), NotificationActivity.class);
+                    startActivity(i);
+
+                } else {
+                    MainActivity.getInstance().ShowPopUp();
+                }
+
 
             }
         });

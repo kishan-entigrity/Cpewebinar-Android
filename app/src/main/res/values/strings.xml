@@ -45,6 +45,7 @@
     <string name="register">REGISTER</string>
     <string name="favorite">Favorite</string>
     <string name="retry">Retry</string>
+    <string name="guest_user_msg">Please Login</string>
     <string name="str_comming_soon">Comming Soon</string>
 
 
@@ -556,6 +557,17 @@
     <string name="from_edit_profile">editscreen</string>
     <string name="from_account_screen">accountscreen</string>
 
+    //Review Question
+    <string name="str_review_question">Review Question</string>
+
+
+    //final quiz
+
+    <string name="str_final_quiz">Final Quiz</string>
+
+    //evolution form
+
+    <string name="str_review_evolution_form">Evolution Form</string>
 
 
 </resources>

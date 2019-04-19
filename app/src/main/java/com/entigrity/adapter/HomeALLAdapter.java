@@ -250,11 +250,15 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             ((HomeViewHolder) viewHolder).ivshare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                    sharingIntent.setType("text/plain");
-                    String shareBody = mList.get(position).getWebinarShareLink();
-                    sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                    mContext.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+
+                    if (!AppSettings.get_login_token(mContext).isEmpty()) {
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        sharingIntent.setType("text/plain");
+                        String shareBody = mList.get(position).getWebinarShareLink();
+                        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                        mContext.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                    }
+
                 }
             });
 
@@ -262,11 +266,13 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             ((HomeViewHolder) viewHolder).ivwebinar_thumbhel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (!AppSettings.get_login_token(mContext).isEmpty()) {
+                        Intent i = new Intent(mContext, WebinarDetailsActivity.class);
+                        i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
+                                .get(position).getId());
+                        mContext.startActivity(i);
+                    }
 
-                    Intent i = new Intent(mContext, WebinarDetailsActivity.class);
-                    i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
-                            .get(position).getId());
-                    mContext.startActivity(i);
 
                 }
             });
@@ -276,12 +282,15 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
 
-                    if (mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext
-                            .getResources().getString(R.string.str_webinar_status_register))) {
+                    if (!AppSettings.get_login_token(mContext).isEmpty()) {
 
-                        Intent i = new Intent(mContext, StripePaymentActivity.class);
-                        mContext.startActivity(i);
+                        if (mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext
+                                .getResources().getString(R.string.str_webinar_status_register))) {
 
+                            Intent i = new Intent(mContext, StripePaymentActivity.class);
+                            mContext.startActivity(i);
+
+                        }
                     }
 
 
@@ -291,13 +300,15 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             ((HomeViewHolder) viewHolder).ivfavorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Constant.isNetworkAvailable(mContext)) {
-                        progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
-                        WebinarFavoriteLikeDislike(mList.get(position).getId(), ((HomeViewHolder) viewHolder).ivfavorite);
-                    } else {
-                        Snackbar.make(((HomeViewHolder) viewHolder).ivfavorite, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                    }
+                    if (!AppSettings.get_login_token(mContext).isEmpty()) {
+                        if (Constant.isNetworkAvailable(mContext)) {
+                            progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
+                            WebinarFavoriteLikeDislike(mList.get(position).getId(), ((HomeViewHolder) viewHolder).ivfavorite);
+                        } else {
+                            Snackbar.make(((HomeViewHolder) viewHolder).ivfavorite, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                        }
 
+                    }
 
                 }
             });
