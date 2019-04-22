@@ -397,9 +397,9 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             }
 
 
-                            if (!webinar_detail_model.getPayload().getWebinar().getSeries().equalsIgnoreCase("")) {
+                           /* if (!webinar_detail_model.getPayload().getWebinar().getSeries().equalsIgnoreCase("")) {
                                 binding.tvSeries.setText("" + webinar_detail_model.getPayload().getWebinar().getSeries());
-                            }
+                            }*/
 
 
                             if (!webinar_detail_model.getPayload().getWebinar().getDescription().equalsIgnoreCase("")) {

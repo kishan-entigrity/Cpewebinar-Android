@@ -1,10 +1,11 @@
 package com.entigrity;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean isclickhome = false;
     public int setselectedtab = 0;
     public int selectmywebinardtab = 0;
+    public Dialog myDialog;
+    public TextView tv_login, tv_cancel;
 
 
     @Override
@@ -252,29 +255,67 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void ShowPopUp() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+      /*  AlertDialog.Builder builder1 = new AlertDialog.Builder(context, R.style.MyDialogTheme);
+        builder1.setTitle(getResources().getString(R.string.str_guest_user_dialog_title));
+        builder1.setMessage(getResources().getString(R.string.str_guest_user_dialog_msg));
+        builder1.setCancelable(true);
 
+        builder1.setPositiveButton(getResources().getString(R.string.str_login_guest)
+                ,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(i);
+                    }
+                });
 
-        // Setting Dialog Message
-        alertDialog.setMessage(getResources().getString(R.string.guest_user_msg));
+        builder1.setNegativeButton(
+                getResources().getString(R.string.str_cancel_guest),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
 
+                    }
+                });
 
-        // Setting Positive "Yes" Button
-        alertDialog.setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        AlertDialog alert11 = builder1.create();
+        alert11.show();*/
 
-                // Write your code here to invoke YES event
-                dialog.cancel();
+        myDialog = new Dialog(context);
+        myDialog.setContentView(R.layout.guest_user_popup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        tv_login = (TextView) myDialog.findViewById(R.id.tv_login_guest);
+        tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel_guest);
+
+        tv_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                }
+
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
-
 
             }
         });
 
 
-        // Showing Alert Message
-        alertDialog.show();
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                }
+
+            }
+        });
+
+
+        myDialog.show();
 
 
     }

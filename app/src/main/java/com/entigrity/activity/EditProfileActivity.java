@@ -263,12 +263,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     boolean_usertype_spinner = false;
                 } else {
 
-                    if (position != 0) {
-                        who_you_are_pos = arrayLististusertypeid.get(position - 1);
-                    } else {
-                        who_you_are_pos = position;
-
-                    }
+                    who_you_are_pos = arrayLististusertypeid.get(position);
 
 
                 }
@@ -468,7 +463,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
                         ShowAdapter();
                         // Constant.Log(TAG, "who_you_are_pos" + who_you_are_pos);
-                        binding.spinner.setSelection(who_you_are_pos);
+
                     }
 
                     @Override
@@ -488,9 +483,9 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onNext(UserTypeModel userTypeModel) {
 
-                        if (!userTypeModel.isSuccess()) {
+                        if (userTypeModel.isSuccess()) {
                             arrayLististusertype.clear();
-                            arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
+                            //arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
 
                             for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
                                 arrayLististusertype.add(userTypeModel.getPayload().getUserType().get(i).getName());
@@ -500,7 +495,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             for (int i = 0; i < arrayLististusertypeid.size(); i++) {
                                 if (who_you_are_pos == arrayLististusertypeid.get(i)) {
-                                    who_you_are_pos = arrayLististusertypeid.indexOf(arrayLististusertypeid.get(i) + 1);
+                                    who_you_are_pos = arrayLististusertypeid.indexOf(arrayLististusertypeid.get(i));
                                 }
                             }
                         } else {
@@ -523,6 +518,8 @@ public class EditProfileActivity extends AppCompatActivity {
             aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             binding.spinner.setAdapter(aa);
+
+            binding.spinner.setSelection(who_you_are_pos);
 
 
         }

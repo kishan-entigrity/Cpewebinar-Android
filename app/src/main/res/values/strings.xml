@@ -31,7 +31,7 @@
     //common message
     <string name="please_check_internet_condition">Please Check Internet Condition</string>
     <string name="device_token">device token</string>
-    <string name="device_id">device id</string>
+    <string name="device_i">device id</string>
     <string name="no_data_found">Data Not Found</string>
     <string name="exit_validation">Are you sure you want to Exit?</string>
     <string name="valid_email">Please Enter Valid Email Address</string>
@@ -47,6 +47,10 @@
     <string name="retry">Retry</string>
     <string name="guest_user_msg">Please Login</string>
     <string name="str_comming_soon">Comming Soon</string>
+    <string name="str_guest_user_dialog_msg">Login or Register to access full feature.</string>
+    <string name="str_guest_user_dialog_title">MY CPE</string>
+    <string name="str_login_guest">Login</string>
+    <string name="str_cancel_guest">Cancel</string>
 
 
     //hashmap key
@@ -85,9 +89,9 @@
     <string name="str_my_webinar">MY WEBINAR</string>
     <string name="str_live">LIVE</string>
     <string name="str_self_study">SELF-STUDY</string>
-    <string name="str_archive">ARCHIVE</string>
+    <string name="str_archive">ARCHIVED</string>
     <string name="str_favorite">FAVAROITE</string>
-    <string name="str_price_status">Free</string>
+    <string name="str_price_status">FREE</string>
     <string name="str_credit_score">1 CREDIT</string>
     <string name="str_webinar_status">RESUME</string>
     <string name="str_webinar_type">SELF STUDY</string>
@@ -308,7 +312,7 @@
     //rating popup
     <string name="review_popup_header">Give us your Feedback</string>
     <string name="str_submit">SUBMIT</string>
-    <string name="str_your_name">Your Review</string>
+    <string name="str_your_name">Your Feedback</string>
     <string name="str_subject">Subject</string>
     <string name="val_subject">PLease Enter Subject</string>
     <string name="val_review">PLease Enter Review</string>
@@ -386,9 +390,9 @@
     //webinar details screen
 
     <string name="str_webinartitle">HOW THE PRIMARY AND SECONDARY MORTGAGE MARKET WORKS ?</string>
-    <string name="str_webinartime">Thursday,February 28,2019: 17:30 PM,US/Mountain</string>
+    <string name="str_webinartime">February 28,2019: 17:30 PM,US/Mountain</string>
     <string name="str_add_to_calendar"><u>Add to Calender</u></string>
-    <string name="str_overview">OVERVIEW</string>
+    <string name="str_overview">Course Description</string>
     <string name="str_program_desc_header">Program Description</string>
     <string name="str_program_desc">Kind Of Materials course description is a brief summary of the
     significant learning experiences for a course Course descriptions
@@ -440,6 +444,7 @@
 
     //Home to Webinar details screen pass data
     <string name="pass_webinar_id">Webinarid</string>
+    <string name="str_course_id">Course Id</string>
 
 
     //account screen
@@ -453,7 +458,7 @@
     <string name="str_my_transaction">My Transactions</string>
     <string name="str_payment_method">Payment Method</string>
     <string name="str_my_credit">My Credit</string>
-    <string name="str_topics_of_interest">Topic Of Intrest</string>
+    <string name="str_topics_of_interest">Topic Of Interest</string>
     <string name="str_privacy_policy">Privacy Policy</string>
     <string name="str_terms_condition">Terms &amp; Conditions</string>
     <string name="str_contact_us">Contact Us</string>
@@ -466,9 +471,9 @@
 
     <string name="str_mycredit">My Credits</string>
     <string name="str_user_email_id">johnsmith@gmail.com</string>
-    <string name="str_my_credit_completed"><u>Completed</u></string>
-    <string name="str_my_credit_pending"><u>Pending</u></string>
-    <string name="str_my_credit_upcoming"><u>Upcoming</u></string>
+    <string name="str_my_credit_completed">Completed</string>
+    <string name="str_my_credit_pending">Pending</string>
+    <string name="str_my_credit_upcoming">Upcoming</string>
     <string name="str_download_all"><u>Download All</u></string>
 
     /row file

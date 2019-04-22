@@ -166,7 +166,7 @@ public class MyWebinarFragment extends Fragment {
         } else {
             binding.swipeRefreshLayouthomemywebinar.setVisibility(View.GONE);
             binding.tvNodatafound.setVisibility(View.VISIBLE);
-            binding.tvNodatafound.setText("Please Login");
+            binding.tvNodatafound.setText(getResources().getString(R.string.str_guest_user_dialog_msg));
         }
 
 

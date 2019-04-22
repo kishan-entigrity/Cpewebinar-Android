@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/rel_titile"
-            android:background="@color/White"
+            android:background="@color/background_list"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/_70sdp">
 

@@ -92,13 +92,13 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
                     saveTopicsSignUpModel.setId(mlist.get(position).getTags().get(relativePosition).getId());
                     saveTopicsSignUpModel.setIschecked(checkvalue);
                     saveTopicsSignUpModel.setTopicsofinterest(mlist.get(position).getTags().get(relativePosition).getName());
+                    arraylistselectedtopicsofinterest.set(positions, saveTopicsSignUpModel);
                 } else {
                     saveTopicsSignUpModel.setId(mlist.get(position).getTags().get(relativePosition).getId());
                     saveTopicsSignUpModel.setIschecked(checkvalue);
                     saveTopicsSignUpModel.setTopicsofinterest(mlist.get(position).getTags().get(relativePosition).getName());
+                    arraylistselectedtopicsofinterest.set(positions, saveTopicsSignUpModel);
                 }
-
-                arraylistselectedtopicsofinterest.set(positions, saveTopicsSignUpModel);
 
 
             }

@@ -41,6 +41,8 @@
 
     //common
     <color name="background_list">#F5F5F7</color>
+    <color name="guest_popup_color">#DDDEE0</color>
+    <color name="guest_button_color">#91BFF0</color>
 
 
     //instructor list

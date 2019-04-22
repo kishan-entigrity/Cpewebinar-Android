@@ -81,13 +81,13 @@ public class AppSettings {
     public static void set_device_id(Context context, String device_id) {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefsEditor = mPrefs.edit();
-        prefsEditor.putString(context.getResources().getString(R.string.device_id), device_id);
+        prefsEditor.putString(context.getResources().getString(R.string.device_i), device_id);
         prefsEditor.commit();
     }
 
     public static String get_device_id(Context context) {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return mPrefs.getString(context.getResources().getString(R.string.device_id), "");
+        return mPrefs.getString(context.getResources().getString(R.string.device_i), "");
 
     }
 

@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
         android:layout_toLeftOf="@+id/tv_webinar_price_status"
         android:ellipsize="end"
         android:maxLines="1"
@@ -32,6 +32,7 @@
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_5sdp"
         android:text="@string/str_price_status"
+        android:textAllCaps="true"
         android:textColor="@color/home_topbar_bgcolor"
         android:textSize="@dimen/_12sdp"
         app:font_text="Montserrat-Bold.ttf" />
