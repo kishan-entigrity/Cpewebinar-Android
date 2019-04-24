@@ -51,7 +51,7 @@
             android:layout_above="@+id/rel_submit"
             android:layout_below="@+id/relheader"
             android:background="@color/White"
-            android:paddingBottom="@dimen/_70sdp" />
+            />
 
 
         <RelativeLayout

@@ -29,6 +29,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.entigrity.utility.Constant.checkclick;
+import static com.entigrity.utility.Constant.setselected;
 
 
 public class TopicsofInterestSignUpActivity extends AppCompatActivity {
@@ -67,7 +68,6 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(com.entigrity.R.string.progrees_msg));
-
             GetTopicsofInterest();
         } else {
             Snackbar.make(tv_submit, getResources().getString(com.entigrity.R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
@@ -79,8 +79,11 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkclick = true;
+
 
                 if (adapter.arraylistselectedtopicsofinterest.size() > 0) {
+                    Constant.arraylistselected.clear();
                     for (int i = 0; i < adapter.arraylistselectedtopicsofinterest.size(); i++) {
                         if (adapter.arraylistselectedtopicsofinterest.get(i).isIschecked()) {
                             saveTopicsSignUpModel = new SaveTopicsSignUpModel();
@@ -110,7 +113,10 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkclick = true;
+
                 if (adapter.arraylistselectedtopicsofinterest.size() > 0) {
+                    Constant.arraylistselected.clear();
                     for (int i = 0; i < adapter.arraylistselectedtopicsofinterest.size(); i++) {
                         if (adapter.arraylistselectedtopicsofinterest.get(i).isIschecked()) {
                             saveTopicsSignUpModel = new SaveTopicsSignUpModel();
@@ -149,12 +155,14 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted() {
 
-                        if (Constant.arraylistselected.size() > 0) {
+                        if (checkclick == false) {
+
                             // System.out.println(Constant.arraylistselected);
-                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, Constant.arraylistselected);
+                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, arraylisttopicsofinterest);
                             rvtopics_of_interest.setAdapter(adapter);
                         } else {
-                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, arraylisttopicsofinterest);
+
+                            adapter = new SignUpRecyclerViewSectionAdapter(context, topicsofinterestitem, Constant.arraylistselected);
                             rvtopics_of_interest.setAdapter(adapter);
                         }
 
@@ -192,7 +200,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                             }
 
                             if (checkclick == false) {
-                                checkclick = true;
+
                                 for (int k = 0; k < topicsofinterestitem.size(); k++) {
                                     for (int j = 0; j < topicsofinterestitem.get(k).getTags().size(); j++) {
                                         SaveTopicsSignUpModel saveTopicsSignUpModel = new SaveTopicsSignUpModel();
@@ -201,9 +209,15 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                                         saveTopicsSignUpModel.setTopicsofinterest(topicsofinterestitem.get(k)
                                                 .getTags().get(j).getName());
                                         arraylisttopicsofinterest.add(saveTopicsSignUpModel);
-                                        Constant.setselected.put(topicsofinterestitem.get(k).getTags().get(j).getName(), false);
+
                                     }
                                 }
+
+                                for (int k = 0; k < arraylisttopicsofinterest.size(); k++) {
+                                    Constant.setselected.put(arraylisttopicsofinterest.get(k).getTopicsofinterest(), false);
+                                }
+
+                                System.out.println(setselected);
                             }
 
                         } else {

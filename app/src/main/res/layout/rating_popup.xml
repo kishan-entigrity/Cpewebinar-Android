@@ -10,8 +10,8 @@
         android:layout_height="@dimen/_250sdp"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
         android:background="@color/White">
 
         <RelativeLayout

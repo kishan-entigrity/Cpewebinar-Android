@@ -43,6 +43,8 @@
     <color name="background_list">#F5F5F7</color>
     <color name="guest_popup_color">#DDDEE0</color>
     <color name="guest_button_color">#91BFF0</color>
+    <color name="topics_popup_label_background">#E6E6E6</color>
+    <color name="topics_popup_label_text">#0F264C</color>
 
 
     //instructor list

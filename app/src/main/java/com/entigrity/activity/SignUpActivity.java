@@ -261,6 +261,9 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Constant.Log(TAG, "onResume called");
+        //subcategory = "";
+        subcategory = "";
+        subcategoryremains = 0;
 
         if (Constant.arraylistselected.size() > 0) {
             subcategory = Constant.arraylistselected.get(0).getTopicsofinterest();

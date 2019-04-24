@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
-import com.entigrity.adapter.TopicsofinterestEditProfileAdapter;
 import com.entigrity.databinding.ActivityEditProfileBinding;
 import com.entigrity.model.city.CityItem;
 import com.entigrity.model.city.CityModel;
@@ -52,7 +51,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private APIService mAPIService;
     private APIService mAPIService_new;
     public RecyclerView recyclerview_topics_interest;
-    public TopicsofinterestEditProfileAdapter topicsofinterestEditProfileAdapteradapter;
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     public TextView tv_apply, tv_cancel;
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/White"
+    android:padding="@dimen/_5sdp">
+
+
+    <com.entigrity.view.CustomTextView
+        android:id="@+id/tv_topics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:textColor="@color/notification_child_color"
+        android:textSize="@dimen/_12sdp"
+        app:font_text="Montserrat-Regular.ttf" />
+
+
+    <CheckBox
+        android:id="@+id/cbselection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:button="@drawable/checkbox_selection" />
+
+
+    <!--<LinearLayout
+        android:id="@+id/lvtop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:padding="@dimen/_3sdp">
+
+        <CheckBox
+            android:id="@+id/cbselection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:button="@drawable/checkbox_selection"
+            android:checked="true" />
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_topics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:textColor="@color/notification_child_color"
+            android:textSize="@dimen/_12sdp"
+            app:font_text="SFUIDisplay-Medium.ttf" />
+
+
+    </LinearLayout>-->
+
+
+</RelativeLayout>

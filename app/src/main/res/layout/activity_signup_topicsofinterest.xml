@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/_5sdp"
             android:layout_marginLeft="@dimen/_15sdp"
+            android:padding="@dimen/_5sdp"
             android:src="@mipmap/back" />
 
 
@@ -40,8 +40,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rel_submit"
         android:layout_below="@+id/relheader"
-        android:background="@color/White"
-        android:paddingBottom="@dimen/_70sdp" />
+        android:background="@color/White" />
 
 
     <RelativeLayout

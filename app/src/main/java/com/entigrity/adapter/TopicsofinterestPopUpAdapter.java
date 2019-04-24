@@ -14,18 +14,18 @@ import com.entigrity.model.topicsofinterest.TagsItem;
 
 import java.util.ArrayList;
 
-public class TopicsofinterestEditProfileAdapter extends RecyclerView.Adapter<TopicsofinterestEditProfileAdapter.ViewHolder> {
+public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<TopicsofinterestPopUpAdapter.ViewHolder> {
 
     private Context mContext;
-    LayoutInflater mInflater;
     private ArrayList<TagsItem> mList;
+    LayoutInflater mInflater;
     public ArrayList<Integer> arraylistselectedtag = new ArrayList<Integer>();
 
 
-    public TopicsofinterestEditProfileAdapter(Context mContext, ArrayList<TagsItem> mList, ArrayList<Integer> arraylistselectedtag) {
+    public TopicsofinterestPopUpAdapter(Context mContext, ArrayList<TagsItem> mList, ArrayList<Integer> arraylistselectedtag) {
         this.mContext = mContext;
-        this.mList = mList;
         this.arraylistselectedtag = arraylistselectedtag;
+        this.mList = mList;
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -33,15 +33,15 @@ public class TopicsofinterestEditProfileAdapter extends RecyclerView.Adapter<Top
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_topics_of_interset, parent, false);
-        ViewHolder v1 = new ViewHolder(v);
-        return v1;
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.popup_row_topics_of_interset, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.tv_topics.setText(mList.get(position).getTag());
+
 
         if (arraylistselectedtag.size() > 0) {
             for (int k = 0; k < arraylistselectedtag.size(); k++) {
@@ -69,7 +69,6 @@ public class TopicsofinterestEditProfileAdapter extends RecyclerView.Adapter<Top
                     e.printStackTrace();
                 }
 
-
             }
         });
 
@@ -90,7 +89,6 @@ public class TopicsofinterestEditProfileAdapter extends RecyclerView.Adapter<Top
         private ViewHolder(View itemView) {
             super(itemView);
             this.setIsRecyclable(false);
-
 
             cbselection = (CheckBox) itemView.findViewById(R.id.cbselection);
             tv_topics = (TextView) itemView.findViewById(R.id.tv_topics);

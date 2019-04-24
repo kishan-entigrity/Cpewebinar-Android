@@ -51,6 +51,7 @@
     <string name="str_guest_user_dialog_title">MY CPE</string>
     <string name="str_login_guest">Login</string>
     <string name="str_cancel_guest">Cancel</string>
+    <string name="str_sharing_not_avilable">Sharing link is not avilable.</string>
 
 
     //hashmap key
@@ -390,7 +391,7 @@
     //webinar details screen
 
     <string name="str_webinartitle">HOW THE PRIMARY AND SECONDARY MORTGAGE MARKET WORKS ?</string>
-    <string name="str_webinartime">February 28,2019: 17:30 PM,US/Mountain</string>
+    <string name="str_webinartime">February 28,2019 / 17:30 PM,US/Mountain</string>
     <string name="str_add_to_calendar"><u>Add to Calender</u></string>
     <string name="str_overview">Course Description</string>
     <string name="str_program_desc_header">Program Description</string>

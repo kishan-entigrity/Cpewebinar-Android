@@ -206,11 +206,18 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             ((MyWebinarHolder) viewHolder).ivshare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                    sharingIntent.setType("text/plain");
-                    String shareBody = mList.get(position).getWebinarShareLink();
-                    sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                    mContext.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+
+                    if (!mList.get(position).getWebinarShareLink().equalsIgnoreCase("")) {
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        sharingIntent.setType("text/plain");
+                        String shareBody = mList.get(position).getWebinarShareLink();
+                        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                        mContext.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                    } else {
+                        Constant.toast(mContext, mContext.getResources().getString(R.string.str_sharing_not_avilable));
+                    }
+
+
                 }
             });
 

@@ -18,16 +18,16 @@
             android:id="@+id/rel_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/drawer_header"
+            android:background="@color/topics_popup_label_background"
             android:padding="@dimen/_5sdp">
 
 
             <com.entigrity.view.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_centerInParent="true"
                 android:text="@string/str_topics_interset"
-                android:textColor="@color/White"
+                android:textColor="@color/topics_popup_label_text"
                 android:textSize="@dimen/_12sdp"
                 app:font_text="SFUIDisplay-Bold.ttf" />
 
@@ -41,7 +41,8 @@
             android:layout_below="@+id/rel_top"
             android:layout_centerVertical="true"
             android:background="@color/background_topics"
-            android:padding="@dimen/_5sdp">
+            android:padding="@dimen/_5sdp"
+            android:visibility="gone">
 
             <com.entigrity.view.CustomEditTextView
                 android:id="@+id/edt_search"
@@ -73,51 +74,47 @@
         </android.support.v7.widget.RecyclerView>
 
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rvbottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/drawer_header"
             android:orientation="horizontal"
-            android:padding="@dimen/_5sdp">
+            android:weightSum="2">
+
 
             <com.entigrity.view.CustomTextView
                 android:id="@+id/tv_apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@color/drawer_header"
                 android:gravity="center"
-                android:text="@string/str_lable_apply"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/str_submit"
                 android:textColor="@color/White"
                 android:textSize="@dimen/_14sdp"
                 app:font_text="SFUIDisplay-Bold.ttf" />
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="@dimen/_25sdp"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/White" />
 
 
             <com.entigrity.view.CustomTextView
                 android:id="@+id/tv_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@color/drawer_header"
                 android:gravity="center"
+                android:padding="@dimen/_5sdp"
                 android:text="@string/str_lable_cancel"
                 android:textColor="@color/White"
                 android:textSize="@dimen/_14sdp"
                 app:font_text="SFUIDisplay-Bold.ttf" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </RelativeLayout>
