@@ -347,9 +347,14 @@ public interface APIService {
     //get my webinar list
 
     @POST("webinar/my-webinar")
+    @FormUrlEncoded
     Observable<Webinar_Home_New> GetMyWebinarListNew(
             @Header("Accept") String accept,
-            @Header("Authorization") String authorization);
+            @Header("Authorization") String authorization,
+            @Field("start") int start,
+            @Field("limit") int limit,
+            @Field("webinar_type") String webinar_type,
+            @Field("topic_of_interest") String topic_of_interest);
 
 
     //get topics of interest for logged user

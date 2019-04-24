@@ -625,21 +625,22 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
                                 if (webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size() == 1) {
                                     final View myView_inflat = inflater_new.inflate(R.layout.row_who_should_attend, null);
-                                    tv_who_attend = (TextView) myView_inflat.findViewById(R.id.tv_topics);
+                                    tv_who_attend = (TextView) myView_inflat.findViewById(R.id.tv_who_attend);
                                     tv_who_attend.setText(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().get(0));
                                     binding.lvWhoAttend.addView(tv_who_attend);
                                 } else {
                                     for (int i = 0; i < 2; i++) {
                                         // create a new textview
                                         final View myView_inflat = inflater_new.inflate(R.layout.row_who_should_attend, null);
-                                        tv_who_attend = (TextView) myView_inflat.findViewById(R.id.tv_topics);
+                                        tv_who_attend = (TextView) myView_inflat.findViewById(R.id.tv_who_attend);
 
                                         if (i == 0) {
-                                            tv_who_attend.setText(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().get(0));
+                                            tv_who_attend.setText(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().get(i));
                                         } else {
                                             tv_who_attend.setText(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size() - 1
                                                     + "+" + "  " + "more");
                                         }
+
                                         binding.lvWhoAttend.addView(tv_who_attend);
                                         LinearLayout.LayoutParams tvlp = (LinearLayout.LayoutParams) tv_who_attend.getLayoutParams();
                                         tvlp.rightMargin = 5;
@@ -664,13 +665,13 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             }
 
 
-                            if (!webinar_details.getPayload().getWebinarDetail().getLearningObjective().equalsIgnoreCase("")) {
+                          /*  if (webinar_details.getPayload().getWebinarDetail().getLearningObjective().size() > 0) {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                     binding.tvLearningObjective.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getLearningObjective(), Html.FROM_HTML_MODE_COMPACT));
                                 } else {
                                     binding.tvLearningObjective.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getLearningObjective()));
                                 }
-                            }
+                            }*/
 
                             if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getName().equalsIgnoreCase("")) {
                                 binding.tvPresenterName.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getName());

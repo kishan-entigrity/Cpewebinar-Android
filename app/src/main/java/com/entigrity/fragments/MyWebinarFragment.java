@@ -19,14 +19,12 @@ import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.HomeMyWebinarAdapter;
 import com.entigrity.databinding.FragmentMywebinarBinding;
-import com.entigrity.model.homewebinarlist.WebinarItem;
 import com.entigrity.model.homewebinarnew.Webinar_Home_New;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
 
 import java.util.ArrayList;
@@ -40,22 +38,20 @@ public class MyWebinarFragment extends Fragment {
 
     View view;
     private FragmentMywebinarBinding binding;
-    private APIService mAPIService;
     HomeMyWebinarAdapter adapter;
     private static final String TAG = MyWebinarFragment.class.getName();
     public Context context;
     ProgressDialog progressDialog;
     LinearLayoutManager linearLayoutManager;
-    private List<WebinarItem> arrHomeMyWebinarlist = new ArrayList<WebinarItem>();
     private List<com.entigrity.model.homewebinarnew.WebinarItem> arrHomeMyWebinarlistnew = new ArrayList<com.entigrity.model.homewebinarnew.WebinarItem>();
-    private int pagenumber = 1;
-    private String webinartypemywebinar = "";
     private List<Boolean> arrsavebooleanstateMyWebinar = new ArrayList();
     private List<String> arraysavefilterMyWebinar = new ArrayList<String>();
-    private boolean loading = true;
-    int pastVisiblesItems, visibleItemCount, totalItemCount;
-    public int total_record = 0;
     private APIService mAPIService_new;
+    private boolean loading = true;
+    private String webinartypemywebinar = "";
+    public boolean islast = false;
+    public int start = 0, limit = 10;
+    private String topicsofinterest = "";
 
 
     @Nullable
@@ -63,7 +59,6 @@ public class MyWebinarFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mywebinar, null, false);
         context = getActivity();
-        mAPIService = ApiUtils.getAPIService();
         mAPIService_new = ApiUtilsNew.getAPIService();
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -84,41 +79,10 @@ public class MyWebinarFragment extends Fragment {
         arraysavefilterMyWebinar.add(3, "");
 
 
-       /* binding.rvhomewebinar.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) //check for scroll down
-                {
-                    visibleItemCount = linearLayoutManager.getChildCount();
-                    totalItemCount = linearLayoutManager.getItemCount();
-                    pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
-
-                    if (loading) {
-                        if (total_record >= 10) {
-                            if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                                getActivity().findViewById(android.R.id.content).setVisibility(View.VISIBLE);
-                                loading = false;
-                                pagenumber = pagenumber + 1;
-                                Log.v("...", "Last Item Wow !");
-                                //Do pagination.. i.e. fetch new data
-                                loadNextPage();
-                            }
-                        }
-
-                    }
-                }
-            }
-        });
-*/
-
         if (!AppSettings.get_login_token(context).isEmpty()) {
             if (MainActivity.getInstance().selectmywebinardtab == 2) {
                 MainActivity.getInstance().selectmywebinardtab = 0;
-
-                pagenumber = 1;
                 loading = true;
-
-
                 if (arrsavebooleanstateMyWebinar.get(3) == false) {
                     arrsavebooleanstateMyWebinar.set(3, true);
                     arraysavefilterMyWebinar.set(3, getResources().getString(R.string.str_filter_favourite));
@@ -144,8 +108,7 @@ public class MyWebinarFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    // GetMyWebinarList(pagenumber, webinartypemywebinar);
-                    GetMyWebinarListNew();
+                    GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -155,8 +118,7 @@ public class MyWebinarFragment extends Fragment {
             } else {
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    //GetMyWebinarList(pagenumber, webinartypemywebinar);
-                    GetMyWebinarListNew();
+                    GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -173,8 +135,25 @@ public class MyWebinarFragment extends Fragment {
         binding.swipeRefreshLayouthomemywebinar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Refresh items
                 refreshItems();
+            }
+        });
+
+
+        binding.rvhomewebinar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (loading) {
+                    if (!islast) {
+                        if (isLastVisible()) {
+                            loading = false;
+                            start = start + 10;
+                            limit = 10;
+                            loadNextPage();
+                        }
+                    }
+                }
+
             }
         });
 
@@ -182,8 +161,8 @@ public class MyWebinarFragment extends Fragment {
         binding.btnLive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                pagenumber = 1;
+                start = 0;
+                limit = 10;
                 loading = true;
 
                 if (arrsavebooleanstateMyWebinar.get(0) == false) {
@@ -213,8 +192,7 @@ public class MyWebinarFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    // GetMyWebinarList(pagenumber, webinartypemywebinar);
-                    GetMyWebinarListNew();
+                    GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
 
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
@@ -229,8 +207,9 @@ public class MyWebinarFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                pagenumber = 1;
                 loading = true;
+                start = 0;
+                limit = 10;
 
                 if (arrsavebooleanstateMyWebinar.get(1) == false) {
                     arrsavebooleanstateMyWebinar.set(1, true);
@@ -263,8 +242,8 @@ public class MyWebinarFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    //GetMyWebinarList(pagenumber, webinartypemywebinar);
-                    GetMyWebinarListNew();
+                    GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
+                    ;
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -279,8 +258,10 @@ public class MyWebinarFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                pagenumber = 1;
+
                 loading = true;
+                start = 0;
+                limit = 10;
 
 
                 if (arrsavebooleanstateMyWebinar.get(2) == false) {
@@ -308,8 +289,8 @@ public class MyWebinarFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    //  GetMyWebinarList(pagenumber, webinartypemywebinar);
-                    GetMyWebinarListNew();
+                    GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
+                    ;
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -324,8 +305,9 @@ public class MyWebinarFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                pagenumber = 1;
                 loading = true;
+                start = 0;
+                limit = 10;
 
                 if (arrsavebooleanstateMyWebinar.get(3) == false) {
                     arrsavebooleanstateMyWebinar.set(3, true);
@@ -352,8 +334,8 @@ public class MyWebinarFragment extends Fragment {
 
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    // GetMyWebinarList(pagenumber, webinartypemywebinar);
-                    GetMyWebinarListNew();
+                    GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
+                    ;
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -369,26 +351,31 @@ public class MyWebinarFragment extends Fragment {
 
 
     public void refreshItems() {
-        // Load items
-        // ...
 
-        // Load complete
         onItemsLoadComplete();
     }
 
     void onItemsLoadComplete() {
-        // Update the adapter and notify data set changed
-        // ...
 
-        // Stop refresh animation
-        binding.swipeRefreshLayouthomemywebinar.setRefreshing(false);
+        start = 0;
+        limit = 10;
+        loading = true;
+
+
+        if (Constant.isNetworkAvailable(context)) {
+            GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
+            ;
+        } else {
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
+        }
     }
 
 
     private void loadNextPage() {
         if (Constant.isNetworkAvailable(context)) {
-            // GetMyWebinarList(pagenumber, webinartypemywebinar);
-            GetMyWebinarListNew();
+            GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
+            ;
         } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -397,20 +384,26 @@ public class MyWebinarFragment extends Fragment {
     }
 
 
-   /* public void GetMyWebinarList(final int pagenumber, final String webinartype) {
+    public void GetMyWebinarListNew(final String webinartype, final String topicsofinterest, final int start, final int limit) {
 
-        mAPIService_new.GetMyWebinarList(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)
-                , getResources().getString(R.string.str_filter_webinar), pagenumber, webinartype, "").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Webinar_Home>() {
+        mAPIService_new.GetMyWebinarListNew(getResources().getString(R.string.accept),
+                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
+                start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Webinar_Home_New>() {
                     @Override
                     public void onCompleted() {
 
+                        if (binding.progressBar.getVisibility() == View.VISIBLE) {
+                            binding.progressBar.setVisibility(View.GONE);
+                        }
+                        loading = true;
 
-                        if (pagenumber == 1) {
-                            if (arrHomeMyWebinarlist.size() > 0) {
-                                adapter = new HomeMyWebinarAdapter(context, arrHomeMyWebinarlist);
+                        if (start == 0 && limit == 10) {
+                            if (arrHomeMyWebinarlistnew.size() > 0) {
+                                adapter = new HomeMyWebinarAdapter(context, arrHomeMyWebinarlistnew);
                                 binding.rvhomewebinar.setAdapter(adapter);
                             }
+
                         } else {
                             adapter.addLoadingFooter();
                         }
@@ -421,116 +414,15 @@ public class MyWebinarFragment extends Fragment {
                     @Override
                     public void onError(Throwable e) {
 
-                        if (pagenumber == 1) {
+                        if (start == 0 && limit == 10) {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
                         } else {
-                            getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
+                            if (binding.progressBar.getVisibility() == View.VISIBLE) {
+                                binding.progressBar.setVisibility(View.GONE);
+                            }
                         }
-
-
-                        String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvhomewebinar, message, Snackbar.LENGTH_SHORT).show();
-
-
-                    }
-
-                    @Override
-                    public void onNext(Webinar_Home webinar_home) {
-
-                        if (webinar_home.isSuccess() == true) {
-
-                            if (pagenumber == 1) {
-                                if (arrHomeMyWebinarlist.size() > 0) {
-                                    arrHomeMyWebinarlist.clear();
-                                }
-                                if (progressDialog.isShowing()) {
-                                    progressDialog.dismiss();
-                                }
-                            } else {
-                                getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
-                            }
-
-
-                            if (pagenumber == 1) {
-                                arrHomeMyWebinarlist = webinar_home.getPayload().getWebinar();
-                                Constant.Log(TAG, "size" + arrHomeMyWebinarlist.size());
-
-                            } else {
-                                List<WebinarItem> webinaritems = webinar_home.getPayload().getWebinar();
-                                adapter.addAll(webinaritems);
-
-                            }
-
-
-                            if (arrHomeMyWebinarlist.size() > 0) {
-                                total_record = webinar_home.getPayload().getWebinar().get(0).getTotalRecord();
-                            }
-
-
-                            if (arrHomeMyWebinarlist.size() > 0) {
-                                binding.swipeRefreshLayouthomemywebinar.setVisibility(View.VISIBLE);
-                                binding.tvNodatafound.setVisibility(View.GONE);
-                            } else {
-                                binding.swipeRefreshLayouthomemywebinar.setVisibility(View.GONE);
-                                binding.tvNodatafound.setVisibility(View.VISIBLE);
-                            }
-
-
-                        } else {
-
-                            if (webinar_home.getPayload().getAccessToken() != null && !webinar_home.getPayload().getAccessToken().equalsIgnoreCase("")) {
-                                AppSettings.set_login_token(context, webinar_home.getPayload().getAccessToken());
-
-                                if (Constant.isNetworkAvailable(context)) {
-                                    GetMyWebinarList(pagenumber, webinartype);
-                                } else {
-                                    Snackbar.make(binding.rvhomewebinar, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                                }
-
-                            } else {
-
-                                if (pagenumber == 1) {
-                                    if (progressDialog.isShowing()) {
-                                        progressDialog.dismiss();
-                                    }
-                                } else {
-                                    getActivity().findViewById(android.R.id.content).setVisibility(View.GONE);
-                                }
-                                Snackbar.make(binding.rvhomewebinar, webinar_home.getMessage(), Snackbar.LENGTH_SHORT).show();
-
-                            }
-
-
-                        }
-
-
-                    }
-
-
-                });
-
-
-    }*/
-
-    public void GetMyWebinarListNew() {
-
-        mAPIService_new.GetMyWebinarListNew(getResources().getString(R.string.accept),
-                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Webinar_Home_New>() {
-                    @Override
-                    public void onCompleted() {
-
-                        if (arrHomeMyWebinarlistnew.size() > 0) {
-                            adapter = new HomeMyWebinarAdapter(context, arrHomeMyWebinarlistnew);
-                            binding.rvhomewebinar.setAdapter(adapter);
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
 
                         String message = Constant.GetReturnResponse(context, e);
                         Snackbar.make(binding.rvhomewebinar, message, Snackbar.LENGTH_SHORT).show();
@@ -540,10 +432,36 @@ public class MyWebinarFragment extends Fragment {
                     public void onNext(Webinar_Home_New webinar_home_new) {
 
                         if (webinar_home_new.isSuccess() == true) {
+
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
+                            } else {
+                                if (binding.swipeRefreshLayouthomemywebinar.isRefreshing()) {
+                                    binding.swipeRefreshLayouthomemywebinar.setRefreshing(false);
+                                }
                             }
-                            arrHomeMyWebinarlistnew = webinar_home_new.getPayload().getWebinar();
+
+                            islast = webinar_home_new.getPayload().isIsLast();
+
+
+                            if (start == 0 && limit == 10) {
+                                arrHomeMyWebinarlistnew = webinar_home_new.getPayload().getWebinar();
+                            } else {
+
+                                for (int i = 0; i < arrHomeMyWebinarlistnew.size(); i++) {
+
+                                    if (i == arrHomeMyWebinarlistnew.size() - 1) {
+                                        arrHomeMyWebinarlistnew.remove(i);
+                                    }
+
+
+                                }
+
+
+                                List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
+                                adapter.addAll(webinaritems);
+                            }
+
 
                             if (arrHomeMyWebinarlistnew.size() > 0) {
                                 binding.swipeRefreshLayouthomemywebinar.setVisibility(View.VISIBLE);
@@ -555,6 +473,10 @@ public class MyWebinarFragment extends Fragment {
                         } else {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
+                            } else {
+                                if (binding.swipeRefreshLayouthomemywebinar.isRefreshing()) {
+                                    binding.swipeRefreshLayouthomemywebinar.setRefreshing(false);
+                                }
                             }
                             Snackbar.make(binding.rvhomewebinar, webinar_home_new.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
@@ -565,6 +487,16 @@ public class MyWebinarFragment extends Fragment {
 
                 });
 
+    }
+
+    boolean isLastVisible() {
+        LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvhomewebinar.getLayoutManager());
+        int pos = layoutManager.findLastCompletelyVisibleItemPosition();
+        int numItems = binding.rvhomewebinar.getAdapter().getItemCount() - 1;
+
+        Constant.Log(TAG, "pos + numitem" + pos + "  " + "  " + numItems);
+
+        return (pos >= numItems);
     }
 
 

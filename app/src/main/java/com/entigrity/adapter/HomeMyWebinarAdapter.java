@@ -305,7 +305,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
 
     public void add(com.entigrity.model.homewebinarnew.WebinarItem webinarItem) {
         mList.add(webinarItem);
-        notifyItemInserted(mList.size() - 1);
+        notifyItemInserted(mList.size());
     }
 
     public void addAll(List<com.entigrity.model.homewebinarnew.WebinarItem> mcList) {
