@@ -263,7 +263,8 @@
                             android:id="@+id/rel_topics_of_interest"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5sdp">
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:visibility="gone">
 
 
                             <com.entigrity.view.CustomTextView
@@ -350,7 +351,7 @@
                             android:layout_marginTop="@dimen/_15sdp"
                             android:layout_marginRight="@dimen/_10sdp"
                             android:background="@drawable/rounded_button"
-                            android:text="@string/str_register"
+                            android:text="@string/str_btn_next"
                             android:textColor="@color/White"
                             app:font_button="SFUIDisplay-Bold.ttf"
 

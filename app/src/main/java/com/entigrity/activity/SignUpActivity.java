@@ -1,9 +1,12 @@
 package com.entigrity.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -13,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.databinding.ActivitySignupBinding;
@@ -29,8 +33,6 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static com.entigrity.utility.Constant.setselected;
-
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -45,8 +47,8 @@ public class SignUpActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     public boolean boolean_usertype = true;
     private int user_type = 0;
-    public int subcategoryremains = 0;
-    public String subcategory = "";
+    public Dialog myDialog;
+    public TextView tv_skip, tv_yes;
 
 
     @Override
@@ -96,17 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Validation()) {
-                    if (Constant.isNetworkAvailable(context)) {
-                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        RegisterPost(Constant.Trim(binding.edtFirmname.getText().toString())
-                                , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
-                                Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
-                                Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
-                                Constant.arraylistselectedvalue, user_type);
-                    } else {
-                        Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-
-                    }
+                    ShowTopicsOfInterestPopup();
                 }
 
 
@@ -242,49 +234,77 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        binding.relTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
+
+    }
+
+
+    public void ShowTopicsOfInterestPopup() {
+        myDialog = new Dialog(context);
+        myDialog.setContentView(R.layout.topics_popup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        tv_skip = (TextView) myDialog.findViewById(R.id.tv_skip);
+        tv_yes = (TextView) myDialog.findViewById(R.id.tv_yes);
+
+        tv_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Constant.arraylistselected.clear();
+
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                }
                 Constant.arraylistselectedvalue.clear();
+
                 Intent i = new Intent(SignUpActivity.this, TopicsofInterestSignUpActivity.class);
+                i.putExtra(getResources().getString(R.string.reg_firstname), Constant.Trim(binding.edtFirmname.getText().toString()));
+                i.putExtra(getResources().getString(R.string.reg_lastname), Constant.Trim(binding.edtLastname.getText().toString()));
+                i.putExtra(getResources().getString(R.string.reg_email), Constant.Trim(binding.edtEmailid.getText().toString()));
+                i.putExtra(getResources().getString(R.string.reg_password), Constant.Trim(binding.edtPassword.getText().toString()));
+                i.putExtra(getResources().getString(R.string.reg_confirm_password), Constant.Trim(binding.edtConfirmpassword.getText().toString()));
+                i.putExtra(getResources().getString(R.string.reg_firmname), Constant.Trim(binding.edtFirmname.getText().toString()));
+                i.putExtra(getResources().getString(R.string.reg_mobilenumber), Constant.Trim(binding.edtMobilenumbert.getText().toString()));
+                i.putExtra(getResources().getString(R.string.reg_whoyouare), user_type);
+                i.putExtra(getResources().getString(R.string.reg_isaccepted), checkprivacypolicystatus);
+
                 startActivity(i);
 
             }
         });
 
 
-    }
+        tv_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                }
+                if (Validation()) {
+                    if (Constant.isNetworkAvailable(context)) {
+                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                        RegisterPost(Constant.Trim(binding.edtFirmname.getText().toString())
+                                , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
+                                Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
+                                Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
+                                Constant.arraylistselectedvalue, user_type);
+                    } else {
+                        Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
+                    }
+                }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Constant.Log(TAG, "onResume called");
-        //subcategory = "";
-        subcategory = "";
-        subcategoryremains = 0;
-
-        if (Constant.arraylistselected.size() > 0) {
-            subcategory = Constant.arraylistselected.get(0).getTopicsofinterest();
-            binding.tvTopics.setText(subcategory);
-            binding.tvTopics.setVisibility(View.VISIBLE);
-            if (Constant.arraylistselected.size() > 1) {
-                subcategoryremains = Constant.arraylistselected.size() - 1;
-                binding.tvTopicsMore.setVisibility(View.VISIBLE);
-                binding.tvTopicsMore.setText("" + subcategoryremains + "+" + "  " + "more");
-            } else {
-                binding.tvTopicsMore.setVisibility(View.GONE);
             }
-        }
+        });
 
+
+        myDialog.show();
 
     }
+
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Constant.arraylistselected.clear();
         Constant.arraylistselectedvalue.clear();
         finish();
     }
@@ -338,9 +358,6 @@ public class SignUpActivity extends AppCompatActivity {
             return false;
         } else if (user_type == 0) {
             Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_user_type), Snackbar.LENGTH_SHORT).show();
-            return false;
-        } else if (Constant.arraylistselected.size() == 0) {
-            Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_topics), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!checkprivacypolicystatus) {
             Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_terms_and_condition), Snackbar.LENGTH_SHORT).show();
@@ -430,16 +447,13 @@ public class SignUpActivity extends AppCompatActivity {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
-                            Constant.arraylistselected.clear();
                             Constant.arraylistselectedvalue.clear();
-                            setselected.clear();
-                            Constant.checkclick = false;
-                            Snackbar.make(binding.btnRegister, registrationModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
                             startActivity(i);
+                            finish();
 
 
-                        } else if (registrationModel.isSuccess() == false) {
+                        } else if (!registrationModel.isSuccess()) {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }

@@ -52,6 +52,9 @@
     <string name="str_login_guest">Login</string>
     <string name="str_cancel_guest">Cancel</string>
     <string name="str_sharing_not_avilable">Sharing link is not avilable.</string>
+    <string name="str_btn_next">NEXT</string>
+    <string name="check_validation_popup_topics">Would You Like to add Topics of Interest?</string>
+    <string name="str_skip">SKIP</string>
 
 
     //hashmap key
@@ -308,6 +311,19 @@
     <string name="pass_company_number_of_speaker">number_of_speaker</string>
     <string name="pass_company_number_of_webinar">number_of_webinar</string>
     <string name="pass_company_favorite_status">company favorite status</string>
+
+
+    //pass data from signup to topics of interest
+
+    <string name="reg_firstname">fname</string>
+    <string name="reg_lastname">lname</string>
+    <string name="reg_email">email</string>
+    <string name="reg_password">pass</string>
+    <string name="reg_confirm_password">cpass</string>
+    <string name="reg_firmname">firmname</string>
+    <string name="reg_mobilenumber">mnumber</string>
+    <string name="reg_whoyouare">whoyouare</string>
+    <string name="reg_isaccepted">isaccepted</string>
 
 
     //rating popup

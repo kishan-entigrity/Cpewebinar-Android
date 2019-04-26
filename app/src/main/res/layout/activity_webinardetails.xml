@@ -649,7 +649,19 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:textColor="@color/webinar_detail_form_details"
                         android:textSize="@dimen/_10sdp"
+                        android:visibility="gone"
                         app:font_text="Montserrat-Regular.ttf" />
+
+
+                    <LinearLayout
+                        android:id="@+id/lv_learning_objective"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
 
 
                 </RelativeLayout>

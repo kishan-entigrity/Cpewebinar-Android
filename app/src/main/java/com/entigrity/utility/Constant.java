@@ -13,13 +13,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.entigrity.model.SaveTopicsSignUpModel;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import retrofit2.adapter.rxjava.HttpException;
@@ -30,10 +27,8 @@ public class Constant {
     public static String device_type = "a";  //1 for android
     public static String failure_message = "";
     public static String access_token = "";
-    public static ArrayList<SaveTopicsSignUpModel> arraylistselected = new ArrayList<SaveTopicsSignUpModel>();
     public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
-    public static HashMap<String, Boolean> setselected = new HashMap<String, Boolean>();
-    public static boolean checkclick = false;
+
 
     public static boolean isNetworkAvailable(Context con) {
         try {

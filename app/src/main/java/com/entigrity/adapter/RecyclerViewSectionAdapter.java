@@ -30,6 +30,7 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
     public RecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data) {
         this.mContext = context;
         this.mlist = data;
+
     }
 
 
@@ -151,6 +152,7 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
         public SectionViewHolder(View itemView) {
             super(itemView);
 
+
             sectionTitle = (TextView) itemView.findViewById(R.id.sectionTitle);
 
 
@@ -167,6 +169,7 @@ public class RecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<Rec
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+
             itemTitle = (TextView) itemView.findViewById(R.id.itemTitle);
             lv_topics_item = (RelativeLayout) itemView.findViewById(R.id.lv_topics_item);
             cbselection = (CheckBox) itemView.findViewById(R.id.cbselection);

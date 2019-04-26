@@ -53,7 +53,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     private static final String VIDEO_URL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 
-    TextView mStart, tv_who_attend;
+    TextView tv_who_attend, tv_lerning_objectives;
 
     private int mSeekPosition;
     private int cachedHeight;
@@ -665,13 +665,25 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             }
 
 
-                          /*  if (webinar_details.getPayload().getWebinarDetail().getLearningObjective().size() > 0) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvLearningObjective.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getLearningObjective(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvLearningObjective.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getLearningObjective()));
+                            if (webinar_details.getPayload().getWebinarDetail().getLearningObjective().size() > 0) {
+
+
+                                final TextView[] myTextViews = new TextView[webinar_details.getPayload().getWebinarDetail().getLearningObjective().size()]; // create an empty array;
+
+                                for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getLearningObjective().size(); i++) {
+                                    final View myView_inflat = inflater_new.inflate(R.layout.row_learning_objective, null);
+                                    tv_lerning_objectives = (TextView) myView_inflat.findViewById(R.id.tv_learning_objectives);
+                                    tv_lerning_objectives.setText(webinar_details.getPayload().getWebinarDetail().getLearningObjective().get(i));
+                                    binding.lvLearningObjective.addView(tv_lerning_objectives);
+                                    LinearLayout.LayoutParams tvlp = (LinearLayout.LayoutParams) tv_lerning_objectives.getLayoutParams();
+                                    tvlp.rightMargin = 5;
+                                    tvlp.leftMargin = 5;
+                                    tv_lerning_objectives.setLayoutParams(tvlp);
+                                    myTextViews[i] = tv_lerning_objectives;
                                 }
-                            }*/
+
+
+                            }
 
                             if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getName().equalsIgnoreCase("")) {
                                 binding.tvPresenterName.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getName());

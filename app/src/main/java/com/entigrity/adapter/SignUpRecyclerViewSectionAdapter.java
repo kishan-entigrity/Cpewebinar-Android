@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
-import com.entigrity.model.SaveTopicsSignUpModel;
 import com.entigrity.model.topicsofinterestn.TagsItem;
 import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
 import com.entigrity.utility.Constant;
@@ -19,23 +19,26 @@ import com.entigrity.view.SectionedRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.entigrity.utility.Constant.setselected;
-
 
 public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapter<RecyclerView.ViewHolder> {
 
     private List<TopicOfInterestsItem> mlist;
     public static Context mContext;
-    public ArrayList<SaveTopicsSignUpModel> arraylistselectedtopicsofinterest = new ArrayList<SaveTopicsSignUpModel>();
     List<TagsItem> itemsInSection;
-    SaveTopicsSignUpModel saveTopicsSignUpModel;
+    List<Boolean> checkstate = new ArrayList<Boolean>();
 
 
-    public SignUpRecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data, ArrayList<SaveTopicsSignUpModel> arraylistselected) {
+    public SignUpRecyclerViewSectionAdapter(Context context, List<TopicOfInterestsItem> data) {
         this.mContext = context;
-        this.arraylistselectedtopicsofinterest = arraylistselected;
         this.mlist = data;
 
+
+        for (int i = 0; i < mlist.size(); i++) {
+            for (int k = 0; k < mlist.get(i).getTags().size(); k++) {
+                checkstate.add(false);
+            }
+
+        }
     }
 
 
@@ -71,6 +74,14 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
         if (mlist.get(position).getTags().size() > 0) {
             itemsInSection = mlist.get(position).getTags();
 
+            for (int i = 0; i < mlist.size(); i++) {
+                for (int k = 0; k < mlist.get(i).getTags().size(); k++) {
+                    ((ItemViewHolder) holder).cbselection.setChecked(checkstate.get(k));
+
+                }
+
+            }
+
 
             String itemName = itemsInSection.get(relativePosition).getName();
 
@@ -79,47 +90,18 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
                 ((ItemViewHolder) holder).itemTitle.setText(itemName);
             }
 
-            if (Constant.setselected.size() > 0) {
+            ((ItemViewHolder) holder).cbselection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                System.out.println(setselected);
-
-                Boolean checkvalue = Constant.setselected.get(mlist.get(position).getTags().get(relativePosition).getName());
-
-                //   int positions = arraylistselectedtopicsofinterest.indexOf(Constant.setselected.get(mlist.get(position).getTags().get(relativePosition).getName()));
-
-                // Constant.Log("positions", "positions" + positions);
-                saveTopicsSignUpModel = new SaveTopicsSignUpModel();
-
-                if (checkvalue) {
-                    ((ItemViewHolder) holder).cbselection.setChecked(true);
-                } else {
-                    ((ItemViewHolder) holder).cbselection.setChecked(false);
-
+                    if (isChecked) {
+                        checkstate.set(position, true);
+                    } else {
+                        checkstate.set(position, false);
+                    }
 
                 }
-
-                //String topics = arraylistselectedtopicsofinterest.get(position).getTopicsofinterest();
-                // int positions = 0;
-
-
-            }
-            for (int i = 0; i < arraylistselectedtopicsofinterest.size(); i++) {
-                //positions = i;
-
-                if (arraylistselectedtopicsofinterest.get(i).isIschecked()) {
-                    saveTopicsSignUpModel.setId(arraylistselectedtopicsofinterest.get(i).getId());
-                    saveTopicsSignUpModel.setIschecked(arraylistselectedtopicsofinterest.get(i).isIschecked());
-                    saveTopicsSignUpModel.setTopicsofinterest(arraylistselectedtopicsofinterest.get(i).getTopicsofinterest());
-                    arraylistselectedtopicsofinterest.set(i, saveTopicsSignUpModel);
-                } else {
-                    saveTopicsSignUpModel.setId(arraylistselectedtopicsofinterest.get(i).getId());
-                    saveTopicsSignUpModel.setIschecked(arraylistselectedtopicsofinterest.get(i).isIschecked());
-                    saveTopicsSignUpModel.setTopicsofinterest(arraylistselectedtopicsofinterest.get(i).getTopicsofinterest());
-                    arraylistselectedtopicsofinterest.set(i, saveTopicsSignUpModel);
-                }
-
-
-            }
+            });
 
 
         }
@@ -130,44 +112,11 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
             public void onClick(View v) {
                 try {
                     if (((ItemViewHolder) holder).cbselection.isChecked() == false) {
-
-                        String topics = mlist.get(position).getTags().get(relativePosition).getName();
-                        int positions = 0;
-
-
-                        for (int i = 0; i < arraylistselectedtopicsofinterest.size(); i++) {
-                            if (topics.equalsIgnoreCase(arraylistselectedtopicsofinterest.get(i).getTopicsofinterest())) {
-                                positions = i;
-                            }
-                        }
-
-
-                        // int positions = arraylistselectedtopicsofinterest.indexOf(arraylistselectedtopicsofinterest.get(position).getTopicsofinterest());
-                        saveTopicsSignUpModel = new SaveTopicsSignUpModel();
-                        saveTopicsSignUpModel.setId(mlist.get(positions).getTags().get(relativePosition).getId());
-                        saveTopicsSignUpModel.setIschecked(true);
-                        saveTopicsSignUpModel.setTopicsofinterest(mlist.get(positions).getTags().get(relativePosition).getName());
-                        arraylistselectedtopicsofinterest.add(saveTopicsSignUpModel);
-                        setselected.put(mlist.get(position).getTags().get(relativePosition).getName(), true);
                         ((ItemViewHolder) holder).cbselection.setChecked(true);
-                        System.out.println(setselected);
-
+                        Constant.arraylistselectedvalue.add(mlist.get(position).getTags().get(relativePosition).getId());
                     } else {
-
-                        String topics = mlist.get(position).getTags().get(relativePosition).getName();
-                        int positions = 0;
-                        for (int i = 0; i < arraylistselectedtopicsofinterest.size(); i++) {
-                            if (topics.equalsIgnoreCase(arraylistselectedtopicsofinterest.get(i).getTopicsofinterest())) {
-                                positions = i;
-                            }
-                        }
-                        setselected.put(mlist.get(position).getTags().get(relativePosition).getName(), false);
                         ((ItemViewHolder) holder).cbselection.setChecked(false);
-
-
-                        arraylistselectedtopicsofinterest.remove(positions);
-
-
+                        Constant.arraylistselectedvalue.remove(mlist.get(position).getTags().get(relativePosition).getId());
                     }
 
                 } catch (
@@ -207,6 +156,7 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
 
         public SectionViewHolder(View itemView) {
             super(itemView);
+            this.setIsRecyclable(false);
 
             sectionTitle = (TextView) itemView.findViewById(R.id.sectionTitle);
 
@@ -224,6 +174,7 @@ public class SignUpRecyclerViewSectionAdapter extends SectionedRecyclerViewAdapt
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+            this.setIsRecyclable(false);
             itemTitle = (TextView) itemView.findViewById(R.id.itemTitle);
             lv_topics_item = (RelativeLayout) itemView.findViewById(R.id.lv_topics_item);
             cbselection = (CheckBox) itemView.findViewById(R.id.cbselection);
