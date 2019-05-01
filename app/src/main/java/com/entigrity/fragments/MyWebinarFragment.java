@@ -34,6 +34,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.entigrity.utility.Constant.arraylistselectedvalue;
+
 public class MyWebinarFragment extends Fragment {
 
     View view;
@@ -243,7 +245,7 @@ public class MyWebinarFragment extends Fragment {
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                     GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
-                    ;
+
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -335,10 +337,8 @@ public class MyWebinarFragment extends Fragment {
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                     GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
-                    ;
                 } else {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-
                 }
 
 
@@ -349,6 +349,49 @@ public class MyWebinarFragment extends Fragment {
         return view = binding.getRoot();
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Constant.Log(TAG, "size" + arraylistselectedvalue.size());
+        if (arraylistselectedvalue.size() > 0) {
+
+            topicsofinterest = "";
+
+            StringBuilder commaSepValueBuilder = new StringBuilder();
+
+            //Looping through the list
+            for (int i = 0; i < arraylistselectedvalue.size(); i++) {
+                //append the value into the builder
+                commaSepValueBuilder.append(arraylistselectedvalue.get(i));
+
+                //if the value is not the last element of the list
+                //then append the comma(,) as well
+                if (i != arraylistselectedvalue.size() - 1) {
+                    commaSepValueBuilder.append(",");
+                }
+            }
+            //System.out.println(commaSepValueBuilder.toString());
+            topicsofinterest = commaSepValueBuilder.toString();
+
+            System.out.println(topicsofinterest);
+
+            start = 0;
+            limit = 10;
+            loading = true;
+
+
+            if (Constant.isNetworkAvailable(context)) {
+                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
+            } else {
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            }
+
+
+        }
+    }
 
     public void refreshItems() {
 
@@ -375,7 +418,6 @@ public class MyWebinarFragment extends Fragment {
     private void loadNextPage() {
         if (Constant.isNetworkAvailable(context)) {
             GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
-            ;
         } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 

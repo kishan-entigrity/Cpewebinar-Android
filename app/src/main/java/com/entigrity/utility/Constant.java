@@ -28,6 +28,8 @@ public class Constant {
     public static String failure_message = "";
     public static String access_token = "";
     public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
+    public static ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
+
 
 
     public static boolean isNetworkAvailable(Context con) {

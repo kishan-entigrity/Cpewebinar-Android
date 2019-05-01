@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lv_topics_item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/White"
-    android:padding="@dimen/_5sdp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <com.entigrity.view.CustomTextView
-        android:id="@+id/itemTitle"
+    <LinearLayout
+        android:id="@+id/lv_topics_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/_5sdp"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp"
-        app:font_text="Montserrat-Regular.ttf" />
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:orientation="horizontal">
+        //Put here your views
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/itemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/chipsetview"
+            android:gravity="center"
+            android:padding="@dimen/_2sdp"
+            android:textColor="@color/grid_topics"
+            android:textSize="@dimen/_8sdp"
+            app:font_text="Montserrat-Light.ttf" />
+
+    </LinearLayout>
+</FrameLayout>
 
 
-</RelativeLayout>
 
 
 

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,16 +85,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-
-
-
-
-
-
-
-         /*   viewHolder.tv_notification_time.setText("" + mList.get(position)
-                    .getTimestamp());*/
 
 
         }

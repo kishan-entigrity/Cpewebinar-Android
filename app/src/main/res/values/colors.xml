@@ -112,4 +112,11 @@
     <color name="notification_child_color">#a4a4a4</color>
     <color name="switch_on">#57DA63</color>
 
+    //topics of interest subcategory
+    <color name="subcategory_topics">#262626</color>
+    <color name="grid_topics">#232323</color>
+
+
+
+
 </resources>

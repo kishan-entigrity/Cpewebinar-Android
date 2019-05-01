@@ -1,24 +1,35 @@
 package com.entigrity.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityWebinardetailsBinding;
@@ -31,7 +42,15 @@ import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 import com.universalvideoview.UniversalVideoView;
 
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 import rx.Subscriber;
@@ -48,16 +67,23 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     private String webinar_share_link = "";
     private String is_favorite = "";
     public boolean checkfavoritestate = false;
+    ProgressDialog mProgressDialog;
     LayoutInflater inflater_new;
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
+    private ArrayList<String> arrayListhandout = new ArrayList<>();
     private static final String VIDEO_URL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 
     TextView tv_who_attend, tv_lerning_objectives;
+    DownloadTask downloadTask;
 
     private int mSeekPosition;
     private int cachedHeight;
     private boolean isFullscreen;
+    public static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
+
+    String[] mhandoutArray;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +92,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         context = WebinarDetailsActivity.this;
         mAPIService = ApiUtilsNew.getAPIService();
         inflater_new = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mProgressDialog = new ProgressDialog(context);
 
 
         Intent intent = getIntent();
@@ -85,6 +112,19 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         }
 
 
+        /*int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // code for portrait mode
+            binding.rvtitle.setVisibility(View.VISIBLE);
+            binding.rvbottom.setVisibility(View.VISIBLE);
+        } else {
+            // code for landscape mode
+
+            binding.rvtitle.setVisibility(View.GONE);
+            binding.rvbottom.setVisibility(View.GONE);
+        }*/
+
+
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,9 +136,17 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         binding.tvDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Constant.toast(context, "comming soon");
+                checkAndroidVersion();
             }
         });
+
+       /* mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                downloadTask.cancel(true); //cancel the task
+            }
+        });*/
 
 
         String htmlString = "<u>Add to Calender</u>";
@@ -178,6 +226,117 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // code for portrait mode
+            setContentView(R.layout.activity_webinardetails);
+        } else {
+            // code for landscape mode
+            setContentView(R.layout.activity_landscape_webinardetails);
+
+        }
+    }
+
+    private void checkAndroidVersion() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkPermission();
+        } else {
+            // write your logic here
+            if (arrayListhandout.size() > 0) {
+                mhandoutArray = new String[arrayListhandout.size()];
+                mhandoutArray = arrayListhandout.toArray(mhandoutArray);
+                if (mhandoutArray.length > 0) {
+                    downloadTask = new DownloadTask(context);
+                    downloadTask.execute(mhandoutArray);
+                }
+            } else {
+                Constant.toast(context, getResources().getString(R.string.str_download_link_not_found));
+            }
+
+
+        }
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case PERMISSIONS_MULTIPLE_REQUEST:
+                if (grantResults.length > 0) {
+                    boolean writePermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean readExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                    if (writePermission && readExternalFile) {
+                        // write your logic here
+                        if (arrayListhandout.size() > 0) {
+                            mhandoutArray = new String[arrayListhandout.size()];
+                            mhandoutArray = arrayListhandout.toArray(mhandoutArray);
+                            if (mhandoutArray.length > 0) {
+                                downloadTask = new DownloadTask(context);
+                                downloadTask.execute(mhandoutArray);
+                            }
+                        } else {
+                            Constant.toast(context, getResources().getString(R.string.str_download_link_not_found));
+                        }
+                    } else {
+                        requestPermissions(
+                                new String[]{Manifest.permission
+                                        .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                PERMISSIONS_MULTIPLE_REQUEST);
+                    }
+                }
+                break;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void checkPermission() {
+
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
+                .checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale
+                    ((Activity) context, Manifest.permission.READ_EXTERNAL_STORAGE) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale
+                            ((Activity) context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                requestPermissions(
+                        new String[]{Manifest.permission
+                                .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        PERMISSIONS_MULTIPLE_REQUEST);
+            } else {
+                requestPermissions(
+                        new String[]{Manifest.permission
+                                .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        PERMISSIONS_MULTIPLE_REQUEST);
+            }
+        } else {
+            // write your logic code if permission already granted
+
+            if (arrayListhandout.size() > 0) {
+                mhandoutArray = new String[arrayListhandout.size()];
+                mhandoutArray = arrayListhandout.toArray(mhandoutArray);
+                if (mhandoutArray.length > 0) {
+                    downloadTask = new DownloadTask(context);
+                    downloadTask.execute(mhandoutArray);
+                }
+            } else {
+                Constant.toast(context, getResources().getString(R.string.str_download_link_not_found));
+            }
+
+        }
+    }
+
 
     @Override
     protected void onPause() {
@@ -232,17 +391,36 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     public void onScaleChange(boolean isFullscreen) {
         this.isFullscreen = isFullscreen;
         if (isFullscreen) {
-            ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
+           /* ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            binding.videoLayout.setLayoutParams(layoutParams);
+            videoView.setLayoutParams(params);*/
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            android.widget.FrameLayout.LayoutParams params = (android.widget.FrameLayout.LayoutParams) binding.videoView.getLayoutParams();
+            params.width = (int) (300 * metrics.density);
+            params.height = (int) (200 * metrics.density);
+            params.leftMargin = 30;
+            binding.videoView.setLayoutParams(params);
+
+            Constant.Log(TAG, "" + isFullscreen);
 
 
         } else {
-            ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
+            /*ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = this.cachedHeight;
-            binding.videoLayout.setLayoutParams(layoutParams);
+            binding.videoLayout.setLayoutParams(layoutParams);*/
+
+            Constant.Log(TAG, "" + isFullscreen);
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            android.widget.FrameLayout.LayoutParams params = (android.widget.FrameLayout.LayoutParams) binding.videoView.getLayoutParams();
+            params.width = metrics.widthPixels;
+            params.height = (int) (200 * metrics.density);
+            params.leftMargin = 0;
+            binding.videoView.setLayoutParams(params);
+
 
         }
 
@@ -283,6 +461,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         if (this.isFullscreen) {
             binding.videoView.setFullscreen(false);
         } else {
@@ -652,7 +831,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                     }
                                 }
 
-
                             }
 
 
@@ -796,6 +974,14 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             }
 
 
+                            if (webinar_details.getPayload().getWebinarDetail().getPresentationHandout().size() > 0) {
+                                for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getPresentationHandout().size(); i++) {
+                                    arrayListhandout.add(webinar_details.getPayload().getWebinarDetail().getPresentationHandout().get(i));
+                                }
+
+                            }
+
+
                         } else {
                             Snackbar.make(binding.relView, webinar_details.getMessage(), Snackbar.LENGTH_SHORT).show();
 
@@ -836,4 +1022,103 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
 
     }
+
+    private class DownloadTask extends AsyncTask<String, Integer, String> {
+
+        private Context context;
+        //private PowerManager.WakeLock mWakeLock;
+
+        public DownloadTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // take CPU lock to prevent CPU from going off if the user
+            // presses the power button during download
+            /*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                    getClass().getName());
+            mWakeLock.acquire();*/
+            mProgressDialog.show();
+            mProgressDialog.setMessage("downloading");
+            progressDialog.setMax(100);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setCancelable(true);
+        }
+
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            int count;
+            try {
+
+                for (int i = 0; i < sUrl.length; i++) {
+                    URL url = new URL(sUrl[i]);
+                    URLConnection conection = url.openConnection();
+                    conection.connect();
+                    // getting file length
+                    int lenghtOfFile = conection.getContentLength();
+
+                    // input stream to read file - with 8k buffer
+                    InputStream input = new BufferedInputStream(
+                            url.openStream(), 8192);
+                    System.out.println("Data::" + sUrl[i]);
+                    // Output stream to write file
+                    OutputStream output = new FileOutputStream(
+                            "/sdcard/handout" + new Date().getTime() + ".extention");
+
+                    byte data[] = new byte[1024];
+
+                    long total = 0;
+
+                    while ((count = input.read(data)) != -1) {
+                        total += count;
+                        // publishing the progress....
+                        // After this onProgressUpdate will be called
+                        publishProgress((int) ((total * 100) / lenghtOfFile));
+
+                        // writing data to file
+                        output.write(data, 0, count);
+                    }
+
+                    // flushing output
+                    output.flush();
+
+                    // closing streams
+                    output.close();
+                    input.close();
+                }
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            super.onProgressUpdate(progress);
+            // if we get here, length is known, now set indeterminate to false
+           /* mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setMax(100);*/
+            mProgressDialog.setProgress(progress[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // mWakeLock.release();
+            mProgressDialog.dismiss();
+            if (result != null)
+                Toast.makeText(context, "Download error: " + result, Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(context, "File downloaded", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }
+
+

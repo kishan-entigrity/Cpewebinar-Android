@@ -7,25 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
-import com.entigrity.model.topicsofinterest.TagsItem;
+import com.entigrity.utility.Constant;
 
 import java.util.ArrayList;
 
 public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<TopicsofinterestPopUpAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<TagsItem> mList;
+
+    private ArrayList<com.entigrity.model.topics_subcategory.TopicOfInterestsItem> mListrtopicsofinterestsubcategory = new ArrayList<>();
     LayoutInflater mInflater;
-    public ArrayList<Integer> arraylistselectedtag = new ArrayList<Integer>();
 
 
-    public TopicsofinterestPopUpAdapter(Context mContext, ArrayList<TagsItem> mList, ArrayList<Integer> arraylistselectedtag) {
+    public TopicsofinterestPopUpAdapter(Context mContext, ArrayList<com.entigrity.model.topics_subcategory.TopicOfInterestsItem> mList) {
         this.mContext = mContext;
-        this.arraylistselectedtag = arraylistselectedtag;
-        this.mList = mList;
+        this.mListrtopicsofinterestsubcategory = mList;
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -40,30 +40,34 @@ public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<Topicsofi
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        holder.tv_topics.setText(mList.get(position).getTag());
+        holder.tv_topics.setText(mListrtopicsofinterestsubcategory.get(position).getName());
 
-
-        if (arraylistselectedtag.size() > 0) {
-            for (int k = 0; k < arraylistselectedtag.size(); k++) {
-                if (mList.get(position).getId() == (arraylistselectedtag.get(k))) {
-                    holder.cbselection.setChecked(true);
-                }
-            }
+        if (mListrtopicsofinterestsubcategory.get(position).isIsChecked()) {
+            holder.cbselection.setChecked(true);
+           // Constant.arraylistselectedtopicsofinterest.set(position, mListrtopicsofinterestsubcategory.get(position).getId());
+        } else {
+            holder.cbselection.setChecked(false);
         }
 
 
-        holder.tv_topics.setOnClickListener(new View.OnClickListener() {
+        holder.rel_topics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 try {
-                    if (holder.cbselection.isChecked() == false) {
+
+                    if (!holder.cbselection.isChecked()) {
+                        Constant.arraylistselectedtopicsofinterest.add(mListrtopicsofinterestsubcategory.get(position).getId());
                         holder.cbselection.setChecked(true);
-                        arraylistselectedtag.add(mList.get(position).getId());
+                        Constant.Log("size", "added" + Constant.arraylistselectedtopicsofinterest.size());
+
                     } else {
                         holder.cbselection.setChecked(false);
-                        arraylistselectedtag.remove(position);
+                        int removed_position = Constant.arraylistselectedtopicsofinterest.indexOf(mListrtopicsofinterestsubcategory.get(position).getId());
+                        Constant.arraylistselectedtopicsofinterest.remove(removed_position);
+                        Constant.Log("size", "removed" + Constant.arraylistselectedtopicsofinterest.size());
                     }
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -78,11 +82,12 @@ public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<Topicsofi
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mListrtopicsofinterestsubcategory.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CheckBox cbselection;
+        private RelativeLayout rel_topics;
         private TextView tv_topics;
 
 
@@ -92,6 +97,7 @@ public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<Topicsofi
 
             cbselection = (CheckBox) itemView.findViewById(R.id.cbselection);
             tv_topics = (TextView) itemView.findViewById(R.id.tv_topics);
+            rel_topics = (RelativeLayout) itemView.findViewById(R.id.rel_topics);
 
 
         }

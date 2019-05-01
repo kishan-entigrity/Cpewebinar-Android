@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
 
     <application
         android:name=".MyCpe"
@@ -58,8 +60,8 @@
 
         <activity
             android:name=".activity.WebinarDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
 
         <activity
             android:name=".activity.EditProfileActivity"

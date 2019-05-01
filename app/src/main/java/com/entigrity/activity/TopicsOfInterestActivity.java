@@ -11,13 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.entigrity.MainActivity;
 import com.entigrity.R;
-import com.entigrity.adapter.RecyclerViewSectionAdapter;
+import com.entigrity.adapter.RecycleviewSectionTestAdapter;
 import com.entigrity.databinding.ActivityTopicsofinterestBinding;
-import com.entigrity.model.savetopicsofinterest.SaveTopicsInterest;
-import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
-import com.entigrity.model.topicsofinterestn.Topicsofinterest;
+import com.entigrity.model.view_interest_favorite.ViewTopicsFavorite;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -37,11 +34,13 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
     private APIService mAPIService;
     private static final String TAG = TopicsOfInterestActivity.class.getName();
     ProgressDialog progressDialog;
-    private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
-    public ArrayList<Integer> arraylistselected = new ArrayList<Integer>();
+    // private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
     LinearLayoutManager linearLayoutManager;
-    RecyclerViewSectionAdapter adapter;
+    RecycleviewSectionTestAdapter adapter;
     private String fromscreen = "";
+    private static TopicsOfInterestActivity instance;
+    //   private ArrayList<com.entigrity.model.view_topics_of_interest.TopicOfInterestsItem> topicsofinterestitem = new ArrayList<>();
+    private ArrayList<com.entigrity.model.view_interest_favorite.TopicOfInterestsItem> topicsofinterestitemfavorite = new ArrayList<com.entigrity.model.view_interest_favorite.TopicOfInterestsItem>();
 
 
     @Override
@@ -50,13 +49,12 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_topicsofinterest);
         mAPIService = ApiUtilsNew.getAPIService();
         context = TopicsOfInterestActivity.this;
+        instance = TopicsOfInterestActivity.this;
 
         Intent intent = getIntent();
         if (intent != null) {
             fromscreen = intent.getStringExtra(getResources().getString(R.string.str_get_key_screen_key));
-
         }
-
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         binding.rvtopicsOfInterest.setLayoutManager(linearLayoutManager);
@@ -68,54 +66,6 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
         } else {
             Snackbar.make(binding.tvSubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
-
-
-        binding.tvSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (adapter.arraylistselectedtopicsofinterest.size() > 0) {
-                    arraylistselected = adapter.arraylistselectedtopicsofinterest;
-                    Constant.Log(TAG, "store_id" + arraylistselected.size());
-                }
-
-
-                if (arraylistselected.size() > 0) {
-
-                    StringBuilder commaSepValueBuilder = new StringBuilder();
-
-                    //Looping through the list
-                    for (int i = 0; i < arraylistselected.size(); i++) {
-                        //append the value into the builder
-                        commaSepValueBuilder.append(arraylistselected.get(i));
-
-                        //if the value is not the last element of the list
-                        //then append the comma(,) as well
-                        if (i != arraylistselected.size() - 1) {
-                            commaSepValueBuilder.append(", ");
-                        }
-                    }
-                    //System.out.println(commaSepValueBuilder.toString());
-                    String selectedlist = commaSepValueBuilder.toString();
-
-                    System.out.println(selectedlist);
-
-
-                    if (Constant.isNetworkAvailable(context)) {
-                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        SaveTopicsofInterest(selectedlist);
-                    } else {
-                        Snackbar.make(binding.tvSubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    Snackbar.make(binding.tvSubmit, getResources().getString(R.string.val_topics), Snackbar.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
 
 
         binding.ivback.setOnClickListener(new View.OnClickListener() {
@@ -131,11 +81,11 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
 
     public void GetTopicsofInterest() {
         mAPIService.GetTopicsofInterests(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Topicsofinterest>() {
+                .subscribe(new Subscriber<ViewTopicsFavorite>() {
                     @Override
                     public void onCompleted() {
-                        if (topicsofinterestitem.size() > 0) {
-                            adapter = new RecyclerViewSectionAdapter(context, topicsofinterestitem);
+                        if (topicsofinterestitemfavorite.size() > 0) {
+                            adapter = new RecycleviewSectionTestAdapter(context, topicsofinterestitemfavorite);
                             binding.rvtopicsOfInterest.setAdapter(adapter);
                         }
 
@@ -155,36 +105,42 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(Topicsofinterest topicsofinterest) {
+                    public void onNext(ViewTopicsFavorite viewTopicsFavorite) {
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
 
 
-                        if (topicsofinterest.isSuccess()) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
+                        if (topicsofinterestitemfavorite.size() > 0) {
+                            topicsofinterestitemfavorite.clear();
+                        }
 
 
-                            if (topicsofinterest.getPayload().getTopicOfInterests().size() > 0) {
+                        if (viewTopicsFavorite.isSuccess()) {
+                            if (viewTopicsFavorite.getPayload().getTopicOfInterests().size() > 0) {
 
-                                for (int i = 0; i < topicsofinterest.getPayload().getTopicOfInterests().size(); i++) {
-                                    TopicOfInterestsItem topicOfInterestsItem = new TopicOfInterestsItem();
-                                    topicOfInterestsItem.setName(topicsofinterest.getPayload().getTopicOfInterests().get(i).getName());
-                                    topicOfInterestsItem.setId(topicsofinterest.getPayload().getTopicOfInterests().get(i).getId());
-                                    if (topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags() != null) {
-                                        topicOfInterestsItem.setTags(topicsofinterest.getPayload().getTopicOfInterests().get(i).getTags());
+                                for (int i = 0; i < viewTopicsFavorite.getPayload().getTopicOfInterests().size(); i++) {
+
+                                    com.entigrity.model.view_interest_favorite.TopicOfInterestsItem topicOfInterestsItem = new
+                                            com.entigrity.model.view_interest_favorite.TopicOfInterestsItem();
+                                    topicOfInterestsItem.setName(viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getName());
+                                    topicOfInterestsItem.setId(viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getId());
+                                    if (viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getTags() != null) {
+                                        topicOfInterestsItem.setTags(viewTopicsFavorite.getPayload().getTopicOfInterests().get(i).getTags());
                                     }
 
-                                    topicsofinterestitem.add(topicOfInterestsItem);
+                                    topicsofinterestitemfavorite.add(topicOfInterestsItem);
                                 }
 
 
-
+                                Constant.Log(TAG, "size" + topicsofinterestitemfavorite.size());
 
                             }
 
 
                         } else {
-                            Snackbar.make(binding.tvSubmit, topicsofinterest.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(binding.rvtopicsOfInterest, viewTopicsFavorite.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 
@@ -194,56 +150,14 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
 
     }
 
+    public static TopicsOfInterestActivity getInstance() {
+        return instance;
 
-    public void SaveTopicsofInterest(String selectedlist) {
-        mAPIService.PostTopicsOfInterest(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), selectedlist).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<SaveTopicsInterest>() {
-                    @Override
-                    public void onCompleted() {
+    }
 
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-
-                        String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.tvSubmit, message, Snackbar.LENGTH_SHORT).show();
-
-
-                    }
-
-                    @Override
-                    public void onNext(SaveTopicsInterest saveTopicsInterest) {
-
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-
-                        if (saveTopicsInterest.isSuccess() == true) {
-                            Snackbar.make(binding.tvSubmit, saveTopicsInterest.getMessage(), Snackbar.LENGTH_SHORT).show();
-
-                            if (fromscreen.equalsIgnoreCase(getResources().getString(R.string.from_home_screen))) {
-                                Intent i = new Intent(context, MainActivity.class);
-                                startActivity(i);
-                                finish();
-                            } else {
-                                Intent i = new Intent(context, MainActivity.class);
-                                startActivity(i);
-                                finish();
-                            }
-
-
-                        } else {
-                            Snackbar.make(binding.tvSubmit, saveTopicsInterest.getMessage(), Snackbar.LENGTH_SHORT).show();
-                        }
-
-
-                    }
-                });
+    public void ReCreate() {
+        recreate();
     }
 
 

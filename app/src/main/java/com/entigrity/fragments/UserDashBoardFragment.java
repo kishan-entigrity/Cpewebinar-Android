@@ -21,12 +21,14 @@ import android.widget.TextView;
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.activity.NotificationActivity;
-import com.entigrity.activity.TopicsOfInterestActivity;
+import com.entigrity.activity.TopicsofInterestSignUpActivity;
 import com.entigrity.databinding.FragmentDashboardBinding;
 import com.entigrity.utility.AppSettings;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.entigrity.utility.Constant.arraylistselectedvalue;
 
 public class UserDashBoardFragment extends Fragment {
     View view;
@@ -59,7 +61,8 @@ public class UserDashBoardFragment extends Fragment {
             public void onClick(View v) {
 
                 if (!AppSettings.get_login_token(context).isEmpty()) {
-                    Intent i = new Intent(getActivity(), TopicsOfInterestActivity.class);
+                    arraylistselectedvalue.clear();
+                    Intent i = new Intent(getActivity(), TopicsofInterestSignUpActivity.class);
                     i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_home_screen));
                     startActivity(i);
                 } else {

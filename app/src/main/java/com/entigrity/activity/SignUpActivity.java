@@ -264,6 +264,7 @@ public class SignUpActivity extends AppCompatActivity {
                 i.putExtra(getResources().getString(R.string.reg_firmname), Constant.Trim(binding.edtFirmname.getText().toString()));
                 i.putExtra(getResources().getString(R.string.reg_mobilenumber), Constant.Trim(binding.edtMobilenumbert.getText().toString()));
                 i.putExtra(getResources().getString(R.string.reg_whoyouare), user_type);
+                i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_sign_up_screen));
                 i.putExtra(getResources().getString(R.string.reg_isaccepted), checkprivacypolicystatus);
 
                 startActivity(i);

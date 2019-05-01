@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
     List<TagsItem> mlist;
     public List<TagsItem> topicsofinterestitemfilter = new ArrayList<TagsItem>();
     LayoutInflater mInflater;
-    SparseBooleanArray itemStateArray = new SparseBooleanArray();
     private CustomFilter mFilter;
 
     public SignUpInterestAdapter(Context mContext, List<TagsItem> mList) {
@@ -51,11 +49,6 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
 
         final TagsItem tagsItem = topicsofinterestitemfilter.get(position);
-
-
-       /* if (!mlist.get(position).getName().equalsIgnoreCase("")) {
-            viewHolder.itemTitle.setText(mlist.get(position).getName());
-        }*/
 
 
         if (!tagsItem.getName().equalsIgnoreCase("")) {
@@ -158,24 +151,18 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
             if (charSequence != null && charSequence.length() > 0) {
                 ArrayList<TagsItem> filters = new ArrayList<>();//charSequence = charSequence.toString().toUpperCase();
 
-                String charSequence_uppercase = charSequence.toString().toUpperCase();
-                String charSequence_lowercase = charSequence.toString().toLowerCase();
+                String charcter = charSequence.toString();
 
-                if (!charSequence_uppercase.equalsIgnoreCase("")) {
+
+                if (!charcter.equalsIgnoreCase("")) {
                     for (int i = 0; i < mlist.size(); i++) {
-                        if (mlist.get(i).getName().contains(charSequence_uppercase)) {
+                        if (mlist.get(i).getName().toLowerCase().contains(charcter.toLowerCase())) {
                             TagsItem tagsItem = new TagsItem();
                             tagsItem.setIsChecked(mlist.get(i).isIsChecked());
                             tagsItem.setName(mlist.get(i).getName());
                             tagsItem.setId(mlist.get(i).getId());
                             filters.add(tagsItem);
-                        }
-                    }
-                    results.count = filters.size();
-                    results.values = filters;
-                } else {
-                    for (int i = 0; i < mlist.size(); i++) {
-                        if (mlist.get(i).getName().contains(charSequence_lowercase)) {
+                        } else if (mlist.get(i).getName().toUpperCase().contains(charcter.toUpperCase())) {
                             TagsItem tagsItem = new TagsItem();
                             tagsItem.setIsChecked(mlist.get(i).isIsChecked());
                             tagsItem.setName(mlist.get(i).getName());
@@ -189,14 +176,7 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
 
 
             } else {
-               /* ArrayList<TagsItem> filters = new ArrayList<>();
-                for (int i = 0; i < mlist.size(); i++) {
-                    TagsItem tagsItem = new TagsItem();
-                    tagsItem.setIsChecked(mlist.get(i).isIsChecked());
-                    tagsItem.setName(mlist.get(i).getName());
-                    tagsItem.setId(mlist.get(i).getId());
-                    filters.add(tagsItem);
-                }*/
+
 
                 results.count = mlist.size();
                 results.values = mlist;

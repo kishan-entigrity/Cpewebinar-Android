@@ -73,7 +73,7 @@ public class MyFavoriteScreenFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), ViewTopicsOfInterestActivity.class);
-                i.putExtra(getResources().getString(R.string.str_get_key_screen),getResources().getString(R.string.from_favorite));
+                i.putExtra(getResources().getString(R.string.str_get_key_screen), getResources().getString(R.string.from_favorite));
                 startActivity(i);
 
             }

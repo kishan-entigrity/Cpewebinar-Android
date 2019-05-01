@@ -8,5 +8,5 @@
     android:gravity="center_horizontal"
     android:padding="@dimen/_2sdp"
     android:textColor="@color/black"
-    android:textSize="@dimen/_10sdp"
+    android:textSize="@dimen/_12sdp"
     app:font_text="SFUIDisplay-SemiBold.ttf" />

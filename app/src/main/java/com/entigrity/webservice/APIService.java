@@ -31,6 +31,7 @@ import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.savetopicsofinterest.SaveTopicsInterest;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.subject.SubjectModel;
+import com.entigrity.model.topics_subcategory.Topics_subcategory;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.topicsofinterestn.Topicsofinterest;
 import com.entigrity.model.usertype.UserTypeModel;
@@ -359,12 +360,21 @@ public interface APIService {
 
     //get topics of interest for logged user
 
-    @GET("topic-of-interest/list")
-    Observable<Topicsofinterest> GetTopicsofInterests(
+    @GET("topic-of-interest/get-selected-toi")
+    Observable<ViewTopicsFavorite> GetTopicsofInterests(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization
 
     );
+
+
+
+    /*@GET("topic-of-interest/list")
+    Observable<Topicsofinterest> GetTopicsofInterests(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization
+
+    );*/
 
 
     //get webinar details
@@ -437,14 +447,14 @@ public interface APIService {
 
 
     //get view topics of interest
-    @GET("topic-of-interest/save")
+    @GET("topic-of-interest/get-selected-toi")
     Observable<View_Topics_Interest_Model> GetViewTopicsOfInterest(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization);
 
 
     //get view topics of interest from favorite
-    @GET("topic-of-interest/save")
+    @GET("topic-of-interest/get-selected-toi")
     Observable<ViewTopicsFavorite> GetViewTopicsOfInterestFavorite(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization);
@@ -476,6 +486,17 @@ public interface APIService {
             @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("webinar_id") int webinar_id);
+
+
+    //get sub category of topics of interest
+
+
+    @POST("topic-of-interest/tag")
+    @FormUrlEncoded
+    Observable<Topics_subcategory> GetSubcategoryTopics(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("category_id") int category_id);
 
 
 }

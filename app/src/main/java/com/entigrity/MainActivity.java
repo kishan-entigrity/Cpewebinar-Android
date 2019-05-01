@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void SetCreditScreen() {
         isclickhome = false;
         setselectedtab = 0;

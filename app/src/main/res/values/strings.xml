@@ -55,6 +55,7 @@
     <string name="str_btn_next">NEXT</string>
     <string name="check_validation_popup_topics">Would You Like to add Topics of Interest?</string>
     <string name="str_skip">SKIP</string>
+    <string name="str_download_link_not_found">Download link not found</string>
 
 
     //hashmap key
@@ -578,6 +579,7 @@
     <string name="from_home_screen">homescreen</string>
     <string name="from_edit_profile">editscreen</string>
     <string name="from_account_screen">accountscreen</string>
+    <string name="from_sign_up_screen">signupscreen</string>
 
     //Review Question
     <string name="str_review_question">Review Question</string>

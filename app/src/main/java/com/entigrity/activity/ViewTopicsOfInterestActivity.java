@@ -12,8 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.entigrity.R;
-import com.entigrity.adapter.ViewTopicsOfInterestAdapter;
-import com.entigrity.adapter.favoriteviewtopicsofinterestadapter;
+import com.entigrity.adapter.RecycleviewSectionFavoriteTestAdapter;
+import com.entigrity.adapter.RecycleviewSectionViewProfileTestAdapter;
 import com.entigrity.databinding.ActivityViewTopicsofinterestBinding;
 import com.entigrity.model.view_interest_favorite.ViewTopicsFavorite;
 import com.entigrity.model.view_topics_of_interest.TopicOfInterestsItem;
@@ -39,8 +39,8 @@ public class ViewTopicsOfInterestActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
     private ArrayList<com.entigrity.model.view_interest_favorite.TopicOfInterestsItem> topicsofinterestitemfavorite = new ArrayList<com.entigrity.model.view_interest_favorite.TopicOfInterestsItem>();
-    ViewTopicsOfInterestAdapter adapter;
-    favoriteviewtopicsofinterestadapter favoriteviewtopicsofinterestadapter;
+    RecycleviewSectionViewProfileTestAdapter adapter;
+    RecycleviewSectionFavoriteTestAdapter favoriteviewtopicsofinterestadapter;
     private String fromscreen = "";
 
 
@@ -56,7 +56,6 @@ public class ViewTopicsOfInterestActivity extends AppCompatActivity {
         if (intent != null) {
 
             fromscreen = intent.getStringExtra(getResources().getString(R.string.str_get_key_screen));
-            // Constant.Log(TAG, "size" + topicsofinterestitem.size());
 
             linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             binding.rvtopicsOfInterest.setLayoutManager(linearLayoutManager);
@@ -72,10 +71,8 @@ public class ViewTopicsOfInterestActivity extends AppCompatActivity {
                 }
             } else {
                 topicsofinterestitem = intent.getParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest));
-
-
                 if (topicsofinterestitem.size() > 0) {
-                    adapter = new ViewTopicsOfInterestAdapter(context, topicsofinterestitem);
+                    adapter = new RecycleviewSectionViewProfileTestAdapter(context, topicsofinterestitem);
                     binding.rvtopicsOfInterest.setAdapter(adapter);
                 }
             }
@@ -101,10 +98,9 @@ public class ViewTopicsOfInterestActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted() {
                         if (topicsofinterestitemfavorite.size() > 0) {
-                            favoriteviewtopicsofinterestadapter = new favoriteviewtopicsofinterestadapter(context, topicsofinterestitemfavorite);
+                            favoriteviewtopicsofinterestadapter = new RecycleviewSectionFavoriteTestAdapter(context, topicsofinterestitemfavorite);
                             binding.rvtopicsOfInterest.setAdapter(favoriteviewtopicsofinterestadapter);
                         }
-
 
                     }
 

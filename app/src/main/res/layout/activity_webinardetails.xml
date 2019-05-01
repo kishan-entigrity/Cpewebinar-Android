@@ -11,6 +11,7 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/reltop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White">
@@ -57,6 +58,7 @@
 
         </RelativeLayout>
 
+
         <RelativeLayout
             android:id="@+id/rel_view"
             android:layout_width="match_parent"
@@ -83,13 +85,13 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_gravity="center"
-                    app:uvv_autoRotation="true"
+                    app:uvv_autoRotation="false"
                     app:uvv_fitXY="false" />
 
                 <com.universalvideoview.UniversalMediaController
                     android:id="@+id/media_controller"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     app:uvv_scalable="true" />
 
             </FrameLayout>

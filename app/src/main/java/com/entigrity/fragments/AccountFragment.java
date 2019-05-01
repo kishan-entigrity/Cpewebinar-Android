@@ -74,7 +74,6 @@ public class AccountFragment extends Fragment {
     public String whoyouarevalue = "";
     public int whoyouare = 0;
     public String State, City;
-    public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
 
     @Nullable
@@ -151,19 +150,11 @@ public class AccountFragment extends Fragment {
                                 }
 
 
-                                Constant.Log(TAG, "size" + topicsofinterestitem.size());
-                                Constant.Log(TAG, "token" + AppSettings.get_login_token(context));
-
-                                for (int i = 0; i < topicsofinterestitem.size(); i++) {
-                                    Constant.Log(TAG, "values" + topicsofinterestitem.get(i).getName());
-                                }
-
-
-                            } else {
-                                Snackbar.make(binding.tvTopicsOfInterest, view_topics_interest_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                             }
 
 
+                        } else {
+                            Snackbar.make(binding.tvTopicsOfInterest, view_topics_interest_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 

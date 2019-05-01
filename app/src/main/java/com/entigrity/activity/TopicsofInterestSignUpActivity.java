@@ -53,6 +53,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     SignUpInterestAdapter adapter;
     public EditText edt_search;
+    private String fromscreen = "";
 
     private String fname, lname, email, password, confirm_password, firmname, mobilenumber;
 
@@ -64,23 +65,32 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
         mAPIService = ApiUtilsNew.getAPIService();
         context = TopicsofInterestSignUpActivity.this;
 
+        init();
+        onclick();
+
         Intent intent = getIntent();
         if (intent != null) {
-            fname = intent.getStringExtra(getResources().getString(R.string.reg_firstname));
-            lname = intent.getStringExtra(getResources().getString(R.string.reg_lastname));
-            email = intent.getStringExtra(getResources().getString(R.string.reg_email));
-            password = intent.getStringExtra(getResources().getString(R.string.reg_password));
-            confirm_password = intent.getStringExtra(getResources().getString(R.string.reg_confirm_password));
-            firmname = intent.getStringExtra(getResources().getString(R.string.reg_firmname));
-            mobilenumber = intent.getStringExtra(getResources().getString(R.string.reg_mobilenumber));
-            user_type = intent.getIntExtra(getResources().getString(R.string.reg_whoyouare), 0);
-            checkprivacypolicystatus = intent.getBooleanExtra(getResources().getString(R.string.reg_isaccepted), false);
+            fromscreen = intent.getStringExtra(getResources().getString(R.string.str_get_key_screen));
+
+
+            if (fromscreen.equalsIgnoreCase(getResources().getString(R.string.from_sign_up_screen))) {
+                tv_submit.setText(getResources().getString(R.string.str_register));
+                fname = intent.getStringExtra(getResources().getString(R.string.reg_firstname));
+                lname = intent.getStringExtra(getResources().getString(R.string.reg_lastname));
+                email = intent.getStringExtra(getResources().getString(R.string.reg_email));
+                password = intent.getStringExtra(getResources().getString(R.string.reg_password));
+                confirm_password = intent.getStringExtra(getResources().getString(R.string.reg_confirm_password));
+                firmname = intent.getStringExtra(getResources().getString(R.string.reg_firmname));
+                mobilenumber = intent.getStringExtra(getResources().getString(R.string.reg_mobilenumber));
+                user_type = intent.getIntExtra(getResources().getString(R.string.reg_whoyouare), 0);
+                checkprivacypolicystatus = intent.getBooleanExtra(getResources().getString(R.string.reg_isaccepted), false);
+            } else {
+                tv_submit.setText(getResources().getString(R.string.str_submit));
+
+            }
 
 
         }
-
-        init();
-        onclick();
 
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -102,17 +112,27 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (Constant.arraylistselectedvalue.size() != 0) {
-                    if (Constant.isNetworkAvailable(context)) {
-                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        RegisterPost(fname, lname, email, password, confirm_password, firmname, mobilenumber,
-                                Constant.arraylistselectedvalue, user_type);
-                    } else {
-                        Snackbar.make(tv_submit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                if (fromscreen.equalsIgnoreCase(getResources().getString(R.string.from_sign_up_screen))) {
+                    if (Constant.arraylistselectedvalue.size() != 0) {
+                        if (Constant.isNetworkAvailable(context)) {
+                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                            RegisterPost(fname, lname, email, password, confirm_password, firmname, mobilenumber,
+                                    Constant.arraylistselectedvalue, user_type);
+                        } else {
+                            Snackbar.make(tv_submit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
+                        }
+                    } else {
+                        Snackbar.make(tv_submit, getResources().getString(R.string.val_topics), Snackbar.LENGTH_SHORT).show();
                     }
+
                 } else {
-                    Snackbar.make(tv_submit, getResources().getString(R.string.val_topics), Snackbar.LENGTH_SHORT).show();
+                    if (Constant.arraylistselectedvalue.size() != 0) {
+                        finish();
+                    } else {
+                        Snackbar.make(tv_submit, getResources().getString(R.string.val_topics), Snackbar.LENGTH_SHORT).show();
+                    }
+
                 }
 
 
@@ -122,7 +142,9 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Constant.arraylistselectedvalue.clear();
                 finish();
+
 
             }
         });
@@ -143,7 +165,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (adapter != null) {
-                    adapter.getFilter().filter(s);
+                    adapter.getFilter().filter(s.toString());
                 }
 
             }

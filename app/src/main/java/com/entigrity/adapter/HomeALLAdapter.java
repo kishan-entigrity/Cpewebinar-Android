@@ -28,7 +28,6 @@ import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.StringTokenizer;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -153,7 +152,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             }
 
 
-            if (!mList.get(position).getRecordedDate().equalsIgnoreCase("")) {
+            /*if (!mList.get(position).getRecordedDate().equalsIgnoreCase("")) {
 
 
                 StringTokenizer tokens = new StringTokenizer(mList.get(position).getRecordedDate(), "-");
@@ -206,7 +205,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                 ((HomeViewHolder) viewHolder).tv_webinar_date.setText(day + " " + month + " " + year);
 
 
-            }
+            }*/
 
             if (mList.get(position).getWebinarLike().equalsIgnoreCase(mContext
                     .getResources().getString(R.string.fav_yes))) {
@@ -216,7 +215,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             }
 
 
-            if (!mList.get(position).getStartTime().equalsIgnoreCase("")) {
+           /* if (!mList.get(position).getStartTime().equalsIgnoreCase("")) {
                 ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.VISIBLE);
 
                 StringTokenizer tokens = new StringTokenizer(mList.get(position).getStartTime(), " ");
@@ -244,7 +243,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
             } else {
                 ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.GONE);
-            }
+            }*/
 
 
             ((HomeViewHolder) viewHolder).ivshare.setOnClickListener(new View.OnClickListener() {

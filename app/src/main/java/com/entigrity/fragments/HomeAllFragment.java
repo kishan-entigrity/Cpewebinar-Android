@@ -34,6 +34,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.entigrity.utility.Constant.arraylistselectedvalue;
+
 public class HomeAllFragment extends Fragment {
     private FragmentAllBinding binding;
     public Context context;
@@ -248,6 +250,70 @@ public class HomeAllFragment extends Fragment {
         return view = binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Constant.Log(TAG, "size" + arraylistselectedvalue.size());
+
+        if (arraylistselectedvalue.size() > 0) {
+            topicsofinterest="";
+
+            StringBuilder commaSepValueBuilder = new StringBuilder();
+
+            //Looping through the list
+            for (int i = 0; i < arraylistselectedvalue.size(); i++) {
+                //append the value into the builder
+                commaSepValueBuilder.append(arraylistselectedvalue.get(i));
+
+                //if the value is not the last element of the list
+                //then append the comma(,) as well
+                if (i != arraylistselectedvalue.size() - 1) {
+                    commaSepValueBuilder.append(",");
+                }
+            }
+            //System.out.println(commaSepValueBuilder.toString());
+            topicsofinterest = commaSepValueBuilder.toString();
+
+            System.out.println(topicsofinterest);
+
+            start = 0;
+            limit = 10;
+            loading = true;
+
+
+            if (Constant.isNetworkAvailable(context)) {
+                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                GetHomeListNew(webinartype, topicsofinterest, start, limit);
+            } else {
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
+            }
+
+        }
+
+    }
+
+
+
+
+   /* @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            Constant.Log(TAG, "requestcode" + requestCode);
+        } else {
+            Constant.Log(TAG, "requestcode" + requestCode);
+        }
+
+    }*/
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        Constant.Log(TAG, "onDetach");
+    }
+
     private void loadNextPage() {
 
         if (Constant.isNetworkAvailable(context)) {
@@ -272,10 +338,7 @@ public class HomeAllFragment extends Fragment {
             GetHomeListNew(webinartype, topicsofinterest, start, limit);
         } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-
         }
-
-
     }
 
 
@@ -402,7 +465,7 @@ public class HomeAllFragment extends Fragment {
         int pos = layoutManager.findLastCompletelyVisibleItemPosition();
         int numItems = binding.rvhome.getAdapter().getItemCount() - 1;
 
-        Constant.Log(TAG, "pos + numitem" + pos + "  " + "  " + numItems);
+        //Constant.Log(TAG, "pos + numitem" + pos + "  " + "  " + numItems);
 
         return (pos >= numItems);
     }

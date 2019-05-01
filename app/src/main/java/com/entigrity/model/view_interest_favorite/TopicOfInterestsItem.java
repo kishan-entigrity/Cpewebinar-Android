@@ -13,6 +13,9 @@ public class TopicOfInterestsItem{
 	@SerializedName("id")
 	private int id;
 
+
+
+
 	@SerializedName("tags")
 	private List<TagsItem> tags;
 
