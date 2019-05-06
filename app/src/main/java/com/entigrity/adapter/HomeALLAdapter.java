@@ -17,8 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
-import com.entigrity.activity.StripePaymentActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
+import com.entigrity.fragments.HomeAllFragment;
+import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
@@ -28,6 +29,7 @@ import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -40,10 +42,11 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
     private boolean isLoadingAdded = false;
     private Context mContext;
     LayoutInflater mInflater;
-    private List<com.entigrity.model.homewebinarnew.WebinarItem> mList;
+    public List<com.entigrity.model.homewebinarnew.WebinarItem> mList;
     private String start_time;
     private APIService mAPIService;
     ProgressDialog progressDialog;
+    public int positions = 0;
 
 
     public HomeALLAdapter(Context mContext, List<com.entigrity.model.homewebinarnew.WebinarItem> mList) {
@@ -86,9 +89,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                 ((HomeViewHolder) viewHolder).tv_webinar_title.setText(mList.get(position).getWebinarTitle());
             }
 
-            if (!mList.get(position).getWebinarStatus().equalsIgnoreCase("")) {
+            if (!mList.get(position).getStatus().equalsIgnoreCase("")) {
 
-                if (mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext
+                if (mList.get(position).getStatus().equalsIgnoreCase(mContext
                         .getResources().getString(R.string.str_webinar_status_register))) {
                     ((HomeViewHolder) viewHolder).webinar_status.setBackgroundResource(R.drawable.rounded_credit_home);
                 } else {
@@ -96,19 +99,25 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                 }
 
 
-                ((HomeViewHolder) viewHolder).webinar_status.setText(mList.get(position).getWebinarStatus());
+                ((HomeViewHolder) viewHolder).webinar_status.setText(mList.get(position).getStatus());
             }
 
 
             if (!mList.get(position).getFee().equalsIgnoreCase("")) {
                 ((HomeViewHolder) viewHolder).tv_webinar_price_status.setText("$" + mList.get(position).getFee());
 
+            } else {
+                ((HomeViewHolder) viewHolder).tv_webinar_price_status.setText("Free");
             }
 
             if (!mList.get(position).getWebinarThumbnailImage().equalsIgnoreCase("")) {
                 Picasso.with(mContext).load(mList.get(position).getWebinarThumbnailImage())
                         .placeholder(R.mipmap.webinar_placeholder)
+                        .fit()
+                        .centerCrop()
                         .into(((HomeViewHolder) viewHolder).ivwebinar_thumbhel);
+            } else {
+                ((HomeViewHolder) viewHolder).ivwebinar_thumbhel.setImageResource(R.mipmap.webinar_placeholder);
             }
 
             if (!mList.get(position).getCpaCredit().equalsIgnoreCase("")) {
@@ -129,12 +138,38 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             }
 
 
-            if (!mList.get(position).getDuration().equalsIgnoreCase("")) {
+            if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext
+                    .getResources().getString(R.string.str_filter_live))) {
+                ((HomeViewHolder) viewHolder).tv_webinar_date.setVisibility(View.VISIBLE);
+                ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.VISIBLE);
                 ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.VISIBLE);
-                ((HomeViewHolder) viewHolder).tv_duration_name.setText(mList.get(position).getDuration() + " " + mContext.getResources().getString(R.string.str_fav_duration));
-
+                ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.VISIBLE);
             } else {
+                ((HomeViewHolder) viewHolder).tv_webinar_date.setVisibility(View.GONE);
+                ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.GONE);
                 ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.GONE);
+                ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.GONE);
+            }
+
+
+            if (mList.get(position).getDuration() != 0) {
+
+
+                String result = formatHoursAndMinutes(mList.get(position).getDuration());
+
+
+                StringTokenizer tokens = new StringTokenizer(result, ":");
+                String hour = tokens.nextToken();// this will contain year
+                String min = tokens.nextToken();//th
+
+                if (min.equalsIgnoreCase("00")) {
+                    ((HomeViewHolder) viewHolder).tv_duration_name.setText(hour + " " + mContext.getResources().getString(R.string.str_hour));
+                } else {
+                    ((HomeViewHolder) viewHolder).tv_duration_name.setText(hour + " " + mContext.getResources().getString(R.string.str_hour) + " " + min +
+                            " " + mContext.getResources().getString(R.string.str_min));
+                }
+
+
             }
 
 
@@ -152,10 +187,10 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             }
 
 
-            /*if (!mList.get(position).getRecordedDate().equalsIgnoreCase("")) {
+            if (!mList.get(position).getStartDate().equalsIgnoreCase("")) {
 
 
-                StringTokenizer tokens = new StringTokenizer(mList.get(position).getRecordedDate(), "-");
+                StringTokenizer tokens = new StringTokenizer(mList.get(position).getStartDate(), "-");
                 String year = tokens.nextToken();// this will contain year
                 String month = tokens.nextToken();//this will contain month
                 String day = tokens.nextToken();//this will contain day
@@ -205,13 +240,18 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                 ((HomeViewHolder) viewHolder).tv_webinar_date.setText(day + " " + month + " " + year);
 
 
-            }*/
+            }
 
             if (mList.get(position).getWebinarLike().equalsIgnoreCase(mContext
                     .getResources().getString(R.string.fav_yes))) {
                 ((HomeViewHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like_hover);
             } else {
                 ((HomeViewHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
+            }
+
+
+            if (!mList.get(position).getStartTime().equalsIgnoreCase("")) {
+                ((HomeViewHolder) viewHolder).tv_webinar_time.setText(mList.get(position).getStartTime());
             }
 
 
@@ -275,6 +315,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                         Intent i = new Intent(mContext, WebinarDetailsActivity.class);
                         i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
                                 .get(position).getId());
+                        i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
+                                .get(position).getWebinarType());
+
                         mContext.startActivity(i);
                     }
 
@@ -289,11 +332,15 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
                     if (!AppSettings.get_login_token(mContext).isEmpty()) {
 
-                        if (mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext
+                        if (mList.get(position).getStatus().equalsIgnoreCase(mContext
                                 .getResources().getString(R.string.str_webinar_status_register))) {
+                            if (Constant.isNetworkAvailable(mContext)) {
+                                progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
+                                RegisterWebinar(mList.get(position).getId(), ((HomeViewHolder) viewHolder).webinar_status, position);
+                            } else {
+                                Snackbar.make(((HomeViewHolder) viewHolder).webinar_status, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                            }
 
-                            Intent i = new Intent(mContext, StripePaymentActivity.class);
-                            mContext.startActivity(i);
 
                         }
                     }
@@ -325,6 +372,13 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
     }
 
+    public String formatHoursAndMinutes(int totalMinutes) {
+        String minutes = Integer.toString(totalMinutes % 60);
+        minutes = minutes.length() == 1 ? "0" + minutes : minutes;
+        return (totalMinutes / 60) + ":" + minutes;
+    }
+
+
     public void add(com.entigrity.model.homewebinarnew.WebinarItem webinarItem) {
         mList.add(webinarItem);
         notifyItemInserted(mList.size());
@@ -335,6 +389,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             add(mc);
         }
     }
+
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
@@ -357,7 +412,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
         TextView tv_webinar_title, tv_webinar_price_status, tv_webinar_date, tv_webinar_time, tv_duration_name,
                 tv_webinar_type, tv_favorite_count, tv_attend_views, tv_favorite_speaker_name, tv_company_name;
-        ImageView ivwebinar_thumbhel, ivshare;
+        ImageView ivwebinar_thumbhel, ivshare, dv_time_duration;
         Button credit_status, webinar_status;
         ImageView ivfavorite;
         RelativeLayout rel_item;
@@ -365,8 +420,10 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
         private HomeViewHolder(View itemView) {
             super(itemView);
+            setIsRecyclable(false);
 
             ivfavorite = (ImageView) itemView.findViewById(R.id.ivfavorite);
+            dv_time_duration = (ImageView) itemView.findViewById(R.id.dv_time_duration);
             credit_status = (Button) itemView.findViewById(R.id.credit_status);
             webinar_status = (Button) itemView.findViewById(R.id.webinar_status);
             ivwebinar_thumbhel = (ImageView) itemView.findViewById(R.id.ivwebinar_thumbhel);
@@ -444,6 +501,53 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                 });
 
 
+    }
+
+    public void RegisterWebinar(int webinar_id, final Button button, final int position) {
+
+        mAPIService.RegisterWebinar(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ModelRegisterWebinar>() {
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(mContext, e);
+                        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onNext(ModelRegisterWebinar modelRegisterWebinar) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                        if (modelRegisterWebinar.isSuccess() == true) {
+                            Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            positions = position;
+                            HomeAllFragment.getInstance().RefreshData();
+                        } else {
+                            Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }
+
+                });
+
+    }
+
+    public void setItems(List<com.entigrity.model.homewebinarnew.WebinarItem> mlist) {
+        this.mList = mlist;
     }
 
 

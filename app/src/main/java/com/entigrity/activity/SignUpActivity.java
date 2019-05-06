@@ -35,7 +35,6 @@ import rx.schedulers.Schedulers;
 
 
 public class SignUpActivity extends AppCompatActivity {
-
     public Context context;
     ActivitySignupBinding binding;
     private APIService mAPIService_new;
@@ -80,8 +79,6 @@ public class SignUpActivity extends AppCompatActivity {
                     boolean_usertype = false;
                 } else {
                     user_type = position;
-
-
                 }
 
             }

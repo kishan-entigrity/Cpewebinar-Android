@@ -60,6 +60,7 @@ public class NeastedAdapter extends RecyclerView.Adapter<NeastedAdapter.ViewHold
 
         private ViewHolder(View itemView) {
             super(itemView);
+            setIsRecyclable(false);
             itemTitle = (TextView) itemView.findViewById(R.id.itemTitle);
             lv_topics_item = (LinearLayout) itemView.findViewById(R.id.lv_topics_item);
 

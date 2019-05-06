@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-
 public class WebinarDetail{
 
 	@SerializedName("subject_area")
@@ -26,7 +25,7 @@ public class WebinarDetail{
 	private String webinarDate;
 
 	@SerializedName("duration")
-	private String duration;
+	private int duration;
 
 	@SerializedName("Learning_objective")
 	private List<String> learningObjective;
@@ -52,6 +51,9 @@ public class WebinarDetail{
 	@SerializedName("about_presententer")
 	private AboutPresententer aboutPresententer;
 
+	@SerializedName("start_date")
+	private String startDate;
+
 	@SerializedName("cost")
 	private String cost;
 
@@ -64,11 +66,20 @@ public class WebinarDetail{
 	@SerializedName("webinar_thumbnail")
 	private String webinarThumbnail;
 
+	@SerializedName("time_zone")
+	private String timeZone;
+
 	@SerializedName("webinar_video_url")
 	private String webinarVideoUrl;
 
 	@SerializedName("presentation_handout")
 	private List<String> presentationHandout;
+
+	@SerializedName("start_time")
+	private String startTime;
+
+	@SerializedName("timezones")
+	private List<TimezonesItem> timezones;
 
 	@SerializedName("series")
 	private String series;
@@ -133,11 +144,11 @@ public class WebinarDetail{
 		return webinarDate;
 	}
 
-	public void setDuration(String duration){
+	public void setDuration(int duration){
 		this.duration = duration;
 	}
 
-	public String getDuration(){
+	public int getDuration(){
 		return duration;
 	}
 
@@ -205,6 +216,14 @@ public class WebinarDetail{
 		return aboutPresententer;
 	}
 
+	public void setStartDate(String startDate){
+		this.startDate = startDate;
+	}
+
+	public String getStartDate(){
+		return startDate;
+	}
+
 	public void setCost(String cost){
 		this.cost = cost;
 	}
@@ -237,6 +256,14 @@ public class WebinarDetail{
 		return webinarThumbnail;
 	}
 
+	public void setTimeZone(String timeZone){
+		this.timeZone = timeZone;
+	}
+
+	public String getTimeZone(){
+		return timeZone;
+	}
+
 	public void setWebinarVideoUrl(String webinarVideoUrl){
 		this.webinarVideoUrl = webinarVideoUrl;
 	}
@@ -251,6 +278,22 @@ public class WebinarDetail{
 
 	public List<String> getPresentationHandout(){
 		return presentationHandout;
+	}
+
+	public void setStartTime(String startTime){
+		this.startTime = startTime;
+	}
+
+	public String getStartTime(){
+		return startTime;
+	}
+
+	public void setTimezones(List<TimezonesItem> timezones){
+		this.timezones = timezones;
+	}
+
+	public List<TimezonesItem> getTimezones(){
+		return timezones;
 	}
 
 	public void setSeries(String series){
@@ -312,12 +355,16 @@ public class WebinarDetail{
 			",webinar_title = '" + webinarTitle + '\'' + 
 			",credit = '" + credit + '\'' + 
 			",about_presententer = '" + aboutPresententer + '\'' + 
+			",start_date = '" + startDate + '\'' + 
 			",cost = '" + cost + '\'' + 
 			",prerequisite = '" + prerequisite + '\'' + 
 			",who_should_attend = '" + whoShouldAttend + '\'' + 
 			",webinar_thumbnail = '" + webinarThumbnail + '\'' + 
+			",time_zone = '" + timeZone + '\'' + 
 			",webinar_video_url = '" + webinarVideoUrl + '\'' + 
 			",presentation_handout = '" + presentationHandout + '\'' + 
+			",start_time = '" + startTime + '\'' + 
+			",timezones = '" + timezones + '\'' + 
 			",series = '" + series + '\'' + 
 			",refund_and_cancelation_policy = '" + refundAndCancelationPolicy + '\'' + 
 			",nasba_approved = '" + nasbaApproved + '\'' + 

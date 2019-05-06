@@ -52,6 +52,7 @@ public class HomeAllFragment extends Fragment {
     private boolean loading = true;
     public int start = 0, limit = 10;
     public boolean islast = false;
+    private static HomeAllFragment instance;
     View view;
 
     @Nullable
@@ -59,11 +60,13 @@ public class HomeAllFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_all, null, false);
         mAPIService_new = ApiUtilsNew.getAPIService();
+        instance = HomeAllFragment.this;
         context = getActivity();
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         binding.rvhome.setLayoutManager(linearLayoutManager);
         binding.rvhome.addItemDecoration(new SimpleDividerItemDecoration(context));
         binding.rvhome.setItemAnimator(new DefaultItemAnimator());
+        binding.rvhome.setHasFixedSize(true);
 
 
         arrsavebooleanstate.add(0, false);
@@ -250,13 +253,19 @@ public class HomeAllFragment extends Fragment {
         return view = binding.getRoot();
     }
 
+
+    public static HomeAllFragment getInstance() {
+        return instance;
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
         Constant.Log(TAG, "size" + arraylistselectedvalue.size());
 
         if (arraylistselectedvalue.size() > 0) {
-            topicsofinterest="";
+            topicsofinterest = "";
 
             StringBuilder commaSepValueBuilder = new StringBuilder();
 
@@ -307,12 +316,6 @@ public class HomeAllFragment extends Fragment {
 
     }*/
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        Constant.Log(TAG, "onDetach");
-    }
 
     private void loadNextPage() {
 
@@ -342,6 +345,16 @@ public class HomeAllFragment extends Fragment {
     }
 
 
+    public void RefreshData() {
+        if (Constant.isNetworkAvailable(context)) {
+            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+            GetHomeListRefresh(webinartype, topicsofinterest, start, limit);
+        } else {
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+
     public void GetHomeListNew(final String webinartype, final String topicsofinterest, final int start, final int limit) {
 
         mAPIService_new.GetHomeWebinarListNew(getResources().getString(R.string.accept),
@@ -361,6 +374,7 @@ public class HomeAllFragment extends Fragment {
                             if (arrHomelistnew.size() > 0) {
                                 adapter = new HomeALLAdapter(context, arrHomelistnew);
                                 binding.rvhome.setAdapter(adapter);
+
                             }
                         } else {
                             adapter.addLoadingFooter();
@@ -459,6 +473,64 @@ public class HomeAllFragment extends Fragment {
 
 
     }
+
+
+    public void GetHomeListRefresh(final String webinartype, final String topicsofinterest, final int start, final int limit) {
+
+        mAPIService_new.GetHomeWebinarListNew(getResources().getString(R.string.accept),
+                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Webinar_Home_New>() {
+                    @Override
+                    public void onCompleted() {
+                        loading = true;
+                    }
+
+
+                    @Override
+                    public void onError(Throwable e) {
+
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Snackbar.make(binding.rvhome, message, Snackbar.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(Webinar_Home_New webinar_home_new) {
+
+                        if (webinar_home_new.isSuccess() == true) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+
+
+                            islast = webinar_home_new.getPayload().isIsLast();
+
+
+                            List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
+                            adapter.setItems(webinaritems);
+                            adapter.notifyDataSetChanged();
+
+
+                        } else {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            Snackbar.make(binding.rvhome, webinar_home_new.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+
+
+                });
+
+
+    }
+
 
     boolean isLastVisible() {
         LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvhome.getLayoutManager());

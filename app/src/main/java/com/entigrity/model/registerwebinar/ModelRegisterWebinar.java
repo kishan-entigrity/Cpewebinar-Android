@@ -1,9 +1,9 @@
-package com.entigrity.model.webinar_details_new;
+package com.entigrity.model.registerwebinar;
 
 import com.google.gson.annotations.SerializedName;
 
 
-public class Webinar_details {
+public class ModelRegisterWebinar {
 
 	@SerializedName("payload")
 	private Payload payload;
@@ -41,7 +41,7 @@ public class Webinar_details {
 	@Override
  	public String toString(){
 		return 
-			"Webinar_details{" +
+			"ModelRegisterWebinar{" +
 			"payload = '" + payload + '\'' + 
 			",success = '" + success + '\'' + 
 			",message = '" + message + '\'' + 

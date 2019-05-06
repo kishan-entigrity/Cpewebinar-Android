@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/my_credit_status"
     android:gravity="center_horizontal"
-    android:padding="@dimen/_2sdp"
+    android:padding="@dimen/_1sdp"
+    android:ems="5"
     android:textColor="@color/black"
     android:textSize="@dimen/_10sdp"
     app:font_text="Montserrat-SemiBold.ttf" />

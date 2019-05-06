@@ -3,84 +3,84 @@ package com.entigrity.model.webinar_details_new;
 import com.google.gson.annotations.SerializedName;
 
 
-public class AboutPresententer{
+public class AboutPresententer {
 
-	@SerializedName("desgnination")
-	private String desgnination;
+    @SerializedName("desgnination")
+    private Object desgnination;
 
-	@SerializedName("email_id")
-	private String emailId;
+    @SerializedName("email_id")
+    private String emailId;
 
-	@SerializedName("company_desc")
-	private String companyDesc;
+    @SerializedName("company_desc")
+    private Object companyDesc;
 
-	@SerializedName("company_name")
-	private String companyName;
+    @SerializedName("company_name")
+    private String companyName;
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("name")
+    private String name;
 
-	@SerializedName("speaker_desc")
-	private String speakerDesc;
+    @SerializedName("speaker_desc")
+    private String speakerDesc;
 
-	public void setDesgnination(String desgnination){
-		this.desgnination = desgnination;
-	}
+    public void setDesgnination(Object desgnination) {
+        this.desgnination = desgnination;
+    }
 
-	public String getDesgnination(){
-		return desgnination;
-	}
+    public Object getDesgnination() {
+        return desgnination;
+    }
 
-	public void setEmailId(String emailId){
-		this.emailId = emailId;
-	}
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
 
-	public String getEmailId(){
-		return emailId;
-	}
+    public String getEmailId() {
+        return emailId;
+    }
 
-	public void setCompanyDesc(String companyDesc){
-		this.companyDesc = companyDesc;
-	}
+    public void setCompanyDesc(Object companyDesc) {
+        this.companyDesc = companyDesc;
+    }
 
-	public String getCompanyDesc(){
-		return companyDesc;
-	}
+    public Object getCompanyDesc() {
+        return companyDesc;
+    }
 
-	public void setCompanyName(String companyName){
-		this.companyName = companyName;
-	}
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
-	public String getCompanyName(){
-		return companyName;
-	}
+    public String getCompanyName() {
+        return companyName;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setSpeakerDesc(String speakerDesc){
-		this.speakerDesc = speakerDesc;
-	}
+    public void setSpeakerDesc(String speakerDesc) {
+        this.speakerDesc = speakerDesc;
+    }
 
-	public String getSpeakerDesc(){
-		return speakerDesc;
-	}
+    public String getSpeakerDesc() {
+        return speakerDesc;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"AboutPresententer{" + 
-			"desgnination = '" + desgnination + '\'' + 
-			",email_id = '" + emailId + '\'' + 
-			",company_desc = '" + companyDesc + '\'' + 
-			",company_name = '" + companyName + '\'' + 
-			",name = '" + name + '\'' + 
-			",speaker_desc = '" + speakerDesc + '\'' + 
-			"}";
-		}
+    @Override
+    public String toString() {
+        return
+                "AboutPresententer{" +
+                        "desgnination = '" + desgnination + '\'' +
+                        ",email_id = '" + emailId + '\'' +
+                        ",company_desc = '" + companyDesc + '\'' +
+                        ",company_name = '" + companyName + '\'' +
+                        ",name = '" + name + '\'' +
+                        ",speaker_desc = '" + speakerDesc + '\'' +
+                        "}";
+    }
 }

@@ -17,9 +17,6 @@ public class WebinarItem {
     @SerializedName("webinar_image")
     private String webinarImage;
 
-    @SerializedName("end_time")
-    private String endTime;
-
     @SerializedName("people_register_webinar")
     private int peopleRegisterWebinar;
 
@@ -30,7 +27,7 @@ public class WebinarItem {
     private String webinarShareLink;
 
     @SerializedName("duration")
-    private String duration;
+    private int duration;
 
     @SerializedName("start_time")
     private String startTime;
@@ -59,8 +56,11 @@ public class WebinarItem {
     @SerializedName("webinar_like")
     private String webinarLike;
 
-    @SerializedName("webinar_status")
-    private String webinarStatus;
+    @SerializedName("start_date")
+    private String startDate;
+
+    @SerializedName("status")
+    private String status;
 
     public void setFavWebinarCount(int favWebinarCount) {
         this.favWebinarCount = favWebinarCount;
@@ -94,14 +94,6 @@ public class WebinarItem {
         return webinarImage;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
     public void setPeopleRegisterWebinar(int peopleRegisterWebinar) {
         this.peopleRegisterWebinar = peopleRegisterWebinar;
     }
@@ -126,11 +118,11 @@ public class WebinarItem {
         return webinarShareLink;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
@@ -206,12 +198,20 @@ public class WebinarItem {
         return webinarLike;
     }
 
-    public void setWebinarStatus(String webinarStatus) {
-        this.webinarStatus = webinarStatus;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public String getWebinarStatus() {
-        return webinarStatus;
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     @Override
@@ -222,7 +222,6 @@ public class WebinarItem {
                         ",speaker_name = '" + speakerName + '\'' +
                         ",fee = '" + fee + '\'' +
                         ",webinar_image = '" + webinarImage + '\'' +
-                        ",end_time = '" + endTime + '\'' +
                         ",people_register_webinar = '" + peopleRegisterWebinar + '\'' +
                         ",time_zone = '" + timeZone + '\'' +
                         ",webinar_share_link = '" + webinarShareLink + '\'' +
@@ -236,7 +235,8 @@ public class WebinarItem {
                         ",id = '" + id + '\'' +
                         ",webinar_type = '" + webinarType + '\'' +
                         ",webinar_like = '" + webinarLike + '\'' +
-                        ",webinar_status = '" + webinarStatus + '\'' +
+                        ",start_date = '" + startDate + '\'' +
+                        ",status = '" + status + '\'' +
                         "}";
     }
 }

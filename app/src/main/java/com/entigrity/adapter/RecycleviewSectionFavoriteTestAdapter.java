@@ -26,6 +26,7 @@ public class RecycleviewSectionFavoriteTestAdapter extends RecyclerView.Adapter<
 
         public SectionViewHolder(View itemView) {
             super(itemView);
+            setIsRecyclable(false);
             tv_category = (TextView) itemView.findViewById(R.id.tv_category);
             item_recycler_view = (RecyclerView) itemView.findViewById(R.id.item_recycler_view);
             iv_edit = (ImageView) itemView.findViewById(R.id.iv_edit);

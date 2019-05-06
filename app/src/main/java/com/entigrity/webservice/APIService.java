@@ -27,6 +27,7 @@ import com.entigrity.model.logout.LogoutModel;
 import com.entigrity.model.notification.NotificationModel;
 import com.entigrity.model.postcontactus.PostContactQuery;
 import com.entigrity.model.postfeedback.PostFeedback;
+import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.savetopicsofinterest.SaveTopicsInterest;
 import com.entigrity.model.state.StateModel;
@@ -497,6 +498,17 @@ public interface APIService {
             @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("category_id") int category_id);
+
+
+    //register webinar
+
+    //post topics of interest
+    @POST("webinar/register-webinar")
+    @FormUrlEncoded
+    Observable<ModelRegisterWebinar> RegisterWebinar(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id);
 
 
 }

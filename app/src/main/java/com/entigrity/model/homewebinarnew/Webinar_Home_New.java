@@ -2,7 +2,6 @@ package com.entigrity.model.homewebinarnew;
 
 import com.google.gson.annotations.SerializedName;
 
-
 public class Webinar_Home_New {
 
 	@SerializedName("payload")

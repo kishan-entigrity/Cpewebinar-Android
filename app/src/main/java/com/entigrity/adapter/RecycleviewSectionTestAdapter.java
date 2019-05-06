@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import rx.Subscriber;
@@ -45,6 +47,7 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
 
         public SectionViewHolder(View itemView) {
             super(itemView);
+            setIsRecyclable(false);
             tv_category = (TextView) itemView.findViewById(R.id.tv_category);
             item_recycler_view = (RecyclerView) itemView.findViewById(R.id.item_recycler_view);
             iv_edit = (ImageView) itemView.findViewById(R.id.iv_edit);
@@ -63,6 +66,9 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
     public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     LinearLayoutManager linearLayoutManager;
     TopicsofinterestPopUpAdapter topicsofinterestPopUpAdapter;
+    List<com.entigrity.model.view_interest_favorite.TagsItem> itemsInSection;
+    NeastedAdapter adapter;
+    GridLayoutManager gridLayoutManager;
     private ArrayList<com.entigrity.model.topics_subcategory.TopicOfInterestsItem> mListrtopicsofinterestsubcategory = new ArrayList<>();
 
 
@@ -109,20 +115,18 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
         holder.tv_category.setText(mlist.get(position).getName());
 
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
+        gridLayoutManager = new GridLayoutManager(mContext, 3);
         int spacing = (int) mContext.getResources().getDimension(R.dimen._3sdp); // 50px
         boolean includeEdge = false;
         holder.item_recycler_view.addItemDecoration(new GridSpacingItemDecoration(3, spacing, includeEdge));
         holder.item_recycler_view.setLayoutManager(gridLayoutManager);
 
-        List<com.entigrity.model.view_interest_favorite.TagsItem> itemsInSection = mlist.get(position).getTags();
+        itemsInSection = mlist.get(position).getTags();
 
         if (itemsInSection.size() > 0) {
-            NeastedAdapter adapter = new NeastedAdapter(mContext, itemsInSection);
+            adapter = new NeastedAdapter(mContext, itemsInSection);
             holder.item_recycler_view.setAdapter(adapter);
         }
-
-
     }
 
     @Override
@@ -155,11 +159,12 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
 
                     @Override
                     public void onNext(Topics_subcategory topics_subcategory) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
 
                         if (topics_subcategory.isSuccess() == true) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
+
 
                             for (int i = 0; i < topics_subcategory.getPayload().getTopicOfInterests().size(); i++) {
                                 com.entigrity.model.topics_subcategory.TopicOfInterestsItem topicOfInterestsItem
@@ -211,20 +216,21 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
 
 
                 arraylistselectedtopicsofinterest = Constant.arraylistselectedtopicsofinterest;
+                ArrayList<Integer> myArrayList = new ArrayList<Integer>(new LinkedHashSet<Integer>(arraylistselectedtopicsofinterest));
 
 
-                if (arraylistselectedtopicsofinterest.size() > 0) {
+                if (myArrayList.size() > 0) {
 
                     StringBuilder commaSepValueBuilder = new StringBuilder();
 
                     //Looping through the list
-                    for (int i = 0; i < arraylistselectedtopicsofinterest.size(); i++) {
+                    for (int i = 0; i < myArrayList.size(); i++) {
                         //append the value into the builder
-                        commaSepValueBuilder.append(arraylistselectedtopicsofinterest.get(i));
+                        commaSepValueBuilder.append(myArrayList.get(i));
 
                         //if the value is not the last element of the list
                         //then append the comma(,) as well
-                        if (i != arraylistselectedtopicsofinterest.size() - 1) {
+                        if (i != myArrayList.size() - 1) {
                             commaSepValueBuilder.append(",");
                         }
                     }
@@ -308,20 +314,29 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
                             progressDialog.dismiss();
                         }
 
+
                         if (saveTopicsInterest.isSuccess() == true) {
 
+
+                            if (Constant.arraylistselectedtopicsofinterest.size() > 0) {
+                                Constant.arraylistselectedtopicsofinterest.clear();
+                            }
+                            if (arraylistselectedtopicsofinterest.size() > 0) {
+                                arraylistselectedtopicsofinterest.clear();
+                            }
+
+
                             if (myDialog.isShowing()) {
-                                if (arraylistselectedtopicsofinterest.size() > 0) {
-                                    arraylistselectedtopicsofinterest.clear();
-                                }
-
-                                if (Constant.arraylistselectedtopicsofinterest.size() > 0) {
-                                    Constant.arraylistselectedtopicsofinterest.clear();
-                                }
-
                                 myDialog.dismiss();
                             }
-                            TopicsOfInterestActivity.getInstance().ReCreate();
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    TopicsOfInterestActivity.getInstance().ReCreate();
+                                }
+                            }, 500);
+
 
                         } else {
 

@@ -17,7 +17,6 @@
         android:layout_toLeftOf="@+id/tv_webinar_price_status"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="@string/str_basic_management"
         android:textColor="@color/home_topbar_bgcolor"
         android:textSize="@dimen/_11sdp"
         app:font_text="Montserrat-SemiBold.ttf" />
@@ -31,7 +30,6 @@
         android:layout_gravity="right|center_vertical"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_5sdp"
-        android:text="@string/str_price_status"
         android:textAllCaps="true"
         android:textColor="@color/home_topbar_bgcolor"
         android:textSize="@dimen/_12sdp"
@@ -105,8 +103,7 @@
             android:id="@+id/ivwebinar_thumbhel"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_150sdp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/webinar_placeholder" />
+            android:scaleType="fitXY" />
 
         <FrameLayout
             android:id="@+id/rel_bg_score"
@@ -272,7 +269,6 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="@string/str_fav_instructor_name"
                     android:textColor="@color/fav_bottom_text_color"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Medium.ttf" />
@@ -303,7 +299,6 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="@string/str_fav_company_name"
                     android:textColor="@color/fav_bottom_text_color"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Medium.ttf" />

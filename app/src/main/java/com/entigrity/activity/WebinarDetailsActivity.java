@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -22,17 +21,19 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityWebinardetailsBinding;
+import com.entigrity.model.timezones;
 import com.entigrity.model.webinar_details_new.Webinar_details;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
@@ -64,6 +65,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     ProgressDialog progressDialog;
     private static final String TAG = WebinarDetailsActivity.class.getName();
     public int webinarid = 0;
+    public String webinar_type = "";
     private String webinar_share_link = "";
     private String is_favorite = "";
     public boolean checkfavoritestate = false;
@@ -75,14 +77,21 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
 
     TextView tv_who_attend, tv_lerning_objectives;
+    public boolean ispause = false;
     DownloadTask downloadTask;
 
     private int mSeekPosition;
     private int cachedHeight;
     private boolean isFullscreen;
     public static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
+    private ArrayList<String> arrayListtimezone = new ArrayList<String>();
+    private ArrayList<timezones> arrayliattimezones = new ArrayList<timezones>();
+
 
     String[] mhandoutArray;
+    public ArrayList<String> whoshouldattend = new ArrayList<>();
+
+    public boolean boolean_timezone = true;
 
 
     @Override
@@ -98,6 +107,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         Intent intent = getIntent();
         if (intent != null) {
             webinarid = intent.getIntExtra(getResources().getString(R.string.pass_webinar_id), 0);
+            webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
 
             Constant.Log(TAG, "webinar_id" + webinarid);
 
@@ -111,18 +121,16 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
         }
 
+        binding.lvWhoAttend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        /*int orientation = this.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            // code for portrait mode
-            binding.rvtitle.setVisibility(View.VISIBLE);
-            binding.rvbottom.setVisibility(View.VISIBLE);
-        } else {
-            // code for landscape mode
+                Intent i = new Intent(context, ActivityWhoYouAre.class);
+                i.putStringArrayListExtra(getResources().getString(R.string.pass_who_you_are_list), whoshouldattend);
+                startActivity(i);
 
-            binding.rvtitle.setVisibility(View.GONE);
-            binding.rvbottom.setVisibility(View.GONE);
-        }*/
+            }
+        });
 
 
         binding.ivback.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +147,89 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                 checkAndroidVersion();
             }
         });
+
+
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (boolean_timezone) {
+                    boolean_timezone = false;
+                } else {
+
+                    if (arrayliattimezones.size() > 0) {
+                        if (!arrayliattimezones.get(position).getStart_date().equalsIgnoreCase("")) {
+                            StringTokenizer tokens = new StringTokenizer(arrayliattimezones.get(position).getStart_date(), "-");
+                            String year = tokens.nextToken();// this will contain year
+                            String month = tokens.nextToken();//this will contain month
+                            String day = tokens.nextToken();//this will contain day
+
+                            // year = year.substring(2);
+
+
+                            if (month.equalsIgnoreCase("01")) {
+                                month = getResources().getString(R.string.jan);
+
+                            } else if (month.equalsIgnoreCase("02")) {
+                                month = getResources().getString(R.string.feb);
+
+                            } else if (month.equalsIgnoreCase("03")) {
+                                month = getResources().getString(R.string.march);
+
+                            } else if (month.equalsIgnoreCase("04")) {
+                                month = getResources().getString(R.string.april);
+
+                            } else if (month.equalsIgnoreCase("05")) {
+                                month = getResources().getString(R.string.may);
+
+                            } else if (month.equalsIgnoreCase("06")) {
+                                month = getResources().getString(R.string.june);
+
+                            } else if (month.equalsIgnoreCase("07")) {
+                                month = getResources().getString(R.string.july);
+
+                            } else if (month.equalsIgnoreCase("08")) {
+                                month = getResources().getString(R.string.aug);
+
+                            } else if (month.equalsIgnoreCase("09")) {
+                                month = getResources().getString(R.string.sept);
+
+                            } else if (month.equalsIgnoreCase("10")) {
+                                month = getResources().getString(R.string.oct);
+
+                            } else if (month.equalsIgnoreCase("11")) {
+                                month = getResources().getString(R.string.nov);
+
+                            } else if (month.equalsIgnoreCase("12")) {
+                                month = getResources().getString(R.string.dec);
+
+                            }
+                            binding.tvWebinardate.setText(day + " " + month + " " + year + "     " +
+                                    arrayliattimezones.get(position).getStart_time()
+                                    + " | "
+                            );
+
+
+                        }
+
+                    } else {
+                        Constant.toast(context, getResources().getString(R.string.str_time_zone_not_found));
+                    }
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
 
        /* mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
@@ -226,19 +317,27 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
     }
 
-    @Override
+   /* @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
         if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // code for portrait mode
-            setContentView(R.layout.activity_webinardetails);
+            // setContentView(R.layout.activity_webinardetails);
+            binding.rvtitle.setVisibility(View.VISIBLE);
+            binding.rvbottom.setVisibility(View.VISIBLE);
+            binding.rvwebinartitle.setVisibility(View.VISIBLE);
+            binding.scrollview.setVisibility(View.VISIBLE);
         } else {
             // code for landscape mode
-            setContentView(R.layout.activity_landscape_webinardetails);
+            binding.rvtitle.setVisibility(View.GONE);
+            binding.rvbottom.setVisibility(View.GONE);
+            binding.rvwebinartitle.setVisibility(View.GONE);
+            binding.scrollview.setVisibility(View.GONE);
+            //setContentView(R.layout.activity_landscape_webinardetails);
 
         }
-    }
+    }*/
 
     private void checkAndroidVersion() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -341,11 +440,65 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause ");
+
         if (binding.videoView != null && binding.videoView.isPlaying()) {
+            Constant.Log(TAG, "on_Pause");
+            ispause = true;
             mSeekPosition = binding.videoView.getCurrentPosition();
             Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
             binding.videoView.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (ispause) {
+
+            Constant.Log(TAG, "On_Resume");
+           /* ispause = false;
+            setVideoAreaSize();
+            mSeekPosition = binding.videoView.getCurrentPosition();
+            Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
+            binding.videoView.setVideoViewCallback(this);
+
+            if (mSeekPosition > 0) {
+                binding.videoView.seekTo(mSeekPosition);
+            }
+
+            binding.videoView.resume();*/
+        }
+
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+
+        if (ispause) {
+
+            Constant.Log(TAG, "On_Restart");
+            ispause = false;
+            binding.videoView.setMediaController(binding.mediaController);
+            setVideoAreaSize();
+            binding.videoView.setVideoViewCallback(this);
+
+            if (mSeekPosition > 0) {
+                binding.videoView.seekTo(mSeekPosition);
+            }
+
+
+            binding.videoView.start();
+
+
+            binding.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    Log.d(TAG, "onCompletion ");
+                }
+            });
         }
     }
 
@@ -375,7 +528,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d(TAG, "onSaveInstanceState Position=" + binding.videoView.getCurrentPosition());
+        Log.e(TAG, "onSaveInstanceState Position=" + binding.videoView.getCurrentPosition());
         outState.putInt(SEEK_POSITION_KEY, mSeekPosition);
     }
 
@@ -383,48 +536,35 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     protected void onRestoreInstanceState(Bundle outState) {
         super.onRestoreInstanceState(outState);
         mSeekPosition = outState.getInt(SEEK_POSITION_KEY);
-        Log.d(TAG, "onRestoreInstanceState Position=" + mSeekPosition);
+        Log.e(TAG, "onRestoreInstanceState Position=" + mSeekPosition);
     }
 
 
     @Override
     public void onScaleChange(boolean isFullscreen) {
         this.isFullscreen = isFullscreen;
+        Constant.Log(TAG, "++++" + isFullscreen);
+
         if (isFullscreen) {
-           /* ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
+            ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            videoView.setLayoutParams(params);*/
-            DisplayMetrics metrics = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            android.widget.FrameLayout.LayoutParams params = (android.widget.FrameLayout.LayoutParams) binding.videoView.getLayoutParams();
-            params.width = (int) (300 * metrics.density);
-            params.height = (int) (200 * metrics.density);
-            params.leftMargin = 30;
-            binding.videoView.setLayoutParams(params);
-
-            Constant.Log(TAG, "" + isFullscreen);
-
-
+            binding.videoLayout.setLayoutParams(layoutParams);
+            binding.rvtitle.setVisibility(View.GONE);
+            binding.rvbottom.setVisibility(View.GONE);
+            //GONE the unconcerned views to leave room for video and controller
+            //  mBottomLayout.setVisibility(View.GONE);
         } else {
-            /*ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
+            ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = this.cachedHeight;
-            binding.videoLayout.setLayoutParams(layoutParams);*/
-
-            Constant.Log(TAG, "" + isFullscreen);
-            DisplayMetrics metrics = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            android.widget.FrameLayout.LayoutParams params = (android.widget.FrameLayout.LayoutParams) binding.videoView.getLayoutParams();
-            params.width = metrics.widthPixels;
-            params.height = (int) (200 * metrics.density);
-            params.leftMargin = 0;
-            binding.videoView.setLayoutParams(params);
-
-
+            binding.videoLayout.setLayoutParams(layoutParams);
+            binding.rvtitle.setVisibility(View.VISIBLE);
+            binding.rvbottom.setVisibility(View.VISIBLE);
+            // mBottomLayout.setVisibility(View.VISIBLE);
         }
 
-        switchTitleBar(!isFullscreen);
+        //   switchTitleBar(!isFullscreen);
     }
 
 
@@ -470,232 +610,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     }
 
 
-  /*  private void GetWebinarDetails() {
-        mAPIService.GetWebinarDetail(getResources().getString(R.string.accept), String.valueOf(webinarid), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Webinar_Detail_Model>() {
-                    @Override
-                    public void onCompleted() {
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-
-                        String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.relView, message, Snackbar.LENGTH_SHORT).show();
-
-
-                    }
-
-                    @Override
-                    public void onNext(Webinar_Detail_Model webinar_detail_model) {
-
-                        if (webinar_detail_model.isSuccess() == true) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getTitle().equalsIgnoreCase("")) {
-                                binding.tvWebinartitle.setText("" + webinar_detail_model.getPayload()
-                                        .getWebinar().getTitle());
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getCpaCredit().equalsIgnoreCase("")) {
-
-                                binding.tvCredit.setText("" + webinar_detail_model.getPayload()
-                                        .getWebinar().getCpaCredit());
-
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar()
-                                    .getFee().equalsIgnoreCase("")) {
-                                binding.tvCost.setText("$" + webinar_detail_model.getPayload()
-                                        .getWebinar().getFee());
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getDuration().equalsIgnoreCase("")) {
-
-                                int duration = Integer.parseInt(webinar_detail_model.getPayload().getWebinar().getDuration());
-
-                                String result = formatHoursAndMinutes(duration);
-
-                                Constant.Log(TAG, "duration" + duration);
-
-                                Constant.Log(TAG, "minutes" + result);
-
-                                StringTokenizer tokens = new StringTokenizer(result, ":");
-                                String hour = tokens.nextToken();// this will contain year
-                                String min = tokens.nextToken();//this will contain month
-
-
-                                binding.tvDuration.setText(hour + " " + getResources().getString(R.string.str_hour) + " " + min +
-                                        " " + getResources().getString(R.string.str_min));
-
-
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar()
-                                    .getSubjectArea().equalsIgnoreCase("")) {
-                                binding.tvSubjectarea.setText("" + webinar_detail_model
-                                        .getPayload().getWebinar().getSubjectArea());
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getCourseLevel().equalsIgnoreCase("")) {
-                                binding.tvCourseLevel.setText("" + webinar_detail_model.getPayload().getWebinar()
-                                        .getCourseLevel());
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar()
-                                    .getInstructionalMethod().equalsIgnoreCase("")) {
-                                binding.tvInstructionalmethod.setText("" + webinar_detail_model
-                                        .getPayload().getWebinar().getInstructionalMethod());
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getPreRequirement().equalsIgnoreCase("")) {
-                                binding.tvPrerequisite.setText("" + webinar_detail_model.getPayload()
-                                        .getWebinar().getPreRequirement());
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getAdvancePreparation().equalsIgnoreCase("")) {
-                                binding.tvAdvancePreparation.setText("" + webinar_detail_model.getPayload()
-                                        .getWebinar().getAdvancePreparation());
-                            }
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getWhoShouldAttend().equalsIgnoreCase("")) {
-                                binding.tvWhoShouldAttend.setText("" + webinar_detail_model
-                                        .getPayload().getWebinar().getWhoShouldAttend());
-                            }
-
-
-                           *//* if (!webinar_detail_model.getPayload().getWebinar().getSeries().equalsIgnoreCase("")) {
-                                binding.tvSeries.setText("" + webinar_detail_model.getPayload().getWebinar().getSeries());
-                            }*//*
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getDescription().equalsIgnoreCase("")) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvDescription.setText(Html.fromHtml(webinar_detail_model.getPayload().getWebinar().getDescription(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvDescription.setText(Html.fromHtml(webinar_detail_model.getPayload().getWebinar().getDescription()));
-                                }
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getLearningObjectives().equalsIgnoreCase("")) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvLearningObjective.setText(Html.fromHtml(webinar_detail_model.getPayload().getWebinar().getLearningObjectives(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvLearningObjective.setText(Html.fromHtml(webinar_detail_model.getPayload().getWebinar().getLearningObjectives()));
-                                }
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getAboutSpeaker().equalsIgnoreCase("")) {
-
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvAboutPresenter.setText(Html.fromHtml(webinar_detail_model.getPayload().getWebinar().getAboutSpeaker(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvAboutPresenter.setText(Html.fromHtml(webinar_detail_model.getPayload().getWebinar().getAboutSpeaker()));
-                                }
-
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getFaq().equalsIgnoreCase("")) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvFaq.setText(Html.fromHtml(webinar_detail_model.getPayload().getWebinar().getFaq(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvFaq.setText(Html.fromHtml(webinar_detail_model.getPayload().getWebinar().getFaq()));
-                                }
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getStatus().equalsIgnoreCase("")) {
-                                if (webinar_detail_model.getPayload().getWebinar().getStatus().equalsIgnoreCase(getResources()
-                                        .getString(R.string.str_webinar_status_register))) {
-                                    binding.tvWebinarStatus.setBackgroundResource(R.drawable.download_button_webinar_detail);
-                                } else {
-                                    binding.tvWebinarStatus.setBackgroundResource(R.drawable.squrebutton_webinar_status);
-                                }
-
-
-                                binding.tvWebinarStatus.setText("" + webinar_detail_model.getPayload().getWebinar().getStatus());
-                            }
-
-                          *//*  if (!webinar_detail_model.getPayload()
-                                    .getWebinar().getStatus().equalsIgnoreCase("")) {
-                                binding.tvWebinarStatus.setText("" + webinar_detail_model.getPayload().getWebinar().getStatus());
-                            }
-*//*
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getWebinarThumbnailImage().equalsIgnoreCase("")) {
-                                Picasso.with(context).load(webinar_detail_model.getPayload().getWebinar().getWebinarThumbnailImage())
-                                        .placeholder(R.mipmap.webinar_placeholder)
-                                        .into((binding.ivthumbhel));
-                            }
-
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getWebinarShareLink().equalsIgnoreCase("")) {
-                                webinar_share_link = webinar_detail_model.getPayload().getWebinar().getWebinarShareLink();
-                            }
-
-                            if (!webinar_detail_model.getPayload().getWebinar().getWebinarLike().equalsIgnoreCase("")) {
-
-                                is_favorite = webinar_detail_model.getPayload().getWebinar().getWebinarLike();
-
-                                if (is_favorite.equalsIgnoreCase(getResources()
-                                        .getString(R.string.Yes))) {
-                                    checkfavoritestate = false;
-                                    binding.ivfavorite.setImageResource(R.mipmap.round_like_icon);
-                                } else {
-                                    checkfavoritestate = true;
-                                    binding.ivfavorite.setImageResource(R.mipmap.round_like_icon_one);
-                                }
-
-                            }
-
-
-                        } else {
-                            if (webinar_detail_model.getPayload().getAccessToken() != null && !webinar_detail_model.getPayload().getAccessToken()
-                                    .equalsIgnoreCase("")) {
-
-                                AppSettings.set_login_token(context, webinar_detail_model.getPayload().getAccessToken());
-
-                                if (Constant.isNetworkAvailable(context)) {
-                                    GetWebinarDetails();
-                                } else {
-                                    Snackbar.make(binding.relView, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                                }
-
-
-                            } else {
-                                Snackbar.make(binding.relView, webinar_detail_model.getMessage(), Snackbar.LENGTH_SHORT).show();
-                            }
-
-
-                        }
-
-
-                    }
-
-                });
-
-
-    }*/
-
     private void GetWebinarDetailsNew() {
         mAPIService.GetWebinardetails(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), webinarid).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_details>() {
@@ -725,6 +639,14 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 progressDialog.dismiss();
                             }
 
+                            if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_live))) {
+                                binding.tvWebinardate.setVisibility(View.VISIBLE);
+                                binding.tvAddtocalendar.setVisibility(View.VISIBLE);
+                            } else {
+                                binding.tvWebinardate.setVisibility(View.GONE);
+                                binding.tvAddtocalendar.setVisibility(View.GONE);
+                            }
+
 
                             if (!webinar_details.getPayload().getWebinarDetail().getWebinarTitle().equalsIgnoreCase("")) {
                                 binding.tvWebinartitle.setText("" + webinar_details.getPayload().getWebinarDetail().getWebinarTitle());
@@ -744,18 +666,92 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 binding.tvCost.setText("FREE");
                             }
 
+                            if (webinar_details.getPayload().getWebinarDetail().getTimezones().size() > 0) {
+                                for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getTimezones().size(); i++) {
+                                    arrayListtimezone.add(webinar_details.getPayload().getWebinarDetail().getTimezones().get(i)
+                                            .getTimezone());
+                                    timezones timezones = new timezones();
+                                    timezones.setStart_date(webinar_details.getPayload().getWebinarDetail()
+                                            .getTimezones().get(i).getStartDate());
+                                    timezones.setStart_time(webinar_details.getPayload().getWebinarDetail()
+                                            .getTimezones().get(i).getStartTime());
+                                    timezones.setTimezone(webinar_details.getPayload().getWebinarDetail()
+                                            .getTimezones().get(i).getTimezone());
+                                    arrayliattimezones.add(timezones);
+                                }
+                                ShowAdapter();
+                            }
+
+
+                            if (!webinar_details.getPayload().getWebinarDetail().getStartDate().equalsIgnoreCase("")) {
+
+
+                                StringTokenizer tokens = new StringTokenizer(webinar_details.getPayload().getWebinarDetail().getStartDate(), "-");
+                                String year = tokens.nextToken();// this will contain year
+                                String month = tokens.nextToken();//this will contain month
+                                String day = tokens.nextToken();//this will contain day
+
+                                // year = year.substring(2);
+
+
+                                if (month.equalsIgnoreCase("01")) {
+                                    month = getResources().getString(R.string.jan);
+
+                                } else if (month.equalsIgnoreCase("02")) {
+                                    month = getResources().getString(R.string.feb);
+
+                                } else if (month.equalsIgnoreCase("03")) {
+                                    month = getResources().getString(R.string.march);
+
+                                } else if (month.equalsIgnoreCase("04")) {
+                                    month = getResources().getString(R.string.april);
+
+                                } else if (month.equalsIgnoreCase("05")) {
+                                    month = getResources().getString(R.string.may);
+
+                                } else if (month.equalsIgnoreCase("06")) {
+                                    month = getResources().getString(R.string.june);
+
+                                } else if (month.equalsIgnoreCase("07")) {
+                                    month = getResources().getString(R.string.july);
+
+                                } else if (month.equalsIgnoreCase("08")) {
+                                    month = getResources().getString(R.string.aug);
+
+                                } else if (month.equalsIgnoreCase("09")) {
+                                    month = getResources().getString(R.string.sept);
+
+                                } else if (month.equalsIgnoreCase("10")) {
+                                    month = getResources().getString(R.string.oct);
+
+                                } else if (month.equalsIgnoreCase("11")) {
+                                    month = getResources().getString(R.string.nov);
+
+                                } else if (month.equalsIgnoreCase("12")) {
+                                    month = getResources().getString(R.string.dec);
+
+                                }
+
+                                binding.tvWebinardate.setText(day + " " + month + " " + year + "     " +
+                                        webinar_details.getPayload().getWebinarDetail().getStartTime()
+                                        + " | "
+                                );
+
+
+                            }
+
 
                             if (!webinar_details.getPayload().getWebinarDetail().getRefundAndCancelationPolicy().equalsIgnoreCase("")) {
                                 binding.tvRefundCancelationPolicy.setText(webinar_details.getPayload().getWebinarDetail().getRefundAndCancelationPolicy());
                             }
 
 
-                            if (!webinar_details.getPayload().getWebinarDetail().getDuration().equalsIgnoreCase("")) {
-                                int duration = Integer.parseInt(webinar_details.getPayload().getWebinarDetail().getDuration());
+                            if (webinar_details.getPayload().getWebinarDetail().getDuration() != 0) {
 
-                                String result = formatHoursAndMinutes(duration);
 
-                                Constant.Log(TAG, "duration" + duration);
+                                String result = formatHoursAndMinutes(webinar_details.getPayload().getWebinarDetail().getDuration());
+
+                                Constant.Log(TAG, "duration" + webinar_details.getPayload().getWebinarDetail().getDuration());
 
                                 Constant.Log(TAG, "minutes" + result);
 
@@ -763,9 +759,13 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 String hour = tokens.nextToken();// this will contain year
                                 String min = tokens.nextToken();//this will contain month
 
+                                if (min.equalsIgnoreCase("00")) {
+                                    binding.tvDuration.setText(hour + " " + getResources().getString(R.string.str_hour));
 
-                                binding.tvDuration.setText(hour + " " + getResources().getString(R.string.str_hour) + " " + min +
-                                        " " + getResources().getString(R.string.str_min));
+                                } else {
+                                    binding.tvDuration.setText(hour + " " + getResources().getString(R.string.str_hour) + " " + min +
+                                            " " + getResources().getString(R.string.str_min));
+                                }
 
 
                             }
@@ -798,6 +798,8 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             if (webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size() > 0) {
                                /* binding.tvWhoShouldAttend.setText("" + webinar_detail_model
                                         .getPayload().getWebinar().getWhoShouldAttend());*/
+
+                                whoshouldattend.addAll(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend());
 
 
                                 final TextView[] myTextViews = new TextView[webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size()]; // create an empty array;
@@ -876,7 +878,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 binding.tvCompanyName.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyName());
                             }
 
-                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc().equalsIgnoreCase("")) {
+                           /* if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc().equalsIgnoreCase("")) {
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                     binding.tvCompanyDescription.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc(), Html.FROM_HTML_MODE_COMPACT));
@@ -895,7 +897,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                     binding.tvPresenterDesignation.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getDesgnination()));
                                 }
 
-                            }
+                            }*/
 
 
                             if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getSpeakerDesc().equalsIgnoreCase("")) {
@@ -993,6 +995,18 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
                 });
 
+    }
+
+    public void ShowAdapter() {
+        if (arrayliattimezones.size() > 0) {
+            //Getting the instance of Spinner and applying OnItemSelectedListener on it
+
+            //Creating the ArrayAdapter instance having the user type list
+            ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, arrayListtimezone);
+            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
+            //Setting the ArrayAdapter data on the Spinner
+            binding.spinner.setAdapter(aa);
+        }
     }
 
 

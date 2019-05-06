@@ -52,10 +52,12 @@
     <string name="str_login_guest">Login</string>
     <string name="str_cancel_guest">Cancel</string>
     <string name="str_sharing_not_avilable">Sharing link is not avilable.</string>
+    <string name="str_time_zone_not_found">Time Zone not Found</string>
     <string name="str_btn_next">NEXT</string>
     <string name="check_validation_popup_topics">Would You Like to add Topics of Interest?</string>
     <string name="str_skip">SKIP</string>
     <string name="str_download_link_not_found">Download link not found</string>
+    <string name="str_who_should_attend_lable">Who Should Attend</string>
 
 
     //hashmap key
@@ -250,6 +252,7 @@
     <string name="pass_view_topics_of_interest">viewtopicsofinterest</string>
     <string name="pass_selected_list">selectedlist</string>
     <string name="pass_selected_signup_list">signupselected</string>
+    <string name="pass_who_you_are_list">whoyouarelist</string>
 
 
     //instructor list
@@ -462,6 +465,7 @@
 
     //Home to Webinar details screen pass data
     <string name="pass_webinar_id">Webinarid</string>
+    <string name="pass_webinar_type">Webinartype</string>
     <string name="str_course_id">Course Id</string>
 
 

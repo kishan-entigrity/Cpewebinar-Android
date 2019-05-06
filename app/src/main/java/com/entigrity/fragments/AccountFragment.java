@@ -200,6 +200,8 @@ public class AccountFragment extends Fragment {
                                 progressDialog.dismiss();
                             }
 
+                            Constant.Log("token",AppSettings.get_login_token(context));
+
                             if (viewProfileModel.getPayload().getData().getFirstName() != null
                                     && !viewProfileModel.getPayload().getData().getFirstName().equalsIgnoreCase("")) {
                                 firstname = viewProfileModel.getPayload().getData().getFirstName();
