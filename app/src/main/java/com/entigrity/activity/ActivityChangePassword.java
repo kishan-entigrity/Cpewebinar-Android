@@ -1,5 +1,6 @@
 package com.entigrity.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -54,6 +55,8 @@ public class ActivityChangePassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Constant.hideKeyboard((Activity) context);
+
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
@@ -74,7 +77,7 @@ public class ActivityChangePassword extends AppCompatActivity {
     public void ChangePassword(String Authorization, String current_password, String new_password, String confirm_password) {
 
         // RxJava
-        mAPIService_new.changepassword(getResources().getString(R.string.accept),getResources().getString(R.string.bearer) + Authorization, current_password
+        mAPIService_new.changepassword(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + Authorization, current_password
                 , new_password, confirm_password).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ChangePasswordModel>() {
                     @Override

@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,18 +20,10 @@ import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.activity.EditProfileActivity;
 import com.entigrity.databinding.FragmentViewprofileBinding;
-import com.entigrity.model.viewprofile.ViewProfileModel;
-import com.entigrity.utility.AppSettings;
-import com.entigrity.utility.Constant;
-import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 
 import java.util.ArrayList;
-
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class ViewProfileFragment extends Fragment {
     View view;

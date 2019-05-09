@@ -1,6 +1,7 @@
 package com.entigrity.webservice;
 
 import com.entigrity.model.Instructorlist_details.Instructor_Details_Model;
+import com.entigrity.model.Job_title.ModelJobTitle;
 import com.entigrity.model.changepassword.ChangePasswordModel;
 import com.entigrity.model.city.CityModel;
 import com.entigrity.model.company.CompanyModel;
@@ -18,6 +19,7 @@ import com.entigrity.model.getprivacypolicy.GetPrivacyPolicy;
 import com.entigrity.model.gettermscondition.GetTermsCondition;
 import com.entigrity.model.homewebinarlist.Webinar_Home;
 import com.entigrity.model.homewebinarnew.Webinar_Home_New;
+import com.entigrity.model.industry.Model_Industry;
 import com.entigrity.model.instructor.InstructorModel;
 import com.entigrity.model.instructor_follow.Instructor_Follow_Model;
 import com.entigrity.model.instructor_like.Instructor_Like_Model;
@@ -201,7 +203,11 @@ public interface APIService {
             @Field("city_id") int city_id,
             @Field("zipcode") int zipcode,
             @Field("contact_no") String contact_no,
-            @Field("user_type_id") int user_type
+            @Field("user_type_id") int user_type,
+            @Field("jobtitle_id") int jobtitle_id,
+            @Field("industry_id") int industry_id
+
+
     );
 
 
@@ -509,6 +515,22 @@ public interface APIService {
             @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("webinar_id") int webinar_id);
+
+
+    //job tiitle
+
+
+    @GET("job-title/list")
+    Observable<ModelJobTitle> GetJobTitle(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization);
+
+
+    // industry list
+    @GET("industry/list")
+    Observable<Model_Industry> GetIndustryList(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization);
 
 
 }

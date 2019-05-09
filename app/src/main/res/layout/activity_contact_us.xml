@@ -79,6 +79,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="@string/str_address"
+                    android:visibility="gone"
                     android:textColor="@color/black_full"
                     android:textSize="@dimen/_15sdp"
                     app:font_button="Montserrat-Regular.ttf" />

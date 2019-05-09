@@ -4,16 +4,23 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+
 public class Data{
 
 	@SerializedName("country")
 	private String country;
+
+	@SerializedName("industry_id")
+	private String industryId;
 
 	@SerializedName("city")
 	private String city;
 
 	@SerializedName("last_name")
 	private String lastName;
+
+	@SerializedName("industry")
+	private String industry;
 
 	@SerializedName("profile_picture")
 	private String profilePicture;
@@ -36,6 +43,9 @@ public class Data{
 	@SerializedName("firm_name")
 	private String firmName;
 
+	@SerializedName("jobtitle_id")
+	private String jobtitleId;
+
 	@SerializedName("user_type_id")
 	private String userTypeId;
 
@@ -57,6 +67,9 @@ public class Data{
 	@SerializedName("first_name")
 	private String firstName;
 
+	@SerializedName("job_title")
+	private String jobTitle;
+
 	@SerializedName("email")
 	private String email;
 
@@ -74,6 +87,14 @@ public class Data{
 		return country;
 	}
 
+	public void setIndustryId(String industryId){
+		this.industryId = industryId;
+	}
+
+	public String getIndustryId(){
+		return industryId;
+	}
+
 	public void setCity(String city){
 		this.city = city;
 	}
@@ -88,6 +109,14 @@ public class Data{
 
 	public String getLastName(){
 		return lastName;
+	}
+
+	public void setIndustry(String industry){
+		this.industry = industry;
+	}
+
+	public String getIndustry(){
+		return industry;
 	}
 
 	public void setProfilePicture(String profilePicture){
@@ -146,6 +175,14 @@ public class Data{
 		return firmName;
 	}
 
+	public void setJobtitleId(String jobtitleId){
+		this.jobtitleId = jobtitleId;
+	}
+
+	public String getJobtitleId(){
+		return jobtitleId;
+	}
+
 	public void setUserTypeId(String userTypeId){
 		this.userTypeId = userTypeId;
 	}
@@ -202,6 +239,14 @@ public class Data{
 		return firstName;
 	}
 
+	public void setJobTitle(String jobTitle){
+		this.jobTitle = jobTitle;
+	}
+
+	public String getJobTitle(){
+		return jobTitle;
+	}
+
 	public void setEmail(String email){
 		this.email = email;
 	}
@@ -231,8 +276,10 @@ public class Data{
 		return 
 			"Data{" + 
 			"country = '" + country + '\'' + 
+			",industry_id = '" + industryId + '\'' + 
 			",city = '" + city + '\'' + 
 			",last_name = '" + lastName + '\'' + 
+			",industry = '" + industry + '\'' + 
 			",profile_picture = '" + profilePicture + '\'' + 
 			",ptin_number = '" + ptinNumber + '\'' + 
 			",tags = '" + tags + '\'' + 
@@ -240,6 +287,7 @@ public class Data{
 			",user_type = '" + userType + '\'' + 
 			",contact_no = '" + contactNo + '\'' + 
 			",firm_name = '" + firmName + '\'' + 
+			",jobtitle_id = '" + jobtitleId + '\'' + 
 			",user_type_id = '" + userTypeId + '\'' + 
 			",id = '" + id + '\'' + 
 			",state_id = '" + stateId + '\'' + 
@@ -247,6 +295,7 @@ public class Data{
 			",state = '" + state + '\'' + 
 			",credit = '" + credit + '\'' + 
 			",first_name = '" + firstName + '\'' + 
+			",job_title = '" + jobTitle + '\'' + 
 			",email = '" + email + '\'' + 
 			",country_id = '" + countryId + '\'' + 
 			",city_id = '" + cityId + '\'' + 

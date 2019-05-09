@@ -24,17 +24,21 @@ public class ViewProfileActivity extends AppCompatActivity {
     private static final String TAG = ViewProfileActivity.class.getName();
     public Context context;
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "";
-    public int country_id = 0, state_id = 0, city_id = 0;
+    public int country_id = 0, state_id = 0, city_id = 0, jobtitle_id = 0, industry_id = 0;
+    ;
     public String whoyouarevalue = "";
     public String State, City;
     private int country_pos = 0;
     private int state_pos = 0;
     private int city_pos = 0;
     private int who_you_are_pos = 0;
+    private int job_title_pos = 0;
+    private int industry_pos = 0;
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
     private ArrayList<String> arraylistsubcategory = new ArrayList<>();
     public int subcategoryremains = 0;
     public String subcategory = "";
+    public String job_titile, industry = "";
 
 
     @Override
@@ -60,6 +64,16 @@ public class ViewProfileActivity extends AppCompatActivity {
             state_pos = intent.getIntExtra(getResources().getString(R.string.pass_state), 0);
             city_pos = intent.getIntExtra(getResources().getString(R.string.pass_city), 0);
             who_you_are_pos = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are), 0);
+
+
+            job_title_pos = intent.getIntExtra(getResources().getString(R.string.pass_job_title), 0);
+            industry_pos = intent.getIntExtra(getResources().getString(R.string.pass_industry), 0);
+
+
+            job_titile = intent.getStringExtra(getResources().getString(R.string.pass_job_title_text));
+            industry = intent.getStringExtra(getResources().getString(R.string.pass_industry_text));
+
+
             topicsofinterestitem = intent.getParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest));
 
             Constant.Log(TAG, "topics_size" + topicsofinterestitem.size());
@@ -173,7 +187,16 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         if (city_pos != 0) {
             city_id = city_pos;
+        }
 
+
+        if (job_title_pos != 0) {
+            jobtitle_id = job_title_pos;
+        }
+
+
+        if (industry_pos != 0) {
+            industry_id = industry_pos;
         }
 
 
@@ -183,6 +206,15 @@ public class ViewProfileActivity extends AppCompatActivity {
         }
         if (!State.equalsIgnoreCase("") && State != null) {
             binding.tvState.setText("" + State);
+        }
+
+        if (!job_titile.equalsIgnoreCase("") && job_titile != null) {
+            binding.tvJobTitle.setText(job_titile);
+        }
+
+
+        if (!industry.equalsIgnoreCase("") && industry != null) {
+            binding.tvIndustry.setText(industry);
         }
 
         if (!City.equalsIgnoreCase("") && City != null) {
@@ -212,6 +244,8 @@ public class ViewProfileActivity extends AppCompatActivity {
         i.putExtra(getResources().getString(R.string.pass_country), country_id);
         i.putExtra(getResources().getString(R.string.pass_state), state_id);
         i.putExtra(getResources().getString(R.string.pass_city), city_id);
+        i.putExtra(getResources().getString(R.string.pass_job_title_id), jobtitle_id);
+        i.putExtra(getResources().getString(R.string.pass_industry_id), industry_id);
         i.putExtra(getResources().getString(R.string.pass_state_text), State);
         i.putExtra(getResources().getString(R.string.pass_city_text), City);
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);

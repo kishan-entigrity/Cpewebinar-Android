@@ -27,14 +27,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityWebinardetailsBinding;
+import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.timezones;
 import com.entigrity.model.webinar_details_new.Webinar_details;
+import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -68,7 +72,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     public String webinar_type = "";
     private String webinar_share_link = "";
     private String is_favorite = "";
-    public boolean checkfavoritestate = false;
     ProgressDialog mProgressDialog;
     LayoutInflater inflater_new;
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
@@ -84,6 +87,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     private int cachedHeight;
     private boolean isFullscreen;
     public static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
+    public static final int PERMISSIONS_MULTIPLE_REQUEST_CAlENDER = 1234;
     private ArrayList<String> arrayListtimezone = new ArrayList<String>();
     private ArrayList<timezones> arrayliattimezones = new ArrayList<timezones>();
 
@@ -92,6 +96,9 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     public ArrayList<String> whoshouldattend = new ArrayList<>();
 
     public boolean boolean_timezone = true;
+    private String webinar_status = "";
+
+    private String year, month, day, hour, min, min_calendar, month_calendar = "";
 
 
     @Override
@@ -120,6 +127,20 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
 
         }
+
+
+        binding.tvWebinarStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.tvWebinarStatus.getText().toString().equalsIgnoreCase(getResources()
+                        .getString(R.string.str_webinar_status_register))) {
+                    progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                    RegisterWebinar(webinarid, binding.tvWebinarStatus);
+
+                }
+
+            }
+        });
 
         binding.lvWhoAttend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,9 +181,12 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                     if (arrayliattimezones.size() > 0) {
                         if (!arrayliattimezones.get(position).getStart_date().equalsIgnoreCase("")) {
                             StringTokenizer tokens = new StringTokenizer(arrayliattimezones.get(position).getStart_date(), "-");
-                            String year = tokens.nextToken();// this will contain year
-                            String month = tokens.nextToken();//this will contain month
-                            String day = tokens.nextToken();//this will contain day
+                            year = tokens.nextToken();// this will contain year
+                            month = tokens.nextToken();//this will contain month
+
+                            month_calendar = month;
+
+                            day = tokens.nextToken();//this will contain day
 
                             // year = year.substring(2);
 
@@ -204,6 +228,19 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 month = getResources().getString(R.string.dec);
 
                             }
+
+                            StringTokenizer tokens_time = new StringTokenizer(arrayliattimezones.get(position).getStart_time(), ":");
+                            hour = tokens_time.nextToken();// this will contain year
+                            min = tokens_time.nextToken();//this will contain month
+
+                            StringTokenizer tokens_time_min = new StringTokenizer(min, " ");
+                            min_calendar = tokens_time_min.nextToken();
+                            if (min_calendar.equalsIgnoreCase("00")) {
+                                min_calendar = "0";
+                            }
+
+                            Constant.Log(TAG, "event" + hour + "  " + min_calendar);
+
                             binding.tvWebinardate.setText(day + " " + month + " " + year + "     " +
                                     arrayliattimezones.get(position).getStart_time()
                                     + " | "
@@ -229,17 +266,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         });
 
 
-
-
-       /* mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                downloadTask.cancel(true); //cancel the task
-            }
-        });*/
-
-
         String htmlString = "<u>Add to Calender</u>";
         binding.tvAddtocalendar.setText(Html.fromHtml(htmlString));
 
@@ -247,7 +273,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         binding.tvAddtocalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddToCalender();
+                checkAndroidVersion_Calender();
             }
         });
 
@@ -266,13 +292,11 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
             @Override
             public void onClick(View v) {
 
-
-                if (checkfavoritestate == false) {
-                    checkfavoritestate = true;
-                    binding.ivfavorite.setImageResource(R.mipmap.round_like_icon_one);
+                if (Constant.isNetworkAvailable(context)) {
+                    progressDialog = DialogsUtils.showProgressDialog(context, context.getResources().getString(R.string.progrees_msg));
+                    WebinarFavoriteLikeDislike(webinarid, binding.ivfavorite);
                 } else {
-                    checkfavoritestate = false;
-                    binding.ivfavorite.setImageResource(R.mipmap.round_like_icon);
+                    Snackbar.make(binding.ivfavorite, context.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                 }
 
 
@@ -317,27 +341,98 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
     }
 
-   /* @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
+    public void RegisterWebinar(int webinar_id, final Button button) {
 
-        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            // code for portrait mode
-            // setContentView(R.layout.activity_webinardetails);
-            binding.rvtitle.setVisibility(View.VISIBLE);
-            binding.rvbottom.setVisibility(View.VISIBLE);
-            binding.rvwebinartitle.setVisibility(View.VISIBLE);
-            binding.scrollview.setVisibility(View.VISIBLE);
-        } else {
-            // code for landscape mode
-            binding.rvtitle.setVisibility(View.GONE);
-            binding.rvbottom.setVisibility(View.GONE);
-            binding.rvwebinartitle.setVisibility(View.GONE);
-            binding.scrollview.setVisibility(View.GONE);
-            //setContentView(R.layout.activity_landscape_webinardetails);
+        mAPIService.RegisterWebinar(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ModelRegisterWebinar>() {
+                    @Override
+                    public void onCompleted() {
 
-        }
-    }*/
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onNext(ModelRegisterWebinar modelRegisterWebinar) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                        if (modelRegisterWebinar.isSuccess() == true) {
+                            Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            recreate();
+                        } else {
+                            Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }
+
+                });
+
+    }
+
+    private void WebinarFavoriteLikeDislike(final int webinar_id, final ImageView ImageView) {
+
+        mAPIService.PostWebinarLikeDislike(getResources().getString(R.string.accept),
+                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
+                webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Webinar_Like_Dislike_Model>() {
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Snackbar.make(ImageView, message, Snackbar.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onNext(Webinar_Like_Dislike_Model webinar_like_dislike_model) {
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
+                        if (webinar_like_dislike_model.isSuccess()) {
+                            if (webinar_like_dislike_model.getPayload().getIsLike().equalsIgnoreCase(context
+                                    .getResources().getString(R.string.fav_yes))) {
+                                ImageView.setImageResource(R.mipmap.round_like_icon);
+                            } else {
+                                ImageView.setImageResource(R.mipmap.round_like_icon_one);
+                            }
+                            Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        } else {
+                            Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+
+
+    }
+
 
     private void checkAndroidVersion() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -358,6 +453,14 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
         }
 
+    }
+
+    private void checkAndroidVersion_Calender() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            CheckPermission_Calender();
+        } else {
+            AddToCalender();
+        }
     }
 
 
@@ -392,6 +495,26 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                     }
                 }
                 break;
+            case PERMISSIONS_MULTIPLE_REQUEST_CAlENDER:
+                if (grantResults.length > 0) {
+
+                    boolean writePermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean readExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                    if (writePermission && readExternalFile) {
+                        AddToCalender();
+                    } else {
+                        requestPermissions(
+                                new String[]{Manifest.permission
+                                        .READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
+                                PERMISSIONS_MULTIPLE_REQUEST_CAlENDER);
+                    }
+
+
+                    break;
+                }
+
+
         }
     }
 
@@ -437,6 +560,38 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void CheckPermission_Calender() {
+
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CALENDAR) + ContextCompat
+                .checkSelfPermission(context,
+                        Manifest.permission.WRITE_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale
+                    ((Activity) context, Manifest.permission.READ_CALENDAR) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale
+                            ((Activity) context, Manifest.permission.WRITE_CALENDAR)) {
+
+                requestPermissions(
+                        new String[]{Manifest.permission
+                                .READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
+                        PERMISSIONS_MULTIPLE_REQUEST_CAlENDER);
+            } else {
+                requestPermissions(
+                        new String[]{Manifest.permission
+                                .READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
+                        PERMISSIONS_MULTIPLE_REQUEST_CAlENDER);
+            }
+        } else {
+            // write your logic code if permission already granted
+
+            AddToCalender();
+        }
+    }
+
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -454,19 +609,9 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     protected void onResume() {
         super.onResume();
         if (ispause) {
-
             Constant.Log(TAG, "On_Resume");
-           /* ispause = false;
-            setVideoAreaSize();
-            mSeekPosition = binding.videoView.getCurrentPosition();
-            Log.d(TAG, "onPause mSeekPosition=" + mSeekPosition);
-            binding.videoView.setVideoViewCallback(this);
-
-            if (mSeekPosition > 0) {
-                binding.videoView.seekTo(mSeekPosition);
-            }
-
-            binding.videoView.resume();*/
+            binding.videoView.seekTo(mSeekPosition);
+            binding.videoView.start();
         }
 
 
@@ -478,27 +623,9 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
 
         if (ispause) {
-
-            Constant.Log(TAG, "On_Restart");
-            ispause = false;
-            binding.videoView.setMediaController(binding.mediaController);
-            setVideoAreaSize();
-            binding.videoView.setVideoViewCallback(this);
-
-            if (mSeekPosition > 0) {
-                binding.videoView.seekTo(mSeekPosition);
-            }
-
-
+            Constant.Log(TAG, "onRestart");
+            binding.videoView.seekTo(mSeekPosition);
             binding.videoView.start();
-
-
-            binding.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    Log.d(TAG, "onCompletion ");
-                }
-            });
         }
     }
 
@@ -582,6 +709,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     @Override
     public void onPause(MediaPlayer mediaPlayer) {
         Log.d(TAG, "onPause UniversalVideoView callback");
+        mSeekPosition = binding.videoView.getCurrentPosition();
     }
 
     @Override
@@ -640,10 +768,10 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             }
 
                             if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_live))) {
-                                binding.tvWebinardate.setVisibility(View.VISIBLE);
+                                binding.relTimezone.setVisibility(View.VISIBLE);
                                 binding.tvAddtocalendar.setVisibility(View.VISIBLE);
                             } else {
-                                binding.tvWebinardate.setVisibility(View.GONE);
+                                binding.relTimezone.setVisibility(View.GONE);
                                 binding.tvAddtocalendar.setVisibility(View.GONE);
                             }
 
@@ -687,9 +815,10 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
 
                                 StringTokenizer tokens = new StringTokenizer(webinar_details.getPayload().getWebinarDetail().getStartDate(), "-");
-                                String year = tokens.nextToken();// this will contain year
-                                String month = tokens.nextToken();//this will contain month
-                                String day = tokens.nextToken();//this will contain day
+                                year = tokens.nextToken();// this will contain year
+                                month = tokens.nextToken();//this will contain month
+                                month_calendar = month;
+                                day = tokens.nextToken();//this will contain day
 
                                 // year = year.substring(2);
 
@@ -732,6 +861,22 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
                                 }
 
+
+                                StringTokenizer tokens_time = new StringTokenizer(webinar_details.getPayload().getWebinarDetail().getStartTime(), ":");
+                                hour = tokens_time.nextToken();// this will contain year
+                                min = tokens_time.nextToken();//this will contain month
+
+                                StringTokenizer tokens_time_min = new StringTokenizer(min, " ");
+                                min_calendar = tokens_time_min.nextToken();
+
+                                if (min_calendar.equalsIgnoreCase("00")) {
+                                    min_calendar = "0";
+                                }
+
+
+                                Constant.Log(TAG, "event" + hour + "  " + min_calendar);
+
+
                                 binding.tvWebinardate.setText(day + " " + month + " " + year + "     " +
                                         webinar_details.getPayload().getWebinarDetail().getStartTime()
                                         + " | "
@@ -741,13 +886,14 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             }
 
 
-                            if (!webinar_details.getPayload().getWebinarDetail().getRefundAndCancelationPolicy().equalsIgnoreCase("")) {
-                                binding.tvRefundCancelationPolicy.setText(webinar_details.getPayload().getWebinarDetail().getRefundAndCancelationPolicy());
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                binding.tvRefundCancelationPolicy.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getRefundAndCancelationPolicy(), Html.FROM_HTML_MODE_COMPACT));
+                            } else {
+                                binding.tvRefundCancelationPolicy.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getRefundAndCancelationPolicy()));
                             }
 
 
                             if (webinar_details.getPayload().getWebinarDetail().getDuration() != 0) {
-
 
                                 String result = formatHoursAndMinutes(webinar_details.getPayload().getWebinarDetail().getDuration());
 
@@ -878,7 +1024,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 binding.tvCompanyName.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyName());
                             }
 
-                           /* if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc().equalsIgnoreCase("")) {
+                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc().equalsIgnoreCase("")) {
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                     binding.tvCompanyDescription.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc(), Html.FROM_HTML_MODE_COMPACT));
@@ -897,7 +1043,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                     binding.tvPresenterDesignation.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getDesgnination()));
                                 }
 
-                            }*/
+                            }
 
 
                             if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getSpeakerDesc().equalsIgnoreCase("")) {
@@ -927,6 +1073,9 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 } else {
                                     binding.tvWebinarStatus.setBackgroundResource(R.drawable.squrebutton_webinar_status);
                                 }
+
+
+                                webinar_status = webinar_details.getPayload().getWebinarDetail().getStatus();
 
 
                                 binding.tvWebinarStatus.setText("" + webinar_details.getPayload().getWebinarDetail().getStatus());
@@ -966,10 +1115,8 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
                                 if (is_favorite.equalsIgnoreCase(getResources()
                                         .getString(R.string.fav_yes))) {
-                                    checkfavoritestate = false;
                                     binding.ivfavorite.setImageResource(R.mipmap.round_like_icon);
                                 } else {
-                                    checkfavoritestate = true;
                                     binding.ivfavorite.setImageResource(R.mipmap.round_like_icon_one);
                                 }
 
@@ -1020,18 +1167,16 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     public void AddToCalender() {
 
         Calendar beginTime = Calendar.getInstance();
-        beginTime.set(2012, 0, 19, 7, 30);
-        Calendar endTime = Calendar.getInstance();
-        endTime.set(2012, 0, 19, 8, 30);
+        beginTime.set(Integer.parseInt(year), Integer.parseInt(month_calendar) - 1, Integer.parseInt(day),
+                Integer.parseInt(hour), Integer.parseInt(min_calendar));
+       /* Calendar endTime = Calendar.getInstance();
+        endTime.set(2019, 5, 8, 15, 40);*/
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-                .putExtra(CalendarContract.Events.TITLE, "Yoga")
-                .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
-                .putExtra(CalendarContract.Events.EVENT_LOCATION, "The gym")
-                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
-                .putExtra(Intent.EXTRA_EMAIL, "rowan@example.com,trevor@example.com");
+                /*.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())*/
+                .putExtra(CalendarContract.Events.TITLE, binding.tvWebinartitle.getText().toString())
+                .putExtra(Intent.EXTRA_EMAIL, AppSettings.get_email_id(context));
         startActivity(intent);
 
 

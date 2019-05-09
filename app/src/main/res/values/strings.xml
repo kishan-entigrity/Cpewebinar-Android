@@ -58,6 +58,8 @@
     <string name="str_skip">SKIP</string>
     <string name="str_download_link_not_found">Download link not found</string>
     <string name="str_who_should_attend_lable">Who Should Attend</string>
+    <string name="str_next">Next</string>
+    <string name="str_done">Done</string>
 
 
     //hashmap key
@@ -80,6 +82,7 @@
     <string name="validate_email_id">Please Enter Email Address</string>
     <string name="validate_password">Please Enter Password</string>
     <string name="str_token">login token</string>
+    <string name="str_emailid">emailid</string>
 
 
     //dashboard
@@ -125,6 +128,8 @@
     <string name="view_profile_topics_interest">Topics of Interest</string>
     <string name="view_profile_who_you_are">Who you are?</string>
     <string name="edit_profile_header">Edit Profile</string>
+    <string name="view_profile_job_title">Job Title</string>
+    <string name="view_profile_industry">Industry</string>
 
 
     //change password
@@ -213,6 +218,11 @@
     <string name="val_topics">Please select at least one topics of interest</string>
     <string name="val_zipcode">Please enter zipcode</string>
     <string name="val_user_type">Please select user type</string>
+
+
+    <string name="val_job_title">Please select job title</string>
+    <string name="val_industry">Please select industry</string>
+
     <string name="str_country">Please Select Country</string>
     <string name="str_state">Please Select State</string>
     <string name="str_city">please select city</string>
@@ -242,11 +252,17 @@
     <string name="pass_country">country</string>
     <string name="pass_state">state</string>
     <string name="pass_city">city</string>
+    <string name="pass_job_title">job title</string>
+    <string name="pass_industry">industry</string>
     <string name="pass_state_text">statetext</string>
     <string name="pass_city_text">citytext</string>
     <string name="pass_country_text">countrytext</string>
+    <string name="pass_job_title_text">jobtitletext</string>
+    <string name="pass_industry_text">industrytext</string>
     <string name="pass_zipcode">zipcode</string>
     <string name="pass_who_you_are">whoyouareposition</string>
+    <string name="pass_job_title_id">jobtitileposition</string>
+    <string name="pass_industry_id">industryposition</string>
     <string name="pass_who_you_are_text">whoyouare</string>
     <string name="pass_topics_of_interesr">topicsofinterest</string>
     <string name="pass_view_topics_of_interest">viewtopicsofinterest</string>

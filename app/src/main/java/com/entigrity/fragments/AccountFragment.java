@@ -70,7 +70,11 @@ public class AccountFragment extends Fragment {
     public EditText edt_subject, edt_review;
     public Button btn_submit;
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "";
-    public int country_id = 0, state_id = 0, city_id = 0;
+    public int country_id = 0, state_id = 0, city_id = 0, jobtitle_id = 0, industry_id = 0;
+
+    public String job_titile="", industry = "";
+
+
     public String whoyouarevalue = "";
     public int whoyouare = 0;
     public String State, City;
@@ -195,12 +199,13 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onNext(ViewProfileModel viewProfileModel) {
 
-                        if (viewProfileModel.isSuccess() == true) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
 
-                            Constant.Log("token",AppSettings.get_login_token(context));
+                        if (viewProfileModel.isSuccess() == true) {
+
+                            Constant.Log("token", AppSettings.get_login_token(context));
 
                             if (viewProfileModel.getPayload().getData().getFirstName() != null
                                     && !viewProfileModel.getPayload().getData().getFirstName().equalsIgnoreCase("")) {
@@ -257,6 +262,20 @@ public class AccountFragment extends Fragment {
                             }
 
 
+                            if (viewProfileModel.getPayload().getData().getJobTitle() != null
+                                    && !viewProfileModel.getPayload().getData().getJobTitle().equalsIgnoreCase("")) {
+
+                                jobtitle_id = Integer.parseInt(viewProfileModel.getPayload().getData().getJobtitleId());
+                                job_titile = viewProfileModel.getPayload().getData().getJobTitle();
+                            }
+
+                            if (viewProfileModel.getPayload().getData().getIndustry() != null
+                                    && !viewProfileModel.getPayload().getData().getIndustry().equalsIgnoreCase("")) {
+                                industry_id = Integer.parseInt(viewProfileModel.getPayload().getData().getIndustryId());
+                                industry = viewProfileModel.getPayload().getData().getIndustry();
+                            }
+
+
                             if (viewProfileModel.getPayload().getData().getCountry() != null
                                     && !viewProfileModel.getPayload().getData().getCountry().equalsIgnoreCase("")) {
                                 country_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCountryId());
@@ -295,27 +314,9 @@ public class AccountFragment extends Fragment {
                             }
 
                         } else {
-                            if (viewProfileModel.getPayload().getAccessToken() != null && !viewProfileModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
-                                AppSettings.set_login_token(context, viewProfileModel.getPayload().getAccessToken());
 
-                                if (Constant.isNetworkAvailable(context)) {
-                                    GetProfile();
-                                } else {
-                                    Snackbar.make(binding.rvFeedback, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                                }
-
-
-                            } else {
-                                if (progressDialog.isShowing()) {
-                                    progressDialog.dismiss();
-                                }
-
-                                Snackbar.make(binding.rvFeedback, viewProfileModel.getMessage(), Snackbar.LENGTH_SHORT).show();
-                            }
-
-
+                            Snackbar.make(binding.rvFeedback, viewProfileModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
-
 
                     }
                 });
@@ -534,13 +535,23 @@ public class AccountFragment extends Fragment {
         i.putExtra(getResources().getString(R.string.pass_lname), lastname);
         i.putExtra(getResources().getString(R.string.pass_email), email);
         i.putExtra(getResources().getString(R.string.pass_firm_name), firmname);
-        i.putExtra(getResources().getString(R.string.pass_country_text), country);
         i.putExtra(getResources().getString(R.string.pass_mobile_number), mobilenumber);
+
         i.putExtra(getResources().getString(R.string.pass_country), country_id);
         i.putExtra(getResources().getString(R.string.pass_state), state_id);
         i.putExtra(getResources().getString(R.string.pass_city), city_id);
+
+        i.putExtra(getResources().getString(R.string.pass_job_title), jobtitle_id);
+        i.putExtra(getResources().getString(R.string.pass_industry), industry_id);
+        i.putExtra(getResources().getString(R.string.pass_job_title_text), job_titile);
+        i.putExtra(getResources().getString(R.string.pass_industry_text), industry);
+
+
+        i.putExtra(getResources().getString(R.string.pass_country_text), country);
         i.putExtra(getResources().getString(R.string.pass_state_text), State);
         i.putExtra(getResources().getString(R.string.pass_city_text), City);
+
+
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
         i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);
         i.putExtra(getResources().getString(R.string.pass_who_you_are_text), whoyouarevalue);

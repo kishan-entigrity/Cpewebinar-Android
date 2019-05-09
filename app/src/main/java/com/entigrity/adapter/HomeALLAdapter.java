@@ -85,9 +85,11 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
         if (viewHolder instanceof HomeViewHolder) {
 
+
             if (!mList.get(position).getWebinarTitle().equalsIgnoreCase("")) {
                 ((HomeViewHolder) viewHolder).tv_webinar_title.setText(mList.get(position).getWebinarTitle());
             }
+
 
             if (!mList.get(position).getStatus().equalsIgnoreCase("")) {
 
@@ -332,11 +334,14 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
                     if (!AppSettings.get_login_token(mContext).isEmpty()) {
 
+
                         if (mList.get(position).getStatus().equalsIgnoreCase(mContext
                                 .getResources().getString(R.string.str_webinar_status_register))) {
                             if (Constant.isNetworkAvailable(mContext)) {
+                                positions = viewHolder.getAdapterPosition();
+                                Constant.toast(mContext, "+++++++" + positions);
                                 progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
-                                RegisterWebinar(mList.get(position).getId(), ((HomeViewHolder) viewHolder).webinar_status, position);
+                                RegisterWebinar(mList.get(position).getId(), ((HomeViewHolder) viewHolder).webinar_status);
                             } else {
                                 Snackbar.make(((HomeViewHolder) viewHolder).webinar_status, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                             }
@@ -407,6 +412,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         return (position == mList.size() - 1 && isLoadingAdded) ? VIEW_ITEM : VIEW_PROG;
     }
+
 
     public static class HomeViewHolder extends RecyclerView.ViewHolder {
 
@@ -503,7 +509,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
     }
 
-    public void RegisterWebinar(int webinar_id, final Button button, final int position) {
+    public void RegisterWebinar(int webinar_id, final Button button) {
 
         mAPIService.RegisterWebinar(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ModelRegisterWebinar>() {
@@ -532,7 +538,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                         }
                         if (modelRegisterWebinar.isSuccess() == true) {
                             Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();
-                            positions = position;
                             HomeAllFragment.getInstance().RefreshData();
                         } else {
                             Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();
@@ -546,8 +551,22 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
     }
 
-    public void setItems(List<com.entigrity.model.homewebinarnew.WebinarItem> mlist) {
-        this.mList = mlist;
+    /* public void setItems(List<com.entigrity.model.homewebinarnew.WebinarItem> mlist) {
+         this.mList = mlist;
+     }*/
+    public void set(com.entigrity.model.homewebinarnew.WebinarItem webinarItem) {
+        mList.add(webinarItem);
+        notifyItemInserted(mList.size());
+
+
+        //
+        //notifyItemInserted(mList.size());
+    }
+
+    public void setall(List<com.entigrity.model.homewebinarnew.WebinarItem> mcList) {
+        for (com.entigrity.model.homewebinarnew.WebinarItem mc : mcList) {
+            set(mc);
+        }
     }
 
 

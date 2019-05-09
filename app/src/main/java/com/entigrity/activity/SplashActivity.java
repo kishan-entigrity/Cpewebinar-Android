@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivitySplashBinding;
 
@@ -71,7 +70,7 @@ public class SplashActivity extends AppCompatActivity {
                     finish();
                 }
 */
-                Intent i = new Intent(context, MainActivity.class);
+                Intent i = new Intent(context, WelcomeActivity.class);
                 startActivity(i);
                 finish();
 

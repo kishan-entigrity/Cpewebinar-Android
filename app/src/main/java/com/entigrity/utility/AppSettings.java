@@ -130,5 +130,20 @@ public class AppSettings {
 
     }
 
+    //email id
+
+    public static void set_email_id(Context context, String login_token) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefsEditor = mPrefs.edit();
+        prefsEditor.putString(context.getResources().getString(R.string.str_emailid), login_token);
+        prefsEditor.commit();
+    }
+
+    public static String get_email_id(Context context) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return mPrefs.getString(context.getResources().getString(R.string.str_emailid), "");
+
+    }
+
 
 }

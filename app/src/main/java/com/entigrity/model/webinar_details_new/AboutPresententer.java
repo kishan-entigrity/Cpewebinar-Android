@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 public class AboutPresententer {
 
     @SerializedName("desgnination")
-    private Object desgnination;
+    private String desgnination;
 
     @SerializedName("email_id")
     private String emailId;
 
     @SerializedName("company_desc")
-    private Object companyDesc;
+    private String companyDesc;
 
     @SerializedName("company_name")
     private String companyName;
@@ -23,11 +23,11 @@ public class AboutPresententer {
     @SerializedName("speaker_desc")
     private String speakerDesc;
 
-    public void setDesgnination(Object desgnination) {
+    public void setDesgnination(String desgnination) {
         this.desgnination = desgnination;
     }
 
-    public Object getDesgnination() {
+    public String getDesgnination() {
         return desgnination;
     }
 
@@ -39,11 +39,11 @@ public class AboutPresententer {
         return emailId;
     }
 
-    public void setCompanyDesc(Object companyDesc) {
+    public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
     }
 
-    public Object getCompanyDesc() {
+    public String getCompanyDesc() {
         return companyDesc;
     }
 

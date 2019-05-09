@@ -7,10 +7,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_height="@dimen/_120sdp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
         android:background="@drawable/guest_user_background"
         android:orientation="vertical">
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/popup_label"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/str_guest_user_dialog_msg"
             android:textColor="@color/feedback_title"
             android:textSize="@dimen/_12sdp"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/str_login_guest"
-                    android:textColor="@color/guest_button_color"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_15sdp"
                     app:font_text="SFUIDisplay-Bold.ttf" />
 
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/str_cancel_guest"
-                    android:textColor="@color/guest_button_color"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_15sdp"
                     app:font_text="SFUIDisplay-Bold.ttf" />
             </LinearLayout>
