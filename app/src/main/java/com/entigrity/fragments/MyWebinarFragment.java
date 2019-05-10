@@ -623,7 +623,7 @@ public class MyWebinarFragment extends Fragment {
         int pos = layoutManager.findLastCompletelyVisibleItemPosition();
         int numItems = binding.rvhomewebinar.getAdapter().getItemCount() - 1;
 
-      //  Constant.Log(TAG, "pos + numitem" + pos + "  " + "  " + numItems);
+        //  Constant.Log(TAG, "pos + numitem" + pos + "  " + "  " + numItems);
 
         return (pos >= numItems);
     }

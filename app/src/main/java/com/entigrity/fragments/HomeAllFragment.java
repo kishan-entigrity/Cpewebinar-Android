@@ -511,7 +511,8 @@ public class HomeAllFragment extends Fragment {
 
 
                             List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
-                            adapter.setall(webinaritems);
+                            adapter.setItems(webinaritems);
+                            adapter.notifyDataSetChanged();
 
 
                         } else {

@@ -72,7 +72,7 @@ public class AccountFragment extends Fragment {
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "";
     public int country_id = 0, state_id = 0, city_id = 0, jobtitle_id = 0, industry_id = 0;
 
-    public String job_titile="", industry = "";
+    public String job_titile = "", industry = "";
 
 
     public String whoyouarevalue = "";

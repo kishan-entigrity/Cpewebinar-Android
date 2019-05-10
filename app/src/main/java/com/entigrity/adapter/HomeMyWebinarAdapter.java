@@ -154,8 +154,6 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             }
 
 
-
-
             if (mList.get(position).getDuration() != 0) {
                 ((MyWebinarHolder) viewHolder).tv_duration_name.setVisibility(View.VISIBLE);
 
@@ -339,6 +337,8 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                     Intent i = new Intent(mContext, WebinarDetailsActivity.class);
                     i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
                             .get(position).getId());
+                    i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
+                            .get(position).getWebinarType());
                     mContext.startActivity(i);
 
                 }

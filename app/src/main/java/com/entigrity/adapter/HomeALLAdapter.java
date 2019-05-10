@@ -46,7 +46,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
     private String start_time;
     private APIService mAPIService;
     ProgressDialog progressDialog;
-    public int positions = 0;
 
 
     public HomeALLAdapter(Context mContext, List<com.entigrity.model.homewebinarnew.WebinarItem> mList) {
@@ -338,8 +337,8 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                         if (mList.get(position).getStatus().equalsIgnoreCase(mContext
                                 .getResources().getString(R.string.str_webinar_status_register))) {
                             if (Constant.isNetworkAvailable(mContext)) {
-                                positions = viewHolder.getAdapterPosition();
-                                Constant.toast(mContext, "+++++++" + positions);
+                                //    positions = viewHolder.getAdapterPosition();
+                                //  Constant.toast(mContext, "+++++++" + positions);
                                 progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
                                 RegisterWebinar(mList.get(position).getId(), ((HomeViewHolder) viewHolder).webinar_status);
                             } else {
@@ -551,22 +550,8 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
     }
 
-    /* public void setItems(List<com.entigrity.model.homewebinarnew.WebinarItem> mlist) {
-         this.mList = mlist;
-     }*/
-    public void set(com.entigrity.model.homewebinarnew.WebinarItem webinarItem) {
-        mList.add(webinarItem);
-        notifyItemInserted(mList.size());
-
-
-        //
-        //notifyItemInserted(mList.size());
-    }
-
-    public void setall(List<com.entigrity.model.homewebinarnew.WebinarItem> mcList) {
-        for (com.entigrity.model.homewebinarnew.WebinarItem mc : mcList) {
-            set(mc);
-        }
+    public void setItems(List<com.entigrity.model.homewebinarnew.WebinarItem> mlist) {
+        this.mList = mlist;
     }
 
 

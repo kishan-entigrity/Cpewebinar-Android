@@ -7,7 +7,7 @@ public class ApiUtilsNew {
 
     }
 
-    public static final String BASE_URL = "https://admin.my-cpe.com/api/";
+    public static final String BASE_URL = "https://my-cpe.com/api/";
 
 
     public static APIService getAPIService() {

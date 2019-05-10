@@ -76,13 +76,13 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     LayoutInflater inflater_new;
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
     private ArrayList<String> arrayListhandout = new ArrayList<>();
-    private static final String VIDEO_URL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+    private static final String VIDEO_URL = "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/2017/13/335085544/1324568531.mp4?token=1557432671-0x4f68c1cf05ffe876d8fff2aa9bf0a79b4cfe9da0";
 
 
     TextView tv_who_attend, tv_lerning_objectives;
+    LinearLayout lv_row_testimonial;
     public boolean ispause = false;
     DownloadTask downloadTask;
-
     private int mSeekPosition;
     private int cachedHeight;
     private boolean isFullscreen;
@@ -142,6 +142,24 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
             }
         });
 
+
+        binding.ivPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_live))) {
+                    Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_goto_meeting_link), Snackbar.LENGTH_SHORT).show();
+                } else if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_selfstudy))) {
+                    if (webinar_status.equalsIgnoreCase(getResources().getString(R.string.str_webinar_status_register))) {
+                        Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_video_validation), Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        PlayVideo();
+                    }
+                } else {
+                    PlayVideo();
+                }
+            }
+        });
+
         binding.lvWhoAttend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +168,13 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                 i.putStringArrayListExtra(getResources().getString(R.string.pass_who_you_are_list), whoshouldattend);
                 startActivity(i);
 
+            }
+        });
+
+        binding.tvViewMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(binding.tvViewMore, context.getResources().getString(R.string.str_comming_soon), Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -319,17 +344,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
             }
         });
 
-        binding.videoView.setMediaController(binding.mediaController);
-        setVideoAreaSize();
-        binding.videoView.setVideoViewCallback(this);
-
-        if (mSeekPosition > 0) {
-            binding.videoView.seekTo(mSeekPosition);
-        }
-
-
-        binding.videoView.start();
-
 
         binding.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -338,6 +352,23 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
             }
         });
 
+
+    }
+
+    public void PlayVideo() {
+        binding.ivPlay.setVisibility(View.GONE);
+        binding.ivthumbhel.setVisibility(View.GONE);
+        binding.videoLayout.setVisibility(View.VISIBLE);
+        binding.videoView.setMediaController(binding.mediaController);
+        setVideoAreaSize();
+        binding.videoView.setVideoViewCallback(WebinarDetailsActivity.this);
+
+        if (mSeekPosition > 0) {
+            binding.videoView.seekTo(mSeekPosition);
+        }
+
+
+        binding.videoView.start();
 
     }
 
@@ -773,6 +804,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             } else {
                                 binding.relTimezone.setVisibility(View.GONE);
                                 binding.tvAddtocalendar.setVisibility(View.GONE);
+
                             }
 
 
@@ -996,6 +1028,8 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
                                 final TextView[] myTextViews = new TextView[webinar_details.getPayload().getWebinarDetail().getLearningObjective().size()]; // create an empty array;
 
+                                final LinearLayout[] myview = new LinearLayout[webinar_details.getPayload().getWebinarDetail().getLearningObjective().size()]; // create an empty array;
+
                                 for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getLearningObjective().size(); i++) {
                                     final View myView_inflat = inflater_new.inflate(R.layout.row_learning_objective, null);
                                     tv_lerning_objectives = (TextView) myView_inflat.findViewById(R.id.tv_learning_objectives);
@@ -1009,7 +1043,30 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 }
 
 
+                                for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getLearningObjective().size(); i++) {
+                                    final View myView_inflat = inflater_new.inflate(R.layout.row_tetimonial, null);
+                                    lv_row_testimonial = (LinearLayout) myView_inflat.findViewById(R.id.lv_row_testimonial);
+                                    binding.lvTestimonial.addView(lv_row_testimonial);
+                                    LinearLayout.LayoutParams tvlp = (LinearLayout.LayoutParams) lv_row_testimonial.getLayoutParams();
+                                    lv_row_testimonial.setLayoutParams(tvlp);
+                                    myview[i] = lv_row_testimonial;
+                                }
+
+
                             }
+
+
+                            //temp purpose
+
+/*
+                            final LinearLayout[] myview = new LinearLayout[1]; // create an empty array;
+                            final View myView_inflat = inflater_new.inflate(R.layout.row_tetimonial, null);
+                            lv_row_testimonial = (LinearLayout) myView_inflat.findViewById(R.id.lv_row_testimonial);
+                            binding.lvTestimonial.addView(lv_row_testimonial);
+                            LinearLayout.LayoutParams tvlp = (LinearLayout.LayoutParams) lv_row_testimonial.getLayoutParams();
+                            lv_row_testimonial.setLayoutParams(tvlp);
+                            myview[1] = lv_row_testimonial;*/
+
 
                             if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getName().equalsIgnoreCase("")) {
                                 binding.tvPresenterName.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getName());
