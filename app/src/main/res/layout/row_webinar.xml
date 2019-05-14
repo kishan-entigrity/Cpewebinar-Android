@@ -49,15 +49,27 @@
         app:font_text="Montserrat-Medium.ttf" />
 
 
+    <ImageView
+        android:id="@+id/dv_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_10sdp"
+        android:layout_below="@+id/tv_webinar_title"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_toRightOf="@+id/tv_webinar_date"
+        android:background="@mipmap/webinar_vertical_divider" />
+
+
     <com.entigrity.view.CustomTextView
         android:id="@+id/tv_webinar_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_webinar_title"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:layout_toRightOf="@+id/tv_webinar_date"
+        android:layout_toRightOf="@+id/dv_divider"
         android:textColor="@color/fav_date_time"
         android:textSize="@dimen/_9sdp"
         app:font_text="Montserrat-Medium.ttf" />
@@ -83,10 +95,22 @@
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_toRightOf="@+id/dv_time_duration"
-        android:text="@string/str_fav_duration"
         android:textColor="@color/fav_date_time"
         android:textSize="@dimen/_9sdp"
-        android:visibility="gone"
+        app:font_text="Montserrat-Medium.ttf" />
+
+
+    <com.entigrity.view.CustomTextView
+        android:id="@+id/tv_timezone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_duration_name"
+        android:layout_below="@+id/tv_webinar_title"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@color/fav_date_time"
+        android:textSize="@dimen/_9sdp"
         app:font_text="Montserrat-Medium.ttf" />
 
 
@@ -198,6 +222,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/_10sdp"
+                        android:padding="@dimen/_2sdp"
                         android:layout_toLeftOf="@+id/tv_favorite_count"
                         android:src="@drawable/like" />
 

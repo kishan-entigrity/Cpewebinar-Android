@@ -371,7 +371,7 @@ public class MyWebinarFragment extends Fragment {
         return instance;
     }
 
-    public void RefreshData() {
+    /*public void RefreshData() {
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetMyWebinarListRefresh(webinartypemywebinar, topicsofinterest, start, limit);
@@ -379,7 +379,7 @@ public class MyWebinarFragment extends Fragment {
             Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
 
-    }
+    }*/
 
 
     @Override

@@ -76,7 +76,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     LayoutInflater inflater_new;
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
     private ArrayList<String> arrayListhandout = new ArrayList<>();
-    private static final String VIDEO_URL = "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/2017/13/335085544/1324568531.mp4?token=1557432671-0x4f68c1cf05ffe876d8fff2aa9bf0a79b4cfe9da0";
+    private static String VIDEO_URL = "";
 
 
     TextView tv_who_attend, tv_lerning_objectives;
@@ -152,10 +152,20 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                     if (webinar_status.equalsIgnoreCase(getResources().getString(R.string.str_webinar_status_register))) {
                         Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_video_validation), Snackbar.LENGTH_SHORT).show();
                     } else {
-                        PlayVideo();
+                        if (!VIDEO_URL.equalsIgnoreCase("")) {
+                            PlayVideo();
+                        } else {
+                            Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_video_link_not_avilable), Snackbar.LENGTH_SHORT).show();
+                        }
+
+
                     }
                 } else {
-                    PlayVideo();
+                    if (!VIDEO_URL.equalsIgnoreCase("")) {
+                        PlayVideo();
+                    } else {
+                        Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_video_link_not_avilable), Snackbar.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -266,9 +276,10 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
                             Constant.Log(TAG, "event" + hour + "  " + min_calendar);
 
-                            binding.tvWebinardate.setText(day + " " + month + " " + year + "     " +
-                                    arrayliattimezones.get(position).getStart_time()
-                                    + " | "
+
+                            binding.tvWebinardate.setText(day + " " + month + " " + year +
+                                    " | " + arrayliattimezones.get(position).getStart_time()
+
                             );
 
 
@@ -819,6 +830,10 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
                             }
 
+                            if (!webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl().equalsIgnoreCase("")) {
+                                VIDEO_URL = webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl();
+                            }
+
 
                             if (!webinar_details.getPayload().getWebinarDetail().getCost().equalsIgnoreCase("")) {
                                 binding.tvCost.setText("$" + webinar_details.getPayload().getWebinarDetail().getCost());
@@ -909,9 +924,9 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 Constant.Log(TAG, "event" + hour + "  " + min_calendar);
 
 
-                                binding.tvWebinardate.setText(day + " " + month + " " + year + "     " +
-                                        webinar_details.getPayload().getWebinarDetail().getStartTime()
-                                        + " | "
+                                binding.tvWebinardate.setText(day + " " + month + " " + year +
+                                        " | " + webinar_details.getPayload().getWebinarDetail().getStartTime()
+
                                 );
 
 
@@ -978,7 +993,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                         .getPayload().getWebinar().getWhoShouldAttend());*/
 
                                 whoshouldattend.addAll(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend());
-
+                                final LinearLayout[] myview = new LinearLayout[webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size()];
 
                                 final TextView[] myTextViews = new TextView[webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size()]; // create an empty array;
 
@@ -1011,6 +1026,16 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                     }
                                 }
 
+
+                                for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size(); i++) {
+                                    final View myView_inflat = inflater_new.inflate(R.layout.row_tetimonial, null);
+                                    lv_row_testimonial = (LinearLayout) myView_inflat.findViewById(R.id.lv_row_testimonial);
+                                    binding.lvTestimonial.addView(lv_row_testimonial);
+                                    LinearLayout.LayoutParams tvlp = (LinearLayout.LayoutParams) lv_row_testimonial.getLayoutParams();
+                                    lv_row_testimonial.setLayoutParams(tvlp);
+                                    myview[i] = lv_row_testimonial;
+                                }
+
                             }
 
 
@@ -1023,33 +1048,12 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             }
 
 
-                            if (webinar_details.getPayload().getWebinarDetail().getLearningObjective().size() > 0) {
+                            if (!webinar_details.getPayload().getWebinarDetail().getLearningObjective().equalsIgnoreCase("")) {
 
-
-                                final TextView[] myTextViews = new TextView[webinar_details.getPayload().getWebinarDetail().getLearningObjective().size()]; // create an empty array;
-
-                                final LinearLayout[] myview = new LinearLayout[webinar_details.getPayload().getWebinarDetail().getLearningObjective().size()]; // create an empty array;
-
-                                for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getLearningObjective().size(); i++) {
-                                    final View myView_inflat = inflater_new.inflate(R.layout.row_learning_objective, null);
-                                    tv_lerning_objectives = (TextView) myView_inflat.findViewById(R.id.tv_learning_objectives);
-                                    tv_lerning_objectives.setText(webinar_details.getPayload().getWebinarDetail().getLearningObjective().get(i));
-                                    binding.lvLearningObjective.addView(tv_lerning_objectives);
-                                    LinearLayout.LayoutParams tvlp = (LinearLayout.LayoutParams) tv_lerning_objectives.getLayoutParams();
-                                    tvlp.rightMargin = 5;
-                                    tvlp.leftMargin = 5;
-                                    tv_lerning_objectives.setLayoutParams(tvlp);
-                                    myTextViews[i] = tv_lerning_objectives;
-                                }
-
-
-                                for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getLearningObjective().size(); i++) {
-                                    final View myView_inflat = inflater_new.inflate(R.layout.row_tetimonial, null);
-                                    lv_row_testimonial = (LinearLayout) myView_inflat.findViewById(R.id.lv_row_testimonial);
-                                    binding.lvTestimonial.addView(lv_row_testimonial);
-                                    LinearLayout.LayoutParams tvlp = (LinearLayout.LayoutParams) lv_row_testimonial.getLayoutParams();
-                                    lv_row_testimonial.setLayoutParams(tvlp);
-                                    myview[i] = lv_row_testimonial;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    binding.tvLearningObjective.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getLearningObjective(), Html.FROM_HTML_MODE_COMPACT));
+                                } else {
+                                    binding.tvLearningObjective.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getLearningObjective()));
                                 }
 
 
@@ -1278,13 +1282,19 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                     // getting file length
                     int lenghtOfFile = conection.getContentLength();
 
+                    Constant.Log("URL", "++++" + url);
+
+                    String extension = sUrl[i].substring(sUrl[i].lastIndexOf('.') + 1).trim();
+                    Constant.Log("result", "++++" + extension);
+
+
                     // input stream to read file - with 8k buffer
                     InputStream input = new BufferedInputStream(
                             url.openStream(), 8192);
-                    System.out.println("Data::" + sUrl[i]);
+                    // System.out.println("Data::" + sUrl[i]);
                     // Output stream to write file
                     OutputStream output = new FileOutputStream(
-                            "/sdcard/handout" + new Date().getTime() + ".extention");
+                            "/sdcard/handout" + new Date().getTime() + "." + extension);
 
                     byte data[] = new byte[1024];
 

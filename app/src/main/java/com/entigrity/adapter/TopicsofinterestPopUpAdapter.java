@@ -44,7 +44,7 @@ public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<Topicsofi
 
         if (mListrtopicsofinterestsubcategory.get(position).isIsChecked()) {
             holder.cbselection.setChecked(true);
-            // Constant.arraylistselectedtopicsofinterest.set(position, mListrtopicsofinterestsubcategory.get(position).getId());
+            // Constant.arraylistselectedtopicsofinterest.set(clickedposition, mListrtopicsofinterestsubcategory.get(clickedposition).getId());
         } else {
             holder.cbselection.setChecked(false);
         }

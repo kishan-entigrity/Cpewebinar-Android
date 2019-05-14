@@ -62,6 +62,7 @@
     <string name="str_done">Done</string>
     <string name="str_goto_meeting_link">GoTo Meeting Link is not Available.</string>
     <string name="str_video_validation">Please Register the Webinar.</string>
+    <string name="str_video_link_not_avilable">video link is not avilable.</string>
 
 
     //hashmap key

@@ -345,14 +345,15 @@ public class HomeAllFragment extends Fragment {
     }
 
 
-    public void RefreshData() {
+   /* public void RefreshData() {
+
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetHomeListRefresh(webinartype, topicsofinterest, start, limit);
         } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
 
     public void GetHomeListNew(final String webinartype, final String topicsofinterest, final int start, final int limit) {
@@ -422,7 +423,6 @@ public class HomeAllFragment extends Fragment {
                                 if (arrHomelistnew.size() > 0) {
                                     arrHomelistnew.clear();
                                 }
-
                             }
 
 
@@ -431,12 +431,9 @@ public class HomeAllFragment extends Fragment {
                             } else {
 
                                 for (int i = 0; i < arrHomelistnew.size(); i++) {
-
                                     if (i == arrHomelistnew.size() - 1) {
                                         arrHomelistnew.remove(i);
                                     }
-
-
                                 }
 
 
@@ -509,9 +506,9 @@ public class HomeAllFragment extends Fragment {
 
                             islast = webinar_home_new.getPayload().isIsLast();
 
-
                             List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
-                            adapter.setItems(webinaritems);
+                            arrHomelistnew.addAll(webinaritems);
+                            adapter.setItems(arrHomelistnew);
                             adapter.notifyDataSetChanged();
 
 

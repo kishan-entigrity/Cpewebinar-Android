@@ -144,11 +144,11 @@ public class WelcomeActivity extends AppCompatActivity {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            // Constant.Log("onPageScrolled", "onPageScrolled" + position);
+            // Constant.Log("onPageScrolled", "onPageScrolled" + clickedposition);
 
 
 
-          /*  if (position == 2) {
+          /*  if (clickedposition == 2) {
                 // last page. make button text to GOT IT
                 if (!checkflagindicator) {
                     checkflagindicator = true;

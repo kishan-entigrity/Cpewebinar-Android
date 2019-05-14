@@ -51,7 +51,7 @@ public abstract class SectionedRecyclerViewAdapter<VH extends RecyclerView.ViewH
         });
     }
 
-    // returns section along with offsetted position
+    // returns section along with offsetted clickedposition
     private int[] getSectionIndexAndRelativePosition(int itemPosition) {
         synchronized (mHeaderLocationMap) {
             Integer lastSectionIndex = -1;
