@@ -371,16 +371,6 @@ public class MyWebinarFragment extends Fragment {
         return instance;
     }
 
-    /*public void RefreshData() {
-        if (Constant.isNetworkAvailable(context)) {
-            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-            GetMyWebinarListRefresh(webinartypemywebinar, topicsofinterest, start, limit);
-        } else {
-            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-        }
-
-    }*/
-
 
     @Override
     public void onResume() {
@@ -453,7 +443,6 @@ public class MyWebinarFragment extends Fragment {
             GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
         } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-
         }
 
     }
@@ -520,7 +509,28 @@ public class MyWebinarFragment extends Fragment {
 
 
                             if (start == 0 && limit == 10) {
+                                if (arrHomeMyWebinarlistnew.size() > 0) {
+                                    arrHomeMyWebinarlistnew.clear();
+                                }
+
+                              /*  if (Constant.checklikedislikestatusmywebinar.size() > 0) {
+                                    Constant.checklikedislikestatusmywebinar.clear();
+                                    Constant.Log(TAG, "hashmap_clear  " + Constant.checklikedislikestatusmywebinar.size());
+                                }*/
+                            }
+
+
+                            if (start == 0 && limit == 10) {
                                 arrHomeMyWebinarlistnew = webinar_home_new.getPayload().getWebinar();
+
+                                /*for (int i = 0; i < arrHomeMyWebinarlistnew.size(); i++) {
+                                    Constant.checklikedislikestatusmywebinar.put(arrHomeMyWebinarlistnew.get(i).getWebinarTitle(), arrHomeMyWebinarlistnew.get(i)
+                                            .getWebinarLike());
+                                }
+
+                                Constant.Log(TAG, "hashmap_intial  " + Constant.checklikedislikestatusmywebinar.size());
+*/
+
                             } else {
 
                                 for (int i = 0; i < arrHomeMyWebinarlistnew.size(); i++) {
@@ -534,6 +544,16 @@ public class MyWebinarFragment extends Fragment {
 
 
                                 List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
+
+
+                                /*for (int i = 0; i < webinaritems.size(); i++) {
+                                    Constant.checklikedislikestatusmywebinar.put(webinaritems.get(i).getWebinarTitle(), webinaritems.get(i)
+                                            .getWebinarLike());
+                                }
+
+                                Constant.Log(TAG, "hashmap_pagination  " + Constant.checklikedislikestatusmywebinar.size());
+*/
+
                                 adapter.addAll(webinaritems);
                             }
 
@@ -564,59 +584,6 @@ public class MyWebinarFragment extends Fragment {
 
     }
 
-    public void GetMyWebinarListRefresh(final String webinartype, final String topicsofinterest, final int start, final int limit) {
-
-        mAPIService_new.GetMyWebinarListNew(getResources().getString(R.string.accept),
-                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
-                start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Webinar_Home_New>() {
-                    @Override
-                    public void onCompleted() {
-                        loading = true;
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-
-                        String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvhomewebinar, message, Snackbar.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onNext(Webinar_Home_New webinar_home_new) {
-
-                        if (webinar_home_new.isSuccess() == true) {
-
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-
-                            islast = webinar_home_new.getPayload().isIsLast();
-
-
-                            List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
-                            adapter.setItems(webinaritems);
-                            adapter.notifyDataSetChanged();
-
-
-                        } else {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-                            Snackbar.make(binding.rvhomewebinar, webinar_home_new.getMessage(), Snackbar.LENGTH_SHORT).show();
-                        }
-
-
-                    }
-
-
-                });
-
-    }
 
     boolean isLastVisible() {
         LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvhomewebinar.getLayoutManager());

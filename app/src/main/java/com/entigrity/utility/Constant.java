@@ -30,7 +30,9 @@ public class Constant {
     public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
     public static ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
 
-
+  /*  public static HashMap<String, String> checklikedislikestatusall = new HashMap<String, String>();
+    public static HashMap<String, String> checklikedislikestatusmywebinar = new HashMap<String, String>();
+*/
 
     public static boolean isNetworkAvailable(Context con) {
         try {

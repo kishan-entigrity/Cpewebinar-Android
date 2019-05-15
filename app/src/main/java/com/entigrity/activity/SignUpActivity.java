@@ -40,6 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
     private APIService mAPIService_new;
     private static final String TAG = SignUpActivity.class.getName();
     private ArrayList<String> arrayLististusertype = new ArrayList<String>();
+    private ArrayList<Integer> arrayLististusertypeid = new ArrayList<Integer>();
     public boolean checkprivacypolicystatus = false;
     private boolean checkpasswordvisiblestatus = false;
     private boolean checkconfirmpasswordvisiblestatus = false;
@@ -78,7 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if (boolean_usertype) {
                     boolean_usertype = false;
                 } else {
-                    user_type = position;
+                    user_type = arrayLististusertypeid.get(position);
                 }
 
             }
@@ -400,6 +401,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                             for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
                                 arrayLististusertype.add(userTypeModel.getPayload().getUserType().get(i).getName());
+                                arrayLististusertypeid.add(userTypeModel.getPayload().getUserType().get(i).getId());
                             }
                         } else {
                             Snackbar.make(binding.btnRegister, userTypeModel.getMessage(), Snackbar.LENGTH_SHORT).show();

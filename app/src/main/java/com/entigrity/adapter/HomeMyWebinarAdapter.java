@@ -305,6 +305,10 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
 
 
             }*/
+/*
+
+
+
 
             if (mList.get(position).getWebinarLike().equalsIgnoreCase(mContext
                     .getResources().getString(R.string.fav_yes))) {
@@ -312,7 +316,24 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             } else {
                 ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
             }
+*/
+            if (mList.get(position).getWebinarLike().equalsIgnoreCase(mContext
+                    .getResources().getString(R.string.fav_yes))) {
+                ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like_hover);
+            } else {
+                ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
+            }
 
+            /*if (Constant.checklikedislikestatusmywebinar.size() > 0) {
+                String webinarlikestatus = Constant.checklikedislikestatusmywebinar.get(mList.get(position).getWebinarTitle());
+
+                if (webinarlikestatus.equalsIgnoreCase(mContext
+                        .getResources().getString(R.string.fav_yes))) {
+                    ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like_hover);
+                } else {
+                    ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
+                }
+            }*/
 
             ((MyWebinarHolder) viewHolder).ivshare.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -359,7 +380,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                             .getResources().getString(R.string.str_webinar_status_register))) {
                         if (Constant.isNetworkAvailable(mContext)) {
                             progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
-                            RegisterWebinar(mList.get(position).getId(), ((MyWebinarHolder) viewHolder).webinar_status);
+                            RegisterWebinar(mList.get(position).getId(), ((MyWebinarHolder) viewHolder).webinar_status, position);
                         } else {
                             Snackbar.make(((MyWebinarHolder) viewHolder).webinar_status, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                         }
@@ -376,7 +397,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     if (Constant.isNetworkAvailable(mContext)) {
                         progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
-                        WebinarFavoriteLikeDislike(mList.get(position).getId(), ((MyWebinarHolder) viewHolder).ivfavorite);
+                        WebinarFavoriteLikeDislike(mList.get(position).getId(), ((MyWebinarHolder) viewHolder).ivfavorite, position);
                     } else {
                         Snackbar.make(((MyWebinarHolder) viewHolder).ivfavorite, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                     }
@@ -505,7 +526,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private void WebinarFavoriteLikeDislike(final int webinar_id, final ImageView ImageView) {
+    private void WebinarFavoriteLikeDislike(final int webinar_id, final ImageView ImageView, final int position) {
 
         mAPIService.PostWebinarLikeDislike(mContext.getResources().getString(R.string.accept),
                 mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext),
@@ -540,8 +561,17 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                             if (webinar_like_dislike_model.getPayload().getIsLike().equalsIgnoreCase(mContext
                                     .getResources().getString(R.string.fav_yes))) {
                                 ImageView.setImageResource(R.drawable.like_hover);
+
+                                mList.get(position).setWebinarLike(mContext
+                                        .getResources().getString(R.string.fav_yes));
+                               /* Constant.checklikedislikestatusmywebinar.put(mList.get(position).getWebinarTitle(),
+                                        webinar_like_dislike_model.getPayload().getIsLike());*/
                             } else {
                                 ImageView.setImageResource(R.drawable.like);
+                                mList.get(position).setWebinarLike(mContext
+                                        .getResources().getString(R.string.fav_No));
+                                /*Constant.checklikedislikestatusmywebinar.put(mList.get(position).getWebinarTitle(),
+                                        webinar_like_dislike_model.getPayload().getIsLike());*/
                             }
                             Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         } else {
@@ -555,7 +585,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
 
     }
 
-    public void RegisterWebinar(int webinar_id, final Button button) {
+    public void RegisterWebinar(int webinar_id, final Button button, final int position) {
 
         mAPIService.RegisterWebinar(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ModelRegisterWebinar>() {
@@ -584,6 +614,21 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                         }
                         if (modelRegisterWebinar.isSuccess() == true) {
                             Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
+                                    .getString(R.string.str_filter_live))) {
+                                button.setText("Enrolled");
+                                button.setBackgroundResource(R.drawable.rounded_webinar_status);
+                                mList.get(position).setStatus("Enrolled");
+                            } else if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
+                                    .getString(R.string.str_filter_selfstudy))) {
+                                button.setText("WatchNow");
+                                button.setBackgroundResource(R.drawable.rounded_webinar_status);
+                                mList.get(position).setStatus("WatchNow");
+                            } else {
+                                button.setText("My certificate");
+                                button.setBackgroundResource(R.drawable.rounded_webinar_status);
+                                mList.get(position).setStatus("My certificate");
+                            }
 
                         } else {
                             Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();

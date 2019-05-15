@@ -303,22 +303,7 @@ public class HomeAllFragment extends Fragment {
     }
 
 
-
-
-   /* @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            Constant.Log(TAG, "requestcode" + requestCode);
-        } else {
-            Constant.Log(TAG, "requestcode" + requestCode);
-        }
-
-    }*/
-
-
     private void loadNextPage() {
-
         if (Constant.isNetworkAvailable(context)) {
             binding.progressBar.setVisibility(View.VISIBLE);
             GetHomeListNew(webinartype, topicsofinterest, start, limit);
@@ -343,17 +328,6 @@ public class HomeAllFragment extends Fragment {
             Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
     }
-
-
-   /* public void RefreshData() {
-
-        if (Constant.isNetworkAvailable(context)) {
-            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-            GetHomeListRefresh(webinartype, topicsofinterest, start, limit);
-        } else {
-            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-        }
-    }*/
 
 
     public void GetHomeListNew(final String webinartype, final String topicsofinterest, final int start, final int limit) {
@@ -423,11 +397,28 @@ public class HomeAllFragment extends Fragment {
                                 if (arrHomelistnew.size() > 0) {
                                     arrHomelistnew.clear();
                                 }
+
+                           /*     if (Constant.checklikedislikestatusall.size() > 0) {
+                                    Constant.checklikedislikestatusall.clear();
+                                    Constant.Log(TAG, "hashmap_clear  " + Constant.checklikedislikestatusall.size());
+                                }
+*/
+
                             }
 
 
                             if (start == 0 && limit == 10) {
                                 arrHomelistnew = webinar_home_new.getPayload().getWebinar();
+
+                          /*      for (int i = 0; i < arrHomelistnew.size(); i++) {
+                                    Constant.checklikedislikestatusall.put(arrHomelistnew.get(i).getWebinarTitle(), arrHomelistnew.get(i)
+                                            .getWebinarLike());
+                                }
+
+
+                                Constant.Log(TAG, "hashmap_intial  " + Constant.checklikedislikestatusall.size());
+*/
+
                             } else {
 
                                 for (int i = 0; i < arrHomelistnew.size(); i++) {
@@ -438,7 +429,19 @@ public class HomeAllFragment extends Fragment {
 
 
                                 List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
+
+                               /* for (int i = 0; i < webinaritems.size(); i++) {
+                                    Constant.checklikedislikestatusall.put(webinaritems.get(i).getWebinarTitle(), webinaritems.get(i)
+                                            .getWebinarLike());
+                                }
+
+
+                                Constant.Log(TAG, "hashmap_pagination  " + Constant.checklikedislikestatusall.size());
+*/
+
                                 adapter.addAll(webinaritems);
+
+
                             }
 
 
@@ -458,63 +461,6 @@ public class HomeAllFragment extends Fragment {
                                 if (binding.swipeRefreshLayouthome.isRefreshing()) {
                                     binding.swipeRefreshLayouthome.setRefreshing(false);
                                 }
-                            }
-                            Snackbar.make(binding.rvhome, webinar_home_new.getMessage(), Snackbar.LENGTH_SHORT).show();
-                        }
-
-
-                    }
-
-
-                });
-
-
-    }
-
-
-    public void GetHomeListRefresh(final String webinartype, final String topicsofinterest, final int start, final int limit) {
-
-        mAPIService_new.GetHomeWebinarListNew(getResources().getString(R.string.accept),
-                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Webinar_Home_New>() {
-                    @Override
-                    public void onCompleted() {
-                        loading = true;
-                    }
-
-
-                    @Override
-                    public void onError(Throwable e) {
-
-
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-
-                        String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvhome, message, Snackbar.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onNext(Webinar_Home_New webinar_home_new) {
-
-                        if (webinar_home_new.isSuccess() == true) {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-
-
-                            islast = webinar_home_new.getPayload().isIsLast();
-
-                            List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
-                            arrHomelistnew.addAll(webinaritems);
-                            adapter.setItems(arrHomelistnew);
-                            adapter.notifyDataSetChanged();
-
-
-                        } else {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
                             }
                             Snackbar.make(binding.rvhome, webinar_home_new.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
