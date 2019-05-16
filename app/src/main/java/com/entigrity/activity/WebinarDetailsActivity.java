@@ -844,7 +844,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             if (webinar_details.getPayload().getWebinarDetail().getTimezones().size() > 0) {
                                 for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getTimezones().size(); i++) {
                                     arrayListtimezone.add(webinar_details.getPayload().getWebinarDetail().getTimezones().get(i)
-                                            .getTimezone());
+                                            .getTimezoneshort());
                                     timezones timezones = new timezones();
                                     timezones.setStart_date(webinar_details.getPayload().getWebinarDetail()
                                             .getTimezones().get(i).getStartDate());
@@ -852,6 +852,8 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                             .getTimezones().get(i).getStartTime());
                                     timezones.setTimezone(webinar_details.getPayload().getWebinarDetail()
                                             .getTimezones().get(i).getTimezone());
+                                    timezones.setTimezone_short(webinar_details.getPayload().getWebinarDetail()
+                                            .getTimezones().get(i).getTimezoneshort());
                                     arrayliattimezones.add(timezones);
                                 }
                                 ShowAdapter();

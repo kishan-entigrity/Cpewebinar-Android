@@ -47,6 +47,29 @@ public class Constant {
         }
     }
 
+    public static ArrayList<String> listOfPattern() {
+        ArrayList<String> listOfPattern = new ArrayList<String>();
+
+        String ptVisa = "^4[0-9]$";
+
+        listOfPattern.add(ptVisa);
+
+        String ptMasterCard = "^5[1-5]$";
+
+        listOfPattern.add(ptMasterCard);
+
+        String ptDiscover = "^6(?:011|5[0-9]{2})$";
+
+        listOfPattern.add(ptDiscover);
+
+        String ptAmeExp = "^3[47]$";
+
+        listOfPattern.add(ptAmeExp);
+
+        return listOfPattern;
+    }
+
+
     public static boolean isValidEmailId(String email) {
 
         return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"

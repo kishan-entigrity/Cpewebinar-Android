@@ -617,4 +617,14 @@
     <string name="str_review_evolution_form">Evolution Form</string>
 
 
+    //stripe
+
+    <string name="str_hint_card_number">Card number</string>
+    <string name="str_card_holder_name">Card Holder Name</string>
+    <string name="str_month">MM/YY</string>
+    <string name="str_year">YY</string>
+    <string name="str_cvv">CVV</string>
+    <string name="str_payment">Payment</string>
+
+
 </resources>

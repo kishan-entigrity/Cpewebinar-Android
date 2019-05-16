@@ -1,16 +1,22 @@
 package com.entigrity.adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -46,10 +52,27 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
     private APIService mAPIService;
     ProgressDialog progressDialog;
     public int clickedposition = 0;
+    public Dialog myDialog;
+    private static final int CARD_NUMBER_TOTAL_SYMBOLS = 19; // size of pattern 0000-0000-0000-0000
+    private static final int CARD_NUMBER_TOTAL_DIGITS = 16; // max numbers of digits in pattern: 0000 x 4
+    private static final int CARD_NUMBER_DIVIDER_MODULO = 5; // means divider position is every 5th symbol beginning with 1
+    private static final int CARD_NUMBER_DIVIDER_POSITION = CARD_NUMBER_DIVIDER_MODULO - 1; // means divider position is every 4th symbol beginning with 0
+    private static final char CARD_NUMBER_DIVIDER = '-';
+
+    private static final int CARD_DATE_TOTAL_SYMBOLS = 5; // size of pattern MM/YY
+    private static final int CARD_DATE_TOTAL_DIGITS = 4; // max numbers of digits in pattern: MM + YY
+    private static final int CARD_DATE_DIVIDER_MODULO = 3; // means divider position is every 3rd symbol beginning with 1
+    private static final int CARD_DATE_DIVIDER_POSITION = CARD_DATE_DIVIDER_MODULO - 1; // means divider position is every 2nd symbol beginning with 0
+    private static final char CARD_DATE_DIVIDER = '/';
+
+    private static final int CARD_CVC_TOTAL_SYMBOLS = 3;
+    private TextView tv_submit, tv_cancel;
+    private EditText edt_card_number, edt_card_holder_name, edt_expiry_month, edt_expiry_year, edt_cvv;
+    Integer[] imageArray = {R.drawable.visa, R.drawable.mastercard, R.drawable.discover, R.drawable.amx};
+    private String cardtype = "";
 
 
     public HomeALLAdapter(Context mContext, List<com.entigrity.model.homewebinarnew.WebinarItem> mList) {
-        setHasStableIds(true);
         this.mContext = mContext;
         this.mList = mList;
         mAPIService = ApiUtilsNew.getAPIService();
@@ -380,9 +403,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                             } else {
                                 Snackbar.make(((HomeViewHolder) viewHolder).webinar_status, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                             }
-
-
                         }
+                    } else {
+                        ShowStripePopup();
                     }
 
 
@@ -411,6 +434,196 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
         }*/
 
     }
+
+    public void ShowStripePopup() {
+        myDialog = new Dialog(mContext);
+        myDialog.setContentView(R.layout.stripe_popup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        edt_card_number = (EditText) myDialog.findViewById(R.id.edt_card_number);
+
+        edt_card_holder_name = (EditText) myDialog.findViewById(R.id.edt_card_holder_name);
+        edt_expiry_month = (EditText) myDialog.findViewById(R.id.edt_expiry_month);
+
+
+        edt_cvv = (EditText) myDialog.findViewById(R.id.edt_cvv);
+
+        tv_submit = (TextView) myDialog.findViewById(R.id.tv_submit);
+        tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel);
+
+        //  edt_card_number.addTextChangedListener(new CreditCardNumberFormattingTextWatcher());
+
+        edt_card_number.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String ccNum = s.toString();
+
+                if (ccNum.length() >= 2) {
+                    for (int i = 0; i < Constant.listOfPattern().size(); i++) {
+                        if (ccNum.substring(0, 2).matches(Constant.listOfPattern().get(i))) {
+                            edt_card_number.setCompoundDrawablesWithIntrinsicBounds(0, 0, imageArray[i], 0);
+
+                            cardtype = String.valueOf(i);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (!edt_card_number.getText().toString().equalsIgnoreCase("")) {
+                    for (int i = 0; i < Constant.listOfPattern().size(); i++) {
+                        if (edt_card_number.getText().toString().matches(Constant.listOfPattern().get(i))) {
+                            edt_card_number.setCompoundDrawablesWithIntrinsicBounds(0, 0, imageArray[i], 0);
+
+                            cardtype = String.valueOf(i);
+                        }
+                    }
+                } else {
+                    edt_card_number.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
+
+
+                if (!isInputCorrect(s, CARD_NUMBER_TOTAL_SYMBOLS, CARD_NUMBER_DIVIDER_MODULO, CARD_NUMBER_DIVIDER)) {
+                    s.replace(0, s.length(), concatString(getDigitArray(s, CARD_NUMBER_TOTAL_DIGITS), CARD_NUMBER_DIVIDER_POSITION, CARD_NUMBER_DIVIDER));
+                }
+
+
+            }
+        });
+
+
+        edt_expiry_month.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!isInputCorrect(s, CARD_DATE_TOTAL_SYMBOLS, CARD_DATE_DIVIDER_MODULO, CARD_DATE_DIVIDER)) {
+                    s.replace(0, s.length(), concatString(getDigitArray(s, CARD_DATE_TOTAL_DIGITS), CARD_DATE_DIVIDER_POSITION, CARD_DATE_DIVIDER));
+                }
+
+            }
+        });
+
+
+        edt_cvv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > CARD_CVC_TOTAL_SYMBOLS) {
+                    s.delete(CARD_CVC_TOTAL_SYMBOLS, s.length());
+                }
+
+            }
+        });
+
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                }
+
+            }
+        });
+
+
+        myDialog.show();
+
+    }
+
+
+    private boolean isInputCorrect(Editable s, int size, int dividerPosition, char divider) {
+        boolean isCorrect = s.length() <= size;
+        for (int i = 0; i < s.length(); i++) {
+            if (i > 0 && (i + 1) % dividerPosition == 0) {
+                isCorrect &= divider == s.charAt(i);
+            } else {
+                isCorrect &= Character.isDigit(s.charAt(i));
+            }
+        }
+        return isCorrect;
+    }
+
+    private String concatString(char[] digits, int dividerPosition, char divider) {
+        final StringBuilder formatted = new StringBuilder();
+
+        for (int i = 0; i < digits.length; i++) {
+            if (digits[i] != 0) {
+                formatted.append(digits[i]);
+                if ((i > 0) && (i < (digits.length - 1)) && (((i + 1) % dividerPosition) == 0)) {
+                    formatted.append(divider);
+                }
+            }
+        }
+
+        return formatted.toString();
+    }
+
+    private char[] getDigitArray(final Editable s, final int size) {
+        char[] digits = new char[size];
+        int index = 0;
+        for (int i = 0; i < s.length() && index < size; i++) {
+            char current = s.charAt(i);
+            if (Character.isDigit(current)) {
+                digits[index] = current;
+                index++;
+            }
+        }
+        return digits;
+    }
+
+
+    /*public static class CreditCardNumberFormattingTextWatcher implements TextWatcher {
+
+        private boolean lock;
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (lock || s.length() > 16) {
+                return;
+            }
+            lock = true;
+            for (int i = 4; i < s.length(); i += 5) {
+                if (s.toString().charAt(i) != ' ') {
+                    s.insert(i, " ");
+                }
+            }
+            lock = false;
+        }
+    }*/
+
 
     public String formatHoursAndMinutes(int totalMinutes) {
         String minutes = Integer.toString(totalMinutes % 60);
@@ -448,10 +661,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
         return (position == mList.size() - 1 && isLoadingAdded) ? VIEW_ITEM : VIEW_PROG;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return mList.get(position).getId();
-    }
 
     public static class HomeViewHolder extends RecyclerView.ViewHolder {
 

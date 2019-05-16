@@ -3,48 +3,61 @@ package com.entigrity.model.webinar_details_new;
 import com.google.gson.annotations.SerializedName;
 
 
-public class TimezonesItem{
+public class TimezonesItem {
 
-	@SerializedName("start_time")
-	private String startTime;
+    @SerializedName("start_time")
+    private String startTime;
 
-	@SerializedName("timezone")
-	private String timezone;
+    @SerializedName("timezone")
+    private String timezone;
 
-	@SerializedName("start_date")
-	private String startDate;
+    public String getTimezoneshort() {
+        return timezoneshort;
+    }
 
-	public void setStartTime(String startTime){
-		this.startTime = startTime;
-	}
+    public void setTimezoneshort(String timezoneshort) {
+        this.timezoneshort = timezoneshort;
+    }
 
-	public String getStartTime(){
-		return startTime;
-	}
+    @SerializedName("start_date")
+    private String startDate;
 
-	public void setTimezone(String timezone){
-		this.timezone = timezone;
-	}
+    @SerializedName("timezone_short")
+    private String timezoneshort;
 
-	public String getTimezone(){
-		return timezone;
-	}
 
-	public void setStartDate(String startDate){
-		this.startDate = startDate;
-	}
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 
-	public String getStartDate(){
-		return startDate;
-	}
+    public String getStartTime() {
+        return startTime;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"TimezonesItem{" + 
-			"start_time = '" + startTime + '\'' + 
-			",timezone = '" + timezone + '\'' + 
-			",start_date = '" + startDate + '\'' + 
-			"}";
-		}
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "TimezonesItem{" +
+                        "start_time = '" + startTime + '\'' +
+                        ",timezone = '" + timezone + '\'' +
+                        ",start_date = '" + startDate + '\'' +
+                        ",timezone_short = '" + timezoneshort + '\'' +
+                        "}";
+    }
 }
