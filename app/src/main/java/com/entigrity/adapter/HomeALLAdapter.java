@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.activity.LoginActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
@@ -51,7 +51,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
     private String start_time;
     private APIService mAPIService;
     ProgressDialog progressDialog;
-    public int clickedposition = 0;
     public Dialog myDialog;
     private static final int CARD_NUMBER_TOTAL_SYMBOLS = 19; // size of pattern 0000-0000-0000-0000
     private static final int CARD_NUMBER_TOTAL_DIGITS = 16; // max numbers of digits in pattern: 0000 x 4
@@ -66,7 +65,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
     private static final char CARD_DATE_DIVIDER = '/';
 
     private static final int CARD_CVC_TOTAL_SYMBOLS = 3;
-    private TextView tv_submit, tv_cancel;
+    private TextView tv_submit, tv_cancel, tv_login;
     private EditText edt_card_number, edt_card_holder_name, edt_expiry_month, edt_expiry_year, edt_cvv;
     Integer[] imageArray = {R.drawable.visa, R.drawable.mastercard, R.drawable.discover, R.drawable.amx};
     private String cardtype = "";
@@ -373,11 +372,13 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                     if (!AppSettings.get_login_token(mContext).isEmpty()) {
                         Intent i = new Intent(mContext, WebinarDetailsActivity.class);
                         i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
-                                .get(clickedposition).getId());
+                                .get(position).getId());
                         i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
-                                .get(clickedposition).getWebinarType());
+                                .get(position).getWebinarType());
 
                         mContext.startActivity(i);
+                    } else {
+                        ShowPopUp();
                     }
 
                    /* Intent i = new Intent(mContext, StripePaymentActivity.class);
@@ -404,9 +405,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                                 Snackbar.make(((HomeViewHolder) viewHolder).webinar_status, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                             }
                         }
-                    } else {
+                    } /*else {
                         ShowStripePopup();
-                    }
+                    }*/
 
 
                 }
@@ -435,7 +436,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
     }
 
-    public void ShowStripePopup() {
+    /*public void ShowStripePopup() {
         myDialog = new Dialog(mContext);
         myDialog.setContentView(R.layout.stripe_popup);
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -553,8 +554,46 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
         myDialog.show();
 
-    }
+    }*/
+    public void ShowPopUp() {
 
+        myDialog = new Dialog(mContext);
+        myDialog.setContentView(R.layout.guest_user_popup);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        tv_login = (TextView) myDialog.findViewById(R.id.tv_login_guest);
+        tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel_guest);
+
+        tv_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                }
+
+                Intent i = new Intent(mContext, LoginActivity.class);
+                mContext.startActivity(i);
+
+            }
+        });
+
+
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                }
+
+            }
+        });
+
+
+        myDialog.show();
+
+
+    }
 
     private boolean isInputCorrect(Editable s, int size, int dividerPosition, char divider) {
         boolean isCorrect = s.length() <= size;

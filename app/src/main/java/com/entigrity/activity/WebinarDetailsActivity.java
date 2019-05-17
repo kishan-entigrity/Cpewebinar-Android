@@ -147,7 +147,12 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
             @Override
             public void onClick(View v) {
                 if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_live))) {
-                    Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_goto_meeting_link), Snackbar.LENGTH_SHORT).show();
+                    //Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_goto_meeting_link), Snackbar.LENGTH_SHORT).show();
+                    String url = "https://global.gotowebinar.com/join/5445100837992316429/962947485";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+
                 } else if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_selfstudy))) {
                     if (webinar_status.equalsIgnoreCase(getResources().getString(R.string.str_webinar_status_register))) {
                         Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_video_validation), Snackbar.LENGTH_SHORT).show();

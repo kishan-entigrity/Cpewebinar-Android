@@ -180,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void SetCreditScreen() {
         isclickhome = false;
         setselectedtab = 0;
@@ -256,32 +255,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void ShowPopUp() {
-      /*  AlertDialog.Builder builder1 = new AlertDialog.Builder(context, R.style.MyDialogTheme);
-        builder1.setTitle(getResources().getString(R.string.str_guest_user_dialog_title));
-        builder1.setMessage(getResources().getString(R.string.str_guest_user_dialog_msg));
-        builder1.setCancelable(true);
-
-        builder1.setPositiveButton(getResources().getString(R.string.str_login_guest)
-                ,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(i);
-                    }
-                });
-
-        builder1.setNegativeButton(
-                getResources().getString(R.string.str_cancel_guest),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();*/
 
         myDialog = new Dialog(context);
         myDialog.setContentView(R.layout.guest_user_popup);

@@ -26,6 +26,7 @@ import android.widget.ImageView;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.ActivityAddCard;
 import com.entigrity.activity.ActivityChangePassword;
 import com.entigrity.activity.ActivityContactUs;
 import com.entigrity.activity.ActivityNotificationSetting;
@@ -421,6 +422,17 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ShowFeedBackPopUp();
+            }
+        });
+
+
+        binding.tvPaymentMethod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(context, ActivityAddCard.class);
+                context.startActivity(i);
+
             }
         });
 

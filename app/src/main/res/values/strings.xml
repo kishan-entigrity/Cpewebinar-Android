@@ -625,6 +625,11 @@
     <string name="str_year">YY</string>
     <string name="str_cvv">CVV</string>
     <string name="str_payment">Payment</string>
+    <string name="str_add_card_header">Add Cards</string>
+    <string name="str_pay_now">PAY NOW</string>
+    <string name="str_pay_amount_header">Pay Amount</string>
+    <string name="str_add_card_label">ADD CARD</string>
+    <string name="str_my_cards">My Cards</string>
 
 
 </resources>

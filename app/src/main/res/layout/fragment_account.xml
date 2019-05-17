@@ -170,7 +170,7 @@
                     android:padding="@dimen/_10sdp">
 
                     <com.entigrity.view.CustomTextView
-                        android:id="@+id/tv_paymentmethod"
+                        android:id="@+id/tv_payment_method"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
