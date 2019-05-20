@@ -419,7 +419,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                     if (!AppSettings.get_login_token(mContext).isEmpty()) {
                         if (Constant.isNetworkAvailable(mContext)) {
                             progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
-                            WebinarFavoriteLikeDislike(mList.get(position).getId(), ((HomeViewHolder) viewHolder).ivfavorite, position);
+                            WebinarFavoriteLikeDislike(((HomeViewHolder) viewHolder).tv_favorite_count, mList.get(position).getId(), ((HomeViewHolder) viewHolder).ivfavorite, position);
                         } else {
                             Snackbar.make(((HomeViewHolder) viewHolder).ivfavorite, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                         }
@@ -748,7 +748,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private void WebinarFavoriteLikeDislike(final int webinar_id, final ImageView ImageView, final int position) {
+    private void WebinarFavoriteLikeDislike(final TextView textView, final int webinar_id, final ImageView ImageView, final int position) {
 
         mAPIService.PostWebinarLikeDislike(mContext.getResources().getString(R.string.accept),
                 mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext),
@@ -783,14 +783,21 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                             if (webinar_like_dislike_model.getPayload().getIsLike().equalsIgnoreCase(mContext
                                     .getResources().getString(R.string.fav_yes))) {
                                 ImageView.setImageResource(R.drawable.like_hover);
-
+                                int favcount = mList.get(position).getFavWebinarCount() + 1;
+                                textView.setText("" + favcount);
+                                mList.get(position).setFavWebinarCount(favcount);
                                 mList.get(position).setWebinarLike(mContext
                                         .getResources().getString(R.string.fav_yes));
                                /* Constant.checklikedislikestatusall.put(mList.get(position).getWebinarTitle(),
                                         webinar_like_dislike_model.getPayload().getIsLike());*/
                             } else {
+                                ImageView.setImageResource(R.drawable.like);
+                                int favcount = mList.get(position).getFavWebinarCount() - 1;
+                                textView.setText("" + favcount);
+                                mList.get(position).setFavWebinarCount(favcount);
                                 mList.get(position).setWebinarLike(mContext
                                         .getResources().getString(R.string.fav_No));
+
                                 /*Constant.checklikedislikestatusall.put(mList.get(position).getWebinarTitle(),
                                         webinar_like_dislike_model.getPayload().getIsLike());*/
                             }
