@@ -26,6 +26,7 @@ import com.entigrity.model.instructor_like.Instructor_Like_Model;
 import com.entigrity.model.instructorfavorites.Instructor_Favorite;
 import com.entigrity.model.login.LoginModel;
 import com.entigrity.model.logout.LogoutModel;
+import com.entigrity.model.myfavorites.ModelFavorites;
 import com.entigrity.model.notification.NotificationModel;
 import com.entigrity.model.postcontactus.PostContactQuery;
 import com.entigrity.model.postfeedback.PostFeedback;
@@ -357,6 +358,18 @@ public interface APIService {
     @POST("webinar/my-webinar")
     @FormUrlEncoded
     Observable<Webinar_Home_New> GetMyWebinarListNew(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("start") int start,
+            @Field("limit") int limit,
+            @Field("webinar_type") String webinar_type,
+            @Field("topic_of_interest") String topic_of_interest);
+
+    //get my favorites
+
+    @POST("webinar/favorite")
+    @FormUrlEncoded
+    Observable<ModelFavorites> GetMyFavorites(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("start") int start,

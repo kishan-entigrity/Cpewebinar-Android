@@ -35,16 +35,17 @@ public class UserDashBoardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     public Context context;
     private static final String TAG = UserDashBoardFragment.class.getName();
+    private static UserDashBoardFragment instance;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, null, false);
         context = getActivity();
+        instance = UserDashBoardFragment.this;
 
         setupViewPager(binding.viewpager);
         binding.homeparenttabs.setupWithViewPager(binding.viewpager);
-        setupTabIcons();
 
 
         MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
@@ -107,9 +108,29 @@ public class UserDashBoardFragment extends Fragment {
 
     }
 
+    public static UserDashBoardFragment getInstance() {
+        return instance;
 
-    private void setupTabIcons() {
+    }
+
+
+    public void setupTabIcons(boolean isprogress) {
         TextView tabtwo = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
+        tabtwo.setText(getActivity().getResources().getString(R.string.str_my_webinar));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 0, 0, 0);
+        tabtwo.setLayoutParams(params);
+        tabtwo.setPadding(0, 0, 0, 0);
+        //tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.red_dot, 0);
+
+
+        binding.homeparenttabs.getTabAt(1).setCustomView(tabtwo);
+
+    }
+
+
+    /*public void setupTabIcons_Isprogress() {
+        TextView tabtwo = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab_dot_visible_gone, null);
         tabtwo.setText(getActivity().getResources().getString(R.string.str_my_webinar));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 0);
@@ -118,7 +139,8 @@ public class UserDashBoardFragment extends Fragment {
         //tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.red_dot, 0);
         binding.homeparenttabs.getTabAt(1).setCustomView(tabtwo);
 
-    }
+    }*/
+
 
     public void selectPage(int pageIndex) {
         binding.homeparenttabs.setScrollPosition(pageIndex, 0f, true);

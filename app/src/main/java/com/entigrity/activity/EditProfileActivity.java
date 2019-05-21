@@ -926,10 +926,16 @@ public class EditProfileActivity extends AppCompatActivity {
                                 }
 
 
-                                for (int i = 0; i < getcountryarray.size(); i++) {
-                                    if (country_pos == getcountryarray.get(i).getId()) {
-                                        country_set = getcountryarray.indexOf(getcountryarray.get(i));
+                                if (country_pos == 0) {
+                                    country_pos = getcountryarray.get(0).getId();
+                                    country_id = country_pos;
+                                } else {
+                                    for (int i = 0; i < getcountryarray.size(); i++) {
+                                        if (country_pos == getcountryarray.get(i).getId()) {
+                                            country_set = getcountryarray.indexOf(getcountryarray.get(i));
+                                        }
                                     }
+
                                 }
 
 
@@ -1006,11 +1012,18 @@ public class EditProfileActivity extends AppCompatActivity {
                                 }
 
 
-                                for (int i = 0; i < getcityarray.size(); i++) {
-                                    if (city_pos == getcityarray.get(i).getId()) {
-                                        city_set = getcityarray.indexOf(getcityarray.get(i));
+                                if (city_pos == 0) {
+                                    city_pos = getcityarray.get(0).getId();
+                                    city_id = city_pos;
+                                } else {
+                                    for (int i = 0; i < getcityarray.size(); i++) {
+                                        if (city_pos == getcityarray.get(i).getId()) {
+                                            city_set = getcityarray.indexOf(getcityarray.get(i));
+                                        }
                                     }
+
                                 }
+
 
                                 checkcityarray = false;
 
@@ -1104,10 +1117,16 @@ public class EditProfileActivity extends AppCompatActivity {
                                     getstatearray.add(stateItem);
                                 }
 
-                                for (int i = 0; i < getstatearray.size(); i++) {
-                                    if (state_pos == getstatearray.get(i).getId()) {
-                                        state_set = getstatearray.indexOf(getstatearray.get(i));
 
+                                if (state_pos == 0) {
+                                    state_pos = getstatearray.get(0).getId();
+                                    state_id = state_pos;
+                                } else {
+                                    for (int i = 0; i < getstatearray.size(); i++) {
+                                        if (state_pos == getstatearray.get(i).getId()) {
+                                            state_set = getstatearray.indexOf(getstatearray.get(i));
+
+                                        }
                                     }
                                 }
 

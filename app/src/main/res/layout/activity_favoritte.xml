@@ -48,18 +48,22 @@
 
         </RelativeLayout>
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_favoritelist"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayouthome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/rel_titile"
-            android:background="@color/White"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/_70sdp">
+            android:layout_below="@+id/rel_titile">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_favoritelist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_list"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/_50sdp"
+                android:scrollbars="vertical" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-        </android.support.v7.widget.RecyclerView>
 
         <com.entigrity.view.CustomTextView
             android:id="@+id/tv_nodatafound"
@@ -71,6 +75,23 @@
             android:textSize="@dimen/_25sdp"
             android:visibility="gone"
             app:font_text="Montserrat-Medium.ttf" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+
+        </FrameLayout>
 
 
     </RelativeLayout>

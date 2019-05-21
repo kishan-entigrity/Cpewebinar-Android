@@ -5,36 +5,49 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 
-public class Payload{
+public class Payload {
 
-	@SerializedName("is_last")
-	private boolean isLast;
+    @SerializedName("is_last")
+    private boolean isLast;
 
-	@SerializedName("webinar")
-	private List<WebinarItem> webinar;
 
-	public void setIsLast(boolean isLast){
-		this.isLast = isLast;
-	}
+    @SerializedName("is_progress")
+    private boolean isprogress;
 
-	public boolean isIsLast(){
-		return isLast;
-	}
+    public boolean isIsprogress() {
+        return isprogress;
+    }
 
-	public void setWebinar(List<WebinarItem> webinar){
-		this.webinar = webinar;
-	}
+    public void setIsprogress(boolean isprogress) {
+        this.isprogress = isprogress;
+    }
 
-	public List<WebinarItem> getWebinar(){
-		return webinar;
-	}
+    @SerializedName("webinar")
+    private List<WebinarItem> webinar;
 
-	@Override
- 	public String toString(){
-		return 
-			"Payload{" + 
-			"is_last = '" + isLast + '\'' + 
-			",webinar = '" + webinar + '\'' + 
-			"}";
-		}
+    public void setIsLast(boolean isLast) {
+        this.isLast = isLast;
+    }
+
+    public boolean isIsLast() {
+        return isLast;
+    }
+
+    public void setWebinar(List<WebinarItem> webinar) {
+        this.webinar = webinar;
+    }
+
+    public List<WebinarItem> getWebinar() {
+        return webinar;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Payload{" +
+                        "is_last = '" + isLast + '\'' +
+                        "is_progress = '" + isprogress + '\'' +
+                        ",webinar = '" + webinar + '\'' +
+                        "}";
+    }
 }

@@ -78,7 +78,7 @@ public class AccountFragment extends Fragment {
 
     public String whoyouarevalue = "";
     public int whoyouare = 0;
-    public String State, City;
+    public String state="", city="";
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
 
     @Nullable
@@ -285,13 +285,13 @@ public class AccountFragment extends Fragment {
                             if (viewProfileModel.getPayload().getData().getState() != null
                                     && !viewProfileModel.getPayload().getData().getState().equalsIgnoreCase("")) {
                                 state_id = Integer.parseInt(viewProfileModel.getPayload().getData().getStateId());
-                                State = viewProfileModel.getPayload().getData().getState();
+                                state = viewProfileModel.getPayload().getData().getState();
                             }
 
                             if (viewProfileModel.getPayload().getData().getCity() != null
                                     && !viewProfileModel.getPayload().getData().getCity().equalsIgnoreCase("")) {
                                 city_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCityId());
-                                City = viewProfileModel.getPayload().getData().getCity();
+                                city = viewProfileModel.getPayload().getData().getCity();
                             }
 
 
@@ -560,8 +560,8 @@ public class AccountFragment extends Fragment {
 
 
         i.putExtra(getResources().getString(R.string.pass_country_text), country);
-        i.putExtra(getResources().getString(R.string.pass_state_text), State);
-        i.putExtra(getResources().getString(R.string.pass_city_text), City);
+        i.putExtra(getResources().getString(R.string.pass_state_text), state);
+        i.putExtra(getResources().getString(R.string.pass_city_text), city);
 
 
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);

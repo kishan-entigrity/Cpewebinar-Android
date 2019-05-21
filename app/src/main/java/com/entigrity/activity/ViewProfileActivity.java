@@ -25,9 +25,8 @@ public class ViewProfileActivity extends AppCompatActivity {
     public Context context;
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "";
     public int country_id = 0, state_id = 0, city_id = 0, jobtitle_id = 0, industry_id = 0;
-    ;
     public String whoyouarevalue = "";
-    public String State, City;
+    public String state = "", city = "";
     private int country_pos = 0;
     private int state_pos = 0;
     private int city_pos = 0;
@@ -57,8 +56,8 @@ public class ViewProfileActivity extends AppCompatActivity {
             country = intent.getStringExtra(getResources().getString(R.string.pass_country_text));
             mobilenumber = intent.getStringExtra(getResources().getString(R.string.pass_mobile_number));
             whoyouarevalue = intent.getStringExtra(getResources().getString(R.string.pass_who_you_are_text));
-            State = intent.getStringExtra(getResources().getString(R.string.pass_state_text));
-            City = intent.getStringExtra(getResources().getString(R.string.pass_city_text));
+            state = intent.getStringExtra(getResources().getString(R.string.pass_state_text));
+            city = intent.getStringExtra(getResources().getString(R.string.pass_city_text));
             zipcode = intent.getStringExtra(getResources().getString(R.string.pass_zipcode));
             country_pos = intent.getIntExtra(getResources().getString(R.string.pass_country), 0);
             state_pos = intent.getIntExtra(getResources().getString(R.string.pass_state), 0);
@@ -204,8 +203,8 @@ public class ViewProfileActivity extends AppCompatActivity {
             binding.tvContry.setText("" + country);
 
         }
-        if (!State.equalsIgnoreCase("") && State != null) {
-            binding.tvState.setText("" + State);
+        if (!state.equalsIgnoreCase("") && state != null) {
+            binding.tvState.setText("" + state);
         }
 
         if (!job_titile.equalsIgnoreCase("") && job_titile != null) {
@@ -217,8 +216,8 @@ public class ViewProfileActivity extends AppCompatActivity {
             binding.tvIndustry.setText(industry);
         }
 
-        if (!City.equalsIgnoreCase("") && City != null) {
-            binding.tvCity.setText("" + City);
+        if (!city.equalsIgnoreCase("") && city != null) {
+            binding.tvCity.setText("" + city);
         }
 
 
@@ -246,8 +245,8 @@ public class ViewProfileActivity extends AppCompatActivity {
         i.putExtra(getResources().getString(R.string.pass_city), city_id);
         i.putExtra(getResources().getString(R.string.pass_job_title_id), jobtitle_id);
         i.putExtra(getResources().getString(R.string.pass_industry_id), industry_id);
-        i.putExtra(getResources().getString(R.string.pass_state_text), State);
-        i.putExtra(getResources().getString(R.string.pass_city_text), City);
+        i.putExtra(getResources().getString(R.string.pass_state_text), state);
+        i.putExtra(getResources().getString(R.string.pass_city_text), city);
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
         i.putExtra(getResources().getString(R.string.pass_who_you_are), who_you_are_pos);
         i.putStringArrayListExtra(getResources().getString(R.string.pass_selected_list), arraylistsubcategory);

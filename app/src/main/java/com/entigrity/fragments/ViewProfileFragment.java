@@ -201,14 +201,14 @@ public class ViewProfileFragment extends Fragment {
                                     && !viewProfileModel.getPayload().getData().getState().equalsIgnoreCase("")) {
                                 binding.tvState.setText(viewProfileModel.getPayload().getData().getState());
                                 state_id = Integer.parseInt(viewProfileModel.getPayload().getData().getStateId());
-                                State = viewProfileModel.getPayload().getData().getState();
+                                state = viewProfileModel.getPayload().getData().getState();
                             }
 
                             if (viewProfileModel.getPayload().getData().getCity() != null
                                     && !viewProfileModel.getPayload().getData().getCity().equalsIgnoreCase("")) {
                                 binding.tvCity.setText(viewProfileModel.getPayload().getData().getCity());
                                 city_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCityId());
-                                City = viewProfileModel.getPayload().getData().getCity();
+                                city = viewProfileModel.getPayload().getData().getCity();
                             }
 
 

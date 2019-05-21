@@ -53,6 +53,7 @@ public class MyWebinarFragment extends Fragment {
     private boolean loading = true;
     private String webinartypemywebinar = "";
     public boolean islast = false;
+    public boolean isprogress = false;
     public int start = 0, limit = 10;
     private String topicsofinterest = "";
     private static MyWebinarFragment instance;
@@ -364,6 +365,13 @@ public class MyWebinarFragment extends Fragment {
         });
 
 
+     /*   if (isprogress) {
+            UserDashBoardFragment.getInstance().setupTabIcons();
+        } else {
+            UserDashBoardFragment.getInstance().setupTabIcons_Isprogress();
+        }*/
+
+
         return view = binding.getRoot();
     }
 
@@ -506,6 +514,11 @@ public class MyWebinarFragment extends Fragment {
                             }
 
                             islast = webinar_home_new.getPayload().isIsLast();
+
+                            isprogress = webinar_home_new.getPayload().isIsprogress();
+
+
+                            UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
 
 
                             if (start == 0 && limit == 10) {

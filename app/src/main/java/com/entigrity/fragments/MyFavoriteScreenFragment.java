@@ -16,8 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.ActivityFavorite;
 import com.entigrity.activity.ViewTopicsOfInterestActivity;
 import com.entigrity.databinding.FragmentMyfavoritescreenBinding;
 import com.entigrity.model.favorites_count.Favorite_Count_Model;
@@ -82,7 +82,11 @@ public class MyFavoriteScreenFragment extends Fragment {
         binding.lvWebinar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.getInstance().SetFavoriteTab();
+                //  MainActivity.getInstance().SetFavoriteTab();
+
+                Intent i = new Intent(context, ActivityFavorite.class);
+                startActivity(i);
+
 
             }
         });
