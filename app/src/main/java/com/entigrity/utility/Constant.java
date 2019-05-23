@@ -29,6 +29,9 @@ public class Constant {
     public static String access_token = "";
     public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
     public static ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
+    public static boolean checkmywebinardotstatusclear = false;
+    public static boolean checkmywebinardotstatusset = false;
+
 
   /*  public static HashMap<String, String> checklikedislikestatusall = new HashMap<String, String>();
     public static HashMap<String, String> checklikedislikestatusmywebinar = new HashMap<String, String>();

@@ -101,8 +101,21 @@ public class WebinarDetail {
     @SerializedName("webinar_status")
     private String webinarStatus;
 
+    public String getCourseid() {
+        return courseid;
+    }
+
+    public void setCourseid(String courseid) {
+        this.courseid = courseid;
+    }
+
     @SerializedName("status")
     private String status;
+
+
+    @SerializedName("course_id")
+    private String courseid;
+
 
     public void setSubjectArea(String subjectArea) {
         this.subjectArea = subjectArea;
@@ -378,6 +391,7 @@ public class WebinarDetail {
                         ",nasba_approved = '" + nasbaApproved + '\'' +
                         ",webinar_status = '" + webinarStatus + '\'' +
                         ",status = '" + status + '\'' +
+                        ",course_id = '" + courseid + '\'' +
                         "}";
     }
 }

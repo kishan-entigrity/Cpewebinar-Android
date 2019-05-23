@@ -27,6 +27,8 @@ import com.entigrity.utility.AppSettings;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
 
+import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
+
 public class MainActivity extends AppCompatActivity {
 
     UserDashBoardFragment userDashBoardFragment;
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     isclickhome = false;
                     setselectedtab = 1;
                     selectmywebinardtab = 1;
+                    checkmywebinardotstatusset = false;
                     SetImageBackground(1);
                     SetDefault();
 
@@ -125,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 selectmywebinardtab = 0;
                 if (!isclickhome) {
                     isclickhome = true;
+                    checkmywebinardotstatusset = false;
                     SetImageBackground(2);
                     SetDefault();
                 }

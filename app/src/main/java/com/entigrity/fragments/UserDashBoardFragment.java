@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.entigrity.utility.Constant.arraylistselectedvalue;
+import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
 
 public class UserDashBoardFragment extends Fragment {
     View view;
@@ -36,6 +37,7 @@ public class UserDashBoardFragment extends Fragment {
     public Context context;
     private static final String TAG = UserDashBoardFragment.class.getName();
     private static UserDashBoardFragment instance;
+    TextView tabadddot;
 
 
     @Override
@@ -115,31 +117,23 @@ public class UserDashBoardFragment extends Fragment {
 
 
     public void setupTabIcons(boolean isprogress) {
-        TextView tabtwo = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
-        tabtwo.setText(getActivity().getResources().getString(R.string.str_my_webinar));
+        tabadddot = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
+        tabadddot.setText(getActivity().getResources().getString(R.string.str_my_webinar));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 0);
-        tabtwo.setLayoutParams(params);
-        tabtwo.setPadding(0, 0, 0, 0);
-        //tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.red_dot, 0);
-
-
-        binding.homeparenttabs.getTabAt(1).setCustomView(tabtwo);
+        tabadddot.setLayoutParams(params);
+        tabadddot.setPadding(0, 0, 0, 0);
+        if (isprogress) {
+            if (!checkmywebinardotstatusset) {
+                binding.homeparenttabs.getTabAt(1).setCustomView(tabadddot);
+                checkmywebinardotstatusset = true;
+            }
+        } else {
+            checkmywebinardotstatusset = false;
+            binding.homeparenttabs.getTabAt(1).setCustomView(null);
+        }
 
     }
-
-
-    /*public void setupTabIcons_Isprogress() {
-        TextView tabtwo = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab_dot_visible_gone, null);
-        tabtwo.setText(getActivity().getResources().getString(R.string.str_my_webinar));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 0, 0);
-        tabtwo.setLayoutParams(params);
-        tabtwo.setPadding(0, 0, 0, 0);
-        //tabtwo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.red_dot, 0);
-        binding.homeparenttabs.getTabAt(1).setCustomView(tabtwo);
-
-    }*/
 
 
     public void selectPage(int pageIndex) {

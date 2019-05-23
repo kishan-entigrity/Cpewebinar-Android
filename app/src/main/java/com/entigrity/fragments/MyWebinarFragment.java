@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.HomeMyWebinarAdapter;
 import com.entigrity.databinding.FragmentMywebinarBinding;
@@ -77,72 +76,35 @@ public class MyWebinarFragment extends Fragment {
         arrsavebooleanstateMyWebinar.add(0, false);
         arrsavebooleanstateMyWebinar.add(1, false);
         arrsavebooleanstateMyWebinar.add(2, false);
-        arrsavebooleanstateMyWebinar.add(3, false);
+        //arrsavebooleanstateMyWebinar.add(3, false);
 
 
         arraysavefilterMyWebinar.add(0, "");
         arraysavefilterMyWebinar.add(1, "");
         arraysavefilterMyWebinar.add(2, "");
-        arraysavefilterMyWebinar.add(3, "");
+        // arraysavefilterMyWebinar.add(3, "");
 
 
         if (!AppSettings.get_login_token(context).equalsIgnoreCase("")) {
             binding.btnLive.setEnabled(true);
             binding.btnSelfstudy.setEnabled(true);
             binding.btnArchive.setEnabled(true);
-            binding.btnFavorite.setEnabled(true);
+            // binding.btnFavorite.setEnabled(true);
         } else {
             binding.btnLive.setEnabled(false);
             binding.btnSelfstudy.setEnabled(false);
             binding.btnArchive.setEnabled(false);
-            binding.btnFavorite.setEnabled(false);
+            //binding.btnFavorite.setEnabled(false);
         }
 
 
         if (!AppSettings.get_login_token(context).isEmpty()) {
-            if (MainActivity.getInstance().selectmywebinardtab == 2) {
-                MainActivity.getInstance().selectmywebinardtab = 0;
-                loading = true;
-                if (arrsavebooleanstateMyWebinar.get(3) == false) {
-                    arrsavebooleanstateMyWebinar.set(3, true);
-                    arraysavefilterMyWebinar.set(3, getResources().getString(R.string.str_filter_favourite));
-                    webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
-                            .replace(" ", "");
-                    binding.btnFavorite.setBackgroundResource(R.drawable.col_four_bg_hover);
-                } else {
-                    arrsavebooleanstateMyWebinar.set(3, false);
-                    arraysavefilterMyWebinar.set(3, "");
-                    if (arraysavefilterMyWebinar.get(0).equalsIgnoreCase("") &&
-                            arraysavefilterMyWebinar.get(1).equalsIgnoreCase("") &&
-                            arraysavefilterMyWebinar.get(2).equalsIgnoreCase("")
-                            && arraysavefilterMyWebinar.get(3).equalsIgnoreCase("")) {
-                        webinartypemywebinar = "";
-                    } else {
-                        webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
-                                .replace(" ", "");
-                    }
-
-                    binding.btnFavorite.setBackgroundResource(R.drawable.col_four_bg);
-                }
-
-
-                if (Constant.isNetworkAvailable(context)) {
-                    progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
-                } else {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-
-                }
-
-
+            if (Constant.isNetworkAvailable(context)) {
+                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
             } else {
-                if (Constant.isNetworkAvailable(context)) {
-                    progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
-                } else {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
-                }
             }
 
         } else {
@@ -200,7 +162,7 @@ public class MyWebinarFragment extends Fragment {
 
                     if (arraysavefilterMyWebinar.get(0).equalsIgnoreCase("") &&
                             arraysavefilterMyWebinar.get(1).equalsIgnoreCase("") &&
-                            arraysavefilterMyWebinar.get(2).equalsIgnoreCase("") && arraysavefilterMyWebinar.get(3).equalsIgnoreCase("")) {
+                            arraysavefilterMyWebinar.get(2).equalsIgnoreCase("")) {
                         webinartypemywebinar = "";
                     } else {
                         webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
@@ -246,8 +208,7 @@ public class MyWebinarFragment extends Fragment {
                     arraysavefilterMyWebinar.set(1, "");
                     if (arraysavefilterMyWebinar.get(0).equalsIgnoreCase("") &&
                             arraysavefilterMyWebinar.get(1).equalsIgnoreCase("") &&
-                            arraysavefilterMyWebinar.get(2).equalsIgnoreCase("") &&
-                            arraysavefilterMyWebinar.get(3).equalsIgnoreCase("")) {
+                            arraysavefilterMyWebinar.get(2).equalsIgnoreCase("")) {
                         webinartypemywebinar = "";
 
 
@@ -298,7 +259,7 @@ public class MyWebinarFragment extends Fragment {
                     if (arraysavefilterMyWebinar.get(0).equalsIgnoreCase("") &&
                             arraysavefilterMyWebinar.get(1).equalsIgnoreCase("") &&
                             arraysavefilterMyWebinar.get(2).equalsIgnoreCase("")
-                            && arraysavefilterMyWebinar.get(3).equalsIgnoreCase("")) {
+                    ) {
                         webinartypemywebinar = "";
                     } else {
                         webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
@@ -322,7 +283,7 @@ public class MyWebinarFragment extends Fragment {
         });
 
 
-        binding.btnFavorite.setOnClickListener(new View.OnClickListener() {
+        /*binding.btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -362,14 +323,10 @@ public class MyWebinarFragment extends Fragment {
 
 
             }
-        });
+        });*/
 
 
-     /*   if (isprogress) {
-            UserDashBoardFragment.getInstance().setupTabIcons();
-        } else {
-            UserDashBoardFragment.getInstance().setupTabIcons_Isprogress();
-        }*/
+
 
 
         return view = binding.getRoot();
@@ -516,7 +473,6 @@ public class MyWebinarFragment extends Fragment {
                             islast = webinar_home_new.getPayload().isIsLast();
 
                             isprogress = webinar_home_new.getPayload().isIsprogress();
-
 
                             UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
 

@@ -8,8 +8,20 @@ public class AboutPresententer {
     @SerializedName("desgnination")
     private String desgnination;
 
+
+    @SerializedName("company_website")
+    private String companyWebsite;
+
     @SerializedName("email_id")
     private String emailId;
+
+    public String getCompanyWebsite() {
+        return companyWebsite;
+    }
+
+    public void setCompanyWebsite(String companyWebsite) {
+        this.companyWebsite = companyWebsite;
+    }
 
     @SerializedName("company_desc")
     private String companyDesc;
@@ -77,6 +89,7 @@ public class AboutPresententer {
                 "AboutPresententer{" +
                         "desgnination = '" + desgnination + '\'' +
                         ",email_id = '" + emailId + '\'' +
+                        ",company_website = '" + companyWebsite + '\'' +
                         ",company_desc = '" + companyDesc + '\'' +
                         ",company_name = '" + companyName + '\'' +
                         ",name = '" + name + '\'' +

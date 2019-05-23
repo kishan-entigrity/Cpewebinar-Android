@@ -148,11 +148,14 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
             public void onClick(View v) {
                 if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_live))) {
                     //Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_goto_meeting_link), Snackbar.LENGTH_SHORT).show();
-                    String url = "https://global.gotowebinar.com/join/5445100837992316429/962947485";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
-
+                    if (webinar_status.equalsIgnoreCase(getResources().getString(R.string.str_webinar_status_register))) {
+                        Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_video_validation), Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        String url = "https://global.gotowebinar.com/join/5445100837992316429/962947485";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                    }
                 } else if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_selfstudy))) {
                     if (webinar_status.equalsIgnoreCase(getResources().getString(R.string.str_webinar_status_register))) {
                         Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_video_validation), Snackbar.LENGTH_SHORT).show();
@@ -828,11 +831,13 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 binding.tvWebinartitle.setText("" + webinar_details.getPayload().getWebinarDetail().getWebinarTitle());
                             }
 
+                            if (!webinar_details.getPayload().getWebinarDetail().getCourseid().equalsIgnoreCase("")) {
+                                binding.tvCouseId.setText(webinar_details.getPayload().getWebinarDetail().getCourseid());
+                            }
+
 
                             if (!webinar_details.getPayload().getWebinarDetail().getCredit().equalsIgnoreCase("")) {
-
                                 binding.tvCredit.setText("" + webinar_details.getPayload().getWebinarDetail().getCredit());
-
                             }
 
                             if (!webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl().equalsIgnoreCase("")) {
@@ -1091,6 +1096,14 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyName().equalsIgnoreCase("")) {
                                 binding.tvCompanyName.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyName());
                             }
+
+
+                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer()
+                                    .getCompanyWebsite().equalsIgnoreCase("")) {
+                                binding.tvCompanyWebsite.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer()
+                                        .getCompanyWebsite());
+                            }
+
 
                             if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc().equalsIgnoreCase("")) {
 

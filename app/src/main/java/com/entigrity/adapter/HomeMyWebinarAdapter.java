@@ -251,64 +251,6 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             }
 
 
-           /* if (!mList.get(clickedposition).getRecordedDate().equalsIgnoreCase("")) {
-
-
-                StringTokenizer tokens = new StringTokenizer(mList.get(clickedposition).getRecordedDate(), "-");
-                String year = tokens.nextToken();// this will contain year
-                String month = tokens.nextToken();//this will contain month
-                String day = tokens.nextToken();//this will contain day
-
-                // year = year.substring(2);
-
-
-                if (month.equalsIgnoreCase("01")) {
-                    month = mContext.getResources().getString(R.string.jan);
-
-                } else if (month.equalsIgnoreCase("02")) {
-                    month = mContext.getResources().getString(R.string.feb);
-
-                } else if (month.equalsIgnoreCase("03")) {
-                    month = mContext.getResources().getString(R.string.march);
-
-                } else if (month.equalsIgnoreCase("04")) {
-                    month = mContext.getResources().getString(R.string.april);
-
-                } else if (month.equalsIgnoreCase("05")) {
-                    month = mContext.getResources().getString(R.string.may);
-
-                } else if (month.equalsIgnoreCase("06")) {
-                    month = mContext.getResources().getString(R.string.june);
-
-                } else if (month.equalsIgnoreCase("07")) {
-                    month = mContext.getResources().getString(R.string.july);
-
-                } else if (month.equalsIgnoreCase("08")) {
-                    month = mContext.getResources().getString(R.string.aug);
-
-                } else if (month.equalsIgnoreCase("09")) {
-                    month = mContext.getResources().getString(R.string.sept);
-
-                } else if (month.equalsIgnoreCase("10")) {
-                    month = mContext.getResources().getString(R.string.oct);
-
-                } else if (month.equalsIgnoreCase("11")) {
-                    month = mContext.getResources().getString(R.string.nov);
-
-                } else if (month.equalsIgnoreCase("12")) {
-                    month = mContext.getResources().getString(R.string.dec);
-
-                }
-
-
-                ((MyWebinarHolder) viewHolder).tv_webinar_date.setText(day + " " + month + " " + year);
-
-
-            }*/
-/*
-
-
-
 
             if (mList.get(position).getWebinarLike().equalsIgnoreCase(mContext
                     .getResources().getString(R.string.fav_yes))) {
@@ -316,24 +258,8 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             } else {
                 ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
             }
-*/
-            if (mList.get(position).getWebinarLike().equalsIgnoreCase(mContext
-                    .getResources().getString(R.string.fav_yes))) {
-                ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like_hover);
-            } else {
-                ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
-            }
 
-            /*if (Constant.checklikedislikestatusmywebinar.size() > 0) {
-                String webinarlikestatus = Constant.checklikedislikestatusmywebinar.get(mList.get(position).getWebinarTitle());
 
-                if (webinarlikestatus.equalsIgnoreCase(mContext
-                        .getResources().getString(R.string.fav_yes))) {
-                    ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like_hover);
-                } else {
-                    ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
-                }
-            }*/
 
             ((MyWebinarHolder) viewHolder).ivshare.setOnClickListener(new View.OnClickListener() {
                 @Override
