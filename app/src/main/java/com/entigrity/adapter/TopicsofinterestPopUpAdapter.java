@@ -42,6 +42,8 @@ public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<Topicsofi
 
         holder.tv_topics.setText(mListrtopicsofinterestsubcategory.get(position).getName());
 
+        holder.cbselection.setEnabled(false);
+
         if (mListrtopicsofinterestsubcategory.get(position).isIsChecked()) {
             holder.cbselection.setChecked(true);
             // Constant.arraylistselectedtopicsofinterest.set(clickedposition, mListrtopicsofinterestsubcategory.get(clickedposition).getId());
@@ -75,7 +77,6 @@ public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<Topicsofi
 
             }
         });
-
 
     }
 

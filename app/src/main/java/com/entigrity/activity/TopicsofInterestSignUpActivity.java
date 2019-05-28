@@ -16,12 +16,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.SignUpInterestAdapter;
 import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.topicsofinterestn.TagsItem;
 import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
 import com.entigrity.model.topicsofinterestn.Topicsofinterest;
+import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
@@ -116,8 +118,10 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                     if (Constant.arraylistselectedvalue.size() != 0) {
                         if (Constant.isNetworkAvailable(context)) {
                             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                            // String phoneNumbers = mobilenumber.replaceAll("[^\\d]", "");
+
                             RegisterPost(fname, lname, email, password, confirm_password, firmname, mobilenumber,
-                                    Constant.arraylistselectedvalue, user_type);
+                                    Constant.arraylistselectedvalue, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
                         } else {
                             Snackbar.make(tv_submit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -175,12 +179,13 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
     }
 
     public void RegisterPost(String first_name, String last_name, String email, String password, String confirm_password,
-                             String firm_name, String contact_no, ArrayList<Integer> tags, int user_type
+                             String firm_name, String contact_no, ArrayList<Integer> tags, int user_type,
+                             String device_id, String device_token, String device_type
     ) {
 
         // RxJava
         mAPIService.Register(getResources().getString(R.string.accept), first_name, last_name
-                , email, password, confirm_password, firm_name, contact_no, tags, user_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                , email, password, confirm_password, firm_name, contact_no, tags, user_type, device_id, device_token, device_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<RegistrationModel>() {
                     @Override
                     public void onCompleted() {
@@ -209,7 +214,18 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                             }
                             Constant.arraylistselectedvalue.clear();
-                            Intent i = new Intent(context, LoginActivity.class);
+
+                            AppSettings.set_login_token(context, registrationModel.getPayload().getUser().getToken());
+                            AppSettings.set_profile_picture(context, registrationModel.getPayload().getUser().getProfilePicture());
+                            AppSettings.set_profile_username(context, registrationModel.getPayload().getUser().getFirstName());
+                            AppSettings.set_email_id(context, registrationModel.getPayload().getUser().getEmail());
+
+
+                            Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
+                            Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
+
+
+                            Intent i = new Intent(context, MainActivity.class);
                             startActivity(i);
                             finish();
 

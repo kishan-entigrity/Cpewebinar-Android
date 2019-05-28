@@ -2,14 +2,31 @@ package com.entigrity.model.registration;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 
 public class User{
+
+	@SerializedName("country")
+	private String country;
+
+	@SerializedName("city")
+	private String city;
 
 	@SerializedName("last_name")
 	private String lastName;
 
-	@SerializedName("created_at")
-	private String createdAt;
+	@SerializedName("profile_picture")
+	private String profilePicture;
+
+	@SerializedName("ptin_number")
+	private String ptinNumber;
+
+	@SerializedName("tags")
+	private List<Object> tags;
+
+	@SerializedName("token")
+	private String token;
 
 	@SerializedName("zipcode")
 	private String zipcode;
@@ -17,20 +34,29 @@ public class User{
 	@SerializedName("user_type")
 	private String userType;
 
-	@SerializedName("updated_at")
-	private String updatedAt;
-
 	@SerializedName("contact_no")
 	private String contactNo;
 
 	@SerializedName("firm_name")
 	private String firmName;
 
-	@SerializedName("state_id")
-	private String stateId;
+	@SerializedName("user_type_id")
+	private String userTypeId;
 
 	@SerializedName("id")
 	private int id;
+
+	@SerializedName("state_id")
+	private String stateId;
+
+	@SerializedName("designation")
+	private String designation;
+
+	@SerializedName("state")
+	private String state;
+
+	@SerializedName("credit")
+	private String credit;
 
 	@SerializedName("first_name")
 	private String firstName;
@@ -44,6 +70,22 @@ public class User{
 	@SerializedName("city_id")
 	private String cityId;
 
+	public void setCountry(String country){
+		this.country = country;
+	}
+
+	public String getCountry(){
+		return country;
+	}
+
+	public void setCity(String city){
+		this.city = city;
+	}
+
+	public String getCity(){
+		return city;
+	}
+
 	public void setLastName(String lastName){
 		this.lastName = lastName;
 	}
@@ -52,12 +94,36 @@ public class User{
 		return lastName;
 	}
 
-	public void setCreatedAt(String createdAt){
-		this.createdAt = createdAt;
+	public void setProfilePicture(String profilePicture){
+		this.profilePicture = profilePicture;
 	}
 
-	public String getCreatedAt(){
-		return createdAt;
+	public String getProfilePicture(){
+		return profilePicture;
+	}
+
+	public void setPtinNumber(String ptinNumber){
+		this.ptinNumber = ptinNumber;
+	}
+
+	public String getPtinNumber(){
+		return ptinNumber;
+	}
+
+	public void setTags(List<Object> tags){
+		this.tags = tags;
+	}
+
+	public List<Object> getTags(){
+		return tags;
+	}
+
+	public void setToken(String token){
+		this.token = token;
+	}
+
+	public String getToken(){
+		return token;
 	}
 
 	public void setZipcode(String zipcode){
@@ -76,14 +142,6 @@ public class User{
 		return userType;
 	}
 
-	public void setUpdatedAt(String updatedAt){
-		this.updatedAt = updatedAt;
-	}
-
-	public String getUpdatedAt(){
-		return updatedAt;
-	}
-
 	public void setContactNo(String contactNo){
 		this.contactNo = contactNo;
 	}
@@ -100,12 +158,12 @@ public class User{
 		return firmName;
 	}
 
-	public void setStateId(String stateId){
-		this.stateId = stateId;
+	public void setUserTypeId(String userTypeId){
+		this.userTypeId = userTypeId;
 	}
 
-	public String getStateId(){
-		return stateId;
+	public String getUserTypeId(){
+		return userTypeId;
 	}
 
 	public void setId(int id){
@@ -114,6 +172,38 @@ public class User{
 
 	public int getId(){
 		return id;
+	}
+
+	public void setStateId(String stateId){
+		this.stateId = stateId;
+	}
+
+	public String getStateId(){
+		return stateId;
+	}
+
+	public void setDesignation(String designation){
+		this.designation = designation;
+	}
+
+	public String getDesignation(){
+		return designation;
+	}
+
+	public void setState(String state){
+		this.state = state;
+	}
+
+	public String getState(){
+		return state;
+	}
+
+	public void setCredit(String credit){
+		this.credit = credit;
+	}
+
+	public String getCredit(){
+		return credit;
 	}
 
 	public void setFirstName(String firstName){
@@ -152,15 +242,23 @@ public class User{
  	public String toString(){
 		return 
 			"User{" + 
-			"last_name = '" + lastName + '\'' + 
-			",created_at = '" + createdAt + '\'' + 
+			"country = '" + country + '\'' + 
+			",city = '" + city + '\'' + 
+			",last_name = '" + lastName + '\'' + 
+			",profile_picture = '" + profilePicture + '\'' + 
+			",ptin_number = '" + ptinNumber + '\'' + 
+			",tags = '" + tags + '\'' + 
+			",token = '" + token + '\'' + 
 			",zipcode = '" + zipcode + '\'' + 
 			",user_type = '" + userType + '\'' + 
-			",updated_at = '" + updatedAt + '\'' + 
 			",contact_no = '" + contactNo + '\'' + 
 			",firm_name = '" + firmName + '\'' + 
-			",state_id = '" + stateId + '\'' + 
+			",user_type_id = '" + userTypeId + '\'' + 
 			",id = '" + id + '\'' + 
+			",state_id = '" + stateId + '\'' + 
+			",designation = '" + designation + '\'' + 
+			",state = '" + state + '\'' + 
+			",credit = '" + credit + '\'' + 
 			",first_name = '" + firstName + '\'' + 
 			",email = '" + email + '\'' + 
 			",country_id = '" + countryId + '\'' + 

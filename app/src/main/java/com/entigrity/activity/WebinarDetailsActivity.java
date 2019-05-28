@@ -385,8 +385,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         if (mSeekPosition > 0) {
             binding.videoView.seekTo(mSeekPosition);
         }
-
-
         binding.videoView.start();
 
     }
@@ -817,15 +815,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 progressDialog.dismiss();
                             }
 
-                            if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_live))) {
-                                binding.relTimezone.setVisibility(View.VISIBLE);
-                                binding.tvAddtocalendar.setVisibility(View.VISIBLE);
-                            } else {
-                                binding.relTimezone.setVisibility(View.GONE);
-                                binding.tvAddtocalendar.setVisibility(View.GONE);
-
-                            }
-
 
                             if (!webinar_details.getPayload().getWebinarDetail().getWebinarTitle().equalsIgnoreCase("")) {
                                 binding.tvWebinartitle.setText("" + webinar_details.getPayload().getWebinarDetail().getWebinarTitle());
@@ -1208,6 +1197,20 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getPresentationHandout().size(); i++) {
                                     arrayListhandout.add(webinar_details.getPayload().getWebinarDetail().getPresentationHandout().get(i));
                                 }
+
+                            }
+
+                            if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_live))) {
+                                binding.relTimezone.setVisibility(View.VISIBLE);
+
+                                if (webinar_status.equalsIgnoreCase(getResources().getString(R.string.str_webinar_status_register))) {
+                                    binding.tvAddtocalendar.setVisibility(View.GONE);
+                                } else {
+                                    binding.tvAddtocalendar.setVisibility(View.VISIBLE);
+                                }
+                            } else {
+                                binding.relTimezone.setVisibility(View.INVISIBLE);
+                                binding.tvAddtocalendar.setVisibility(View.INVISIBLE);
 
                             }
 

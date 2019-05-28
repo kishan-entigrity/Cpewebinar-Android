@@ -2,7 +2,6 @@ package com.entigrity.model.registration;
 
 import com.google.gson.annotations.SerializedName;
 
-
 public class Payload{
 
 	@SerializedName("user")

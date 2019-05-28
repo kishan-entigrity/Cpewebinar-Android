@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rel_topics"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/White"
-    android:padding="@dimen/_5sdp">
+    android:layout_height="@dimen/_30sdp"
+    android:background="@color/White">
 
 
     <com.entigrity.view.CustomTextView
@@ -14,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_5sdp"
-        android:layout_toLeftOf="@+id/cbselection"
         android:textColor="@color/subcategory_topics"
         android:textSize="@dimen/_11sdp"
         app:font_text="Montserrat-Regular.ttf" />

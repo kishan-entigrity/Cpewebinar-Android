@@ -164,7 +164,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
 
             if (!mList.get(position).getWebinarType().equalsIgnoreCase("")) {
-                ((HomeViewHolder) viewHolder).tv_webinar_type.setText(mList.get(position).getWebinarType());
+
+                String webinar_type = Constant.capitalize(mList.get(position).getWebinarType());
+                ((HomeViewHolder) viewHolder).tv_webinar_type.setText(webinar_type);
             }
 
             if (!mList.get(position).getSpeakerName().equalsIgnoreCase("")) {
@@ -187,12 +189,12 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
 
             } else {
-                ((HomeViewHolder) viewHolder).tv_webinar_date.setVisibility(View.GONE);
-                ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.GONE);
-                ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.GONE);
-                ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.GONE);
-                ((HomeViewHolder) viewHolder).dv_divider.setVisibility(View.GONE);
-                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.GONE);
+                ((HomeViewHolder) viewHolder).tv_webinar_date.setVisibility(View.INVISIBLE);
+                ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.INVISIBLE);
+                ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.INVISIBLE);
+                ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.INVISIBLE);
+                ((HomeViewHolder) viewHolder).dv_divider.setVisibility(View.INVISIBLE);
+                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.INVISIBLE);
             }
 
 
@@ -435,6 +437,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
         }*/
 
     }
+
 
     /*public void ShowStripePopup() {
         myDialog = new Dialog(mContext);
@@ -705,7 +708,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
         TextView tv_webinar_title, tv_webinar_price_status, tv_webinar_date, tv_webinar_time, tv_duration_name,
                 tv_webinar_type, tv_favorite_count, tv_attend_views, tv_favorite_speaker_name, tv_company_name, tv_timezone;
-        ImageView ivwebinar_thumbhel, ivshare, dv_time_duration, dv_divider;
+        ImageView ivwebinar_thumbhel, ivshare;
+
+        View dv_time_duration, dv_divider;
         Button credit_status, webinar_status;
         ImageView ivfavorite;
         RelativeLayout rel_item;
@@ -714,10 +719,12 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
         private HomeViewHolder(View itemView) {
             super(itemView);
             setIsRecyclable(false);
+            dv_time_duration = (View) itemView.findViewById(R.id.dv_time_duration);
+            dv_divider = (View) itemView.findViewById(R.id.dv_divider);
 
             ivfavorite = (ImageView) itemView.findViewById(R.id.ivfavorite);
-            dv_time_duration = (ImageView) itemView.findViewById(R.id.dv_time_duration);
-            dv_divider = (ImageView) itemView.findViewById(R.id.dv_divider);
+
+
             credit_status = (Button) itemView.findViewById(R.id.credit_status);
             webinar_status = (Button) itemView.findViewById(R.id.webinar_status);
             ivwebinar_thumbhel = (ImageView) itemView.findViewById(R.id.ivwebinar_thumbhel);

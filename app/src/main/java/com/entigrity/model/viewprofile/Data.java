@@ -273,32 +273,32 @@ public class Data{
 
 	@Override
  	public String toString(){
-		return 
-			"Data{" + 
-			"country = '" + country + '\'' + 
-			",industry_id = '" + industryId + '\'' + 
-			",city = '" + city + '\'' + 
-			",last_name = '" + lastName + '\'' + 
-			",industry = '" + industry + '\'' + 
-			",profile_picture = '" + profilePicture + '\'' + 
-			",ptin_number = '" + ptinNumber + '\'' + 
-			",tags = '" + tags + '\'' + 
-			",zipcode = '" + zipcode + '\'' + 
-			",user_type = '" + userType + '\'' + 
-			",contact_no = '" + contactNo + '\'' + 
-			",firm_name = '" + firmName + '\'' + 
-			",jobtitle_id = '" + jobtitleId + '\'' + 
-			",user_type_id = '" + userTypeId + '\'' + 
-			",id = '" + id + '\'' + 
-			",state_id = '" + stateId + '\'' + 
-			",designation = '" + designation + '\'' + 
-			",state = '" + state + '\'' + 
-			",credit = '" + credit + '\'' + 
-			",first_name = '" + firstName + '\'' + 
-			",job_title = '" + jobTitle + '\'' + 
-			",email = '" + email + '\'' + 
-			",country_id = '" + countryId + '\'' + 
-			",city_id = '" + cityId + '\'' + 
+		return
+			"Data{" +
+			"country = '" + country + '\'' +
+			",industry_id = '" + industryId + '\'' +
+			",city = '" + city + '\'' +
+			",last_name = '" + lastName + '\'' +
+			",industry = '" + industry + '\'' +
+			",profile_picture = '" + profilePicture + '\'' +
+			",ptin_number = '" + ptinNumber + '\'' +
+			",tags = '" + tags + '\'' +
+			",zipcode = '" + zipcode + '\'' +
+			",user_type = '" + userType + '\'' +
+			",contact_no = '" + contactNo + '\'' +
+			",firm_name = '" + firmName + '\'' +
+			",jobtitle_id = '" + jobtitleId + '\'' +
+			",user_type_id = '" + userTypeId + '\'' +
+			",id = '" + id + '\'' +
+			",state_id = '" + stateId + '\'' +
+			",designation = '" + designation + '\'' +
+			",state = '" + state + '\'' +
+			",credit = '" + credit + '\'' +
+			",first_name = '" + firstName + '\'' +
+			",job_title = '" + jobTitle + '\'' +
+			",email = '" + email + '\'' +
+			",country_id = '" + countryId + '\'' +
+			",city_id = '" + cityId + '\'' +
 			"}";
 		}
 }

@@ -1,5 +1,6 @@
 package com.entigrity.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,6 +12,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -94,7 +97,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private int country_pos = 0;
     private int state_pos = 0;
     private int city_pos = 0;
-    public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "";
+    public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", ptin_number = "";
     private int who_you_are_pos = 0;
     private int jobtitle_id_pos = 0;
     private int industry_id_pos = 0;
@@ -147,6 +150,7 @@ public class EditProfileActivity extends AppCompatActivity {
             email = intent.getStringExtra(getResources().getString(R.string.pass_email));
             firmname = intent.getStringExtra(getResources().getString(R.string.pass_firm_name));
             mobilenumber = intent.getStringExtra(getResources().getString(R.string.pass_mobile_number));
+            ptin_number = intent.getStringExtra(getResources().getString(R.string.pass_ptin_number));
             State = intent.getStringExtra(getResources().getString(R.string.pass_state_text));
             City = intent.getStringExtra(getResources().getString(R.string.pass_city_text));
             zipcode = intent.getStringExtra(getResources().getString(R.string.pass_zipcode));
@@ -178,6 +182,29 @@ public class EditProfileActivity extends AppCompatActivity {
         binding.edtMobileNumber.addTextChangedListener(addLineNumberFormatter);
 
 
+        binding.edtMobileNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (s.length() == 14) {
+                    Constant.hideKeyboard((Activity) context);
+                }
+
+            }
+        });
+
+
         binding.relTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +212,15 @@ public class EditProfileActivity extends AppCompatActivity {
                 i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_edit_profile));
                 startActivity(i);
 
+            }
+        });
+
+        binding.tvTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(EditProfileActivity.this, TopicsOfInterestActivity.class);
+                i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_edit_profile));
+                startActivity(i);
             }
         });
 
@@ -363,7 +399,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         EditPost(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
                                 Constant.Trim(binding.edtFirstname.getText().toString()), Constant.Trim(binding.edtLastname.getText().toString()),
                                 Constant.Trim(binding.edtEmailname.getText().toString()), Constant.Trim(binding.edtFirmname.getText().toString()), country_id, state_id, city_id, Integer.parseInt(Constant.Trim(binding.edtZipcode.getText().toString())), Constant.Trim(binding.edtMobileNumber.getText()
-                                        .toString()), who_you_are_id, jobtitle_id, industry_id);
+                                        .toString()), Constant.Trim(binding.edtPtinNumber.getText().toString()), who_you_are_id, jobtitle_id, industry_id);
                     } else {
                         Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                     }
@@ -381,6 +417,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (!firstname.equalsIgnoreCase("") && firstname != null) {
             binding.edtFirstname.setText(firstname);
+        }
+
+
+        if (!ptin_number.equalsIgnoreCase("") && ptin_number != null) {
+            binding.edtPtinNumber.setText(ptin_number);
         }
 
 
@@ -452,12 +493,12 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void EditPost(String Authorization, String first_name, String last_name, String email,
                          String firm_name, final int country_id, final int state_id, final int city_id,
-                         int zipcode, String contact_no, final int user_type, final int jobtitle_id, final int industry_id) {
+                         int zipcode, String contact_no, String ptin_number, final int user_type, final int jobtitle_id, final int industry_id) {
 
 
         // RxJava
         mAPIService_new.Ediprofile(getResources().getString(R.string.accept), Authorization, first_name, last_name, email
-                , firm_name, country_id, state_id, city_id, zipcode, contact_no, user_type, jobtitle_id, industry_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                , firm_name, country_id, state_id, city_id, zipcode, contact_no, ptin_number, user_type, jobtitle_id, industry_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<EditProfileModel>() {
                     @Override
                     public void onCompleted() {
@@ -500,7 +541,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                         EditPost(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
                                                 binding.edtFirstname.getText().toString(), binding.edtLastname.getText().toString(),
                                                 binding.edtEmailname.getText().toString(), binding.edtFirmname.getText().toString(), country_id, state_id, city_id, Integer.parseInt(binding.edtZipcode.getText().toString()), binding.edtMobileNumber.getText()
-                                                        .toString(), user_type, jobtitle_id, industry_id);
+                                                        .toString(), binding.edtPtinNumber.getText().toString(), user_type, jobtitle_id, industry_id);
                                     } else {
 
 

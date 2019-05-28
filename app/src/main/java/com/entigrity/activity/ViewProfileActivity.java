@@ -23,7 +23,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     private static final String TAG = ViewProfileActivity.class.getName();
     public Context context;
-    public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "";
+    public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "", ptin_number = "";
     public int country_id = 0, state_id = 0, city_id = 0, jobtitle_id = 0, industry_id = 0;
     public String whoyouarevalue = "";
     public String state = "", city = "";
@@ -59,12 +59,11 @@ public class ViewProfileActivity extends AppCompatActivity {
             state = intent.getStringExtra(getResources().getString(R.string.pass_state_text));
             city = intent.getStringExtra(getResources().getString(R.string.pass_city_text));
             zipcode = intent.getStringExtra(getResources().getString(R.string.pass_zipcode));
+            ptin_number = intent.getStringExtra(getResources().getString(R.string.pass_ptin_number));
             country_pos = intent.getIntExtra(getResources().getString(R.string.pass_country), 0);
             state_pos = intent.getIntExtra(getResources().getString(R.string.pass_state), 0);
             city_pos = intent.getIntExtra(getResources().getString(R.string.pass_city), 0);
             who_you_are_pos = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are), 0);
-
-
             job_title_pos = intent.getIntExtra(getResources().getString(R.string.pass_job_title), 0);
             industry_pos = intent.getIntExtra(getResources().getString(R.string.pass_industry), 0);
 
@@ -177,6 +176,11 @@ public class ViewProfileActivity extends AppCompatActivity {
         }
 
 
+        if (!ptin_number.equalsIgnoreCase("") && ptin_number != null) {
+            binding.tvPtinNumber.setText(ptin_number);
+        }
+
+
         if (country_pos != 0) {
             country_id = country_pos;
         }
@@ -240,6 +244,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         i.putExtra(getResources().getString(R.string.pass_email), email);
         i.putExtra(getResources().getString(R.string.pass_firm_name), firmname);
         i.putExtra(getResources().getString(R.string.pass_mobile_number), mobilenumber);
+        i.putExtra(getResources().getString(R.string.pass_ptin_number), ptin_number);
         i.putExtra(getResources().getString(R.string.pass_country), country_id);
         i.putExtra(getResources().getString(R.string.pass_state), state_id);
         i.putExtra(getResources().getString(R.string.pass_city), city_id);

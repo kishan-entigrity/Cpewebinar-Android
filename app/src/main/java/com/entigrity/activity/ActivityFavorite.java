@@ -140,7 +140,6 @@ public class ActivityFavorite extends AppCompatActivity {
 
     private void GetMyFavorites(final String webinartype, final String topicsofinterest, final int start, final int limit) {
 
-
         mAPIService_new.GetMyFavorites(getResources().getString(R.string.accept),
                 getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ModelFavorites>() {

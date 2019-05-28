@@ -112,7 +112,10 @@ public interface APIService {
             @Field("firm_name") String firm_name,
             @Field("contact_no") String contact_no,
             @Field("tags") ArrayList<Integer> tags,
-            @Field("user_type_id") int user_type_id
+            @Field("user_type_id") int user_type_id,
+            @Field("device_id") String device_id,
+            @Field("device_token") String device_token,
+            @Field("device_type") String device_type
     );
 
 
@@ -204,6 +207,7 @@ public interface APIService {
             @Field("city_id") int city_id,
             @Field("zipcode") int zipcode,
             @Field("contact_no") String contact_no,
+            @Field("ptin_number") String ptin_number,
             @Field("user_type_id") int user_type,
             @Field("jobtitle_id") int jobtitle_id,
             @Field("industry_id") int industry_id

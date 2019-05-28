@@ -70,7 +70,7 @@ public class AccountFragment extends Fragment {
     public ImageView ivclose;
     public EditText edt_subject, edt_review;
     public Button btn_submit;
-    public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "";
+    public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "", ptin_number = "";
     public int country_id = 0, state_id = 0, city_id = 0, jobtitle_id = 0, industry_id = 0;
 
     public String job_titile = "", industry = "";
@@ -78,7 +78,7 @@ public class AccountFragment extends Fragment {
 
     public String whoyouarevalue = "";
     public int whoyouare = 0;
-    public String state="", city="";
+    public String state = "", city = "";
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
 
     @Nullable
@@ -260,6 +260,12 @@ public class AccountFragment extends Fragment {
                             if (viewProfileModel.getPayload().getData().getContactNo() != null
                                     && !viewProfileModel.getPayload().getData().getContactNo().equalsIgnoreCase("")) {
                                 mobilenumber = viewProfileModel.getPayload().getData().getContactNo();
+                            }
+
+
+                            if (viewProfileModel.getPayload().getData().getPtinNumber() != null
+                                    && !viewProfileModel.getPayload().getData().getPtinNumber().equalsIgnoreCase("")) {
+                                ptin_number = viewProfileModel.getPayload().getData().getPtinNumber();
                             }
 
 
@@ -548,17 +554,14 @@ public class AccountFragment extends Fragment {
         i.putExtra(getResources().getString(R.string.pass_email), email);
         i.putExtra(getResources().getString(R.string.pass_firm_name), firmname);
         i.putExtra(getResources().getString(R.string.pass_mobile_number), mobilenumber);
-
+        i.putExtra(getResources().getString(R.string.pass_ptin_number), ptin_number);
         i.putExtra(getResources().getString(R.string.pass_country), country_id);
         i.putExtra(getResources().getString(R.string.pass_state), state_id);
         i.putExtra(getResources().getString(R.string.pass_city), city_id);
-
         i.putExtra(getResources().getString(R.string.pass_job_title), jobtitle_id);
         i.putExtra(getResources().getString(R.string.pass_industry), industry_id);
         i.putExtra(getResources().getString(R.string.pass_job_title_text), job_titile);
         i.putExtra(getResources().getString(R.string.pass_industry_text), industry);
-
-
         i.putExtra(getResources().getString(R.string.pass_country_text), country);
         i.putExtra(getResources().getString(R.string.pass_state_text), state);
         i.putExtra(getResources().getString(R.string.pass_city_text), city);

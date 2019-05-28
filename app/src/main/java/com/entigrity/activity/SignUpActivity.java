@@ -1,5 +1,6 @@
 package com.entigrity.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,22 +12,30 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivitySignupBinding;
 import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.usertype.UserTypeModel;
+import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
+import com.entigrity.view.UsPhoneNumberFormatter;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import rx.Subscriber;
@@ -58,11 +67,13 @@ public class SignUpActivity extends AppCompatActivity {
         context = SignUpActivity.this;
         mAPIService_new = ApiUtilsNew.getAPIService();
 
+        AppSettings.set_device_id(context, Constant.GetDeviceid(context));
 
-       /* binding.edtMobilenumbert.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+        binding.edtMobilenumbert.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
                 new WeakReference<EditText>(binding.edtMobilenumbert));
-        binding.edtMobilenumbert.addTextChangedListener(addLineNumberFormatter);*/
+        binding.edtMobilenumbert.addTextChangedListener(addLineNumberFormatter);
 
 
         if (Constant.isNetworkAvailable(context)) {
@@ -87,6 +98,29 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+
+            }
+        });
+
+
+        binding.edtMobilenumbert.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (s.length() == 14) {
+                    Constant.hideKeyboard((Activity) context);
+                }
 
             }
         });
@@ -277,14 +311,19 @@ public class SignUpActivity extends AppCompatActivity {
                 if (myDialog.isShowing()) {
                     myDialog.dismiss();
                 }
+
+
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+
+                        // String phoneNumbers = binding.edtMobilenumbert.getText().toString().replaceAll("[^\\d]", "");
+
                         RegisterPost(Constant.Trim(binding.edtFirmname.getText().toString())
                                 , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
                                 Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
                                 Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
-                                Constant.arraylistselectedvalue, user_type);
+                                Constant.arraylistselectedvalue, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
                     } else {
                         Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -414,12 +453,14 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     public void RegisterPost(String first_name, String last_name, String email, String password, String confirm_password,
-                             String firm_name, String contact_no, ArrayList<Integer> tags, int user_type
+                             String firm_name, String contact_no, ArrayList<Integer> tags, int user_type, String device_id,
+                             String device_token, String device_type
     ) {
 
         // RxJava
         mAPIService_new.Register(getResources().getString(R.string.accept), first_name, last_name
-                , email, password, confirm_password, firm_name, contact_no, tags, user_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                , email, password, confirm_password, firm_name, contact_no, tags, user_type
+                , device_id, device_token, device_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<RegistrationModel>() {
                     @Override
                     public void onCompleted() {
@@ -448,7 +489,17 @@ public class SignUpActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                             }
                             Constant.arraylistselectedvalue.clear();
-                            Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+                            AppSettings.set_login_token(context, registrationModel.getPayload().getUser().getToken());
+                            AppSettings.set_profile_picture(context, registrationModel.getPayload().getUser().getProfilePicture());
+                            AppSettings.set_profile_username(context, registrationModel.getPayload().getUser().getFirstName());
+                            AppSettings.set_email_id(context, registrationModel.getPayload().getUser().getEmail());
+
+
+                            Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
+                            Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
+
+
+                            Intent i = new Intent(context, MainActivity.class);
                             startActivity(i);
                             finish();
 

@@ -128,7 +128,8 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
 
 
             if (!mList.get(position).getWebinarType().equalsIgnoreCase("")) {
-                ((MyWebinarHolder) viewHolder).tv_webinar_type.setText(mList.get(position).getWebinarType());
+                String webinar_type = Constant.capitalize(mList.get(position).getWebinarType());
+                ((MyWebinarHolder) viewHolder).tv_webinar_type.setText(webinar_type);
             }
 
             if (!mList.get(position).getSpeakerName().equalsIgnoreCase("")) {
@@ -139,6 +140,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                 ((MyWebinarHolder) viewHolder).tv_company_name.setText(mList.get(position).getCompanyName());
             }
 
+
             if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext
                     .getResources().getString(R.string.str_filter_live))) {
                 ((MyWebinarHolder) viewHolder).tv_webinar_date.setVisibility(View.VISIBLE);
@@ -146,19 +148,21 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                 ((MyWebinarHolder) viewHolder).tv_duration_name.setVisibility(View.VISIBLE);
                 ((MyWebinarHolder) viewHolder).dv_time_duration.setVisibility(View.VISIBLE);
                 ((MyWebinarHolder) viewHolder).dv_divider.setVisibility(View.VISIBLE);
+                ((MyWebinarHolder) viewHolder).tv_timezone.setVisibility(View.VISIBLE);
 
 
             } else {
-                ((MyWebinarHolder) viewHolder).tv_webinar_date.setVisibility(View.GONE);
-                ((MyWebinarHolder) viewHolder).tv_webinar_time.setVisibility(View.GONE);
-                ((MyWebinarHolder) viewHolder).tv_duration_name.setVisibility(View.GONE);
-                ((MyWebinarHolder) viewHolder).dv_time_duration.setVisibility(View.GONE);
-                ((MyWebinarHolder) viewHolder).dv_divider.setVisibility(View.GONE);
+                ((MyWebinarHolder) viewHolder).tv_webinar_date.setVisibility(View.INVISIBLE);
+                ((MyWebinarHolder) viewHolder).tv_webinar_time.setVisibility(View.INVISIBLE);
+                ((MyWebinarHolder) viewHolder).tv_duration_name.setVisibility(View.INVISIBLE);
+                ((MyWebinarHolder) viewHolder).dv_time_duration.setVisibility(View.INVISIBLE);
+                ((MyWebinarHolder) viewHolder).dv_divider.setVisibility(View.INVISIBLE);
+                ((MyWebinarHolder) viewHolder).tv_timezone.setVisibility(View.INVISIBLE);
             }
 
 
             if (mList.get(position).getDuration() != 0) {
-                ((MyWebinarHolder) viewHolder).tv_duration_name.setVisibility(View.VISIBLE);
+
 
                 String result = formatHoursAndMinutes(mList.get(position).getDuration());
 
@@ -251,14 +255,12 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             }
 
 
-
             if (mList.get(position).getWebinarLike().equalsIgnoreCase(mContext
                     .getResources().getString(R.string.fav_yes))) {
                 ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like_hover);
             } else {
                 ((MyWebinarHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
             }
-
 
 
             ((MyWebinarHolder) viewHolder).ivshare.setOnClickListener(new View.OnClickListener() {
@@ -411,9 +413,10 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
 
         TextView tv_webinar_title, tv_webinar_price_status, tv_webinar_date, tv_webinar_time, tv_duration_name,
                 tv_webinar_type, tv_favorite_count, tv_attend_views, tv_favorite_speaker_name, tv_company_name, tv_timezone;
-        ImageView ivwebinar_thumbhel, ivshare, dv_time_duration, dv_divider;
+        ImageView ivwebinar_thumbhel, ivshare;
         Button credit_status, webinar_status;
         ImageView ivfavorite;
+        View dv_time_duration, dv_divider;
         RelativeLayout rel_item;
 
 
@@ -423,8 +426,6 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             ivfavorite = (ImageView) itemView.findViewById(R.id.ivfavorite);
             credit_status = (Button) itemView.findViewById(R.id.credit_status);
             webinar_status = (Button) itemView.findViewById(R.id.webinar_status);
-            dv_time_duration = (ImageView) itemView.findViewById(R.id.dv_time_duration);
-            dv_divider = (ImageView) itemView.findViewById(R.id.dv_divider);
             ivwebinar_thumbhel = (ImageView) itemView.findViewById(R.id.ivwebinar_thumbhel);
             ivshare = (ImageView) itemView.findViewById(R.id.ivshare);
             tv_webinar_title = (TextView) itemView.findViewById(R.id.tv_webinar_title);
@@ -439,6 +440,8 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
             tv_company_name = (TextView) itemView.findViewById(R.id.tv_company_name);
             rel_item = (RelativeLayout) itemView.findViewById(R.id.rel_item);
             tv_timezone = (TextView) itemView.findViewById(R.id.tv_timezone);
+            dv_time_duration = (View) itemView.findViewById(R.id.dv_time_duration);
+            dv_divider = (View) itemView.findViewById(R.id.dv_divider);
 
 
         }
