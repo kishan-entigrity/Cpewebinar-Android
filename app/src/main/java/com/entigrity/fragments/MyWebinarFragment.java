@@ -154,7 +154,8 @@ public class MyWebinarFragment extends Fragment {
                     arraysavefilterMyWebinar.set(0, getResources().getString(R.string.str_filter_live));
                     webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
                             .replace(" ", "");
-                    binding.btnLive.setBackgroundResource(R.drawable.col_four_bg_hover);
+                    binding.btnLive.setBackgroundResource(R.drawable.col_four_bg_new_hover);
+                    binding.btnLive.setTextColor(getResources().getColor(R.color.White));
                 } else {
                     arrsavebooleanstateMyWebinar.set(0, false);
                     arraysavefilterMyWebinar.set(0, "");
@@ -170,7 +171,8 @@ public class MyWebinarFragment extends Fragment {
                     }
 
 
-                    binding.btnLive.setBackgroundResource(R.drawable.col_four_bg);
+                    binding.btnLive.setBackgroundResource(R.drawable.col_four_bg_new);
+                    binding.btnLive.setTextColor(getResources().getColor(R.color.home_tab_color_unselected));
                 }
 
 
@@ -202,7 +204,8 @@ public class MyWebinarFragment extends Fragment {
                             .replace(" ", "");
 
 
-                    binding.btnSelfstudy.setBackgroundResource(R.drawable.col_four_bg_hover);
+                    binding.btnSelfstudy.setBackgroundResource(R.drawable.col_four_bg_new_hover);
+                    binding.btnSelfstudy.setTextColor(getResources().getColor(R.color.White));
                 } else {
                     arrsavebooleanstateMyWebinar.set(1, false);
                     arraysavefilterMyWebinar.set(1, "");
@@ -219,7 +222,8 @@ public class MyWebinarFragment extends Fragment {
                     }
 
 
-                    binding.btnSelfstudy.setBackgroundResource(R.drawable.col_four_bg);
+                    binding.btnSelfstudy.setBackgroundResource(R.drawable.col_four_bg_new);
+                    binding.btnSelfstudy.setTextColor(getResources().getColor(R.color.home_tab_color_unselected));
                 }
 
 
@@ -252,7 +256,8 @@ public class MyWebinarFragment extends Fragment {
                     arraysavefilterMyWebinar.set(2, getResources().getString(R.string.str_filter_archieve));
                     webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
                             .replace(" ", "");
-                    binding.btnArchive.setBackgroundResource(R.drawable.col_four_bg_hover);
+                    binding.btnArchive.setBackgroundResource(R.drawable.col_four_bg_new_hover);
+                    binding.btnArchive.setTextColor(getResources().getColor(R.color.White));
                 } else {
                     arrsavebooleanstateMyWebinar.set(2, false);
                     arraysavefilterMyWebinar.set(2, "");
@@ -266,7 +271,8 @@ public class MyWebinarFragment extends Fragment {
                                 .replace(" ", "");
                     }
 
-                    binding.btnArchive.setBackgroundResource(R.drawable.col_four_bg);
+                    binding.btnArchive.setBackgroundResource(R.drawable.col_four_bg_new);
+                    binding.btnArchive.setTextColor(getResources().getColor(R.color.home_tab_color_unselected));
                 }
 
 
@@ -296,7 +302,7 @@ public class MyWebinarFragment extends Fragment {
                     arraysavefilterMyWebinar.set(3, getResources().getString(R.string.str_filter_favourite));
                     webinartypemywebinar = arraysavefilterMyWebinar.toString().replace("[", "").replace("]", "")
                             .replace(" ", "");
-                    binding.btnFavorite.setBackgroundResource(R.drawable.col_four_bg_hover);
+                    binding.btnFavorite.setBackgroundResource(R.drawable.col_four_bg_new_hover);
                 } else {
                     arrsavebooleanstateMyWebinar.set(3, false);
                     arraysavefilterMyWebinar.set(3, "");
@@ -324,9 +330,6 @@ public class MyWebinarFragment extends Fragment {
 
             }
         });*/
-
-
-
 
 
         return view = binding.getRoot();

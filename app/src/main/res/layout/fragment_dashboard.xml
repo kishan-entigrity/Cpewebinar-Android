@@ -21,7 +21,7 @@
             android:id="@+id/rvtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/home_topbar_bgcolor"
+            android:background="#ffffff"
             android:padding="@dimen/_10sdp">
 
 
@@ -33,7 +33,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text="@string/str_home_title"
-                android:textColor="@color/White"
+                android:textColor="#484848"
                 android:textSize="@dimen/_16sdp"
                 app:font_text="Montserrat-Bold.ttf" />
 
@@ -45,7 +45,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_toLeftOf="@+id/ivfilter"
-                android:src="@mipmap/reminder" />
+                android:src="@mipmap/reminder_orange" />
 
 
             <ImageView
@@ -55,7 +55,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/_5sdp"
-                android:src="@mipmap/filter" />
+                android:src="@mipmap/filter_orange" />
 
 
         </RelativeLayout>
@@ -66,11 +66,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rvtitle"
-            android:background="@color/home_topbar_bgcolor"
+            android:background="@color/White"
             app:tabGravity="fill"
-            app:tabIndicatorColor="@color/White"
+            app:tabIndicatorColor="#484848"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/White"
+            app:tabSelectedTextColor="#484848"
             app:tabTextAppearance="@style/MineCustomTabText"
             app:tabTextColor="@color/fav_tab_unselected_color" />
 

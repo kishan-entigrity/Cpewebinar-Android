@@ -9,8 +9,10 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivitySplashBinding;
+import com.entigrity.utility.AppSettings;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -70,9 +72,17 @@ public class SplashActivity extends AppCompatActivity {
                     finish();
                 }
 */
-                Intent i = new Intent(context, WelcomeActivity.class);
-                startActivity(i);
-                finish();
+
+                if (AppSettings.get_walkthrough(context) == false) {
+                    Intent i = new Intent(context, WelcomeActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+
 
             }
         }, SPLASH_TIME_OUT);

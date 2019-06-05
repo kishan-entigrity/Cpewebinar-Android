@@ -145,5 +145,20 @@ public class AppSettings {
 
     }
 
+    // set walk rough screen
+    public static void set_walkthrough(Context context, boolean walkthrough) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefsEditor = mPrefs.edit();
+        prefsEditor.putBoolean(context.getResources().getString(R.string.str_walk_through_screen), walkthrough);
+        prefsEditor.commit();
+
+    }
+
+    public static boolean get_walkthrough(Context context) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return mPrefs.getBoolean(context.getResources().getString(R.string.str_walk_through_screen), false);
+
+    }
+
 
 }

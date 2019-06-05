@@ -76,7 +76,6 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
                     for (int i = 0; i < mlist.size(); i++) {
                         if (tagsItem.getId() == mlist.get(i).getId()) {
                             mlist.set(i, tagsItem);
-
                         }
                     }
 

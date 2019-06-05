@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Cpe</string>
+    <string name="app_name">myCPE</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -54,9 +54,10 @@
     <string name="str_sharing_not_avilable">Sharing link is not avilable.</string>
     <string name="str_time_zone_not_found">Time Zone not Found</string>
     <string name="str_btn_next">NEXT</string>
-    <string name="check_validation_popup_topics">Would You Like to add Topics of Interest?</string>
+    <string name="check_validation_popup_topics">Do you want to add your topic of interests?</string>
     <string name="str_skip">SKIP</string>
     <string name="str_download_link_not_found">Download link not found</string>
+    <string name="str_certificate_link_not_found">Certificate not found</string>
     <string name="str_who_should_attend_lable">Who Should Attend</string>
     <string name="str_next">Next</string>
     <string name="str_done">Done</string>
@@ -86,6 +87,7 @@
     <string name="validate_password">Please Enter Password</string>
     <string name="str_token">login token</string>
     <string name="str_emailid">emailid</string>
+    <string name="str_walk_through_screen">walkscreen</string>
 
 
     //dashboard
@@ -189,13 +191,14 @@
     <string name="str_last_name">Last Name</string>
     <string name="str_email_id">Email</string>
     <string name="str_topics_interset">Topics of Interest</string>
-    <string name="str_who_you_are">Who you are?</string>
+    <string name="str_who_you_are">Profession credentials?</string>
     <string name="str_reg_password">Password</string>
     <string name="str_reg_confirm_password">Confirm Password</string>
-    <string name="str_firm_name">Firm Name</string>
+    <string name="str_firm_name">Company Name</string>
     <string name="str_alredy_account">Already have an account?</string>
     <string name="str_login_now">LOGIN NOW</string>
-    <string name="str_accepted">I accepted terms and conditions.</string>
+    <string name="str_accepted">I accept these</string>
+    <string name="str_accepted_condition">Terms and Conditions.</string>
     <string name="str_other_option">Please select other option</string>
     <string name="str_select_country">Select Country</string>
     <string name="str_select_state">Select State</string>
@@ -216,12 +219,12 @@
     <string name="val_password_register">Please Enter Password</string>
     <string name="val_confirm_password_register">Please Enter Confirm Password</string>
     <string name="val_confirm_password_not_match">Password and Confirm Password does not match</string>
-    <string name="val_firm_name_register">Please Enter Firm Name</string>
+    <string name="val_firm_name_register">Please Enter Company Name</string>
     <string name="val_mobile_number">Please Enter Mobile Number</string>
     <string name="val_terms_and_condition">Please Accept Terms and Condition</string>
     <string name="val_topics">Please select at least one topics of interest</string>
     <string name="val_zipcode">Please enter zipcode</string>
-    <string name="val_user_type">Please select user type</string>
+    <string name="val_user_type">Please select Profession credentials?</string>
 
 
     <string name="val_job_title">Please select job title</string>
@@ -274,6 +277,7 @@
     <string name="pass_selected_list">selectedlist</string>
     <string name="pass_selected_signup_list">signupselected</string>
     <string name="pass_who_you_are_list">whoyouarelist</string>
+    <string name="pass_who_you_are_list_review_question">reviewquestion</string>
 
 
     //instructor list
@@ -434,6 +438,7 @@
     <string name="str_webinartitle">HOW THE PRIMARY AND SECONDARY MORTGAGE MARKET WORKS ?</string>
     <string name="str_webinartime">February 28,2019 / 17:30 PM,US/Mountain</string>
     <string name="str_add_to_calendar"><u>Add to Calender</u></string>
+    <string name="str_review_question_lable">Review Question</string>
     <string name="str_overview">Course Description</string>
     <string name="str_program_desc_header">Program Description</string>
     <string name="str_program_desc">Kind Of Materials course description is a brief summary of the
@@ -528,6 +533,13 @@
 
     //check condition in webinar details
     <string name="str_webinar_status_register">Register</string>
+    <string name="str_webinar_status_enroll">Enrolled</string>
+    <string name="str_webinar_status_certificate">Certificate</string>
+    <string name="str_webinar_status_watchnow">watchnow</string>
+    <string name="str_webinar_status_resume_watching">Resume Watching</string>
+    <string name="str_webinar_status_quiz_pending">Quiz Pending</string>
+    <string name="str_webinar_status_pending_evoluation">Pending</string>
+
 
     //favorites
 
@@ -556,7 +568,7 @@
 
     //privacy policy
     <string name="str_privacy">Privacy Policy</string>
-    <string name="str_terms_and_condition">Terms &amp; Condition</string>
+    <string name="str_terms_and_condition">Terms &amp; Conditions</string>
 
     //notification list
     <string name="str_noti_time">23d ago</string>

@@ -47,18 +47,17 @@
                 android:id="@+id/ivbanner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/webinar_placeholder" />
+                android:scaleType="fitXY" />
 
 
             <ImageView
                 android:id="@+id/iv_profilepicture"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_below="@+id/ivbanner"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/_minus25sdp"
-                android:background="@drawable/favorite_profile_border"
+                android:background="@mipmap/placeholder"
                 android:scaleType="centerCrop" />
 
 
@@ -122,7 +121,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/str_webinar_count"
                         android:textColor="@color/theme_background"
                         android:textSize="@dimen/_15sdp"
                         app:font_text="Montserrat-Regular.ttf" />
@@ -161,7 +159,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/str_interest_count"
                         android:textColor="@color/theme_background"
                         android:textSize="@dimen/_15sdp"
                         app:font_text="Montserrat-Regular.ttf" />
@@ -210,7 +207,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/str_speaker_count"
                         android:textColor="@color/theme_background"
                         android:textSize="@dimen/_15sdp"
                         app:font_text="Montserrat-Regular.ttf" />
@@ -249,7 +245,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/str_company_count"
                         android:textColor="@color/theme_background"
                         android:textSize="@dimen/_15sdp"
                         app:font_text="Montserrat-Regular.ttf" />

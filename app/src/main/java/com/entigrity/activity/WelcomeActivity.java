@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.utility.AppSettings;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -113,6 +114,8 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void launchHomeScreen() {
+
+        AppSettings.set_walkthrough(WelcomeActivity.this, true);
         Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(i);
         finish();

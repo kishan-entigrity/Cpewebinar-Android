@@ -102,6 +102,30 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        binding.tvtermsAndCondtion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(context, TermsandConditionActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+        binding.tvTermsAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkprivacypolicystatus == false) {
+                    checkprivacypolicystatus = true;
+                    binding.ivcheckbox.setImageResource(R.mipmap.check_box_click);
+                } else {
+                    checkprivacypolicystatus = false;
+                    binding.ivcheckbox.setImageResource(R.mipmap.check_box);
+                }
+
+            }
+        });
+
 
         binding.edtMobilenumbert.addTextChangedListener(new TextWatcher() {
             @Override
@@ -243,7 +267,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-        binding.tvterms.setOnClickListener(new View.OnClickListener() {
+        binding.ivcheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

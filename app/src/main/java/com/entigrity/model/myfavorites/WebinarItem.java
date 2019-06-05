@@ -4,12 +4,38 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class WebinarItem {
+    public int getScheduleid() {
+        return scheduleid;
+    }
+
+    public String getJoinurl() {
+        return joinurl;
+    }
+
+    public void setJoinurl(String joinurl) {
+        this.joinurl = joinurl;
+    }
+
+    public void setScheduleid(int scheduleid) {
+        this.scheduleid = scheduleid;
+    }
+
+    public void setCertificatelink(String certificatelink) {
+        this.certificatelink = certificatelink;
+    }
 
     @SerializedName("fav_webinar_count")
     private int favWebinarCount;
 
+    @SerializedName("join_url")
+    private String joinurl;
+
+
     @SerializedName("speaker_name")
     private String speakerName;
+
+    @SerializedName("schedule_id")
+    private int scheduleid;
 
     @SerializedName("fee")
     private String fee;
@@ -28,6 +54,13 @@ public class WebinarItem {
 
     @SerializedName("duration")
     private int duration;
+
+    @SerializedName("certificate_link")
+    private String certificatelink;
+
+    public String getCertificatelink() {
+        return certificatelink;
+    }
 
     @SerializedName("start_time")
     private String startTime;
@@ -219,7 +252,9 @@ public class WebinarItem {
         return
                 "WebinarItem{" +
                         "fav_webinar_count = '" + favWebinarCount + '\'' +
+                        "join_url = '" + joinurl + '\'' +
                         ",speaker_name = '" + speakerName + '\'' +
+                        ",certificate_link = '" + certificatelink + '\'' +
                         ",fee = '" + fee + '\'' +
                         ",webinar_image = '" + webinarImage + '\'' +
                         ",people_register_webinar = '" + peopleRegisterWebinar + '\'' +
@@ -237,6 +272,7 @@ public class WebinarItem {
                         ",webinar_like = '" + webinarLike + '\'' +
                         ",start_date = '" + startDate + '\'' +
                         ",status = '" + status + '\'' +
+                        ",schedule_id = '" + scheduleid + '\'' +
                         "}";
     }
 }

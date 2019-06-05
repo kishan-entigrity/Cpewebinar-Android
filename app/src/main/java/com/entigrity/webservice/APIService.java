@@ -2,6 +2,7 @@ package com.entigrity.webservice;
 
 import com.entigrity.model.Instructorlist_details.Instructor_Details_Model;
 import com.entigrity.model.Job_title.ModelJobTitle;
+import com.entigrity.model.SubmitReviewAnswer.SubmitAnswerModel;
 import com.entigrity.model.changepassword.ChangePasswordModel;
 import com.entigrity.model.city.CityModel;
 import com.entigrity.model.company.CompanyModel;
@@ -11,7 +12,10 @@ import com.entigrity.model.companyfavorites.Company_Favorite;
 import com.entigrity.model.contactus.ContactUsModel;
 import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
+import com.entigrity.model.evaluation_form.Evalutionformmodel;
 import com.entigrity.model.favorites_count.Favorite_Count_Model;
+import com.entigrity.model.final_Quiz.Final_Quiz;
+import com.entigrity.model.final_quiz_answer.FinalQuizAnswer;
 import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
 import com.entigrity.model.getcontactusinfo.GetContactUsInfo;
 import com.entigrity.model.getfaq.GetFaq;
@@ -32,6 +36,7 @@ import com.entigrity.model.postcontactus.PostContactQuery;
 import com.entigrity.model.postfeedback.PostFeedback;
 import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.registration.RegistrationModel;
+import com.entigrity.model.review_question.Review_Question;
 import com.entigrity.model.savetopicsofinterest.SaveTopicsInterest;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.subject.SubjectModel;
@@ -39,6 +44,7 @@ import com.entigrity.model.topics_subcategory.Topics_subcategory;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.topicsofinterestn.Topicsofinterest;
 import com.entigrity.model.usertype.UserTypeModel;
+import com.entigrity.model.video_duration.Video_duration_model;
 import com.entigrity.model.view_interest_favorite.ViewTopicsFavorite;
 import com.entigrity.model.view_topics_of_interest.View_Topics_Interest_Model;
 import com.entigrity.model.viewprofile.ViewProfileModel;
@@ -531,7 +537,8 @@ public interface APIService {
     Observable<ModelRegisterWebinar> RegisterWebinar(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization,
-            @Field("webinar_id") int webinar_id);
+            @Field("webinar_id") int webinar_id,
+            @Field("schedule_id") int schedule_id);
 
 
     //job tiitle
@@ -550,4 +557,67 @@ public interface APIService {
             @Header("Authorization") String authorization);
 
 
+    //review question
+
+    @POST("webinar/review-questions")
+    @FormUrlEncoded
+    Observable<Review_Question> ReviewQuestion(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id);
+
+
+    //submit review answer
+    @POST("webinar/review-answer")
+    @FormUrlEncoded
+    Observable<SubmitAnswerModel> SubmitReviewAnswer(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id,
+            @Field("question_id") ArrayList<Integer> question_id,
+            @Field("answers") ArrayList<String> answers
+    );
+
+    //final quiz
+    @POST("webinar/final-quiz-questions")
+    @FormUrlEncoded
+    Observable<Final_Quiz> FinalQuiz(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id);
+
+    //final quiz answer
+    @POST("webinar/final-quiz-answer")
+    @FormUrlEncoded
+    Observable<FinalQuizAnswer> FinalQuizAnswer(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id,
+            @Field("question_id") ArrayList<Integer> question_id,
+            @Field("answers") ArrayList<String> answers
+    );
+
+    //video duration
+
+    @POST("webinar/video-duration")
+    @FormUrlEncoded
+    Observable<Video_duration_model> SaveVideoDuration(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id,
+            @Field("play_time_duration") long play_time_duration,
+            @Field("presentation_length") long presentation_length
+    );
+
+
+    //evolution API.
+
+
+    @POST("webinar/evaluation-form-request")
+    @FormUrlEncoded
+    Observable<Evalutionformmodel> EvaluationForm(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id
+    );
 }

@@ -329,13 +329,25 @@
                                 android:src="@mipmap/check_box" />
 
                             <com.entigrity.view.CustomTextView
-                                android:id="@+id/tvterms"
-                                android:layout_width="match_parent"
+                                android:id="@+id/tv_terms_accept"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/_5sdp"
                                 android:text="@string/str_accepted"
                                 android:textColor="@color/login_do_not_have_account"
+                                android:textSize="@dimen/_13sdp"
+                                app:font_text="SFUIDisplay-Medium.ttf" />
+
+
+                            <com.entigrity.view.CustomTextView
+                                android:id="@+id/tvterms_and_condtion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:text="@string/str_accepted_condition"
+                                android:textColor="#0048ff"
                                 android:textSize="@dimen/_13sdp"
                                 app:font_text="SFUIDisplay-Medium.ttf" />
 

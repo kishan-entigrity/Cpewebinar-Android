@@ -69,6 +69,7 @@ public class MyFavoriteScreenFragment extends Fragment {
 
         }
 
+
         binding.lvTopicsofinterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +158,10 @@ public class MyFavoriteScreenFragment extends Fragment {
 
                             }
 
+                            Picasso.with(context).load("https://my-cpe.com/images/about-us-bg.jpg")
+                                    .placeholder(R.mipmap.webinar_placeholder)
+                                    .into(binding.ivbanner);
+
 
                             if (!AppSettings.get_profile_username(context).equalsIgnoreCase("")
                                     && AppSettings.get_profile_username(context) != null) {
@@ -166,11 +171,11 @@ public class MyFavoriteScreenFragment extends Fragment {
                             }
 
 
-                            if (!favorite_count_model.getPayload().getBannerImage().equalsIgnoreCase("")) {
+                            /*if (!favorite_count_model.getPayload().getBannerImage().equalsIgnoreCase("")) {
                                 Picasso.with(context).load(favorite_count_model.getPayload().getBannerImage())
                                         .placeholder(R.mipmap.placeholder)
                                         .into(binding.ivbanner);
-                            }
+                            }*/
 
                             if (favorite_count_model.getPayload().getWebinarCount() == 0) {
                                 binding.webinarcount.setText("" + "(" + 0 + ")");

@@ -30,11 +30,17 @@ public class Constant {
     public static String access_token = "";
     public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
     public static ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
-    public static boolean checkmywebinardotstatusclear = false;
     public static boolean checkmywebinardotstatusset = false;
 
+    public static ArrayList<String> arraylistselectedreviewanswerreview = new ArrayList<String>();
+    public static ArrayList<Integer> arraylistselectedquestionreview = new ArrayList<Integer>();
 
-  /*  public static HashMap<String, String> checklikedislikestatusall = new HashMap<String, String>();
+    public static ArrayList<String> arraylistselectedanswerfinal = new ArrayList<String>();
+    public static ArrayList<Integer> arraylistselectedquestionfinal = new ArrayList<Integer>();
+
+    //public static HashMap<String, Boolean> checkrightanswer = new HashMap<String, Boolean>();
+
+  /*
     public static HashMap<String, String> checklikedislikestatusmywebinar = new HashMap<String, String>();
 */
 
@@ -192,7 +198,6 @@ public class Constant {
 
         return capMatcher.appendTail(capBuffer).toString();
     }
-
 
 
 }

@@ -32,6 +32,7 @@
             android:layout_below="@+id/popup_label"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
             android:text="@string/check_validation_popup_topics"
             android:textColor="@color/feedback_title"
             android:textSize="@dimen/_12sdp"

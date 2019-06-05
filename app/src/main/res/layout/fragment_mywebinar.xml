@@ -30,7 +30,7 @@
                 android:background="@drawable/home_child_selector_mywebinar"
                 android:gravity="center"
                 android:text="@string/str_live"
-                android:textColor="@color/White"
+                android:textColor="#484848"
                 android:textSize="@dimen/_12sdp"
                 app:font_text="Montserrat-Medium.ttf" />
 
@@ -42,7 +42,7 @@
                 android:background="@drawable/home_child_selector_mywebinar"
                 android:gravity="center"
                 android:text="@string/str_self_study"
-                android:textColor="@color/White"
+                android:textColor="#484848"
                 android:textSize="@dimen/_12sdp"
                 app:font_text="Montserrat-Medium.ttf" />
 
@@ -54,7 +54,7 @@
                 android:background="@drawable/home_child_selector_mywebinar"
                 android:gravity="center"
                 android:text="@string/str_archive"
-                android:textColor="@color/White"
+                android:textColor="#484848"
                 android:textSize="@dimen/_12sdp"
                 app:font_text="Montserrat-Medium.ttf" />
 

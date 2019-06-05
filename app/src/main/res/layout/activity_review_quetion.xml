@@ -10,7 +10,7 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -50,13 +50,47 @@
             android:id="@+id/recyclerview_review_question"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/White"
+            android:layout_above="@+id/relbottom"
+            android:layout_below="@+id/rvtitle"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/_70sdp">
 
         </android.support.v7.widget.RecyclerView>
 
 
-    </LinearLayout>
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_nodatafound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_data_found"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_25sdp"
+            android:visibility="gone"
+            app:font_text="Montserrat-Medium.ttf" />
+
+        <RelativeLayout
+            android:id="@+id/relbottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/home_topbar_bgcolor"
+            android:visibility="gone">
+
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/btnsubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/str_submit"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_18sdp"
+                app:font_text="Montserrat-Bold.ttf" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 
 </layout>

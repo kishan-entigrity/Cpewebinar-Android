@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#003F72</color>
     <color name="White">#FFFFFF</color>
+    <color name="home_tab_color_unselected">#484848</color>
     <color name="theme_background">#193f70</color>
     <color name="forgot_password_header">#213B5B</color>
     <color name="company_detail_bottom">#001F44</color>
@@ -45,7 +46,7 @@
 
 
     //Edit Profile
-    <color name="edit_profile_lable_colcr">#C9C9D5</color>
+    <color name="edit_profile_lable_colcr">#000000</color>
 
     //dashboard
     <color name="dashboard_bottom_selected">#0E2B4D</color>
@@ -90,7 +91,7 @@
     <color name="instructor_left_panel_color">#DADAE2</color>
     <color name="instructor_right_panel_color">#486D8F</color>
     <color name="instructor_details_about_color">#737373</color>
-    <color name="fav_tab_unselected_color">#CCCDCE</color>
+    <color name="fav_tab_unselected_color">#50484848</color>
 
 
     //write review popup
@@ -154,6 +155,9 @@
     <color name="card_text_number_color">#24272c</color>
 
 
+    //question screen
+    <color name="correct_ans">#00C818</color>
+    <color name="wrong_ans">#FF2424</color>
 
 
 </resources>

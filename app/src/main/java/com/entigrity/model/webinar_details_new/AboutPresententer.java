@@ -8,9 +8,19 @@ public class AboutPresententer {
     @SerializedName("desgnination")
     private String desgnination;
 
-
     @SerializedName("company_website")
     private String companyWebsite;
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    @SerializedName("qualification")
+    private String qualification;
 
     @SerializedName("email_id")
     private String emailId;
@@ -89,6 +99,7 @@ public class AboutPresententer {
                 "AboutPresententer{" +
                         "desgnination = '" + desgnination + '\'' +
                         ",email_id = '" + emailId + '\'' +
+                        ",qualification = '" + qualification + '\'' +
                         ",company_website = '" + companyWebsite + '\'' +
                         ",company_desc = '" + companyDesc + '\'' +
                         ",company_name = '" + companyName + '\'' +

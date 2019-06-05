@@ -29,8 +29,8 @@
                 android:id="@+id/ivback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
                 android:layout_centerVertical="true"
+                android:padding="@dimen/_5sdp"
                 android:src="@mipmap/back" />
 
 
@@ -79,9 +79,9 @@
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="@string/str_address"
-                    android:visibility="gone"
                     android:textColor="@color/black_full"
                     android:textSize="@dimen/_15sdp"
+                    android:visibility="gone"
                     app:font_button="Montserrat-Regular.ttf" />
 
                 <LinearLayout
@@ -154,9 +154,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@+id/str_or"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:layout_below="@+id/str_or"
                 android:orientation="vertical">
 
 
@@ -188,10 +188,12 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:background="@drawable/editext_background"
+                    android:gravity="top|left"
                     android:hint="@string/str_your_name"
                     android:imeOptions="actionDone"
                     android:inputType="textMultiLine"
                     android:paddingLeft="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_5sdp"
                     android:scrollbars="vertical"
                     android:scrollHorizontally="false"
                     android:textSize="@dimen/_12sdp"

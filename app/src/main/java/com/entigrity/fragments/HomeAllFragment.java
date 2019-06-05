@@ -127,7 +127,8 @@ public class HomeAllFragment extends Fragment {
                     arraysavefilter.set(0, getResources().getString(R.string.str_filter_live));
                     webinartype = arraysavefilter.toString().replace("[", "").replace("]", "")
                             .replace(" ", "");
-                    binding.btnLive.setBackgroundResource(R.drawable.col_three_bg_hover);
+                    binding.btnLive.setBackgroundResource(R.drawable.col_three_bg_new_hover);
+                    binding.btnLive.setTextColor(getResources().getColor(R.color.White));
                 } else {
                     arrsavebooleanstate.set(0, false);
                     arraysavefilter.set(0, "");
@@ -143,7 +144,8 @@ public class HomeAllFragment extends Fragment {
                     }
 
 
-                    binding.btnLive.setBackgroundResource(R.drawable.col_three_bg);
+                    binding.btnLive.setBackgroundResource(R.drawable.col_three_bg_new);
+                    binding.btnLive.setTextColor(getResources().getColor(R.color.home_tab_color_unselected));
                 }
 
 
@@ -175,7 +177,8 @@ public class HomeAllFragment extends Fragment {
                             .replace(" ", "");
 
 
-                    binding.btnSelfstudy.setBackgroundResource(R.drawable.col_three_bg_hover);
+                    binding.btnSelfstudy.setBackgroundResource(R.drawable.col_three_bg_new_hover);
+                    binding.btnSelfstudy.setTextColor(getResources().getColor(R.color.White));
                 } else {
                     arrsavebooleanstate.set(1, false);
                     arraysavefilter.set(1, "");
@@ -192,7 +195,8 @@ public class HomeAllFragment extends Fragment {
                     }
 
 
-                    binding.btnSelfstudy.setBackgroundResource(R.drawable.col_three_bg);
+                    binding.btnSelfstudy.setBackgroundResource(R.drawable.col_three_bg_new);
+                    binding.btnSelfstudy.setTextColor(getResources().getColor(R.color.home_tab_color_unselected));
                 }
 
 
@@ -221,7 +225,8 @@ public class HomeAllFragment extends Fragment {
                     arraysavefilter.set(2, getResources().getString(R.string.str_filter_archieve));
                     webinartype = arraysavefilter.toString().replace("[", "").replace("]", "")
                             .replace(" ", "");
-                    binding.btnArchive.setBackgroundResource(R.drawable.col_three_bg_hover);
+                    binding.btnArchive.setBackgroundResource(R.drawable.col_three_bg_new_hover);
+                    binding.btnArchive.setTextColor(getResources().getColor(R.color.White));
                 } else {
                     arrsavebooleanstate.set(2, false);
                     arraysavefilter.set(2, "");
@@ -234,7 +239,8 @@ public class HomeAllFragment extends Fragment {
                                 .replace(" ", "");
                     }
 
-                    binding.btnArchive.setBackgroundResource(R.drawable.col_three_bg);
+                    binding.btnArchive.setBackgroundResource(R.drawable.col_three_bg_new);
+                    binding.btnArchive.setTextColor(getResources().getColor(R.color.home_tab_color_unselected));
                 }
 
 

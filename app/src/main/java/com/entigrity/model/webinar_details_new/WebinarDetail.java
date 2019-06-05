@@ -9,6 +9,40 @@ public class WebinarDetail {
     @SerializedName("subject_area")
     private String subjectArea;
 
+    public int getTimespent() {
+        return timespent;
+    }
+
+    public void setTimespent(int timespent) {
+        this.timespent = timespent;
+    }
+
+    public int getPlaytimeduration() {
+        return playtimeduration;
+    }
+
+    public void setPlaytimeduration(int playtimeduration) {
+        this.playtimeduration = playtimeduration;
+    }
+
+    @SerializedName("timespent")
+    private int timespent;
+
+    @SerializedName("play_time_duration")
+    private int playtimeduration;
+
+    public String getJoinurl() {
+        return joinurl;
+    }
+
+    public void setJoinurl(String joinurl) {
+        this.joinurl = joinurl;
+    }
+
+    @SerializedName("join_url")
+    private String joinurl;
+
+
     @SerializedName("course_level")
     private String courseLevel;
 
@@ -80,8 +114,21 @@ public class WebinarDetail {
     @SerializedName("webinar_video_url")
     private String webinarVideoUrl;
 
+    public List<String> getCertificatelink() {
+        return certificatelink;
+    }
+
+    public void setCertificatelink(List<String> certificatelink) {
+        this.certificatelink = certificatelink;
+    }
+
     @SerializedName("presentation_handout")
     private List<String> presentationHandout;
+
+
+    @SerializedName("certificate_link")
+    private List<String> certificatelink;
+
 
     @SerializedName("start_time")
     private String startTime;
@@ -362,7 +409,11 @@ public class WebinarDetail {
         return
                 "WebinarDetail{" +
                         "subject_area = '" + subjectArea + '\'' +
+                        "timespent = '" + timespent + '\'' +
+                        "play_time_duration = '" + playtimeduration + '\'' +
+                        "join_url = '" + joinurl + '\'' +
                         ",course_level = '" + courseLevel + '\'' +
+                        ",certificate_link = '" + certificatelink + '\'' +
                         ",program_description = '" + programDescription + '\'' +
                         ",advance_preparation = '" + advancePreparation + '\'' +
                         ",shareable_link = '" + shareableLink + '\'' +

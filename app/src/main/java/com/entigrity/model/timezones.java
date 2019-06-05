@@ -13,6 +13,13 @@ public class timezones {
 
     private String timezone_short = "";
 
+    public int getSchedule_id() {
+        return schedule_id;
+    }
+
+    public void setSchedule_id(int schedule_id) {
+        this.schedule_id = schedule_id;
+    }
 
     public String getTimezone() {
         return timezone;
@@ -40,4 +47,6 @@ public class timezones {
 
     private String start_date = "";
     private String start_time = "";
+
+    private int schedule_id = 0;
 }

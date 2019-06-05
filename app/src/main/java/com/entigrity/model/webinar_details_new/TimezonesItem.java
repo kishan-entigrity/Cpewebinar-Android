@@ -22,8 +22,19 @@ public class TimezonesItem {
     @SerializedName("start_date")
     private String startDate;
 
+    public int getScheduleid() {
+        return scheduleid;
+    }
+
+    public void setScheduleid(int scheduleid) {
+        this.scheduleid = scheduleid;
+    }
+
     @SerializedName("timezone_short")
     private String timezoneshort;
+
+    @SerializedName("schedule_id")
+    private int scheduleid;
 
 
     public void setStartTime(String startTime) {
@@ -58,6 +69,7 @@ public class TimezonesItem {
                         ",timezone = '" + timezone + '\'' +
                         ",start_date = '" + startDate + '\'' +
                         ",timezone_short = '" + timezoneshort + '\'' +
+                        ",schedule_id = '" + scheduleid + '\'' +
                         "}";
     }
 }
