@@ -12,7 +12,7 @@
     </data>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White"
@@ -22,7 +22,7 @@
             android:id="@+id/rvtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/home_topbar_bgcolor"
+            android:background="@color/webinar_status"
             android:padding="@dimen/_10sdp">
 
 
@@ -43,25 +43,27 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/reminder_orange" />
+                android:src="@mipmap/reminder_orange"
+                android:visibility="gone" />
 
 
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/rel_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rvtitle"
             android:background="@color/White"
-            android:gravity="center"
             android:orientation="vertical">
 
             <com.entigrity.view.CustomTextView
                 android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="@string/str_username"
+                android:gravity="center"
                 android:textColor="@color/my_credit_header_username"
                 android:textSize="@dimen/_16sdp"
                 app:font_text="Montserrat-SemiBold.ttf" />
@@ -69,38 +71,43 @@
 
             <com.entigrity.view.CustomTextView
                 android:id="@+id/tv_useremailid"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_username"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="@string/str_user_email_id"
+                android:gravity="center"
                 android:textColor="@color/my_credit_header_email_id"
                 android:textSize="@dimen/_12sdp"
                 app:font_text="Montserrat-Medium.ttf" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
         <LinearLayout
+            android:id="@+id/lv_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_body"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"
             android:weightSum="3">
 
 
             <LinearLayout
+                android:id="@+id/lv_completed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.9"
                 android:orientation="vertical">
 
                 <com.entigrity.view.CustomTextView
+                    android:id="@+id/tv_complted_webinar_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="2"
+                    android:text="0"
                     android:textColor="@color/my_credit_webinar_report"
                     android:textSize="@dimen/_16sdp"
                     app:font_text="Montserrat-SemiBold.ttf" />
@@ -127,17 +134,19 @@
 
 
             <LinearLayout
+                android:id="@+id/lv_pending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.9"
                 android:orientation="vertical">
 
                 <com.entigrity.view.CustomTextView
+                    android:id="@+id/tv_pending_webinar_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="8"
+                    android:text="0"
                     android:textColor="@color/my_credit_webinar_report"
                     android:textSize="@dimen/_16sdp"
                     app:font_text="Montserrat-SemiBold.ttf" />
@@ -163,17 +172,19 @@
 
 
             <LinearLayout
+                android:id="@+id/lv_upcoming"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <com.entigrity.view.CustomTextView
+                    android:id="@+id/tv_upcoming_webinar_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="6"
+                    android:text="0"
                     android:textColor="@color/my_credit_webinar_report"
                     android:textSize="@dimen/_16sdp"
                     app:font_text="Montserrat-SemiBold.ttf" />
@@ -200,7 +211,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/uvv_gray"
-            android:padding="@dimen/_5sdp">
+            android:padding="@dimen/_5sdp"
+            android:visibility="gone">
 
 
             <com.entigrity.view.CustomTextView
@@ -246,16 +258,57 @@
 
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_mycredit"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/White"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/_70sdp">
+            android:layout_below="@+id/lv_filter">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_mycredit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/White"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/_70sdp">
+
+            </android.support.v7.widget.RecyclerView>
 
 
-    </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_nodatafound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/no_data_found"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_25sdp"
+            android:visibility="gone"
+            app:font_text="Montserrat-Medium.ttf" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+
+        </FrameLayout>
+
+
+    </RelativeLayout>
 </layout>

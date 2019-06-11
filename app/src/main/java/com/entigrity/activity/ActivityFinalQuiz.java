@@ -86,9 +86,16 @@ public class ActivityFinalQuiz extends AppCompatActivity {
         binding.btnsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String finalquizquestion = android.text.TextUtils.join(",", arraylistselectedquestionfinal);
+                System.out.println(finalquizquestion);
+
+                String finalquizwanswer = android.text.TextUtils.join(",", arraylistselectedanswerfinal);
+                System.out.println(finalquizwanswer);
+
+
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetSubmitAnswer();
+                    GetSubmitAnswer(finalquizquestion, finalquizwanswer);
                 } else {
                     Snackbar.make(binding.recyclerviewFinalQuiz, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                 }
@@ -106,10 +113,10 @@ public class ActivityFinalQuiz extends AppCompatActivity {
         finish();
     }
 
-    private void GetSubmitAnswer() {
+    private void GetSubmitAnswer(String finalquizquestion, String finalanswer) {
 
         mAPIService.FinalQuizAnswer(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), webinar_id
-                , arraylistselectedquestionfinal, arraylistselectedanswerfinal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                , finalquizquestion, finalanswer).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<FinalQuizAnswer>() {
                     @Override
                     public void onCompleted() {

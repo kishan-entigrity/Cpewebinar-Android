@@ -87,9 +87,17 @@ public class ActivityReviewQuestion extends AppCompatActivity {
         binding.btnsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String reviewquestion = android.text.TextUtils.join(",", arraylistselectedquestionreview);
+                System.out.println(reviewquestion);
+
+                String reviewanswer = android.text.TextUtils.join(",", arraylistselectedreviewanswerreview);
+                System.out.println(reviewanswer);
+
+
                 if (Constant.isNetworkAvailable(context)) {
                     progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                    GetSubmitAnswer();
+                    GetSubmitAnswer(reviewquestion, reviewanswer);
                 } else {
                     Snackbar.make(binding.recyclerviewReviewQuestion, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                 }
@@ -107,10 +115,10 @@ public class ActivityReviewQuestion extends AppCompatActivity {
         finish();
     }
 
-    private void GetSubmitAnswer() {
+    private void GetSubmitAnswer(String reviewquestion, String reviewanswer) {
 
         mAPIService.SubmitReviewAnswer(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), webinar_id
-                , arraylistselectedquestionreview, arraylistselectedreviewanswerreview).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                , reviewquestion, reviewanswer).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SubmitAnswerModel>() {
                     @Override
                     public void onCompleted() {

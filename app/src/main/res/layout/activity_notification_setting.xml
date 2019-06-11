@@ -21,7 +21,7 @@
             android:id="@+id/rel_titile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/home_topbar_bgcolor"
+            android:background="@color/webinar_status"
             android:padding="@dimen/_10sdp">
 
 
@@ -29,8 +29,8 @@
                 android:id="@+id/ivback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
                 android:layout_centerVertical="true"
+                android:padding="@dimen/_5sdp"
                 android:src="@mipmap/back" />
 
 
@@ -210,6 +210,7 @@
 
 
                         <CheckBox
+                            android:id="@+id/cb_push_webinar_register"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -241,9 +242,12 @@
 
 
                         <CheckBox
+                            android:id="@+id/cb_push_webinar_reminder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
+                            android:layout_marginTop="0dp"
                             android:button="@null"
                             android:checked="true"
                             android:drawableRight="@drawable/checkbox_selector"
@@ -281,6 +285,7 @@
 
 
                     <CheckBox
+                        android:id="@+id/cb_push_webinar_update"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -356,6 +361,7 @@
 
 
                         <CheckBox
+                            android:id="@+id/cb_push_quiz_pending"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -387,6 +393,7 @@
 
 
                         <CheckBox
+                            android:id="@+id/cb_push_pending_evoluation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -477,6 +484,7 @@
 
 
                         <CheckBox
+                            android:id="@+id/cb_text_webinar_register"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -508,6 +516,7 @@
 
 
                         <CheckBox
+                            android:id="@+id/cb_text_webinar_reminder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -548,6 +557,7 @@
 
 
                     <CheckBox
+                        android:id="@+id/cb_text_webinar_update"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -624,6 +634,7 @@
 
 
                         <CheckBox
+                            android:id="@+id/cb_text_quiz_pending"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -655,6 +666,7 @@
 
 
                         <CheckBox
+                            android:id="@+id/cb_text_pending_evoluation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="2">
 
 
             <com.entigrity.view.CustomButtonView
@@ -56,6 +56,7 @@
                 android:background="@drawable/home_child_selector_all"
                 android:gravity="center"
                 android:text="@string/str_archive"
+                android:visibility="gone"
                 android:textColor="#484848"
                 android:textSize="@dimen/_12sdp"
                 app:font_text="Montserrat-Medium.ttf"

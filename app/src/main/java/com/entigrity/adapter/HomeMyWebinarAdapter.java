@@ -784,14 +784,14 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                             Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();
                             if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
                                     .getString(R.string.str_filter_live))) {
-                                button.setText("Enrolled");
+                                button.setText("JOIN WEBINAR");
                                 button.setBackgroundResource(R.drawable.rounded_webinar_status);
-                                mList.get(position).setStatus("Enrolled");
+                                mList.get(position).setStatus("JOIN WEBINAR");
                             } else if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
-                                    .getString(R.string.str_filter_selfstudy))) {
-                                button.setText("WatchNow");
+                                    .getString(R.string.str_self_study_on_demand))) {
+                                button.setText("WATCH NOW");
                                 button.setBackgroundResource(R.drawable.rounded_webinar_status);
-                                mList.get(position).setStatus("WatchNow");
+                                mList.get(position).setStatus("WATCH NOW");
                             }
 
                         } else {

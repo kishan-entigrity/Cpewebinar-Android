@@ -2,6 +2,7 @@ package com.entigrity.webservice;
 
 import com.entigrity.model.Instructorlist_details.Instructor_Details_Model;
 import com.entigrity.model.Job_title.ModelJobTitle;
+import com.entigrity.model.My_Credit.My_Credit;
 import com.entigrity.model.SubmitReviewAnswer.SubmitAnswerModel;
 import com.entigrity.model.changepassword.ChangePasswordModel;
 import com.entigrity.model.city.CityModel;
@@ -19,6 +20,7 @@ import com.entigrity.model.final_quiz_answer.FinalQuizAnswer;
 import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
 import com.entigrity.model.getcontactusinfo.GetContactUsInfo;
 import com.entigrity.model.getfaq.GetFaq;
+import com.entigrity.model.getnotificationsetting.GetNotificationModel;
 import com.entigrity.model.getprivacypolicy.GetPrivacyPolicy;
 import com.entigrity.model.gettermscondition.GetTermsCondition;
 import com.entigrity.model.homewebinarlist.Webinar_Home;
@@ -37,6 +39,7 @@ import com.entigrity.model.postfeedback.PostFeedback;
 import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.review_question.Review_Question;
+import com.entigrity.model.savenotificationsetting.SubmitNotification;
 import com.entigrity.model.savetopicsofinterest.SaveTopicsInterest;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.subject.SubjectModel;
@@ -574,8 +577,8 @@ public interface APIService {
             @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("webinar_id") int webinar_id,
-            @Field("question_id") ArrayList<Integer> question_id,
-            @Field("answers") ArrayList<String> answers
+            @Field("question_id") String question_id,
+            @Field("answers") String answers
     );
 
     //final quiz
@@ -593,8 +596,8 @@ public interface APIService {
             @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("webinar_id") int webinar_id,
-            @Field("question_id") ArrayList<Integer> question_id,
-            @Field("answers") ArrayList<String> answers
+            @Field("question_id") String question_id,
+            @Field("answers") String answers
     );
 
     //video duration
@@ -612,7 +615,6 @@ public interface APIService {
 
     //evolution API.
 
-
     @POST("webinar/evaluation-form-request")
     @FormUrlEncoded
     Observable<Evalutionformmodel> EvaluationForm(
@@ -620,4 +622,35 @@ public interface APIService {
             @Header("Authorization") String authorization,
             @Field("webinar_id") int webinar_id
     );
+
+
+    //my credit API
+
+    @POST("my-credits")
+    @FormUrlEncoded
+    Observable<My_Credit> GetMyCredit(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("filter_type") int filter_type,
+            @Field("start") int start,
+            @Field("limit") int limit
+    );
+
+
+    //get notification setting
+    @GET("setting/get-notification")
+    Observable<GetNotificationModel> GetNotificationSetting(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization);
+
+    //submit notification setting
+    @POST("setting/submit-notification")
+    @FormUrlEncoded
+    Observable<SubmitNotification> SubmitNotification(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("push") String push,
+            @Field("text") String text);
+
+
 }

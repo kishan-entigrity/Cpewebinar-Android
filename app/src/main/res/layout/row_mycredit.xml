@@ -10,27 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/rvcalenderview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/iv_calender"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_80sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:src="@drawable/calview"
-                android:visibility="visible" />
-
-        </RelativeLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_toRightOf="@+id/rvcalenderview"
             android:orientation="vertical">
 
 
@@ -41,25 +25,26 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/str_basic_management"
+                android:inputType="textMultiLine"
+                android:textAllCaps="true"
                 android:textColor="@color/my_credit_header_username"
                 android:textSize="@dimen/_10sdp"
                 app:font_text="Montserrat-SemiBold.ttf" />
 
             <com.entigrity.view.CustomTextView
+                android:id="@+id/tv_speaker_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/str_instructor_name"
                 android:textColor="@color/my_credit_header_email_id"
                 android:textSize="@dimen/_10sdp"
                 app:font_text="Montserrat-Medium.ttf" />
 
 
             <RelativeLayout
+                android:id="@+id/rel_main"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_20sdp"
                 android:gravity="center_vertical">
@@ -72,37 +57,6 @@
                     android:layout_centerVertical="true"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@string/str_credit"
-                    android:textColor="@color/my_credit_header_email_id"
-                    android:textSize="@dimen/_10sdp"
-                    app:font_text="Montserrat-Medium.ttf" />
-
-
-                <View
-                    android:id="@id/view_credit"
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_2sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:layout_toRightOf="@+id/tv_credit"
-                    android:background="@color/my_credit_header_email_id">
-
-
-                </View>
-
-
-                <com.entigrity.view.CustomTextView
-                    android:id="@+id/tv_accounting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_2sdp"
-                    android:layout_toRightOf="@+id/view_credit"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@string/str_accounting"
                     android:textColor="@color/my_credit_header_email_id"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Medium.ttf" />
@@ -113,10 +67,10 @@
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:layout_toRightOf="@+id/tv_accounting"
+                    android:layout_toRightOf="@+id/tv_credit"
                     android:background="@color/my_credit_header_email_id">
 
 
@@ -124,21 +78,21 @@
 
 
                 <com.entigrity.view.CustomButtonView
-                    android:id="@+id/btn_webinarstatus_status"
+                    android:id="@+id/btn_webinar_type"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_10sdp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/view_webinartopic"
-                    android:background="@drawable/download_button_webinar_detail"
+                    android:background="@drawable/rounded_webinar_status"
                     android:gravity="center"
-                    android:text="Live"
                     android:textColor="@color/White"
                     android:textSize="@dimen/_6sdp"
                     app:font_button="Montserrat-Medium.ttf" />
 
 
                 <com.entigrity.view.CustomButtonView
+                    android:id="@+id/tv_webinar_status"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_15sdp"
                     android:layout_alignParentRight="true"
@@ -146,22 +100,51 @@
                     android:layout_marginRight="@dimen/_5sdp"
                     android:background="@drawable/my_credit_status"
                     android:gravity="center"
-                    android:text="Quiz Pending"
                     android:textAllCaps="false"
                     android:textColor="@color/theme_background"
                     android:textSize="@dimen/_6sdp"
                     app:font_button="Montserrat-Regular.ttf" />
 
 
+                <com.entigrity.view.CustomButtonView
+                    android:id="@+id/btn_certification_download"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@drawable/rounded_webinar_status"
+                    android:gravity="center"
+                    android:text="Download Certificate"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/_6sdp"
+                    android:visibility="gone"
+                    app:font_button="Montserrat-Regular.ttf" />
+
+
             </RelativeLayout>
 
             <com.entigrity.view.CustomTextView
+                android:id="@+id/tv_job_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel_main"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_minus2sdp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/my_credit_header_email_id"
+                android:textSize="@dimen/_10sdp"
+                app:font_text="Montserrat-Medium.ttf" />
+
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/webinar_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="12 Feb 2019"
                 android:textColor="@color/my_credit_header_email_id"
                 android:textSize="@dimen/_10sdp"
                 app:font_text="Montserrat-Medium.ttf" />

@@ -20,7 +20,7 @@
             android:id="@+id/rvtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/home_topbar_bgcolor"
+            android:background="@color/webinar_status"
             android:padding="@dimen/_10sdp">
 
 
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:layout_alignParentBottom="true"
-            android:background="@color/home_topbar_bgcolor"
+            android:background="@color/webinar_status"
             android:visibility="gone">
 
             <com.entigrity.view.CustomTextView

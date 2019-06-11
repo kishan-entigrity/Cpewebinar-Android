@@ -22,7 +22,7 @@
             android:id="@+id/rvtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/home_topbar_bgcolor"
+            android:background="@color/webinar_status"
             android:padding="@dimen/_10sdp">
 
 
@@ -193,7 +193,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:background="@color/home_topbar_bgcolor"
+                    android:background="@drawable/rounded_webinar_status"
                     android:gravity="center"
                     android:padding="@dimen/_5sdp"
                     android:text="@string/str_lable_cancel"
@@ -208,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:background="@color/home_topbar_bgcolor"
+                    android:background="@drawable/rounded_webinar_status"
                     android:gravity="center"
                     android:padding="@dimen/_5sdp"
                     android:text="@string/str_add_card_label"

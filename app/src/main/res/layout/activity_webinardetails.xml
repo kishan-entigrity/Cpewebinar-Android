@@ -20,7 +20,7 @@
             android:id="@+id/rvtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/home_topbar_bgcolor"
+            android:background="@color/webinar_status"
             android:gravity="center_vertical"
             android:padding="@dimen/_10sdp">
 
@@ -87,11 +87,27 @@
                 android:background="@android:color/black"
                 android:visibility="gone">
 
+
+                <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                    android:id="@+id/exoplayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    app:use_controller="true" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
                 <com.universalvideoview.UniversalVideoView
                     android:id="@+id/videoView"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     app:uvv_autoRotation="false"
                     app:uvv_fitXY="false" />
 
@@ -99,9 +115,11 @@
                     android:id="@+id/media_controller"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:uvv_scalable="true" />
 
             </FrameLayout>
+
 
         </RelativeLayout>
 

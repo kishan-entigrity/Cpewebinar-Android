@@ -2,12 +2,12 @@ package com.entigrity.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,8 +47,29 @@ import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.PlaybackControlView;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.squareup.picasso.Picasso;
-import com.universalvideoview.UniversalVideoView;
 
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
@@ -65,7 +87,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class WebinarDetailsActivity extends AppCompatActivity implements UniversalVideoView.VideoViewCallback {
+public class WebinarDetailsActivity extends AppCompatActivity {
     public Context context;
     ActivityWebinardetailsBinding binding;
     private APIService mAPIService;
@@ -80,9 +102,9 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
     private ArrayList<String> arrayListhandout = new ArrayList<>();
     private ArrayList<String> arrayListCertificate = new ArrayList<>();
-    private static String VIDEO_URL = "";
+    private String VIDEO_URL = "";
 
-
+    // private String VIDEO_URL = "https://my-cpe.com/uploads/webinar_video/united-states-taxation-of-foreign-real-estate-Investors.mp4";
     TextView tv_who_attend, tv_lerning_objectives;
     LinearLayout lv_row_testimonial;
     public boolean ispause = false;
@@ -108,12 +130,29 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
     private String year, month, day, hour, min, min_calendar, month_calendar = "";
 
-    long play_time_duration = 0;
-    long presentation_length = 0;
+
     public Handler handler = new Handler();
 
     public String join_url = "";
     public int schedule_id = 0;
+
+
+    //exo player
+
+
+    private final String STATE_RESUME_WINDOW = "resumeWindow";
+    private final String STATE_RESUME_POSITION = "resumePosition";
+    private final String STATE_PLAYER_FULLSCREEN = "playerFullscreen";
+    private SimpleExoPlayerView mExoPlayerView;
+    private boolean mExoPlayerFullscreen = false;
+    private FrameLayout mFullScreenButton;
+    private ImageView mFullScreenIcon, exo_pause, exo_play;
+    private Dialog mFullScreenDialog;
+    private long play_time_duration = 0;
+    private long mResumePosition = 0;
+    private long presentation_length = 0;
+    SimpleExoPlayer exoPlayer;
+    public boolean checkpause = false;
 
 
     @Override
@@ -124,6 +163,13 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         mAPIService = ApiUtilsNew.getAPIService();
         inflater_new = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mProgressDialog = new ProgressDialog(context);
+
+
+        if (savedInstanceState != null) {
+            play_time_duration = savedInstanceState.getLong(STATE_RESUME_WINDOW);
+            mResumePosition = savedInstanceState.getLong(STATE_RESUME_POSITION);
+            mExoPlayerFullscreen = savedInstanceState.getBoolean(STATE_PLAYER_FULLSCREEN);
+        }
 
 
         Intent intent = getIntent();
@@ -139,8 +185,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
             } else {
                 Snackbar.make(binding.relView, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
             }
-
-
         }
 
 
@@ -174,7 +218,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                         i.setData(Uri.parse(url));
                         startActivity(i);
                     }
-                } else if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_selfstudy))) {
+                } else if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_self_study_on_demand))) {
 
                     if (binding.tvWebinarStatus.getText().toString().equalsIgnoreCase(context
                             .getResources().getString(R.string.str_webinar_status_watchnow))) {
@@ -237,7 +281,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
             @Override
             public void onClick(View v) {
                 if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_live))) {
-                    //Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_goto_meeting_link), Snackbar.LENGTH_SHORT).show();
                     if (webinar_status.equalsIgnoreCase(getResources().getString(R.string.str_webinar_status_register))) {
                         Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_video_validation), Snackbar.LENGTH_SHORT).show();
                     } else {
@@ -246,7 +289,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                         i.setData(Uri.parse(url));
                         startActivity(i);
                     }
-                } else if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_selfstudy))) {
+                } else if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_self_study_on_demand))) {
                     if (webinar_status.equalsIgnoreCase(getResources().getString(R.string.str_webinar_status_register))) {
                         Snackbar.make(binding.ivPlay, context.getResources().getString(R.string.str_video_validation), Snackbar.LENGTH_SHORT).show();
                     } else {
@@ -400,23 +443,6 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         });
 
 
-        binding.videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-
-                Log.e("error", "error" + what + "" + extra);
-                if (progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-
-                }
-
-                handler.removeCallbacks(runnable);
-
-                return true;
-            }
-        });
-
-
         String htmlString = "<u>Add to Calender</u>";
         binding.tvAddtocalendar.setText(Html.fromHtml(htmlString));
 
@@ -471,12 +497,203 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
         });
 
 
-        binding.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+    }
+
+    private void initFullscreenDialog() {
+
+        mFullScreenDialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
+            public void onBackPressed() {
+                if (mExoPlayerFullscreen)
+                    closeFullscreenDialog();
+                super.onBackPressed();
+            }
+        };
+    }
+
+    private void closeFullscreenDialog() {
+
+        ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+        ((FrameLayout) findViewById(R.id.video_layout)).addView(mExoPlayerView);
+        mExoPlayerFullscreen = false;
+        mFullScreenDialog.dismiss();
+        mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(WebinarDetailsActivity.this, R.drawable.ic_fullscreen_expand));
+    }
+
+
+    private void openFullscreenDialog() {
+        ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+        mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(WebinarDetailsActivity.this, R.drawable.ic_fullscreen_skrink));
+        mExoPlayerFullscreen = true;
+        mFullScreenDialog.show();
+    }
+
+
+    private void initFullscreenButton() {
+        PlaybackControlView controlView = mExoPlayerView.findViewById(R.id.exo_controller);
+        mFullScreenIcon = controlView.findViewById(R.id.exo_fullscreen_icon);
+        mFullScreenButton = controlView.findViewById(R.id.exo_fullscreen_button);
+        exo_pause = controlView.findViewById(R.id.exo_pause);
+
+        exo_play = controlView.findViewById(R.id.exo_play);
+
+        mFullScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
+            public void onClick(View v) {
+                if (!mExoPlayerFullscreen)
+                    openFullscreenDialog();
+                else
+                    closeFullscreenDialog();
+            }
+        });
+
+
+        exo_pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mExoPlayerView != null && mExoPlayerView.getPlayer() != null) {
+                    play_time_duration = mExoPlayerView.getPlayer().getCurrentWindowIndex();
+                    mResumePosition = Math.max(0, mExoPlayerView.getPlayer().getContentPosition());
+                    presentation_length = exoPlayer.getDuration();
+
+                    exo_play.setVisibility(View.VISIBLE);
+                    exo_play.setVisibility(View.GONE);
+                    checkpause = true;
+                    exoPlayer.setPlayWhenReady(false);
+                    handler.removeCallbacks(runnable);
+
+
+                    Log.e("exo_pause", "+++" + mResumePosition + "   " + play_time_duration + "   " + presentation_length);
+                }
+
+            }
+        });
+
+        exo_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mExoPlayerView != null && mExoPlayerView.getPlayer() != null) {
+
+                    play_time_duration = mExoPlayerView.getPlayer().getCurrentWindowIndex();
+                    mResumePosition = Math.max(0, mExoPlayerView.getPlayer().getContentPosition());
+                    presentation_length = exoPlayer.getDuration();
+
+                    exo_pause.setVisibility(View.VISIBLE);
+                    exo_play.setVisibility(View.GONE);
+                    checkpause = false;
+                    exoPlayer.setPlayWhenReady(true);
+
+
+                    Log.e("exo_play", "+++" + mResumePosition + "   " + play_time_duration + "   " + presentation_length);
+
+                }
+
+            }
+        });
+
+
+    }
+
+    private void initExoPlayer() {
+
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
+        exoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+        Uri videoURI = Uri.parse(VIDEO_URL);
+        DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("exoplayer_video");
+        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+        MediaSource mediaSource = new ExtractorMediaSource(videoURI, dataSourceFactory, extractorsFactory, null, null);
+        mExoPlayerView.setPlayer(exoPlayer);
+        boolean haveResumePosition = mResumePosition != C.INDEX_UNSET;
+        if (haveResumePosition) {
+            exoPlayer.seekTo(mResumePosition);
+        }
+        exoPlayer.prepare(mediaSource);
+        exoPlayer.setPlayWhenReady(true);
+
+        exoPlayer.addListener(new ExoPlayer.EventListener() {
+            @Override
+            public void onTimelineChanged(Timeline timeline, Object manifest) {
+
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+                switch (playbackState) {
+                    case Player.STATE_BUFFERING:
+                        Log.e("STATE_BUFFERING", "STATE_BUFFERING");
+                        checkpause = true;
+                        handler.removeCallbacks(runnable);
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        break;
+                    case Player.STATE_ENDED:
+                        //do what you want
+                        Log.e("STATE_ENDED", "STATE_ENDED");
+                        handler.removeCallbacks(runnable);
+                        checkpause = true;
+                        exoPlayer.setPlayWhenReady(false);
+                        break;
+                    case Player.STATE_IDLE:
+                        Log.e("STATE_IDLE", "STATE_IDLE");
+                        handler.removeCallbacks(runnable);
+                        checkpause = true;
+                        break;
+                    case Player.STATE_READY:
+
+                        binding.progressBar.setVisibility(View.GONE);
+
+                        if (!checkpause) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    handler.post(runnable);
+                                }
+                            }, 10000);
+                        } else {
+                            handler.removeCallbacks(runnable);
+                        }
+
+
+                        Log.e("STATE_READY", "STATE_READY");
+                        break;
+                    default:
+                        break;
+                }
+
+
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+
+            }
+
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
                 handler.removeCallbacks(runnable);
-                binding.videoView.stopPlayback();
-                Log.d(TAG, "onCompletion ");
+                exoPlayer.setPlayWhenReady(false);
+            }
+
+            @Override
+            public void onPositionDiscontinuity() {
+
+            }
+
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
             }
         });
 
@@ -487,38 +704,44 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            /*if (Constant.isNetworkAvailable(context)) {
-                mSeekPosition = binding.videoView.getCurrentPosition();
-                play_time_duration = binding.videoView.getDuration();
-                presentation_length = TimeUnit.MILLISECONDS.toMinutes(play_time_duration);
-                play_time_duration = TimeUnit.MILLISECONDS.toSeconds(mSeekPosition);
-                Constant.Log("duration_&_presentation_length", "+++" + presentation_length + "   " + play_time_duration);
-                // progressDialog = DialogsUtils.showProgressDialog(context, context.getResources().getString(R.string.progrees_msg));
-                SaveDuration(webinarid, play_time_duration, presentation_length, binding.tvWebinarStatus);
-            } else {
-                Snackbar.make(binding.ivfavorite, context.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
+            if (!checkpause) {
+                if (Constant.isNetworkAvailable(context)) {
+                    mResumePosition = Math.max(0, mExoPlayerView.getPlayer().getContentPosition());
+                    presentation_length = exoPlayer.getDuration();
+                    mResumePosition = TimeUnit.MILLISECONDS.toSeconds(mResumePosition);
+                    presentation_length = TimeUnit.MILLISECONDS.toMinutes(presentation_length);
+
+
+                    Log.e("exo_save", "+++" + mResumePosition + "   " + play_time_duration + "   " + presentation_length);
+                    //SaveDuration(webinarid, mResumePosition, presentation_length, binding.tvWebinarStatus);
+                } else {
+                    Snackbar.make(binding.ivfavorite, context.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                }
+                handler.postDelayed(runnable, 10000);
             }
-            handler.postDelayed(runnable, 5000);*/
         }
     };
 
 
     public void PlayVideo() {
-        progressDialog = DialogsUtils.showProgressDialog(context, context.getResources().getString(R.string.progrees_msg));
-        progressDialog.setCancelable(true);
         binding.ivPlay.setVisibility(View.GONE);
         binding.ivthumbhel.setVisibility(View.GONE);
         binding.videoLayout.setVisibility(View.VISIBLE);
-        binding.videoView.setMediaController(binding.mediaController);
-        setVideoAreaSize();
-        binding.videoView.setVideoViewCallback(this);
 
-   /*     new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                handler.post(runnable);
-            }
-        }, 15000);*/
+        mExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
+
+
+        initFullscreenDialog();
+        initFullscreenButton();
+
+        initExoPlayer();
+        if (mExoPlayerFullscreen) {
+            ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+            mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(WebinarDetailsActivity.this, R.drawable.ic_fullscreen_skrink));
+            mFullScreenDialog.show();
+        }
 
 
     }
@@ -552,7 +775,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             progressDialog.dismiss();
                         }
                         if (video_duration_model.isSuccess() == true) {
-                            //  Snackbar.make(button, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(button, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         } else {
                             //  Snackbar.make(button, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
 
@@ -747,13 +970,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                     boolean readExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
 
                     if (writePermission && readExternalFile) {
-                        // write your logic here
-                       /* if (!certificate_link.equalsIgnoreCase("")) {
-                            downloadTask = new DownloadTask(context);
-                            downloadTask.execute(certificate_link);
-                        } else {
-                            Constant.toast(context, context.getResources().getString(R.string.str_certificate_link_not_found));
-                        }*/
+
                         if (arrayListCertificate.size() > 0) {
                             mcertificateArray = new String[arrayListCertificate.size()];
                             mcertificateArray = arrayListCertificate.toArray(mcertificateArray);
@@ -899,26 +1116,36 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
     @Override
     protected void onPause() {
         super.onPause();
+        checkpause = true;
+        handler.removeCallbacks(runnable);
 
-        if (binding.videoView != null && binding.videoView.isPlaying()) {
-            Constant.Log(TAG, "on_Pause");
+        if (mExoPlayerView != null && mExoPlayerView.getPlayer() != null) {
+            exoPlayer.setPlayWhenReady(false);
             ispause = true;
-            mSeekPosition = binding.videoView.getCurrentPosition();
-            play_time_duration = binding.videoView.getDuration();
-            binding.videoView.pause();
-            handler.removeCallbacks(runnable);
+            play_time_duration = mExoPlayerView.getPlayer().getCurrentWindowIndex();
+            mResumePosition = Math.max(0, mExoPlayerView.getPlayer().getContentPosition());
+            mExoPlayerView.getPlayer().release();
         }
+        if (mFullScreenDialog != null)
+            mFullScreenDialog.dismiss();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (ispause) {
-            mSeekPosition = binding.videoView.getCurrentPosition();
-            play_time_duration = binding.videoView.getDuration();
-            binding.videoView.seekTo(mSeekPosition);
-            binding.videoView.start();
+            checkpause = false;
+            mExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
+            initFullscreenDialog();
+            initFullscreenButton();
 
+            initExoPlayer();
+            if (mExoPlayerFullscreen) {
+                ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+                mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(WebinarDetailsActivity.this, R.drawable.ic_fullscreen_skrink));
+                mFullScreenDialog.show();
+            }
         }
 
 
@@ -930,175 +1157,39 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
 
 
         if (ispause) {
-            mSeekPosition = binding.videoView.getCurrentPosition();
-            play_time_duration = binding.videoView.getDuration();
-            binding.videoView.seekTo(mSeekPosition);
-            binding.videoView.start();
-        }
-    }
+            checkpause = false;
+            mExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
+            initFullscreenDialog();
+            initFullscreenButton();
 
-    /**
-     * 置视频区域大小
-     */
-    private void setVideoAreaSize() {
-        binding.videoLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                int width = binding.videoLayout.getWidth();
-                cachedHeight = (int) (width * 405f / 720f);
-                ViewGroup.LayoutParams videoLayoutParams = binding.videoLayout.getLayoutParams();
-                videoLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                videoLayoutParams.height = cachedHeight;
-                binding.videoLayout.setLayoutParams(videoLayoutParams);
-                Uri video = Uri.parse(VIDEO_URL);
-                binding.videoView.setVideoURI(video);
-                binding.videoView.requestFocus();
+            initExoPlayer();
 
-                binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                        binding.videoView.seekTo(mSeekPosition);
-                        binding.videoView.start();
-                    }
-                });
 
+            if (mExoPlayerFullscreen) {
+                ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+                mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(WebinarDetailsActivity.this, R.drawable.ic_fullscreen_skrink));
+                mFullScreenDialog.show();
             }
-        });
+        }
     }
 
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.e(TAG, "onSaveInstanceState Position=" + binding.videoView.getCurrentPosition());
-        outState.putInt(SEEK_POSITION_KEY, mSeekPosition);
-        Log.e("test", "onSaveInstanceState");
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle outState) {
-        super.onRestoreInstanceState(outState);
-        mSeekPosition = outState.getInt(SEEK_POSITION_KEY);
-        Log.e("test", "onRestoreInstanceState");
+        outState.putLong(STATE_RESUME_WINDOW, play_time_duration);
+        outState.putLong(STATE_RESUME_POSITION, mResumePosition);
+        outState.putBoolean(STATE_PLAYER_FULLSCREEN, mExoPlayerFullscreen);
 
     }
 
-
-    @Override
-    public void onScaleChange(boolean isFullscreen) {
-        this.isFullscreen = isFullscreen;
-
-
-        if (isFullscreen) {
-            ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
-            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            binding.videoLayout.setLayoutParams(layoutParams);
-            binding.rvtitle.setVisibility(View.GONE);
-            binding.rvbottom.setVisibility(View.GONE);
-            //GONE the unconcerned views to leave room for video and controller
-            //  mBottomLayout.setVisibility(View.GONE);
-        } else {
-            ViewGroup.LayoutParams layoutParams = binding.videoLayout.getLayoutParams();
-            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            layoutParams.height = this.cachedHeight;
-            binding.videoLayout.setLayoutParams(layoutParams);
-            binding.rvtitle.setVisibility(View.VISIBLE);
-            binding.rvbottom.setVisibility(View.VISIBLE);
-            // mBottomLayout.setVisibility(View.VISIBLE);
-        }
-
-        //   switchTitleBar(!isFullscreen);
-    }
-
-
-    private void switchTitleBar(boolean show) {
-        android.support.v7.app.ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            if (show) {
-                supportActionBar.show();
-            } else {
-                supportActionBar.hide();
-            }
-        }
-    }
-
-    @Override
-    public void onPause(MediaPlayer mediaPlayer) {
-        Log.d(TAG, "onPause UniversalVideoView callback");
-        Log.e("onPause", "+++" + mediaPlayer.getDuration());
-
-
-        mSeekPosition = binding.videoView.getCurrentPosition();
-        play_time_duration = binding.videoView.getDuration();
-        presentation_length = TimeUnit.MILLISECONDS.toMinutes(play_time_duration);
-        play_time_duration = TimeUnit.MILLISECONDS.toSeconds(mSeekPosition);
-        Log.e(TAG, "onPause =" + presentation_length + " " + play_time_duration);
-        handler.removeCallbacks(runnable);
-
-
-    }
-
-    @Override
-    public void onStart(MediaPlayer mediaPlayer) {
-        Log.d(TAG, "onStart UniversalVideoView callback");
-
-        Log.e("onStart", "+++" + mediaPlayer.getDuration());
-
-       /* mSeekPosition = binding.videoView.getCurrentPosition();
-        play_time_duration = binding.videoView.getDuration();
-        presentation_length = TimeUnit.MILLISECONDS.toMinutes(play_time_duration);
-        play_time_duration = TimeUnit.MILLISECONDS.toSeconds(mSeekPosition);
-        Log.e(TAG, "onStart =" + presentation_length + " " + play_time_duration);*/
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                handler.post(runnable);
-            }
-        }, 5000);
-
-
-    }
-
-
-    @Override
-    public void onBufferingStart(MediaPlayer mediaPlayer) {
-        Log.d(TAG, "onBufferingStart UniversalVideoView callback");
-
-        Log.e("onBufferingStart", "+++" + mediaPlayer.getDuration());
-
-
-       /* Log.e("test", "onBufferingStart" + play_time_duration);
-        play_time_duration = binding.videoView.getDuration();*/
-      /*  mSeekPosition = binding.videoView.getCurrentPosition();onStart UniversalVideoView callback
-        play_time_duration = binding.videoView.getDuration();
-        presentation_length = TimeUnit.MILLISECONDS.toMinutes(play_time_duration);
-        play_time_duration = TimeUnit.MILLISECONDS.toSeconds(mSeekPosition);
-        Log.e(TAG, "onBufferingStart =" + presentation_length + " " + play_time_duration);*/
-    }
-
-    @Override
-    public void onBufferingEnd(MediaPlayer mediaPlayer) {
-        Log.d(TAG, "onBufferingEnd UniversalVideoView callback");
-
-        Log.e("onBufferingEnd", "+++" + mediaPlayer.getDuration());
-       /* mSeekPosition = binding.videoView.getCurrentPosition();
-        play_time_duration = binding.videoView.getDuration();
-        presentation_length = TimeUnit.MILLISECONDS.toMinutes(play_time_duration);
-        play_time_duration = TimeUnit.MILLISECONDS.toSeconds(mSeekPosition);
-        Log.e(TAG, "onBufferingEnd =" + presentation_length + " " + play_time_duration);*/
-
-
-    }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (this.isFullscreen) {
-            binding.videoView.setFullscreen(false);
+        if (mExoPlayerFullscreen) {
+            closeFullscreenDialog();
         } else {
             handler.removeCallbacks(runnable);
             super.onBackPressed();
@@ -1154,16 +1245,15 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                             }
 
 
-                            /*if (webinar_details.getPayload().getWebinarDetail().getPlaytimeduration() != 0) {
-                                mSeekPosition = webinar_details.getPayload().getWebinarDetail().getPlaytimeduration() * 1000;
-                                Log.e("gotseekpostion", "+++" + mSeekPosition);
-                            }*/
+                            if (webinar_details.getPayload().getWebinarDetail().getPlaytimeduration() != 0) {
+                                mResumePosition = webinar_details.getPayload().getWebinarDetail().getPlaytimeduration() * 1000;
+                                Log.e("mResumePosition", "+++" + mResumePosition);
+                            }
 
 
                             if (!webinar_details.getPayload().getWebinarDetail().getCredit().equalsIgnoreCase("")) {
                                 binding.tvCredit.setText("" + webinar_details.getPayload().getWebinarDetail().getCredit());
                             }
-
                             if (!webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl().equalsIgnoreCase("")) {
                                 VIDEO_URL = webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl();
                             }
@@ -1569,7 +1659,7 @@ public class WebinarDetailsActivity extends AppCompatActivity implements Univers
                                 } else {
                                     binding.tvAddtocalendar.setVisibility(View.VISIBLE);
                                 }
-                            } else if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_selfstudy))) {
+                            } else if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_self_study_on_demand))) {
                                 if (webinar_status.equalsIgnoreCase(getResources().getString(R.string.str_webinar_status_register))) {
                                     binding.relTimezone.setVisibility(View.INVISIBLE);
                                     binding.tvRevieQuestion.setVisibility(View.INVISIBLE);

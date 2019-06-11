@@ -121,7 +121,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_webinar_date"
         android:layout_centerInParent="true"
-
         android:layout_marginTop="@dimen/_5sdp">
 
 
@@ -277,8 +276,9 @@
         <RelativeLayout
             android:id="@+id/relbottom"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_60sdp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/rel_bg_score"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/_5sdp"
             android:padding="@dimen/_2sdp">
 
@@ -334,7 +334,7 @@
             <View
                 android:id="@+id/ivmain"
                 android:layout_width="1dp"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
                 android:background="@color/fav_date_time"></View>
 
@@ -392,8 +392,8 @@
                         android:id="@+id/webinar_status"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_25sdp"
-                        android:background="@drawable/rounded_webinar_status"
                         android:layout_marginTop="@dimen/_2sdp"
+                        android:background="@drawable/rounded_webinar_status"
                         android:textColor="@color/White"
                         android:textSize="@dimen/_9sdp"
                         app:font_button="Montserrat-Medium.ttf" />

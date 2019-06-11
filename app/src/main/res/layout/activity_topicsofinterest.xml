@@ -18,7 +18,7 @@
             android:id="@+id/relheader"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
-            android:background="@color/bottom_submit_footer">
+            android:background="@color/webinar_status">
 
             <ImageView
                 android:id="@+id/ivback"

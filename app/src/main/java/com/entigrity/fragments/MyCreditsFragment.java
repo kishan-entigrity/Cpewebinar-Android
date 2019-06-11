@@ -1,27 +1,43 @@
 package com.entigrity.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.entigrity.R;
-import com.entigrity.activity.ActivityNotificationSetting;
-import com.entigrity.activity.NotificationActivity;
 import com.entigrity.adapter.MyCreditAdapter;
 import com.entigrity.databinding.FragmentMycreditBinding;
+import com.entigrity.model.My_Credit.MyCreditsItem;
+import com.entigrity.model.My_Credit.My_Credit;
+import com.entigrity.utility.AppSettings;
+import com.entigrity.utility.Constant;
+import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
+import com.entigrity.webservice.APIService;
+import com.entigrity.webservice.ApiUtilsNew;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MyCreditsFragment extends Fragment {
 
@@ -30,13 +46,22 @@ public class MyCreditsFragment extends Fragment {
     FragmentMycreditBinding binding;
     private static final String TAG = MyCreditsFragment.class.getName();
     MyCreditAdapter adapter;
+    private APIService mAPIService;
     Typeface font;
+    public int filter_type = 0;
+    ProgressDialog progressDialog;
+    LinearLayoutManager linearLayoutManager;
+    private List<MyCreditsItem> mlistmycredit = new ArrayList<MyCreditsItem>();
+    public int start = 0, limit = 10;
+    private boolean loading = true;
+    public boolean islast = false;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mycredit, null, false);
         context = getActivity();
+        mAPIService = ApiUtilsNew.getAPIService();
 
         font = Typeface.createFromAsset(getActivity().getAssets(), "Montserrat-Light.ttf");
 
@@ -44,18 +69,93 @@ public class MyCreditsFragment extends Fragment {
         binding.btnDate.setTypeface(font);
 
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        binding.recyclerviewMycredit.setLayoutManager(layoutManager);
-
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        binding.recyclerviewMycredit.setLayoutManager(linearLayoutManager);
         binding.recyclerviewMycredit.addItemDecoration(new SimpleDividerItemDecoration(context));
+        binding.recyclerviewMycredit.setItemAnimator(new DefaultItemAnimator());
+        binding.recyclerviewMycredit.setHasFixedSize(true);
 
-
-        adapter = new MyCreditAdapter(getActivity());
-
-
-        if (adapter != null) {
-            binding.recyclerviewMycredit.setAdapter(adapter);
+        if (Constant.isNetworkAvailable(context)) {
+            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+            GetMyCredit(start, limit);
+        } else {
+            Snackbar.make(binding.recyclerviewMycredit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
+
+        binding.lvCompleted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filter_type = 1;
+                start = 0;
+                limit = 10;
+                loading = true;
+                if (Constant.isNetworkAvailable(context)) {
+                    progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                    GetMyCredit(start, limit);
+                } else {
+                    Snackbar.make(binding.recyclerviewMycredit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+        binding.lvPending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filter_type = 2;
+                start = 0;
+                limit = 10;
+                loading = true;
+                if (Constant.isNetworkAvailable(context)) {
+                    progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                    GetMyCredit(start, limit);
+                } else {
+                    Snackbar.make(binding.recyclerviewMycredit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        binding.lvUpcoming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filter_type = 3;
+                start = 0;
+                limit = 10;
+                loading = true;
+                if (Constant.isNetworkAvailable(context)) {
+                    progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                    GetMyCredit(start, limit);
+                } else {
+                    Snackbar.make(binding.recyclerviewMycredit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshItems();
+            }
+        });
+
+
+        binding.recyclerviewMycredit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (loading) {
+                    if (!islast) {
+                        if (isLastVisible()) {
+                            loading = false;
+                            start = start + 10;
+                            limit = 10;
+                            loadNextPage();
+                        }
+                    }
+                }
+            }
+        });
+
 
         binding.getRoot().setFocusableInTouchMode(true);
         binding.getRoot().requestFocus();
@@ -71,18 +171,33 @@ public class MyCreditsFragment extends Fragment {
         });
 
 
-        binding.ivnotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(getActivity(), NotificationActivity.class);
-                getActivity().startActivity(i);
-
-            }
-        });
-
-
         return view = binding.getRoot();
+    }
+
+    private void loadNextPage() {
+
+        if (Constant.isNetworkAvailable(context)) {
+            binding.progressBar.setVisibility(View.VISIBLE);
+            GetMyCredit(start, limit);
+        } else {
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    public void refreshItems() {
+        onItemsLoadComplete();
+    }
+
+    void onItemsLoadComplete() {
+        start = 0;
+        limit = 10;
+        loading = true;
+
+        if (Constant.isNetworkAvailable(context)) {
+            GetMyCredit(start, limit);
+        } else {
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     public void ConfirmationPopup() {
@@ -121,4 +236,154 @@ public class MyCreditsFragment extends Fragment {
 
 
     }
+
+    private void GetMyCredit(final int start, final int limit) {
+
+
+        mAPIService.GetMyCredit(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), filter_type
+                , start, limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<My_Credit>() {
+                    @Override
+                    public void onCompleted() {
+
+                        if (binding.progressBar.getVisibility() == View.VISIBLE) {
+                            binding.progressBar.setVisibility(View.GONE);
+                        }
+
+
+                        loading = true;
+                        if (start == 0 && limit == 10) {
+                            if (mlistmycredit.size() > 0) {
+                                adapter = new MyCreditAdapter(context, mlistmycredit);
+                                binding.recyclerviewMycredit.setAdapter(adapter);
+                            }
+                        } else {
+                            adapter.addLoadingFooter();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+
+                        if (start == 0 && limit == 10) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                        } else {
+                            if (binding.progressBar.getVisibility() == View.VISIBLE) {
+                                binding.progressBar.setVisibility(View.GONE);
+                            }
+                        }
+
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Snackbar.make(binding.ivnotification, message, Snackbar.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onNext(My_Credit myCredit) {
+
+                        if (myCredit.isSuccess() == true) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            } else {
+                                if (binding.swipeRefreshLayout.isRefreshing()) {
+                                    binding.swipeRefreshLayout.setRefreshing(false);
+                                }
+                            }
+
+
+                            if (start == 0 && limit == 10) {
+                                if (mlistmycredit.size() > 0) {
+                                    mlistmycredit.clear();
+                                }
+                            }
+
+                            islast = myCredit.getPayload().get(0).isIslast();
+
+                            Log.e("islast", "islast" + islast);
+
+                            if (start == 0 && limit == 10) {
+                                for (int i = 0; i < myCredit.getPayload().size(); i++) {
+                                    mlistmycredit = myCredit.getPayload().get(i).getMyCredits();
+                                }
+                            } else {
+                                for (int i = 0; i < mlistmycredit.size(); i++) {
+                                    if (i == mlistmycredit.size() - 1) {
+                                        mlistmycredit.remove(i);
+                                    }
+                                }
+                                List<MyCreditsItem> webinaritems = new ArrayList<>();
+                                for (int i = 0; i < myCredit.getPayload().size(); i++) {
+                                    webinaritems = myCredit.getPayload().get(i).getMyCredits();
+                                }
+
+
+                                adapter.addAll(webinaritems);
+
+
+                            }
+
+
+                            if (!myCredit.getPayload().get(0).getFullName().equalsIgnoreCase("")) {
+                                binding.tvUsername.setText(myCredit.getPayload().get(0).getFullName());
+                            }
+                            if (!myCredit.getPayload().get(0).getEmail().equalsIgnoreCase("")) {
+                                binding.tvUseremailid.setText(myCredit.getPayload().get(0).getEmail());
+                            }
+                            if (myCredit.getPayload().get(0).getCompletedCount() != 0) {
+                                binding.tvCompltedWebinarCount.setText("" + myCredit.getPayload().get(0).getCompletedCount());
+                            }
+
+                            if (myCredit.getPayload().get(0).getPendingCount() != 0) {
+                                binding.tvPendingWebinarCount.setText("" + myCredit.getPayload().get(0).getPendingCount());
+                            }
+                            if (myCredit.getPayload().get(0).getUpcomingCount() != 0) {
+                                binding.tvUpcomingWebinarCount.setText("" + myCredit.getPayload().get(0).getUpcomingCount());
+                            }
+
+
+                            Constant.Log(TAG, "size" + mlistmycredit.size());
+
+                            if (mlistmycredit.size() > 0) {
+                                binding.swipeRefreshLayout.setVisibility(View.VISIBLE);
+                                binding.tvNodatafound.setVisibility(View.GONE);
+                            } else {
+                                binding.tvNodatafound.setVisibility(View.VISIBLE);
+                                binding.swipeRefreshLayout.setVisibility(View.GONE);
+                            }
+
+
+                        } else {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            } else {
+                                if (binding.swipeRefreshLayout.isRefreshing()) {
+                                    binding.swipeRefreshLayout.setRefreshing(false);
+                                }
+                            }
+                            Snackbar.make(binding.ivnotification, myCredit.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+
+
+                });
+
+    }
+
+
+    boolean isLastVisible() {
+        LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.recyclerviewMycredit.getLayoutManager());
+        int pos = layoutManager.findLastCompletelyVisibleItemPosition();
+        int numItems = binding.recyclerviewMycredit.getAdapter().getItemCount() - 1;
+
+        return (pos >= numItems);
+    }
+
+
 }
