@@ -62,7 +62,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-            GetNotificationList();
+            GetNotificationList(1, 10);
         } else {
             Snackbar.make(binding.rvNotificationlist, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
@@ -70,9 +70,10 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
-    private void GetNotificationList() {
+    private void GetNotificationList(int start, int limit) {
 
-        mAPIService.GetNotificationModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetNotificationModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
+                start, limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<NotificationModel>() {
                     @Override
                     public void onCompleted() {

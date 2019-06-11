@@ -466,10 +466,14 @@ public interface APIService {
 
 
     //notification
-    @GET("notification")
+    @POST("notification")
+    @FormUrlEncoded
     Observable<NotificationModel> GetNotificationModel(
             @Header("Accept") String accept,
-            @Header("Authorization") String authorization);
+            @Header("Authorization") String authorization,
+            @Field("start") int start,
+            @Field("limit") int limit
+    );
 
 
     //favorite count

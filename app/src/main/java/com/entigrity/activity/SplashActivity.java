@@ -87,5 +87,19 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
 
+
+      /*  if (getIntent().getExtras() != null && getIntent().hasExtra("flag")) {
+
+            if (getIntent().getExtras().getString("flag").equalsIgnoreCase("1")) {
+                Intent mainIntent = new Intent(SplashActivity.this, HomeActivity.class);
+                startActivity(mainIntent);
+                finish();
+            }
+        } else {
+            Intent mainIntent = new Intent(SplashActivity.this, HomeActivity.class);
+            startActivity(mainIntent);
+            finish();
+        }*/
+
     }
 }

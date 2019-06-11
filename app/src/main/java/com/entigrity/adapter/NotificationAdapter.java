@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.entigrity.R;
 import com.entigrity.model.notification.NotificationListItem;
 import com.entigrity.utility.Constant;
-import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +27,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private Context mContext;
     private List<NotificationListItem> mList;
     LayoutInflater mInflater;
+    private final int VIEW_ITEM = 1;
+    private final int VIEW_PROG = 0;
+    private boolean isLoadingAdded = false;
 
     public NotificationAdapter(Context mContext, List<NotificationListItem> mList) {
         this.mContext = mContext;
@@ -51,11 +53,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         }
 
-        if (!mList.get(position).getImage().equalsIgnoreCase("")) {
-            Picasso.with(mContext).load(mList.get(position).getImage())
-                    .placeholder(R.mipmap.placeholder)
-                    .into(viewHolder.iv_notification_image);
-        }
 
         if (mList.get(position).getTimestamp() != 0) {
 
