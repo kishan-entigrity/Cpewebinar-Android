@@ -361,7 +361,6 @@ public class HomeAllFragment extends Fragment {
                             adapter.addLoadingFooter();
 
                         }
-
                     }
 
 
@@ -404,26 +403,11 @@ public class HomeAllFragment extends Fragment {
                                     arrHomelistnew.clear();
                                 }
 
-                           /*     if (Constant.checklikedislikestatusall.size() > 0) {
-                                    Constant.checklikedislikestatusall.clear();
-                                    Constant.Log(TAG, "hashmap_clear  " + Constant.checklikedislikestatusall.size());
-                                }
-*/
-
                             }
 
 
                             if (start == 0 && limit == 10) {
                                 arrHomelistnew = webinar_home_new.getPayload().getWebinar();
-
-                          /*      for (int i = 0; i < arrHomelistnew.size(); i++) {
-                                    Constant.checklikedislikestatusall.put(arrHomelistnew.get(i).getWebinarTitle(), arrHomelistnew.get(i)
-                                            .getWebinarLike());
-                                }
-
-
-                                Constant.Log(TAG, "hashmap_intial  " + Constant.checklikedislikestatusall.size());
-*/
 
                             } else {
 
@@ -435,16 +419,6 @@ public class HomeAllFragment extends Fragment {
 
 
                                 List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
-
-                               /* for (int i = 0; i < webinaritems.size(); i++) {
-                                    Constant.checklikedislikestatusall.put(webinaritems.get(i).getWebinarTitle(), webinaritems.get(i)
-                                            .getWebinarLike());
-                                }
-
-
-                                Constant.Log(TAG, "hashmap_pagination  " + Constant.checklikedislikestatusall.size());
-*/
-
                                 adapter.addAll(webinaritems);
 
 

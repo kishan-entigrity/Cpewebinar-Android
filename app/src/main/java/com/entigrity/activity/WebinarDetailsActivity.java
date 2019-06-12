@@ -153,6 +153,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     private long presentation_length = 0;
     SimpleExoPlayer exoPlayer;
     public boolean checkpause = false;
+    public String watched_duration = "0.00";
 
 
     @Override
@@ -634,7 +635,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                 switch (playbackState) {
                     case Player.STATE_BUFFERING:
                         Log.e("STATE_BUFFERING", "STATE_BUFFERING");
-                        checkpause = true;
+                        //checkpause = true;
                         handler.removeCallbacks(runnable);
                         binding.progressBar.setVisibility(View.VISIBLE);
                         break;
@@ -725,6 +726,9 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
     public void PlayVideo() {
+        binding.relTimezone.setVisibility(View.GONE);
+        binding.relWatchedDuration.setVisibility(View.VISIBLE);
+        binding.tvWatchedduration.setText("You have completed only " + watched_duration + "% of the video");
         binding.ivPlay.setVisibility(View.GONE);
         binding.ivthumbhel.setVisibility(View.GONE);
         binding.videoLayout.setVisibility(View.VISIBLE);
@@ -776,6 +780,12 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                         }
                         if (video_duration_model.isSuccess() == true) {
                             Snackbar.make(button, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            if (!video_duration_model.getPayload().getWatched().equalsIgnoreCase("")) {
+                                watched_duration = video_duration_model.getPayload().getWatched();
+
+                                binding.tvWatchedduration.setText("You have completed only " + watched_duration + "% of the video");
+                            }
+
                         } else {
                             //  Snackbar.make(button, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
 
@@ -790,7 +800,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
     public void RegisterWebinar(int webinar_id, final Button button) {
-
         mAPIService.RegisterWebinar(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), webinar_id
                 , schedule_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ModelRegisterWebinar>() {
@@ -1242,6 +1251,11 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             } else {
                                 binding.viewCourseId.setVisibility(View.GONE);
                                 binding.lvCourseId.setVisibility(View.GONE);
+                            }
+
+
+                            if (!webinar_details.getPayload().getWebinarDetail().getWatched().equalsIgnoreCase("")) {
+                                watched_duration = webinar_details.getPayload().getWebinarDetail().getWatched();
                             }
 
 

@@ -52,6 +52,7 @@
     <string name="str_login_guest">Login</string>
     <string name="str_cancel_guest">Cancel</string>
     <string name="str_sharing_not_avilable">Sharing link is not avilable.</string>
+    <string name="str_joinlink_not_avilable">Join link is not avilable.</string>
     <string name="str_time_zone_not_found">Time Zone not Found</string>
     <string name="str_btn_next">NEXT</string>
     <string name="check_validation_popup_topics">Do you want to add your topic of interests?</string>

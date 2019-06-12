@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class MyCreditAdapter extends RecyclerView.Adapter<MyCreditAdapter.ViewHolder> implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private Context mContext;
     private final int VIEW_ITEM = 1;
@@ -58,30 +58,6 @@ public class MyCreditAdapter extends RecyclerView.Adapter<MyCreditAdapter.ViewHo
 
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewtype) {
-     /*   View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_mycredit, viewGroup, false);
-        return new ViewHolder(v);*/
-
-        RecyclerView.ViewHolder vh;
-        if (viewtype == VIEW_ITEM) {
-
-            View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.progress_item, parent, false);
-
-            vh = new ProgressViewHolder(v);
-
-
-        } else {
-            View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.row_mycredit, parent, false);
-
-            vh = new ViewHolder(v);
-        }
-        return (ViewHolder) vh;
-    }
-
     public void add(MyCreditsItem myCreditsItem) {
         mList.add(myCreditsItem);
         notifyItemInserted(mList.size());
@@ -99,124 +75,153 @@ public class MyCreditAdapter extends RecyclerView.Adapter<MyCreditAdapter.ViewHo
     }
 
 
+    @NonNull
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewtype) {
+        RecyclerView.ViewHolder vh;
+        if (viewtype == VIEW_ITEM) {
+
+            View v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.progress_item, parent, false);
+
+            vh = new ProgressViewHolder(v);
 
 
-        if (!mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources().getString(R.string.str_live))) {
-            if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
-                viewHolder.btn_certification_download.setVisibility(View.VISIBLE);
-                viewHolder.tv_webinar_status.setVisibility(View.GONE);
-            } else {
-                viewHolder.tv_webinar_status.setVisibility(View.VISIBLE);
-                viewHolder.btn_certification_download.setVisibility(View.GONE);
-            }
         } else {
-            viewHolder.btn_certification_download.setVisibility(View.GONE);
-            viewHolder.tv_webinar_status.setVisibility(View.VISIBLE);
+            View v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.row_mycredit, parent, false);
+
+            vh = new ViewHolder(v);
         }
-
-        if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
-            certificate_link = mList.get(position).getCertificateLink();
-        }
-
-
-        viewHolder.btn_certification_download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkAndroidVersion();
-            }
-        });
-
-        if (!mList.get(position).getWebinarTitle().equalsIgnoreCase("")) {
-            viewHolder.tv_webinar_title.setText(mList.get(position).getWebinarTitle());
-        }
-        if (!mList.get(position).getSpeakerName().equalsIgnoreCase("")) {
-            viewHolder.tv_speaker_name.setText(mList.get(position).getSpeakerName());
-        }
-
-        if (!mList.get(position).getCredit().equalsIgnoreCase("")) {
-            viewHolder.tv_credit.setText(mList.get(position).getCredit() + " Credit");
-        }
-
-        if (!mList.get(position).getSubject().equalsIgnoreCase("")) {
-            viewHolder.tv_job_title.setText(mList.get(position).getSubject());
-        }
-        if (!mList.get(position).getWebinarType().equalsIgnoreCase("")) {
-            viewHolder.btn_webinar_type.setText(mList.get(position).getWebinarType());
-        }
-
-        if (!mList.get(position).getWebinarStatus().equalsIgnoreCase("")) {
-            viewHolder.tv_webinar_status.setText(mList.get(position).getWebinarStatus());
-        }
-
-
-        viewHolder.rel_item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(mContext, WebinarDetailsActivity.class);
-                i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), Integer.parseInt(mList
-                        .get(position).getWebinarId()));
-                i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
-                        .get(position).getWebinarType());
-
-                mContext.startActivity(i);
-
-            }
-        });
-
-        if (!mList.get(position).getHostDate().equalsIgnoreCase("")) {
-            StringTokenizer tokens = new StringTokenizer(mList.get(position).getHostDate(), " ");
-            String year = tokens.nextToken();// this will contain year
-            String month = tokens.nextToken();//this will contain month
-            String day = tokens.nextToken();//this will contain day
-
-            // year = year.substring(2);
-
-
-            if (month.equalsIgnoreCase("01")) {
-                month = mContext.getResources().getString(R.string.jan);
-
-            } else if (month.equalsIgnoreCase("02")) {
-                month = mContext.getResources().getString(R.string.feb);
-
-            } else if (month.equalsIgnoreCase("03")) {
-                month = mContext.getResources().getString(R.string.march);
-
-            } else if (month.equalsIgnoreCase("04")) {
-                month = mContext.getResources().getString(R.string.april);
-
-            } else if (month.equalsIgnoreCase("05")) {
-                month = mContext.getResources().getString(R.string.may);
-
-            } else if (month.equalsIgnoreCase("06")) {
-                month = mContext.getResources().getString(R.string.june);
-
-            } else if (month.equalsIgnoreCase("07")) {
-                month = mContext.getResources().getString(R.string.july);
-
-            } else if (month.equalsIgnoreCase("08")) {
-                month = mContext.getResources().getString(R.string.aug);
-
-            } else if (month.equalsIgnoreCase("09")) {
-                month = mContext.getResources().getString(R.string.sept);
-
-            } else if (month.equalsIgnoreCase("10")) {
-                month = mContext.getResources().getString(R.string.oct);
-
-            } else if (month.equalsIgnoreCase("11")) {
-                month = mContext.getResources().getString(R.string.nov);
-
-            } else if (month.equalsIgnoreCase("12")) {
-                month = mContext.getResources().getString(R.string.dec);
-
-            }
-
-
-            viewHolder.webinar_date.setText(year + " " + month + " " + day);
-
-        }
+        return vh;
     }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
+
+        if (viewHolder instanceof ViewHolder) {
+
+            if (!mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources().getString(R.string.str_live))) {
+                if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
+                    ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.VISIBLE);
+                    ((ViewHolder) viewHolder).tv_webinar_status.setVisibility(View.GONE);
+                } else {
+                    ((ViewHolder) viewHolder).tv_webinar_status.setVisibility(View.VISIBLE);
+                    ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.GONE);
+                }
+            } else {
+                ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.GONE);
+                ((ViewHolder) viewHolder).tv_webinar_status.setVisibility(View.VISIBLE);
+            }
+
+            if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
+                certificate_link = mList.get(position).getCertificateLink();
+            }
+
+
+            ((ViewHolder) viewHolder).btn_certification_download.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkAndroidVersion();
+                }
+            });
+
+            if (!mList.get(position).getWebinarTitle().equalsIgnoreCase("")) {
+                ((ViewHolder) viewHolder).tv_webinar_title.setText(mList.get(position).getWebinarTitle());
+            }
+            if (!mList.get(position).getSpeakerName().equalsIgnoreCase("")) {
+                ((ViewHolder) viewHolder).tv_speaker_name.setText(mList.get(position).getSpeakerName());
+            }
+
+            if (!mList.get(position).getCredit().equalsIgnoreCase("")) {
+                ((ViewHolder) viewHolder).tv_credit.setText(mList.get(position).getCredit() + " Credit");
+            }
+
+            if (!mList.get(position).getSubject().equalsIgnoreCase("")) {
+                ((ViewHolder) viewHolder).tv_job_title.setText(mList.get(position).getSubject());
+            }
+            if (!mList.get(position).getWebinarType().equalsIgnoreCase("")) {
+                ((ViewHolder) viewHolder).btn_webinar_type.setText(mList.get(position).getWebinarType());
+            }
+
+            if (!mList.get(position).getWebinarStatus().equalsIgnoreCase("")) {
+                ((ViewHolder) viewHolder).tv_webinar_status.setText(mList.get(position).getWebinarStatus());
+            }
+
+
+            ((ViewHolder) viewHolder).rel_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(mContext, WebinarDetailsActivity.class);
+                    i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), Integer.parseInt(mList
+                            .get(position).getWebinarId()));
+                    i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
+                            .get(position).getWebinarType());
+
+                    mContext.startActivity(i);
+
+                }
+            });
+
+            if (!mList.get(position).getHostDate().equalsIgnoreCase("")) {
+                StringTokenizer tokens = new StringTokenizer(mList.get(position).getHostDate(), " ");
+                String year = tokens.nextToken();// this will contain year
+                String month = tokens.nextToken();//this will contain month
+                String day = tokens.nextToken();//this will contain day
+
+                // year = year.substring(2);
+
+
+                if (month.equalsIgnoreCase("01")) {
+                    month = mContext.getResources().getString(R.string.jan);
+
+                } else if (month.equalsIgnoreCase("02")) {
+                    month = mContext.getResources().getString(R.string.feb);
+
+                } else if (month.equalsIgnoreCase("03")) {
+                    month = mContext.getResources().getString(R.string.march);
+
+                } else if (month.equalsIgnoreCase("04")) {
+                    month = mContext.getResources().getString(R.string.april);
+
+                } else if (month.equalsIgnoreCase("05")) {
+                    month = mContext.getResources().getString(R.string.may);
+
+                } else if (month.equalsIgnoreCase("06")) {
+                    month = mContext.getResources().getString(R.string.june);
+
+                } else if (month.equalsIgnoreCase("07")) {
+                    month = mContext.getResources().getString(R.string.july);
+
+                } else if (month.equalsIgnoreCase("08")) {
+                    month = mContext.getResources().getString(R.string.aug);
+
+                } else if (month.equalsIgnoreCase("09")) {
+                    month = mContext.getResources().getString(R.string.sept);
+
+                } else if (month.equalsIgnoreCase("10")) {
+                    month = mContext.getResources().getString(R.string.oct);
+
+                } else if (month.equalsIgnoreCase("11")) {
+                    month = mContext.getResources().getString(R.string.nov);
+
+                } else if (month.equalsIgnoreCase("12")) {
+                    month = mContext.getResources().getString(R.string.dec);
+
+                }
+
+
+                ((ViewHolder) viewHolder).webinar_date.setText(year + " " + month + " " + day);
+
+            }
+
+
+        }/*else {
+            ((ProgressViewHolder) viewHolder).progressBar.setIndeterminate(true);
+        }*/
+
+    }
+
 
     @Override
     public int getItemViewType(int position) {

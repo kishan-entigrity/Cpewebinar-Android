@@ -151,6 +151,9 @@ public class ActivityContactUs extends AppCompatActivity {
                         }
                         if (postContactQuery.isSuccess()) {
                             Snackbar.make(binding.btnsubmit, postContactQuery.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            binding.edtSubject.setText("");
+                            binding.edtReview.setText("");
+
                         } else {
                             Snackbar.make(binding.btnsubmit, postContactQuery.getMessage(), Snackbar.LENGTH_SHORT).show();
 

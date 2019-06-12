@@ -91,6 +91,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
 
     public String certificate_link = "";
+    String join_url = "";
 
 
     public HomeALLAdapter(Context mContext, List<com.entigrity.model.homewebinarnew.WebinarItem> mList) {
@@ -441,6 +442,12 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                                     Intent i = new Intent(Intent.ACTION_VIEW);
                                     i.setData(Uri.parse(url));
                                     mContext.startActivity(i);
+                                } else if (!join_url.equalsIgnoreCase("")) {
+                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                    i.setData(Uri.parse(join_url));
+                                    mContext.startActivity(i);
+                                } else {
+                                    Constant.toast(mContext, mContext.getResources().getString(R.string.str_joinlink_not_avilable));
                                 }
                             }
                         }
@@ -1023,18 +1030,19 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                             if (webinar_like_dislike_model.getPayload().getIsLike().equalsIgnoreCase(mContext
                                     .getResources().getString(R.string.fav_yes))) {
                                 ImageView.setImageResource(R.mipmap.like_orange);
-                                int favcount = mList.get(position).getFavWebinarCount() + 1;
-                                textView.setText("" + favcount);
-                                mList.get(position).setFavWebinarCount(favcount);
+                                // int favcount = mList.get(position).getFavWebinarCount() + 1;
+                                textView.setText("" + webinar_like_dislike_model.getPayload().getTotalcount());
+                                mList.get(position).setFavWebinarCount(webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setWebinarLike(mContext
                                         .getResources().getString(R.string.fav_yes));
                                /* Constant.checklikedislikestatusall.put(mList.get(position).getWebinarTitle(),
                                         webinar_like_dislike_model.getPayload().getIsLike());*/
                             } else {
                                 ImageView.setImageResource(R.drawable.like);
-                                int favcount = mList.get(position).getFavWebinarCount() - 1;
-                                textView.setText("" + favcount);
-                                mList.get(position).setFavWebinarCount(favcount);
+                              /*  int favcount = mList.get(position).getFavWebinarCount() - 1;
+                                textView.setText("" + favcount);*/
+                                textView.setText("" + webinar_like_dislike_model.getPayload().getTotalcount());
+                                mList.get(position).setFavWebinarCount(webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setWebinarLike(mContext
                                         .getResources().getString(R.string.fav_No));
 
@@ -1083,7 +1091,18 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                         }
                         if (modelRegisterWebinar.isSuccess() == true) {
                             Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();
-                            if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
+
+                            button.setText(modelRegisterWebinar.getPayload().getRegisterStatus());
+                            button.setBackgroundResource(R.drawable.rounded_webinar_status);
+                            mList.get(position).setStatus(modelRegisterWebinar.getPayload().getRegisterStatus());
+                            if (!modelRegisterWebinar.getPayload().getJoinUrl().equalsIgnoreCase("")) {
+                                join_url = modelRegisterWebinar.getPayload().getJoinUrl();
+                                Constant.Log("joinurl", "joinurl" + join_url);
+                            }
+
+
+
+                          /*  if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
                                     .getString(R.string.str_filter_live))) {
                                 button.setText("JOIN WEBINAR");
                                 button.setBackgroundResource(R.drawable.rounded_webinar_status);
@@ -1093,7 +1112,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                                 button.setText("WATCH NOW");
                                 button.setBackgroundResource(R.drawable.rounded_webinar_status);
                                 mList.get(position).setStatus("WATCH NOW");
-                            }
+                            }*/
 
                         } else {
                             Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();

@@ -14,6 +14,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -140,9 +141,9 @@ public class MyCreditsFragment extends Fragment {
         });
 
 
-        binding.recyclerviewMycredit.setOnClickListener(new View.OnClickListener() {
+        binding.recyclerviewMycredit.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onClick(View v) {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (loading) {
                     if (!islast) {
                         if (isLastVisible()) {
@@ -153,6 +154,8 @@ public class MyCreditsFragment extends Fragment {
                         }
                     }
                 }
+
+
             }
         });
 
@@ -305,7 +308,6 @@ public class MyCreditsFragment extends Fragment {
                             }
 
                             islast = myCredit.getPayload().get(0).isIslast();
-
                             Log.e("islast", "islast" + islast);
 
                             if (start == 0 && limit == 10) {

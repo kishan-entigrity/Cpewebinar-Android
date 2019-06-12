@@ -6,9 +6,12 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.entigrity.R;
@@ -39,6 +42,9 @@ public class NotificationActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     private NotificationAdapter adapter;
     private List<NotificationListItem> mListnotificationlist = new ArrayList<NotificationListItem>();
+    private boolean loading = true;
+    public boolean islast = false;
+    public int start = 0, limit = 10;
 
 
     @Override
@@ -62,24 +68,92 @@ public class NotificationActivity extends AppCompatActivity {
 
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-            GetNotificationList(1, 10);
+            GetNotificationList(start, limit);
         } else {
             Snackbar.make(binding.rvNotificationlist, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
 
 
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshItems();
+            }
+        });
+
+
+        binding.rvNotificationlist.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (loading) {
+                    if (!islast) {
+                        if (isLastVisible()) {
+                            loading = false;
+                            start = start + 10;
+                            limit = 10;
+                            loadNextPage();
+                        }
+                    }
+                }
+
+
+            }
+        });
+
+
     }
 
-    private void GetNotificationList(int start, int limit) {
+    private void refreshItems() {
+
+        onItemsLoadComplete();
+    }
+
+    private void onItemsLoadComplete() {
+
+        start = 0;
+        limit = 10;
+        loading = true;
+
+        if (Constant.isNetworkAvailable(context)) {
+            GetNotificationList(start, limit);
+        } else {
+            Snackbar.make(binding.rvNotificationlist, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void loadNextPage() {
+        if (Constant.isNetworkAvailable(context)) {
+            binding.progressBar.setVisibility(View.VISIBLE);
+            GetNotificationList(start, limit);
+        } else {
+            Snackbar.make(binding.rvNotificationlist, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void GetNotificationList(final int start, final int limit) {
 
         mAPIService.GetNotificationModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
                 start, limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<NotificationModel>() {
                     @Override
                     public void onCompleted() {
-                        if (mListnotificationlist.size() > 0) {
-                            adapter = new NotificationAdapter(context, mListnotificationlist);
-                            binding.rvNotificationlist.setAdapter(adapter);
+
+
+                        if (binding.progressBar.getVisibility() == View.VISIBLE) {
+                            binding.progressBar.setVisibility(View.GONE);
+                        }
+
+
+                        loading = true;
+                        if (start == 0 && limit == 10) {
+                            if (mListnotificationlist.size() > 0) {
+                                adapter = new NotificationAdapter(context, mListnotificationlist);
+                                binding.rvNotificationlist.setAdapter(adapter);
+                            }
+                        } else {
+                            adapter.addLoadingFooter();
                         }
 
 
@@ -88,8 +162,14 @@ public class NotificationActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
 
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
+                        if (start == 0 && limit == 10) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                        } else {
+                            if (binding.progressBar.getVisibility() == View.VISIBLE) {
+                                binding.progressBar.setVisibility(View.GONE);
+                            }
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
@@ -104,24 +184,60 @@ public class NotificationActivity extends AppCompatActivity {
                         if (notificationModel.isSuccess() == true) {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
+                            } else {
+                                if (binding.swipeRefreshLayout.isRefreshing()) {
+                                    binding.swipeRefreshLayout.setRefreshing(false);
+                                }
                             }
 
-                            mListnotificationlist = notificationModel.getPayload().getNotificationList();
+
+                            if (start == 0 && limit == 10) {
+                                if (mListnotificationlist.size() > 0) {
+                                    mListnotificationlist.clear();
+                                }
+                            }
+
+                            islast = notificationModel.getPayload().isIsLast();
+                            Log.e("islast", "islast" + islast);
 
                             Constant.Log(TAG, "size" + mListnotificationlist.size());
 
+
+                            if (start == 0 && limit == 10) {
+                                mListnotificationlist = notificationModel.getPayload().getNotificationList();
+
+                            } else {
+
+                                for (int i = 0; i < mListnotificationlist.size(); i++) {
+                                    if (i == mListnotificationlist.size() - 1) {
+                                        mListnotificationlist.remove(i);
+                                    }
+                                }
+
+
+                                List<NotificationListItem> webinaritems = notificationModel.getPayload().getNotificationList();
+                                adapter.addAll(webinaritems);
+
+
+                            }
+
+
                             if (mListnotificationlist.size() > 0) {
-                                binding.rvNotificationlist.setVisibility(View.VISIBLE);
+                                binding.swipeRefreshLayout.setVisibility(View.VISIBLE);
                                 binding.tvNodatafound.setVisibility(View.GONE);
                             } else {
                                 binding.tvNodatafound.setVisibility(View.VISIBLE);
-                                binding.rvNotificationlist.setVisibility(View.GONE);
+                                binding.swipeRefreshLayout.setVisibility(View.GONE);
                             }
 
 
                         } else {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
+                            } else {
+                                if (binding.swipeRefreshLayout.isRefreshing()) {
+                                    binding.swipeRefreshLayout.setRefreshing(false);
+                                }
                             }
                             Snackbar.make(binding.ivback, notificationModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
@@ -130,5 +246,13 @@ public class NotificationActivity extends AppCompatActivity {
 
                 });
 
+    }
+
+    boolean isLastVisible() {
+        LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvNotificationlist.getLayoutManager());
+        int pos = layoutManager.findLastCompletelyVisibleItemPosition();
+        int numItems = binding.rvNotificationlist.getAdapter().getItemCount() - 1;
+
+        return (pos >= numItems);
     }
 }

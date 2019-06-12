@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.entigrity.R;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private List<NotificationListItem> mList;
@@ -38,56 +39,86 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     }
 
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_notificationlist, viewGroup, false);
-        return new ViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewtype) {
+        RecyclerView.ViewHolder vh;
+        if (viewtype == VIEW_ITEM) {
+
+            View v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.progress_item, parent, false);
+
+            vh = new ProgressViewHolder(v);
+
+
+        } else {
+            View v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.row_notificationlist, parent, false);
+
+            vh = new ViewHolder(v);
+        }
+        return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
 
-        if (!mList.get(position).getNotificationTitle().equalsIgnoreCase("")) {
-            viewHolder.tv_notification_title.setText(mList.get(position).getNotificationTitle());
+        if (viewHolder instanceof ViewHolder) {
 
-        }
-
-
-        if (mList.get(position).getTimestamp() != 0) {
-
-            String notificationdate = getDateCurrentTimeZone(mList.get(position).getTimestamp());
-            Constant.Log("notifification date", "date" + notificationdate);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            try {
-                Date pastdate = sdf.parse(notificationdate);
-                Date currentdate = new Date();
-                long seconds = TimeUnit.MILLISECONDS.toSeconds(currentdate.getTime() - pastdate.getTime());
-                long minutes = TimeUnit.MILLISECONDS.toMinutes(currentdate.getTime() - pastdate.getTime());
-                long hours = TimeUnit.MILLISECONDS.toHours(currentdate.getTime() - pastdate.getTime());
-                long days = TimeUnit.MILLISECONDS.toDays(currentdate.getTime() - pastdate.getTime());
-
-
-                if (seconds < 60) {
-                    viewHolder.tv_notification_time.setText("" + seconds + " seconds ago");
-                } else if (minutes < 60) {
-                    viewHolder.tv_notification_time.setText("" + minutes + " minutes ago");
-                } else if (hours < 24) {
-                    viewHolder.tv_notification_time.setText("" + hours + " hours ago");
-                } else {
-                    viewHolder.tv_notification_time.setText("" + days + " days ago");
-                }
-
-
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (!mList.get(position).getNotificationTitle().equalsIgnoreCase("")) {
+                ((ViewHolder) viewHolder).tv_notification_title.setText(mList.get(position).getNotificationTitle());
             }
 
 
-        }
+            if (mList.get(position).getTimestamp() != 0) {
 
+                String notificationdate = getDateCurrentTimeZone(mList.get(position).getTimestamp());
+                Constant.Log("notifification date", "date" + notificationdate);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                try {
+                    Date pastdate = sdf.parse(notificationdate);
+                    Date currentdate = new Date();
+                    long seconds = TimeUnit.MILLISECONDS.toSeconds(currentdate.getTime() - pastdate.getTime());
+                    long minutes = TimeUnit.MILLISECONDS.toMinutes(currentdate.getTime() - pastdate.getTime());
+                    long hours = TimeUnit.MILLISECONDS.toHours(currentdate.getTime() - pastdate.getTime());
+                    long days = TimeUnit.MILLISECONDS.toDays(currentdate.getTime() - pastdate.getTime());
+
+
+                    if (seconds < 60) {
+                        ((ViewHolder) viewHolder).tv_notification_time.setText("" + seconds + " seconds ago");
+                    } else if (minutes < 60) {
+                        ((ViewHolder) viewHolder).tv_notification_time.setText("" + minutes + " minutes ago");
+                    } else if (hours < 24) {
+                        ((ViewHolder) viewHolder).tv_notification_time.setText("" + hours + " hours ago");
+                    } else {
+                        ((ViewHolder) viewHolder).tv_notification_time.setText("" + days + " days ago");
+                    }
+
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+        }/*else {
+            ((ProgressViewHolder) viewHolder).progressBar.setIndeterminate(true);
+        }*/
 
     }
+
+
+    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
+        public ProgressBar progressBar;
+
+        public ProgressViewHolder(View v) {
+            super(v);
+            progressBar = (ProgressBar) v.findViewById(R.id.loadmore_progress);
+        }
+    }
+
 
     public String getDateCurrentTimeZone(long timestamp) {
         try {
@@ -105,8 +136,31 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
 
     @Override
+    public int getItemViewType(int position) {
+        return (position == mList.size() - 1 && isLoadingAdded) ? VIEW_ITEM : VIEW_PROG;
+    }
+
+
+    public void add(NotificationListItem notificationListItem) {
+        mList.add(notificationListItem);
+        notifyItemInserted(mList.size());
+    }
+
+    public void addAll(List<NotificationListItem> mcList) {
+        for (NotificationListItem mc : mcList) {
+            add(mc);
+        }
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new NotificationListItem());
+    }
+
+
+    @Override
     public int getItemCount() {
-        return mList.size();
+        return mList == null ? 0 : mList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

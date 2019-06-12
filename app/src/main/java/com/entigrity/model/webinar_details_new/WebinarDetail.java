@@ -6,8 +6,21 @@ import java.util.List;
 
 public class WebinarDetail {
 
+    public String getWatched() {
+        return watched;
+    }
+
+    public void setWatched(String watched) {
+        this.watched = watched;
+    }
+
     @SerializedName("subject_area")
     private String subjectArea;
+
+
+    @SerializedName("watched")
+    private String watched;
+
 
     public int getTimespent() {
         return timespent;
@@ -443,6 +456,7 @@ public class WebinarDetail {
                         ",webinar_status = '" + webinarStatus + '\'' +
                         ",status = '" + status + '\'' +
                         ",course_id = '" + courseid + '\'' +
+                        ",watched = '" + watched + '\'' +
                         "}";
     }
 }
