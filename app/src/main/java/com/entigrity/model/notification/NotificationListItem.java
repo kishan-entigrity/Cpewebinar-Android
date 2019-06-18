@@ -3,84 +3,110 @@ package com.entigrity.model.notification;
 import com.google.gson.annotations.SerializedName;
 
 
-public class NotificationListItem{
+public class NotificationListItem {
 
-	@SerializedName("is_read")
-	private String isRead;
+    @SerializedName("is_read")
+    private String isRead;
 
-	@SerializedName("notification_type")
-	private String notificationType;
+    public String getWebinartype() {
+        return webinartype;
+    }
 
-	@SerializedName("image")
-	private String image;
+    public void setWebinartype(String webinartype) {
+        this.webinartype = webinartype;
+    }
 
-	@SerializedName("webinar_id")
-	private int webinarId;
+    @SerializedName("webinar_type")
+    private String webinartype;
 
-	@SerializedName("notification_title")
-	private String notificationTitle;
 
-	@SerializedName("timestamp")
-	private int timestamp;
+    @SerializedName("notification_type")
+    private String notificationType;
 
-	public void setIsRead(String isRead){
-		this.isRead = isRead;
-	}
+    @SerializedName("image")
+    private String image;
 
-	public String getIsRead(){
-		return isRead;
-	}
+    @SerializedName("webinar_id")
+    private int webinarId;
 
-	public void setNotificationType(String notificationType){
-		this.notificationType = notificationType;
-	}
+    @SerializedName("notification_title")
+    private String notificationTitle;
 
-	public String getNotificationType(){
-		return notificationType;
-	}
+    public int getWebinarflag() {
+        return webinarflag;
+    }
 
-	public void setImage(String image){
-		this.image = image;
-	}
+    public void setWebinarflag(int webinarflag) {
+        this.webinarflag = webinarflag;
+    }
 
-	public String getImage(){
-		return image;
-	}
+    @SerializedName("timestamp")
+    private int timestamp;
 
-	public void setWebinarId(int webinarId){
-		this.webinarId = webinarId;
-	}
+    @SerializedName("webinar_flag")
+    private int webinarflag;
 
-	public int getWebinarId(){
-		return webinarId;
-	}
 
-	public void setNotificationTitle(String notificationTitle){
-		this.notificationTitle = notificationTitle;
-	}
+    public void setIsRead(String isRead) {
+        this.isRead = isRead;
+    }
 
-	public String getNotificationTitle(){
-		return notificationTitle;
-	}
+    public String getIsRead() {
+        return isRead;
+    }
 
-	public void setTimestamp(int timestamp){
-		this.timestamp = timestamp;
-	}
+    public void setNotificationType(String notificationType) {
+        this.notificationType = notificationType;
+    }
 
-	public int getTimestamp(){
-		return timestamp;
-	}
+    public String getNotificationType() {
+        return notificationType;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"NotificationListItem{" + 
-			"is_read = '" + isRead + '\'' + 
-			",notification_type = '" + notificationType + '\'' + 
-			",image = '" + image + '\'' + 
-			",webinar_id = '" + webinarId + '\'' + 
-			",notification_title = '" + notificationTitle + '\'' + 
-			",timestamp = '" + timestamp + '\'' + 
-			"}";
-		}
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setWebinarId(int webinarId) {
+        this.webinarId = webinarId;
+    }
+
+    public int getWebinarId() {
+        return webinarId;
+    }
+
+    public void setNotificationTitle(String notificationTitle) {
+        this.notificationTitle = notificationTitle;
+    }
+
+    public String getNotificationTitle() {
+        return notificationTitle;
+    }
+
+    public void setTimestamp(int timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "NotificationListItem{" +
+                        "is_read = '" + isRead + '\'' +
+                        ",notification_type = '" + notificationType + '\'' +
+                        ",webinar_type = '" + webinartype + '\'' +
+                        ",webinar_flag = '" + webinarflag + '\'' +
+                        ",image = '" + image + '\'' +
+                        ",webinar_id = '" + webinarId + '\'' +
+                        ",notification_title = '" + notificationTitle + '\'' +
+                        ",timestamp = '" + timestamp + '\'' +
+                        "}";
+    }
 }

@@ -25,9 +25,10 @@ import retrofit2.adapter.rxjava.HttpException;
 
 public class Constant {
     public static boolean developer_mode = true;
-    public static String device_type = "a";  //1 for android
+    public static String device_type = "A";  //1 for android
     public static String failure_message = "";
     public static String access_token = "";
+    public static int status_code = 0;
     public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
     public static ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     public static boolean checkmywebinardotstatusset = false;
@@ -103,13 +104,16 @@ public class Constant {
         try {
             HttpException error = (HttpException) e;
 
+            Constant.Log("status code", "+++++" + error.response().code());
+
+            status_code = error.response().code();
 
             try {
                 JSONObject jsonObject = new JSONObject(error.response().errorBody().string());
 
                 Constant.Log("object", "+++++" + jsonObject);
 
-                Constant.Log("error", "+++++" + error.response().errorBody().string());
+                //   Constant.Log("error", "+++++" + error.response().errorBody().string());
 
                 String success = jsonObject.getString("success");
                 failure_message = jsonObject.getString("message");
@@ -161,8 +165,10 @@ public class Constant {
 
 
     public static void ShowPopUp(String message, Context context) {
+
         final AlertDialog alertDialog = new AlertDialog.Builder(
                 context).create();
+
         alertDialog.setMessage(message);
         // Setting OK Button
 

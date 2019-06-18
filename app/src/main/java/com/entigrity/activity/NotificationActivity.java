@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.NotificationAdapter;
 import com.entigrity.databinding.ActivityNotificationBinding;
@@ -134,7 +135,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     private void GetNotificationList(final int start, final int limit) {
 
-        mAPIService.GetNotificationModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
+        mAPIService.GetNotificationModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context),
                 start, limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<NotificationModel>() {
                     @Override
@@ -173,7 +174,12 @@ public class NotificationActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }

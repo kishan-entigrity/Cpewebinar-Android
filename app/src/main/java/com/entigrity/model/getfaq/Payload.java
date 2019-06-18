@@ -2,24 +2,24 @@ package com.entigrity.model.getfaq;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Payload{
+public class Payload {
 
-	@SerializedName("link")
-	private String link;
+    @SerializedName("link")
+    private String link;
 
-	public void setLink(String link){
-		this.link = link;
-	}
+    public void setLink(String link) {
+        this.link = link;
+    }
 
-	public String getLink(){
-		return link;
-	}
+    public String getLink() {
+        return link;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"Payload{" + 
-			"link = '" + link + '\'' + 
-			"}";
-		}
+    @Override
+    public String toString() {
+        return
+                "Payload{" +
+                        "link = '" + link + '\'' +
+                        "}";
+    }
 }

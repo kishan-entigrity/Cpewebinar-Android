@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.MyFavoriteAdapter;
 import com.entigrity.databinding.ActivityFavoritteBinding;
@@ -103,6 +104,8 @@ public class ActivityFavorite extends AppCompatActivity {
 
     }
 
+
+
     public void refreshItems() {
         onItemsLoadComplete();
     }
@@ -141,7 +144,7 @@ public class ActivityFavorite extends AppCompatActivity {
     private void GetMyFavorites(final String webinartype, final String topicsofinterest, final int start, final int limit) {
 
         mAPIService_new.GetMyFavorites(getResources().getString(R.string.accept),
-                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ModelFavorites>() {
                     @Override
                     public void onCompleted() {
@@ -181,7 +184,13 @@ public class ActivityFavorite extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvFavoritelist, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.rvFavoritelist, message, Snackbar.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override

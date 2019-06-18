@@ -14,6 +14,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityFaqBinding;
 import com.entigrity.model.getfaq.GetFaq;
@@ -84,7 +85,12 @@ public class FaqActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }

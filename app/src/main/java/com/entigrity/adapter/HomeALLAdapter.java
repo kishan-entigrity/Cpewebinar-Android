@@ -3,18 +3,24 @@ package com.entigrity.adapter;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -30,6 +36,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.activity.LoginActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
@@ -48,6 +55,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -89,8 +97,10 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
     private String cardtype = "";
     public static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
 
-
     public String certificate_link = "";
+    private DownloadManager downloadManager;
+    private long refid;
+    ArrayList<Long> list = new ArrayList<>();
     String join_url = "";
 
 
@@ -100,8 +110,67 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
         mAPIService = ApiUtilsNew.getAPIService();
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
+        downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+
+        mContext.registerReceiver(onComplete,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
 
     }
+
+
+    public void DownloadCertificate(String Certificate) {
+
+        list.clear();
+
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Certificate));
+        String extension = Certificate.substring(Certificate.lastIndexOf('.') + 1).trim();
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setAllowedOverRoaming(false);
+        request.setTitle("Downloading Document");
+        request.setVisibleInDownloadsUi(true);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_Document" + "." + extension);
+
+        refid = downloadManager.enqueue(request);
+
+
+        Log.e("OUT", "" + refid);
+
+        list.add(refid);
+    }
+
+    BroadcastReceiver onComplete = new BroadcastReceiver() {
+
+        public void onReceive(Context ctxt, Intent intent) {
+
+
+            long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+
+
+            Log.e("IN", "" + referenceId);
+
+            list.remove(referenceId);
+
+
+            if (list.isEmpty()) {
+
+
+                Log.e("INSIDE", "" + referenceId);
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(mContext)
+                                .setSmallIcon(R.mipmap.app_icon)
+                                .setContentTitle("Document")
+                                .setContentText("MYCpe");
+
+
+                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(455, mBuilder.build());
+
+
+            }
+
+        }
+    };
 
 
     @NonNull
@@ -124,6 +193,10 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
         }
         return vh;
     }
+
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int position) {
@@ -170,7 +243,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
             if (!mList.get(position).getFee().equalsIgnoreCase("")) {
                 ((HomeViewHolder) viewHolder).tv_webinar_price_status.setText("$" + mList.get(position).getFee());
-
             } else {
                 ((HomeViewHolder) viewHolder).tv_webinar_price_status.setText("Free");
             }
@@ -425,12 +497,19 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                     if (!AppSettings.get_login_token(mContext).isEmpty()) {
                         if (mList.get(position).getStatus().equalsIgnoreCase(mContext
                                 .getResources().getString(R.string.str_webinar_status_register))) {
-                            if (Constant.isNetworkAvailable(mContext)) {
-                                progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
-                                RegisterWebinar(mList.get(position).getId(), mList.get(position).getScheduleid(), ((HomeViewHolder) viewHolder).webinar_status, position);
+
+                            if (!mList.get(position).getFee().equalsIgnoreCase("")) {
+                                Constant.ShowPopUp(mContext.getResources().getString(R.string.payment_validate_msg), mContext);
                             } else {
-                                Snackbar.make(((HomeViewHolder) viewHolder).webinar_status, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                                if (Constant.isNetworkAvailable(mContext)) {
+                                    progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
+                                    RegisterWebinar(mList.get(position).getId(), mList.get(position).getScheduleid(), ((HomeViewHolder) viewHolder).webinar_status, position);
+                                } else {
+                                    Snackbar.make(((HomeViewHolder) viewHolder).webinar_status, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                                }
                             }
+
+
                         } else if (mList.get(position).getStatus().equalsIgnoreCase(mContext
                                 .getResources().getString(R.string.str_webinar_status_certificate))) {
                             checkAndroidVersion();
@@ -579,7 +658,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
             if (result != null)
                 Toast.makeText(context, "Download error: " + result, Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(context, "File downloaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Download complete", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -591,8 +670,10 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
 
             if (!certificate_link.equalsIgnoreCase("")) {
-                downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);
+               /* downloadTask = new DownloadTask(mContext);
+                downloadTask.execute(certificate_link);*/
+                DownloadCertificate(certificate_link);
+
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
             }
@@ -635,8 +716,10 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
             // write your logic code if permission already granted
 
             if (!certificate_link.equalsIgnoreCase("")) {
-                downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);
+               /* downloadTask = new DownloadTask(mContext);
+                downloadTask.execute(certificate_link);*/
+                DownloadCertificate(certificate_link);
+
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
             }
@@ -922,8 +1005,10 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                     if (writePermission && readExternalFile) {
                         // write your logic here
                         if (!certificate_link.equalsIgnoreCase("")) {
-                            downloadTask = new DownloadTask(mContext);
-                            downloadTask.execute(certificate_link);
+                           /* downloadTask = new DownloadTask(mContext);
+                            downloadTask.execute(certificate_link);*/
+                            DownloadCertificate(certificate_link);
+
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
                         }
@@ -998,7 +1083,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
     private void WebinarFavoriteLikeDislike(final TextView textView, final int webinar_id, final ImageView ImageView, final int position) {
 
         mAPIService.PostWebinarLikeDislike(mContext.getResources().getString(R.string.accept),
-                mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext),
+                mContext.getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(mContext),
                 webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Like_Dislike_Model>() {
                     @Override
@@ -1014,7 +1099,12 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                         }
 
                         String message = Constant.GetReturnResponse(mContext, e);
-                        Snackbar.make(ImageView, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(ImageView, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -1064,7 +1154,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
     public void RegisterWebinar(int webinar_id, int schedule_id, final Button button, final int position) {
 
-        mAPIService.RegisterWebinar(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext), webinar_id, schedule_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.RegisterWebinar(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(mContext), webinar_id, schedule_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ModelRegisterWebinar>() {
                     @Override
                     public void onCompleted() {
@@ -1079,7 +1169,11 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                         }
 
                         String message = Constant.GetReturnResponse(mContext, e);
-                        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }

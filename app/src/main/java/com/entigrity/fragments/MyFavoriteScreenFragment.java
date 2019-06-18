@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.activity.ActivityFavorite;
 import com.entigrity.activity.ViewTopicsOfInterestActivity;
@@ -116,7 +117,7 @@ public class MyFavoriteScreenFragment extends Fragment {
 
     private void GetFavoriteDetails() {
 
-        mAPIService.GetFavoriteCountModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetFavoriteCountModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Favorite_Count_Model>() {
                     @Override
                     public void onCompleted() {
@@ -132,7 +133,12 @@ public class MyFavoriteScreenFragment extends Fragment {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.ivbanner, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.ivbanner, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }

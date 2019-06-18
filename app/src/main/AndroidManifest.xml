@@ -219,6 +219,11 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="2b3d0f35639dc408866173ec68ee656a579f3f7a" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/app_icon" />
+
     </application>
 
 </manifest>

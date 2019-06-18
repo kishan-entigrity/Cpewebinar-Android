@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.MyCreditAdapter;
 import com.entigrity.databinding.FragmentMycreditBinding;
@@ -240,10 +241,11 @@ public class MyCreditsFragment extends Fragment {
 
     }
 
+
     private void GetMyCredit(final int start, final int limit) {
 
 
-        mAPIService.GetMyCredit(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), filter_type
+        mAPIService.GetMyCredit(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), filter_type
                 , start, limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<My_Credit>() {
                     @Override
@@ -283,7 +285,11 @@ public class MyCreditsFragment extends Fragment {
 
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.ivnotification, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.ivnotification, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }

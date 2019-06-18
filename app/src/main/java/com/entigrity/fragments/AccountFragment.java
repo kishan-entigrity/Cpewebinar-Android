@@ -117,7 +117,7 @@ public class AccountFragment extends Fragment {
 
     private void GetTopicsofInterest() {
 
-        mAPIService_new.GetViewTopicsOfInterest(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetViewTopicsOfInterest(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<View_Topics_Interest_Model>() {
                     @Override
                     public void onCompleted() {
@@ -132,7 +132,11 @@ public class AccountFragment extends Fragment {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.tvTopicsOfInterest, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.tvTopicsOfInterest, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -169,7 +173,7 @@ public class AccountFragment extends Fragment {
 
     public void GetProfile() {
 
-        mAPIService_new.GetProfile(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetProfile(getResources().getString(R.string.accept), getResources().getString(R.string.bearer)+" "+ AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ViewProfileModel>() {
                     @Override
                     public void onCompleted() {
@@ -191,7 +195,12 @@ public class AccountFragment extends Fragment {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvFeedback, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.rvFeedback, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -594,7 +603,7 @@ public class AccountFragment extends Fragment {
                 progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
 
                 if (Constant.isNetworkAvailable(context)) {
-                    Logout(AppSettings.get_login_token(context), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
+                    Logout(getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
                 } else {
                     Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                 }
@@ -620,7 +629,7 @@ public class AccountFragment extends Fragment {
     public void Logout(String Authorization, String device_id, String device_token, String device_type) {
 
         // RxJava
-        mAPIService_new.logout(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + Authorization, device_id
+        mAPIService_new.logout(getResources().getString(R.string.accept), Authorization, device_id
                 , device_token, device_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<LogoutModel>() {
                     @Override
@@ -659,24 +668,11 @@ public class AccountFragment extends Fragment {
                             Snackbar.make(binding.rvLogout, logoutModel.getMessage(), Snackbar.LENGTH_SHORT).show();
 
                         } else {
-                            if (logoutModel.getPayload().getAccessToken() != null && !logoutModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
-                                AppSettings.set_login_token(context, logoutModel.getPayload().getAccessToken());
-
-                                if (Constant.isNetworkAvailable(context)) {
-                                    Logout(AppSettings.get_login_token(context), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
-                                } else {
-                                    Snackbar.make(binding.rvLogout, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                                }
-
-
-                            } else {
-                                if (progressDialog.isShowing()) {
-                                    progressDialog.dismiss();
-                                }
-
-                                Snackbar.make(binding.rvLogout, logoutModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
                             }
 
+                            Snackbar.make(binding.rvLogout, logoutModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 
@@ -688,7 +684,7 @@ public class AccountFragment extends Fragment {
 
     public void PostFeedback(String accept, String authorization, String message, String subject) {
 
-        mAPIService_new.PostContactUsFeedback(accept, getResources().getString(R.string.bearer) + authorization, message,
+        mAPIService_new.PostContactUsFeedback(accept, getResources().getString(R.string.bearer)+" "+ authorization, message,
                 subject).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<PostFeedback>() {
                     @Override
@@ -704,7 +700,13 @@ public class AccountFragment extends Fragment {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvFeedback, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.rvFeedback, message, Snackbar.LENGTH_SHORT).show();
+                        }
+
 
                     }
 

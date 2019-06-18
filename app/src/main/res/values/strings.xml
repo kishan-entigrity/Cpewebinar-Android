@@ -155,6 +155,10 @@
     <string name="val_new_confirm_password_not_match">New Password and Confirm Password does not match</string>
 
 
+    <string name="payment_validate_msg">For register this webinar please visit our web application and
+    complete your payment.</string>
+
+
     //vimeo
 
     <string name="loading_video">Loading video</string>
@@ -495,6 +499,7 @@
     <string name="pass_webinar_id">Webinarid</string>
     <string name="pass_webinar_type">Webinartype</string>
     <string name="str_course_id">Course Id</string>
+    <string name="str_is_notification">isnoti</string>
 
 
     //account screen
@@ -646,6 +651,12 @@
     <string name="str_pay_amount_header">Pay Amount</string>
     <string name="str_add_card_label">ADD CARD</string>
     <string name="str_my_cards">My Cards</string>
+
+
+    //notification passing
+
+    <string name="notification_flag">notificationflag</string>
+    <string name="notification_webinar_id">webinarid</string>
 
 
 </resources>

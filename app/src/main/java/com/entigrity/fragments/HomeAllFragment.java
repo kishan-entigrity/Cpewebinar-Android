@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.HomeALLAdapter;
 import com.entigrity.databinding.FragmentAllBinding;
@@ -339,7 +340,7 @@ public class HomeAllFragment extends Fragment {
     public void GetHomeListNew(final String webinartype, final String topicsofinterest, final int start, final int limit) {
 
         mAPIService_new.GetHomeWebinarListNew(getResources().getString(R.string.accept),
-                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Home_New>() {
                     @Override
                     public void onCompleted() {
@@ -379,7 +380,14 @@ public class HomeAllFragment extends Fragment {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvhome, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.rvhome, message, Snackbar.LENGTH_SHORT).show();
+                        }
+
+
                     }
 
                     @Override

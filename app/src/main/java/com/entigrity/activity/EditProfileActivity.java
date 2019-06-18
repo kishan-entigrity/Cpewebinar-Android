@@ -396,7 +396,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        EditPost(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
+                        EditPost(getResources().getString(R.string.bearer)+" "+ AppSettings.get_login_token(context),
                                 Constant.Trim(binding.edtFirstname.getText().toString()), Constant.Trim(binding.edtLastname.getText().toString()),
                                 Constant.Trim(binding.edtEmailname.getText().toString()), Constant.Trim(binding.edtFirmname.getText().toString()), country_id, state_id, city_id, Integer.parseInt(Constant.Trim(binding.edtZipcode.getText().toString())), Constant.Trim(binding.edtMobileNumber.getText()
                                         .toString()), Constant.Trim(binding.edtPtinNumber.getText().toString()), who_you_are_id, jobtitle_id, industry_id);
@@ -513,7 +513,13 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+                        }
+
 
                     }
 
@@ -531,33 +537,12 @@ public class EditProfileActivity extends AppCompatActivity {
                             finish();
 
 
-                        } else if (editProfileModel.isSuccess() == false) {
-                            if (editProfileModel.getPayload().getAccessToken() != null && !editProfileModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
-                                AppSettings.set_login_token(context, editProfileModel.getPayload().getAccessToken());
-
-                                if (Validation()) {
-                                    if (Constant.isNetworkAvailable(context)) {
-
-                                        EditPost(getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
-                                                binding.edtFirstname.getText().toString(), binding.edtLastname.getText().toString(),
-                                                binding.edtEmailname.getText().toString(), binding.edtFirmname.getText().toString(), country_id, state_id, city_id, Integer.parseInt(binding.edtZipcode.getText().toString()), binding.edtMobileNumber.getText()
-                                                        .toString(), binding.edtPtinNumber.getText().toString(), user_type, jobtitle_id, industry_id);
-                                    } else {
-
-
-                                        Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                                    }
-
-                                }
-                            } else {
-                                if (progressDialog.isShowing()) {
-                                    progressDialog.dismiss();
-                                }
-
-                                Snackbar.make(binding.btnsubmit, editProfileModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        } else {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
                             }
 
-
+                            Snackbar.make(binding.btnsubmit, editProfileModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 
@@ -569,7 +554,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void GetJobTitle() {
 
-        mAPIService_new.GetJobTitle(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetJobTitle(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ModelJobTitle>() {
                     @Override
                     public void onCompleted() {
@@ -589,7 +574,12 @@ public class EditProfileActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override
@@ -628,7 +618,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void GetIndustry() {
 
-        mAPIService_new.GetIndustryList(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetIndustryList(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Model_Industry>() {
                     @Override
                     public void onCompleted() {
@@ -647,7 +637,12 @@ public class EditProfileActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+
+                        }
                     }
 
                     @Override
@@ -704,7 +699,12 @@ public class EditProfileActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -937,8 +937,12 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         String message = Constant.GetReturnResponse(context, e);
 
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
 
-                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -1019,7 +1023,12 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -1123,7 +1132,12 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }

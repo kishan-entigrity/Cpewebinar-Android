@@ -20,9 +20,12 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_toLeftOf="@+id/iv_edit"
             android:text="Account"
+            android:inputType="textMultiLine"
             android:textColor="@color/drawer_header"
             android:textSize="@dimen/_12sdp"
+            android:layout_marginRight="@dimen/_2sdp"
             app:font_text="Montserrat-Bold.ttf" />
 
         <ImageView

@@ -65,7 +65,7 @@ public class FinalQuizAdapter extends RecyclerView.Adapter<FinalQuizAdapter.View
         }
 
 
-        viewHolder.lv_A.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tv_ans_a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewHolder.checkbox_select_a.setChecked(true);
@@ -105,7 +105,7 @@ public class FinalQuizAdapter extends RecyclerView.Adapter<FinalQuizAdapter.View
         });
 
 
-        viewHolder.lv_B.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tv_ans_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -143,7 +143,7 @@ public class FinalQuizAdapter extends RecyclerView.Adapter<FinalQuizAdapter.View
             }
         });
 
-        viewHolder.lv_C.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tv_ans_c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewHolder.checkbox_select_a.setChecked(false);
@@ -181,7 +181,7 @@ public class FinalQuizAdapter extends RecyclerView.Adapter<FinalQuizAdapter.View
         });
 
 
-        viewHolder.lv_D.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tv_ans_d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityChangePasswordBinding;
 import com.entigrity.model.changepassword.ChangePasswordModel;
@@ -77,7 +78,7 @@ public class ActivityChangePassword extends AppCompatActivity {
     public void ChangePassword(String Authorization, String current_password, String new_password, String confirm_password) {
 
         // RxJava
-        mAPIService_new.changepassword(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + Authorization, current_password
+        mAPIService_new.changepassword(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+ Authorization, current_password
                 , new_password, confirm_password).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ChangePasswordModel>() {
                     @Override
@@ -93,7 +94,12 @@ public class ActivityChangePassword extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnSubmit, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.btnSubmit, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -108,29 +114,15 @@ public class ActivityChangePassword extends AppCompatActivity {
                             }
                             Snackbar.make(binding.btnSubmit, changePasswordModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         } else {
-                            if (changePasswordModel.getPayload().getAccessToken() != null && !changePasswordModel.getPayload().getAccessToken().equalsIgnoreCase("")) {
-                                if (Validation()) {
-                                    if (Constant.isNetworkAvailable(context)) {
-
-                                        AppSettings.set_login_token(context, changePasswordModel.getPayload().getAccessToken());
-
-                                        ChangePassword(AppSettings.get_login_token(context), binding.edtOldpassword.getText().toString(), binding.edtNewpassword.getText().toString(),
-                                                binding.edtConfirmpassword.getText().toString());
-                                    } else {
-                                        Snackbar.make(binding.btnSubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                                    }
-                                }
-                            } else {
-                                if (progressDialog.isShowing()) {
-                                    progressDialog.dismiss();
-                                }
-
-                                Snackbar.make(binding.btnSubmit, changePasswordModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
                             }
+
+                            Snackbar.make(binding.btnSubmit, changePasswordModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
-
-
                     }
+
+
                 });
 
     }

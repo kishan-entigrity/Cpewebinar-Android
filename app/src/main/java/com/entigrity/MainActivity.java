@@ -24,8 +24,9 @@ import com.entigrity.fragments.MyFavoriteScreenFragment;
 import com.entigrity.fragments.UserDashBoardFragment;
 import com.entigrity.fragments.ViewProfileFragment;
 import com.entigrity.utility.AppSettings;
+import com.entigrity.utility.Constant;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
+import com.entigrity.webservice.ApiUtilsNew;
 
 import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public Context context;
-    private APIService mAPIService;
+    private APIService mAPIService_new;
     public TextView tv_popup_ok, tv_popup_cancel;
     public TextView tv_popup_msg, tv_popup_submit;
     ProgressDialog progressDialog;
@@ -58,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
     public int selectmywebinardtab = 0;
     public Dialog myDialog;
     public TextView tv_login, tv_cancel;
+    Intent intent;
+    public int webinarid = 0;
+    public String webinar_type = "";
 
 
     @Override
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         instance = MainActivity.this;
-
+        intent = getIntent();
 
         rel_top_bottom = (RelativeLayout) findViewById(R.id.rel_top_bottom);
         iv_mycredit = (ImageView) findViewById(R.id.iv_mycredit);
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         context = MainActivity.this;
-        mAPIService = ApiUtils.getAPIService();
+        mAPIService_new = ApiUtilsNew.getAPIService();
 
 
         iv_mycredit.setOnClickListener(new View.OnClickListener() {
@@ -179,9 +183,98 @@ public class MainActivity extends AppCompatActivity {
         });
 
         SetDefault();
+       /* if (intent != null) {
+            if (getIntent().hasExtra(getResources().getString(R.string.pass_webinar_id))) {
+                webinarid = intent.getIntExtra(getResources().getString(R.string.pass_webinar_id), 0);
+                webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
 
+                Constant.Log("flag", "+++" + webinar_type + "  " + webinarid);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Do something after 100ms
+                        if (Constant.isNetworkAvailable(context)) {
+                            Intent i = new Intent(MainActivity.this, WebinarDetailsActivity.class);
+                            i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                            i.putExtra(getResources().getString(R.string.pass_webinar_id), webinarid);
+                            startActivity(i);
+                        } else {
+                            Snackbar.make(iv_mycredit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                }, 2000);
+            }
+
+
+        }
+*/
 
     }
+
+
+    public void AutoLogout() {
+        if (Constant.isNetworkAvailable(context)) {
+
+            AppSettings.removeFromSharedPreferences(context, getResources().getString(R.string.str_token));
+            Intent i = new Intent(context, LoginActivity.class);
+            startActivity(i);
+            finish();
+            //  Logout(AppSettings.get_login_token(context), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
+        } else {
+            Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
+        }
+    }
+
+
+  /*  public void Logout(String Authorization, String device_id, String device_token, String device_type) {
+
+        // RxJava
+        mAPIService_new.logout(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + Authorization, device_id
+                , device_token, device_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<LogoutModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //handle failure response
+                        *//*if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }*//*
+
+                        String message = Constant.GetReturnResponse(context, e);
+                        Snackbar.make(iv_home, message, Snackbar.LENGTH_SHORT).show();
+
+                    }
+
+
+                    @Override
+                    public void onNext(LogoutModel logoutModel) {
+                        if (logoutModel.isSuccess()) {
+                          *//*  if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }*//*
+
+
+                            Snackbar.make(iv_home, logoutModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                        } else {
+                           *//* if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }*//*
+
+                            Snackbar.make(iv_home, logoutModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+
+    }*/
 
 
     public void SetCreditScreen() {

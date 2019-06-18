@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.HomeMyWebinarAdapter;
 import com.entigrity.databinding.FragmentMywebinarBinding;
@@ -405,6 +406,7 @@ public class MyWebinarFragment extends Fragment {
     }
 
 
+
     private void loadNextPage() {
         if (Constant.isNetworkAvailable(context)) {
             binding.progressBar.setVisibility(View.VISIBLE);
@@ -419,7 +421,7 @@ public class MyWebinarFragment extends Fragment {
     public void GetMyWebinarListNew(final String webinartype, final String topicsofinterest, final int start, final int limit) {
 
         mAPIService_new.GetMyWebinarListNew(getResources().getString(R.string.accept),
-                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
+                getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context),
                 start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Home_New>() {
                     @Override
@@ -456,8 +458,15 @@ public class MyWebinarFragment extends Fragment {
                             }
                         }
 
+
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvhomewebinar, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.rvhomewebinar, message, Snackbar.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override

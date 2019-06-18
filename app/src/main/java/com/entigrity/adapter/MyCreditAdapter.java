@@ -2,14 +2,21 @@ package com.entigrity.adapter;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,13 +57,22 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
     ProgressDialog mProgressDialog;
     DownloadTask downloadTask;
     public String certificate_link = "";
+    private DownloadManager downloadManager;
+    private long refid;
+    ArrayList<Long> list = new ArrayList<>();
+
 
     public MyCreditAdapter(Context mContext, List<MyCreditsItem> mList) {
         this.mContext = mContext;
         this.mList = mList;
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+
+        mContext.registerReceiver(onComplete,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
     }
+
 
     public void add(MyCreditsItem myCreditsItem) {
         mList.add(myCreditsItem);
@@ -101,17 +117,13 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
 
         if (viewHolder instanceof ViewHolder) {
 
-            if (!mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources().getString(R.string.str_live))) {
-                if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
-                    ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.VISIBLE);
-                    ((ViewHolder) viewHolder).tv_webinar_status.setVisibility(View.GONE);
-                } else {
-                    ((ViewHolder) viewHolder).tv_webinar_status.setVisibility(View.VISIBLE);
-                    ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.GONE);
-                }
+
+            if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
+                ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.VISIBLE);
+                ((ViewHolder) viewHolder).tv_webinar_status.setVisibility(View.GONE);
             } else {
-                ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.GONE);
                 ((ViewHolder) viewHolder).tv_webinar_status.setVisibility(View.VISIBLE);
+                ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.GONE);
             }
 
             if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
@@ -223,6 +235,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
     }
 
 
+
     @Override
     public int getItemViewType(int position) {
         return (position == mList.size() - 1 && isLoadingAdded) ? VIEW_ITEM : VIEW_PROG;
@@ -254,8 +267,10 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                     if (writePermission && readExternalFile) {
                         // write your logic here
                         if (!certificate_link.equalsIgnoreCase("")) {
-                            downloadTask = new DownloadTask(mContext);
-                            downloadTask.execute(certificate_link);
+                         /*   downloadTask = new DownloadTask(mContext);
+                            downloadTask.execute(certificate_link);*/
+
+                            DownloadCertificate(certificate_link);
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
                         }
@@ -274,6 +289,40 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
         }
 
     }
+
+    BroadcastReceiver onComplete = new BroadcastReceiver() {
+
+        public void onReceive(Context ctxt, Intent intent) {
+
+
+            long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+
+
+            Log.e("IN", "" + referenceId);
+
+            list.remove(referenceId);
+
+
+            if (list.isEmpty()) {
+
+
+                Log.e("INSIDE", "" + referenceId);
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(mContext)
+                                .setSmallIcon(R.mipmap.app_icon)
+                                .setContentTitle("Document")
+                                .setContentText("MYCpe");
+
+
+                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(455, mBuilder.build());
+
+
+            }
+
+        }
+    };
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -396,7 +445,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
             if (result != null)
                 Toast.makeText(context, "Download error: " + result, Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(context, "File downloaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Download complete", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -408,8 +457,11 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
 
 
             if (!certificate_link.equalsIgnoreCase("")) {
-                downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);
+               /* downloadTask = new DownloadTask(mContext);
+                downloadTask.execute(certificate_link);*/
+                DownloadCertificate(certificate_link);
+
+
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
             }
@@ -417,6 +469,26 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
 
         }
 
+    }
+
+    public void DownloadCertificate(String Certificate) {
+
+        list.clear();
+
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Certificate));
+        String extension = Certificate.substring(Certificate.lastIndexOf('.') + 1).trim();
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setAllowedOverRoaming(false);
+        request.setTitle("Downloading Document");
+        request.setVisibleInDownloadsUi(true);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_Document" + "." + extension);
+
+        refid = downloadManager.enqueue(request);
+
+
+        Log.e("OUT", "" + refid);
+
+        list.add(refid);
     }
 
 
@@ -452,8 +524,10 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
             // write your logic code if permission already granted
 
             if (!certificate_link.equalsIgnoreCase("")) {
-                downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);
+               /* downloadTask = new DownloadTask(mContext);
+                downloadTask.execute(certificate_link);*/
+
+                DownloadCertificate(certificate_link);
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
             }

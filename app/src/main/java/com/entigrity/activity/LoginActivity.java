@@ -147,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
 
+
                         String message = Constant.GetReturnResponse(context, e);
                         Snackbar.make(binding.btnSubmit, message, Snackbar.LENGTH_SHORT).show();
 
@@ -161,6 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
+
 
                             AppSettings.set_login_token(context, login.getPayload().getToken());
 

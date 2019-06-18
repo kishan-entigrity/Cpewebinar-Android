@@ -14,6 +14,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityTermsandconditionBinding;
 import com.entigrity.model.gettermscondition.GetTermsCondition;
@@ -79,7 +80,13 @@ public class TermsandConditionActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+
+                        }
 
 
                     }
@@ -95,7 +102,7 @@ public class TermsandConditionActivity extends AppCompatActivity {
                             webSetting.setDisplayZoomControls(true);
                             binding.webview.loadUrl(getTermsCondition.getPayload().getLink());
 
-                      //      Constant.Log("link", "link" + getTermsCondition.getPayload().getLink());
+                            //      Constant.Log("link", "link" + getTermsCondition.getPayload().getLink());
 
 
                         } else {

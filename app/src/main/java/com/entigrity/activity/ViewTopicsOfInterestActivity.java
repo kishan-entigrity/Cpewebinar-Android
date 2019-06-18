@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.RecycleviewSectionFavoriteTestAdapter;
 import com.entigrity.adapter.RecycleviewSectionViewProfileTestAdapter;
@@ -93,7 +94,7 @@ public class ViewTopicsOfInterestActivity extends AppCompatActivity {
 
     private void GetTopicsofInterest() {
 
-        mAPIService.GetViewTopicsOfInterestFavorite(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetViewTopicsOfInterestFavorite(getResources().getString(R.string.accept), getResources().getString(R.string.bearer)+" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ViewTopicsFavorite>() {
                     @Override
                     public void onCompleted() {
@@ -111,7 +112,11 @@ public class ViewTopicsOfInterestActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvtopicsOfInterest, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.rvtopicsOfInterest, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }

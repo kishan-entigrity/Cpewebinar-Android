@@ -124,6 +124,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
+                    android:visibility="gone"
                     android:background="@color/background_list" />
 
 
@@ -131,7 +132,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/White"
-                    android:padding="@dimen/_10sdp">
+                    android:padding="@dimen/_10sdp"
+                    android:visibility="gone">
 
                     <com.entigrity.view.CustomTextView
                         android:id="@+id/tv_mytransaction"
@@ -165,7 +167,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/White"
-                    android:padding="@dimen/_10sdp">
+                    android:padding="@dimen/_10sdp"
+                    android:visibility="gone">
 
                     <com.entigrity.view.CustomTextView
                         android:id="@+id/tv_payment_method"
@@ -192,6 +195,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
+                    android:visibility="gone"
                     android:background="@color/background_list" />
 
 

@@ -39,7 +39,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:padding="@dimen/_5sdp"
-                android:src="@mipmap/review_popup_close" />
+                android:src="@mipmap/review_popup_close"
+                android:tint="@color/webinar_status" />
 
 
         </RelativeLayout>

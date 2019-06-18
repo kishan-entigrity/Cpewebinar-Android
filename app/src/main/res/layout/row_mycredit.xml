@@ -101,6 +101,7 @@
                     android:background="@drawable/my_credit_status"
                     android:gravity="center"
                     android:textAllCaps="false"
+                    android:visibility="gone"
                     android:textColor="@color/theme_background"
                     android:textSize="@dimen/_6sdp"
                     app:font_button="Montserrat-Regular.ttf" />
@@ -109,7 +110,7 @@
                 <com.entigrity.view.CustomButtonView
                     android:id="@+id/btn_certification_download"
                     android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_10sdp"
+                    android:layout_height="@dimen/_15sdp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/_5sdp"

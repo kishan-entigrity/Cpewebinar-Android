@@ -2,6 +2,7 @@ package com.entigrity.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.notification.NotificationListItem;
 import com.entigrity.utility.Constant;
 
@@ -71,9 +74,24 @@ public class NotificationAdapter extends RecyclerView.Adapter {
             }
 
 
+            ((ViewHolder) viewHolder).tv_notification_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(mContext, WebinarDetailsActivity.class);
+                    i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
+                            .get(position).getWebinarId());
+                    i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
+                            .get(position).getWebinartype());
+                    mContext.startActivity(i);
+                }
+            });
+
+
             if (mList.get(position).getTimestamp() != 0) {
 
                 String notificationdate = getDateCurrentTimeZone(mList.get(position).getTimestamp());
+
+
                 Constant.Log("notifification date", "date" + notificationdate);
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 try {
@@ -127,6 +145,8 @@ public class NotificationAdapter extends RecyclerView.Adapter {
             calendar.setTimeInMillis(timestamp * 1000);
             calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            //sdf.setTimeZone(TimeZone.getDefault());
             Date currenTimeZone = (Date) calendar.getTime();
             return sdf.format(currenTimeZone);
         } catch (Exception e) {
@@ -166,6 +186,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_notification_image;
         TextView tv_notification_title, tv_notification_time;
+        RelativeLayout rel_notification_body;
 
 
         private ViewHolder(View itemView) {
@@ -174,6 +195,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
             iv_notification_image = (ImageView) itemView.findViewById(R.id.iv_notification_image);
             tv_notification_title = (TextView) itemView.findViewById(R.id.tv_notification_title);
             tv_notification_time = (TextView) itemView.findViewById(R.id.tv_notification_time);
+            rel_notification_body = (RelativeLayout) itemView.findViewById(R.id.rel_notification_body);
 
 
         }

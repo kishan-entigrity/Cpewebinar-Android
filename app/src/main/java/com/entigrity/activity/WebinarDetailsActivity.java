@@ -2,16 +2,23 @@ package com.entigrity.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
@@ -19,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -35,6 +43,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityWebinardetailsBinding;
 import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
@@ -154,7 +163,12 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     SimpleExoPlayer exoPlayer;
     public boolean checkpause = false;
     public String watched_duration = "0.00";
+    private boolean isNotification = false;
+    private String Cost = "";
 
+    private DownloadManager downloadManager;
+    private long refid;
+    ArrayList<Long> list = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -164,6 +178,10 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         mAPIService = ApiUtilsNew.getAPIService();
         inflater_new = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mProgressDialog = new ProgressDialog(context);
+        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+
+        registerReceiver(onComplete,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
 
         if (savedInstanceState != null) {
@@ -179,6 +197,10 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
 
             Constant.Log(TAG, "webinar_id" + webinarid);
+
+            if (getIntent().hasExtra(getResources().getString(R.string.str_is_notification))) {
+                isNotification = true;
+            }
 
             if (Constant.isNetworkAvailable(context)) {
                 progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
@@ -196,13 +218,17 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                 if (webinar_type.equalsIgnoreCase(getResources().getString(R.string.str_filter_live))) {
                     if (binding.tvWebinarStatus.getText().toString().equalsIgnoreCase(getResources()
                             .getString(R.string.str_webinar_status_register))) {
-                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
 
-                        if (Constant.isNetworkAvailable(context)) {
-                            progressDialog = DialogsUtils.showProgressDialog(context, context.getResources().getString(R.string.progrees_msg));
-                            RegisterWebinar(webinarid, binding.tvWebinarStatus);
+                        if (!Cost.equalsIgnoreCase("")) {
+                            Constant.ShowPopUp(getResources().getString(R.string.payment_validate_msg), context);
                         } else {
-                            Snackbar.make(binding.ivfavorite, context.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                            if (Constant.isNetworkAvailable(context)) {
+                                progressDialog = DialogsUtils.showProgressDialog(context, context.getResources().getString(R.string.progrees_msg));
+                                RegisterWebinar(webinarid, binding.tvWebinarStatus);
+                            } else {
+                                Snackbar.make(binding.ivfavorite, context.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                            }
                         }
                     } else if (binding.tvWebinarStatus.getText().toString().equalsIgnoreCase(context
                             .getResources().getString(R.string.str_webinar_status_certificate))) {
@@ -332,8 +358,18 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handler.removeCallbacks(runnable);
-                finish();
+                if (isNotification) {
+                    Intent i = new Intent(WebinarDetailsActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                    finish();
+
+                } else {
+                    handler.removeCallbacks(runnable);
+                    finish();
+                }
+
+
             }
         });
 
@@ -451,7 +487,9 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         binding.tvAddtocalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkAndroidVersion_Calender();
+
+                ShowPopupAddtoCalender(binding.tvWebinartitle.getText().toString());
+
             }
         });
 
@@ -499,6 +537,155 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onDestroy() {
+
+
+        super.onDestroy();
+
+        unregisterReceiver(onComplete);
+
+
+    }
+
+
+    public void ShowPopupAddtoCalender(String webinar_titile) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(WebinarDetailsActivity.this);
+
+        // Setting Dialog Title
+        alertDialog.setTitle("Add to Calender");
+
+        // Setting Dialog Message
+        alertDialog.setMessage(webinar_titile);
+
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Write your code here to invoke YES event
+                checkAndroidVersion_Calender();
+
+            }
+        });
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Write your code here to invoke NO event
+                dialog.cancel();
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+    }
+
+
+    BroadcastReceiver onComplete = new BroadcastReceiver() {
+
+        public void onReceive(Context ctxt, Intent intent) {
+
+
+            long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+
+
+            Log.e("IN", "" + referenceId);
+
+            list.remove(referenceId);
+
+
+            if (list.isEmpty()) {
+
+
+                Log.e("INSIDE", "" + referenceId);
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(context)
+                                .setSmallIcon(R.mipmap.app_icon)
+                                .setContentTitle("Document")
+                                .setContentText("MYCpe");
+
+
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(455, mBuilder.build());
+
+
+            }
+
+        }
+    };
+
+   /* public void DownloadCertificate(String[] mcertificateArray) {
+        list.clear();
+
+        for (int i = 0; i < mcertificateArray.length; i++) {
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(mcertificateArray.toString()));
+            String extension = mcertificateArray.toString().substring(mcertificateArray.toString().lastIndexOf('.') + 1).trim();
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+            request.setAllowedOverRoaming(false);
+            request.setTitle("Downloading Document");
+            request.setVisibleInDownloadsUi(true);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_Document" + "." + extension);
+
+            refid = downloadManager.enqueue(request);
+        }
+
+
+        Log.e("OUT", "" + refid);
+
+        list.add(refid);
+
+
+    }
+*/
+
+
+    public void DownloadCertificate(ArrayList<String> arrayListcertificate) {
+        list.clear();
+
+        for (int i = 0; i < arrayListcertificate.size(); i++) {
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(arrayListcertificate.get(i)));
+            String extension = arrayListcertificate.get(i).substring(arrayListcertificate.get(i).lastIndexOf('.') + 1).trim();
+            request.setAllowedOverRoaming(false);
+            request.setTitle("Downloading Document");
+            request.setVisibleInDownloadsUi(true);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_Document" + i + "." + extension);
+
+            refid = downloadManager.enqueue(request);
+        }
+
+
+        Log.e("OUT", "" + refid);
+
+        list.add(refid);
+
+
+    }
+
+
+    public void DownloadHandouts(ArrayList<String> arrayListhandout) {
+        list.clear();
+
+        for (int i = 0; i < arrayListhandout.size(); i++) {
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(arrayListhandout.get(i)));
+            String extension = arrayListhandout.get(i).substring(arrayListhandout.get(i).lastIndexOf('.') + 1).trim();
+            request.setAllowedOverRoaming(false);
+            request.setTitle("Downloading Handouts");
+            request.setVisibleInDownloadsUi(true);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_handouts" + i + "." + extension);
+
+            refid = downloadManager.enqueue(request);
+        }
+
+
+        Log.e("OUT", "" + refid);
+
+        list.add(refid);
+
+
+    }
+
 
     private void initFullscreenDialog() {
 
@@ -715,7 +902,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
                     Log.e("exo_save", "+++" + mResumePosition + "   " + play_time_duration + "   " + presentation_length);
-                    //SaveDuration(webinarid, mResumePosition, presentation_length, binding.tvWebinarStatus);
+                    SaveDuration(webinarid, mResumePosition, presentation_length, binding.tvWebinarStatus);
                 } else {
                     Snackbar.make(binding.ivfavorite, context.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                 }
@@ -752,7 +939,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
     public void SaveDuration(int webinar_id, long play_time_duration, long presentation_length, final Button button) {
-        mAPIService.SaveVideoDuration(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), webinar_id
+        mAPIService.SaveVideoDuration(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), webinar_id
                 , play_time_duration, presentation_length).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Video_duration_model>() {
                     @Override
@@ -768,7 +955,12 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+
+                        }
 
 
                     }
@@ -779,10 +971,9 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
                         if (video_duration_model.isSuccess() == true) {
-                            Snackbar.make(button, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            //Snackbar.make(button, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                             if (!video_duration_model.getPayload().getWatched().equalsIgnoreCase("")) {
                                 watched_duration = video_duration_model.getPayload().getWatched();
-
                                 binding.tvWatchedduration.setText("You have completed only " + watched_duration + "% of the video");
                             }
 
@@ -816,7 +1007,11 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -844,7 +1039,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     private void WebinarFavoriteLikeDislike(final int webinar_id, final ImageView ImageView) {
 
         mAPIService.PostWebinarLikeDislike(getResources().getString(R.string.accept),
-                getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
+                getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context),
                 webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Like_Dislike_Model>() {
                     @Override
@@ -860,7 +1055,12 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(ImageView, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(ImageView, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -898,12 +1098,15 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         } else {
             // write your logic here
             if (arrayListhandout.size() > 0) {
-                mhandoutArray = new String[arrayListhandout.size()];
-                mhandoutArray = arrayListhandout.toArray(mhandoutArray);
-                if (mhandoutArray.length > 0) {
-                    downloadTask = new DownloadTask(context);
-                    downloadTask.execute(mhandoutArray);
-                }
+                /*mhandoutArray = new String[arrayListhandout.size()];
+                mhandoutArray = arrayListhandout.toArray(mhandoutArray);*/
+                /*  if (mhandoutArray.length > 0) {
+                 *//*downloadTask = new DownloadTask(context);
+                    downloadTask.execute(mhandoutArray);*//*
+
+                }*/
+                DownloadHandouts(arrayListhandout);
+
             } else {
                 Constant.toast(context, getResources().getString(R.string.str_download_link_not_found));
             }
@@ -936,12 +1139,16 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                     if (writePermission && readExternalFile) {
                         // write your logic here
                         if (arrayListhandout.size() > 0) {
-                            mhandoutArray = new String[arrayListhandout.size()];
-                            mhandoutArray = arrayListhandout.toArray(mhandoutArray);
-                            if (mhandoutArray.length > 0) {
-                                downloadTask = new DownloadTask(context);
-                                downloadTask.execute(mhandoutArray);
-                            }
+                           /* mhandoutArray = new String[arrayListhandout.size()];
+                            mhandoutArray = arrayListhandout.toArray(mhandoutArray);*/
+
+                            DownloadHandouts(arrayListhandout);
+                            /*if (mhandoutArray.length > 0) {
+                             *//*   downloadTask = new DownloadTask(context);
+                                downloadTask.execute(mhandoutArray);*//*
+
+
+                            }*/
                         } else {
                             Constant.toast(context, getResources().getString(R.string.str_download_link_not_found));
                         }
@@ -981,12 +1188,16 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                     if (writePermission && readExternalFile) {
 
                         if (arrayListCertificate.size() > 0) {
-                            mcertificateArray = new String[arrayListCertificate.size()];
+                         /*   mcertificateArray = new String[arrayListCertificate.size()];
                             mcertificateArray = arrayListCertificate.toArray(mcertificateArray);
                             if (mcertificateArray.length > 0) {
                                 downloadTaskCerificate = new DownloadTaskCerificate(context);
                                 downloadTaskCerificate.execute(mcertificateArray);
-                            }
+                            }*/
+
+
+                            DownloadCertificate(arrayListCertificate);
+
                         } else {
                             Constant.toast(context, context.getResources().getString(R.string.str_certificate_link_not_found));
                         }
@@ -1032,12 +1243,16 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             // write your logic code if permission already granted
 
             if (arrayListhandout.size() > 0) {
-                mhandoutArray = new String[arrayListhandout.size()];
-                mhandoutArray = arrayListhandout.toArray(mhandoutArray);
-                if (mhandoutArray.length > 0) {
-                    downloadTask = new DownloadTask(context);
-                    downloadTask.execute(mhandoutArray);
-                }
+              /*  mhandoutArray = new String[arrayListhandout.size()];
+                mhandoutArray = arrayListhandout.toArray(mhandoutArray);*/
+
+                DownloadHandouts(arrayListhandout);
+                /* if (mhandoutArray.length > 0) {
+                 *//* downloadTask = new DownloadTask(context);
+                    downloadTask.execute(mhandoutArray);*//*
+
+
+                }*/
             } else {
                 Constant.toast(context, getResources().getString(R.string.str_download_link_not_found));
             }
@@ -1073,12 +1288,15 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             // write your logic code if permission already granted
 
             if (arrayListCertificate.size() > 0) {
-                mcertificateArray = new String[arrayListCertificate.size()];
+                /*mcertificateArray = new String[arrayListCertificate.size()];
                 mcertificateArray = arrayListCertificate.toArray(mcertificateArray);
                 if (mcertificateArray.length > 0) {
                     downloadTaskCerificate = new DownloadTaskCerificate(context);
                     downloadTaskCerificate.execute(mcertificateArray);
-                }
+                }*/
+
+                DownloadCertificate(arrayListCertificate);
+
             } else {
                 Constant.toast(context, context.getResources().getString(R.string.str_certificate_link_not_found));
             }
@@ -1199,6 +1417,12 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         if (mExoPlayerFullscreen) {
             closeFullscreenDialog();
+        } else if (isNotification) {
+            Intent i = new Intent(WebinarDetailsActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
+
         } else {
             handler.removeCallbacks(runnable);
             super.onBackPressed();
@@ -1207,7 +1431,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
     private void GetWebinarDetailsNew() {
-        mAPIService.GetWebinardetails(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), webinarid).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetWebinardetails(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), webinarid).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_details>() {
                     @Override
                     public void onCompleted() {
@@ -1222,7 +1446,11 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.relView, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.relView, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -1274,6 +1502,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
                             if (!webinar_details.getPayload().getWebinarDetail().getCost().equalsIgnoreCase("")) {
+                                Cost = webinar_details.getPayload().getWebinarDetail().getCost();
                                 binding.tvCost.setText("$" + webinar_details.getPayload().getWebinarDetail().getCost());
                             } else {
                                 binding.tvCost.setText("FREE");
@@ -1399,6 +1628,8 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                                 String hour = tokens.nextToken();// this will contain year
                                 String min = tokens.nextToken();//this will contain month
 
+                                Constant.Log("hour_min", "hour_min" + hour + " " + min);
+
                                 if (min.equalsIgnoreCase("00")) {
 
 
@@ -1407,8 +1638,15 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
                                 } else {
 
-                                    binding.tvDuration.setText(hour + " " + getResources().getString(R.string.str_hour) + " " + min +
-                                            " " + getResources().getString(R.string.str_min));
+                                    if (hour.equalsIgnoreCase("0")) {
+                                        binding.tvDuration.setText(min +
+                                                " " + getResources().getString(R.string.str_min));
+                                    } else {
+                                        binding.tvDuration.setText(hour + " " + getResources().getString(R.string.str_hour) + " " + min +
+                                                " " + getResources().getString(R.string.str_min));
+                                    }
+
+
                                     //  presentation_length = Integer.parseInt(binding.tvDuration.getText().toString().trim());
                                 }
 
@@ -1725,12 +1963,15 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         } else {
             // write your logic here
             if (arrayListCertificate.size() > 0) {
-                mcertificateArray = new String[arrayListCertificate.size()];
+               /* mcertificateArray = new String[arrayListCertificate.size()];
                 mcertificateArray = arrayListCertificate.toArray(mcertificateArray);
                 if (mcertificateArray.length > 0) {
                     downloadTaskCerificate = new DownloadTaskCerificate(context);
                     downloadTaskCerificate.execute(mcertificateArray);
-                }
+                }*/
+
+                DownloadCertificate(arrayListCertificate);
+
             } else {
                 Constant.toast(context, context.getResources().getString(R.string.str_certificate_link_not_found));
             }
@@ -1864,7 +2105,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             if (result != null)
                 Toast.makeText(context, "Download error: " + result, Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(context, "File downloaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Download complete", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1966,7 +2207,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             if (result != null)
                 Toast.makeText(context, "Download error: " + result, Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(context, "File downloaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Download complete", Toast.LENGTH_SHORT).show();
         }
     }
 

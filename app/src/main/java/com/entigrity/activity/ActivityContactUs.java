@@ -13,6 +13,7 @@ import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityContactUsBinding;
 import com.entigrity.model.getcontactusinfo.GetContactUsInfo;
@@ -138,7 +139,13 @@ public class ActivityContactUs extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.btnsubmit, message, Snackbar.LENGTH_SHORT).show();
+                        }
+
 
                     }
 
@@ -196,7 +203,12 @@ public class ActivityContactUs extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }

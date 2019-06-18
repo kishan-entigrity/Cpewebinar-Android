@@ -15,6 +15,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityEvolutionFormBinding;
 import com.entigrity.model.evaluation_form.Evalutionformmodel;
@@ -68,7 +69,7 @@ public class ActivityEvolutionForm extends AppCompatActivity {
 
     private void GetEvaluationForm() {
 
-        mAPIService.EvaluationForm(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.EvaluationForm(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Evalutionformmodel>() {
                     @Override
                     public void onCompleted() {
@@ -83,7 +84,11 @@ public class ActivityEvolutionForm extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -99,7 +104,7 @@ public class ActivityEvolutionForm extends AppCompatActivity {
                             webSetting.setDisplayZoomControls(true);
                             binding.webview.loadUrl(evalutionformmodel.getPayload().getLink());
 
-                            Log.e("link","link"+evalutionformmodel.getPayload().getLink());
+                            Log.e("link", "link" + evalutionformmodel.getPayload().getLink());
 
 
                         } else {

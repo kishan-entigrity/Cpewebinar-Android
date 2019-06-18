@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.activity.TopicsOfInterestActivity;
 import com.entigrity.model.savetopicsofinterest.SaveTopicsInterest;
@@ -137,7 +138,7 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
 
     public void GetSubcategory(int category_id, final ImageView imageView) {
 
-        mAPIService.GetSubcategoryTopics(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext), category_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetSubcategoryTopics(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(mContext), category_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Topics_subcategory>() {
                     @Override
                     public void onCompleted() {
@@ -152,7 +153,11 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
                         }
 
                         String message = Constant.GetReturnResponse(mContext, e);
-                        Snackbar.make(imageView, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(imageView, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -287,7 +292,7 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
     }
 
     private void SaveTopicsofInterest(String selectedlist) {
-        mAPIService.PostTopicsOfInterest(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) + AppSettings.get_login_token(mContext), selectedlist).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.PostTopicsOfInterest(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(mContext), selectedlist).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SaveTopicsInterest>() {
                     @Override
                     public void onCompleted() {
@@ -302,7 +307,11 @@ public class RecycleviewSectionTestAdapter extends RecyclerView.Adapter<Recyclev
                         }
 
                         String message = Constant.GetReturnResponse(mContext, e);
-                        Snackbar.make(tv_submit, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(tv_submit, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }

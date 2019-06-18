@@ -21,6 +21,8 @@ public class SplashActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
     ActivitySplashBinding binding;
     public Context context;
+    private int flag = 0, webinar_id = 0;
+    private String webinar_type = "";
 
     private static final String TAG = SplashActivity.class.getName();
 
@@ -78,9 +80,41 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 } else {
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
+                    if (getIntent().getExtras() != null && getIntent().hasExtra(getResources().getString(R.string.pass_webinar_id))) {
+                        webinar_type = getIntent().getExtras().getString(getResources().getString(R.string.pass_webinar_type));
+                        webinar_id = getIntent().getExtras().getInt(getResources().getString(R.string.pass_webinar_id), 0);
+
+                        try {
+                            Intent mIntent;
+                            mIntent = new Intent(SplashActivity.this, WebinarDetailsActivity.class);
+                            mIntent.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                            mIntent.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+                            mIntent.putExtra(getResources().getString(R.string.str_is_notification), true);
+                            startActivity(mIntent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+
+
+
+                        /* webinar_type = getIntent().getStringExtra(getResources().getString(R.string.pass_webinar_type));
+                        webinar_id = getIntent().getIntExtra(getResources().getString(R.string.pass_webinar_id), 0);
+
+                        Constant.Log("flag", "+++" + flag + "  " + webinar_type + "  " + webinar_id);
+                        Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                        i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                        i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+                        startActivity(i);
+                        finish();
+*/
+                    } else {
+                        Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+
+                    }
+
                 }
 
 

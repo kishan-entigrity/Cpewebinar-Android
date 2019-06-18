@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CompoundButton;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityNotificationSettingBinding;
 import com.entigrity.model.getnotificationsetting.GetNotificationModel;
@@ -370,7 +371,7 @@ public class ActivityNotificationSetting extends AppCompatActivity {
     }
 
     private void SaveNotificationSettingList(String push, String text) {
-        mAPIService.SubmitNotification(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context),
+        mAPIService.SubmitNotification(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context),
                 push, text).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SubmitNotification>() {
                     @Override
@@ -384,7 +385,11 @@ public class ActivityNotificationSetting extends AppCompatActivity {
 
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -411,7 +416,7 @@ public class ActivityNotificationSetting extends AppCompatActivity {
     }
 
     private void GetNotificationSettingList() {
-        mAPIService.GetNotificationSetting(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetNotificationSetting(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GetNotificationModel>() {
                     @Override
                     public void onCompleted() {
@@ -427,7 +432,11 @@ public class ActivityNotificationSetting extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
 
                     }
