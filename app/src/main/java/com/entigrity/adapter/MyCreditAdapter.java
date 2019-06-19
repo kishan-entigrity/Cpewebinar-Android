@@ -235,7 +235,6 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
     }
 
 
-
     @Override
     public int getItemViewType(int position) {
         return (position == mList.size() - 1 && isLoadingAdded) ? VIEW_ITEM : VIEW_PROG;
@@ -307,6 +306,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
 
 
                 Log.e("INSIDE", "" + referenceId);
+                Toast.makeText(mContext, "Download complete", Toast.LENGTH_SHORT).show();
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(mContext)
                                 .setSmallIcon(R.mipmap.app_icon)

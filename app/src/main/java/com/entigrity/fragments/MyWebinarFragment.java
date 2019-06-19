@@ -51,7 +51,7 @@ public class MyWebinarFragment extends Fragment {
     private List<String> arraysavefilterMyWebinar = new ArrayList<String>();
     private APIService mAPIService_new;
     private boolean loading = true;
-    private String webinartypemywebinar = "";
+    private String webinartypemywebinar = "live";
     public boolean islast = false;
     public boolean isprogress = false;
     public int start = 0, limit = 10;
@@ -406,7 +406,6 @@ public class MyWebinarFragment extends Fragment {
     }
 
 
-
     private void loadNextPage() {
         if (Constant.isNetworkAvailable(context)) {
             binding.progressBar.setVisibility(View.VISIBLE);
@@ -421,7 +420,7 @@ public class MyWebinarFragment extends Fragment {
     public void GetMyWebinarListNew(final String webinartype, final String topicsofinterest, final int start, final int limit) {
 
         mAPIService_new.GetMyWebinarListNew(getResources().getString(R.string.accept),
-                getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context),
+                getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context),
                 start, limit, webinartype, topicsofinterest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Home_New>() {
                     @Override

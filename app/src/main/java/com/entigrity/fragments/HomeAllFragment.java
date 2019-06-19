@@ -46,7 +46,7 @@ public class HomeAllFragment extends Fragment {
     ProgressDialog progressDialog;
     LinearLayoutManager linearLayoutManager;
     private List<com.entigrity.model.homewebinarnew.WebinarItem> arrHomelistnew = new ArrayList<com.entigrity.model.homewebinarnew.WebinarItem>();
-    private String webinartype = "";
+    private String webinartype = "live";
     private String topicsofinterest = "";
     private List<Boolean> arrsavebooleanstate = new ArrayList();
     private List<String> arraysavefilter = new ArrayList<String>();

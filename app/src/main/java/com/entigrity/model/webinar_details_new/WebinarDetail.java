@@ -4,459 +4,481 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class WebinarDetail {
 
-    public String getWatched() {
-        return watched;
-    }
+public class WebinarDetail{
 
-    public void setWatched(String watched) {
-        this.watched = watched;
-    }
+	@SerializedName("subject_area")
+	private String subjectArea;
 
-    @SerializedName("subject_area")
-    private String subjectArea;
+	@SerializedName("course_level")
+	private String courseLevel;
 
+	@SerializedName("program_description")
+	private String programDescription;
 
-    @SerializedName("watched")
-    private String watched;
+	@SerializedName("advance_preparation")
+	private String advancePreparation;
 
+	@SerializedName("shareable_link")
+	private String shareableLink;
 
-    public int getTimespent() {
-        return timespent;
-    }
+	@SerializedName("timespent")
+	private int timespent;
 
-    public void setTimespent(int timespent) {
-        this.timespent = timespent;
-    }
+	@SerializedName("video_status")
+	private boolean videoStatus;
 
-    public int getPlaytimeduration() {
-        return playtimeduration;
-    }
+	@SerializedName("webinar_date")
+	private String webinarDate;
 
-    public void setPlaytimeduration(int playtimeduration) {
-        this.playtimeduration = playtimeduration;
-    }
+	@SerializedName("duration")
+	private int duration;
 
-    @SerializedName("timespent")
-    private int timespent;
+	@SerializedName("Learning_objective")
+	private String learningObjective;
 
-    @SerializedName("play_time_duration")
-    private int playtimeduration;
+	@SerializedName("like_dislike_status")
+	private String likeDislikeStatus;
 
-    public String getJoinurl() {
-        return joinurl;
-    }
+	@SerializedName("webinar_id")
+	private int webinarId;
 
-    public void setJoinurl(String joinurl) {
-        this.joinurl = joinurl;
-    }
+	@SerializedName("instructional_method")
+	private String instructionalMethod;
 
-    @SerializedName("join_url")
-    private String joinurl;
+	@SerializedName("faq")
+	private String faq;
 
+	@SerializedName("webinar_testimonial")
+	private List<WebinarTestimonialItem> webinarTestimonial;
 
-    @SerializedName("course_level")
-    private String courseLevel;
+	@SerializedName("webinar_title")
+	private String webinarTitle;
 
-    @SerializedName("program_description")
-    private String programDescription;
+	@SerializedName("credit")
+	private String credit;
 
-    @SerializedName("advance_preparation")
-    private String advancePreparation;
+	@SerializedName("about_presententer")
+	private AboutPresententer aboutPresententer;
 
-    @SerializedName("shareable_link")
-    private String shareableLink;
+	@SerializedName("start_date")
+	private String startDate;
 
-    @SerializedName("webinar_date")
-    private String webinarDate;
+	@SerializedName("course_id")
+	private String courseId;
 
-    @SerializedName("duration")
-    private int duration;
+	@SerializedName("join_url")
+	private String joinUrl;
 
-    @SerializedName("Learning_objective")
-    private String learningObjective;
+	@SerializedName("cost")
+	private String cost;
 
-    public String getLearningObjective() {
-        return learningObjective;
-    }
+	@SerializedName("prerequisite")
+	private String prerequisite;
 
-    public void setLearningObjective(String learningObjective) {
-        this.learningObjective = learningObjective;
-    }
+	@SerializedName("who_should_attend")
+	private List<String> whoShouldAttend;
 
-    @SerializedName("like_dislike_status")
-    private String likeDislikeStatus;
+	@SerializedName("webinar_thumbnail")
+	private String webinarThumbnail;
 
-    @SerializedName("webinar_id")
-    private int webinarId;
+	@SerializedName("time_zone")
+	private String timeZone;
 
-    @SerializedName("instructional_method")
-    private String instructionalMethod;
+	@SerializedName("webinar_video_url")
+	private String webinarVideoUrl;
 
-    @SerializedName("faq")
-    private String faq;
+	@SerializedName("presentation_handout")
+	private List<String> presentationHandout;
 
-    @SerializedName("webinar_title")
-    private String webinarTitle;
+	@SerializedName("start_time")
+	private String startTime;
 
-    @SerializedName("credit")
-    private String credit;
+	@SerializedName("watched")
+	private String watched;
 
-    @SerializedName("about_presententer")
-    private AboutPresententer aboutPresententer;
+	@SerializedName("timezones")
+	private List<TimezonesItem> timezones;
 
-    @SerializedName("start_date")
-    private String startDate;
+	@SerializedName("series")
+	private String series;
 
-    @SerializedName("cost")
-    private String cost;
+	@SerializedName("certificate_link")
+	private List<String> certificateLink;
 
-    @SerializedName("prerequisite")
-    private String prerequisite;
+	@SerializedName("play_time_duration")
+	private int playTimeDuration;
 
-    @SerializedName("who_should_attend")
-    private List<String> whoShouldAttend;
+	@SerializedName("schedule_id")
+	private int scheduleId;
 
-    @SerializedName("webinar_thumbnail")
-    private String webinarThumbnail;
+	@SerializedName("refund_and_cancelation_policy")
+	private String refundAndCancelationPolicy;
 
-    @SerializedName("time_zone")
-    private String timeZone;
+	@SerializedName("nasba_approved")
+	private NasbaApproved nasbaApproved;
 
-    @SerializedName("webinar_video_url")
-    private String webinarVideoUrl;
+	@SerializedName("webinar_status")
+	private String webinarStatus;
 
-    public List<String> getCertificatelink() {
-        return certificatelink;
-    }
+	@SerializedName("status")
+	private String status;
 
-    public void setCertificatelink(List<String> certificatelink) {
-        this.certificatelink = certificatelink;
-    }
+	public void setSubjectArea(String subjectArea){
+		this.subjectArea = subjectArea;
+	}
 
-    @SerializedName("presentation_handout")
-    private List<String> presentationHandout;
+	public String getSubjectArea(){
+		return subjectArea;
+	}
 
+	public void setCourseLevel(String courseLevel){
+		this.courseLevel = courseLevel;
+	}
 
-    @SerializedName("certificate_link")
-    private List<String> certificatelink;
+	public String getCourseLevel(){
+		return courseLevel;
+	}
 
+	public void setProgramDescription(String programDescription){
+		this.programDescription = programDescription;
+	}
 
-    @SerializedName("start_time")
-    private String startTime;
+	public String getProgramDescription(){
+		return programDescription;
+	}
 
-    @SerializedName("timezones")
-    private List<TimezonesItem> timezones;
+	public void setAdvancePreparation(String advancePreparation){
+		this.advancePreparation = advancePreparation;
+	}
 
-    @SerializedName("series")
-    private String series;
+	public String getAdvancePreparation(){
+		return advancePreparation;
+	}
 
-    @SerializedName("refund_and_cancelation_policy")
-    private String refundAndCancelationPolicy;
+	public void setShareableLink(String shareableLink){
+		this.shareableLink = shareableLink;
+	}
 
-    @SerializedName("nasba_approved")
-    private NasbaApproved nasbaApproved;
+	public String getShareableLink(){
+		return shareableLink;
+	}
 
-    @SerializedName("webinar_status")
-    private String webinarStatus;
+	public void setTimespent(int timespent){
+		this.timespent = timespent;
+	}
 
-    public String getCourseid() {
-        return courseid;
-    }
+	public int getTimespent(){
+		return timespent;
+	}
 
-    public void setCourseid(String courseid) {
-        this.courseid = courseid;
-    }
+	public void setVideoStatus(boolean videoStatus){
+		this.videoStatus = videoStatus;
+	}
 
-    @SerializedName("status")
-    private String status;
+	public boolean isVideoStatus(){
+		return videoStatus;
+	}
 
+	public void setWebinarDate(String webinarDate){
+		this.webinarDate = webinarDate;
+	}
 
-    @SerializedName("course_id")
-    private String courseid;
+	public String getWebinarDate(){
+		return webinarDate;
+	}
 
+	public void setDuration(int duration){
+		this.duration = duration;
+	}
 
-    public void setSubjectArea(String subjectArea) {
-        this.subjectArea = subjectArea;
-    }
+	public int getDuration(){
+		return duration;
+	}
 
-    public String getSubjectArea() {
-        return subjectArea;
-    }
-
-    public void setCourseLevel(String courseLevel) {
-        this.courseLevel = courseLevel;
-    }
-
-    public String getCourseLevel() {
-        return courseLevel;
-    }
-
-    public void setProgramDescription(String programDescription) {
-        this.programDescription = programDescription;
-    }
-
-    public String getProgramDescription() {
-        return programDescription;
-    }
-
-    public void setAdvancePreparation(String advancePreparation) {
-        this.advancePreparation = advancePreparation;
-    }
-
-    public String getAdvancePreparation() {
-        return advancePreparation;
-    }
-
-    public void setShareableLink(String shareableLink) {
-        this.shareableLink = shareableLink;
-    }
-
-    public String getShareableLink() {
-        return shareableLink;
-    }
-
-    public void setWebinarDate(String webinarDate) {
-        this.webinarDate = webinarDate;
-    }
-
-    public String getWebinarDate() {
-        return webinarDate;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-	/*public void setLearningObjective(List<String> learningObjective){
+	public void setLearningObjective(String learningObjective){
 		this.learningObjective = learningObjective;
 	}
 
-	public List<String> getLearningObjective(){
+	public String getLearningObjective(){
 		return learningObjective;
-	}*/
+	}
 
-    public void setLikeDislikeStatus(String likeDislikeStatus) {
-        this.likeDislikeStatus = likeDislikeStatus;
-    }
+	public void setLikeDislikeStatus(String likeDislikeStatus){
+		this.likeDislikeStatus = likeDislikeStatus;
+	}
 
-    public String getLikeDislikeStatus() {
-        return likeDislikeStatus;
-    }
+	public String getLikeDislikeStatus(){
+		return likeDislikeStatus;
+	}
 
-    public void setWebinarId(int webinarId) {
-        this.webinarId = webinarId;
-    }
+	public void setWebinarId(int webinarId){
+		this.webinarId = webinarId;
+	}
 
-    public int getWebinarId() {
-        return webinarId;
-    }
+	public int getWebinarId(){
+		return webinarId;
+	}
 
-    public void setInstructionalMethod(String instructionalMethod) {
-        this.instructionalMethod = instructionalMethod;
-    }
+	public void setInstructionalMethod(String instructionalMethod){
+		this.instructionalMethod = instructionalMethod;
+	}
 
-    public String getInstructionalMethod() {
-        return instructionalMethod;
-    }
+	public String getInstructionalMethod(){
+		return instructionalMethod;
+	}
 
-    public void setFaq(String faq) {
-        this.faq = faq;
-    }
+	public void setFaq(String faq){
+		this.faq = faq;
+	}
 
-    public String getFaq() {
-        return faq;
-    }
+	public String getFaq(){
+		return faq;
+	}
 
-    public void setWebinarTitle(String webinarTitle) {
-        this.webinarTitle = webinarTitle;
-    }
+	public void setWebinarTestimonial(List<WebinarTestimonialItem> webinarTestimonial){
+		this.webinarTestimonial = webinarTestimonial;
+	}
 
-    public String getWebinarTitle() {
-        return webinarTitle;
-    }
+	public List<WebinarTestimonialItem> getWebinarTestimonial(){
+		return webinarTestimonial;
+	}
 
-    public void setCredit(String credit) {
-        this.credit = credit;
-    }
+	public void setWebinarTitle(String webinarTitle){
+		this.webinarTitle = webinarTitle;
+	}
 
-    public String getCredit() {
-        return credit;
-    }
+	public String getWebinarTitle(){
+		return webinarTitle;
+	}
 
-    public void setAboutPresententer(AboutPresententer aboutPresententer) {
-        this.aboutPresententer = aboutPresententer;
-    }
+	public void setCredit(String credit){
+		this.credit = credit;
+	}
 
-    public AboutPresententer getAboutPresententer() {
-        return aboutPresententer;
-    }
+	public String getCredit(){
+		return credit;
+	}
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+	public void setAboutPresententer(AboutPresententer aboutPresententer){
+		this.aboutPresententer = aboutPresententer;
+	}
 
-    public String getStartDate() {
-        return startDate;
-    }
+	public AboutPresententer getAboutPresententer(){
+		return aboutPresententer;
+	}
 
-    public void setCost(String cost) {
-        this.cost = cost;
-    }
+	public void setStartDate(String startDate){
+		this.startDate = startDate;
+	}
 
-    public String getCost() {
-        return cost;
-    }
+	public String getStartDate(){
+		return startDate;
+	}
 
-    public void setPrerequisite(String prerequisite) {
-        this.prerequisite = prerequisite;
-    }
+	public void setCourseId(String courseId){
+		this.courseId = courseId;
+	}
 
-    public String getPrerequisite() {
-        return prerequisite;
-    }
+	public String getCourseId(){
+		return courseId;
+	}
 
-    public void setWhoShouldAttend(List<String> whoShouldAttend) {
-        this.whoShouldAttend = whoShouldAttend;
-    }
+	public void setJoinUrl(String joinUrl){
+		this.joinUrl = joinUrl;
+	}
 
-    public List<String> getWhoShouldAttend() {
-        return whoShouldAttend;
-    }
+	public String getJoinUrl(){
+		return joinUrl;
+	}
 
-    public void setWebinarThumbnail(String webinarThumbnail) {
-        this.webinarThumbnail = webinarThumbnail;
-    }
+	public void setCost(String cost){
+		this.cost = cost;
+	}
 
-    public String getWebinarThumbnail() {
-        return webinarThumbnail;
-    }
+	public String getCost(){
+		return cost;
+	}
 
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
-    }
+	public void setPrerequisite(String prerequisite){
+		this.prerequisite = prerequisite;
+	}
 
-    public String getTimeZone() {
-        return timeZone;
-    }
+	public String getPrerequisite(){
+		return prerequisite;
+	}
 
-    public void setWebinarVideoUrl(String webinarVideoUrl) {
-        this.webinarVideoUrl = webinarVideoUrl;
-    }
+	public void setWhoShouldAttend(List<String> whoShouldAttend){
+		this.whoShouldAttend = whoShouldAttend;
+	}
 
-    public String getWebinarVideoUrl() {
-        return webinarVideoUrl;
-    }
+	public List<String> getWhoShouldAttend(){
+		return whoShouldAttend;
+	}
 
-    public void setPresentationHandout(List<String> presentationHandout) {
-        this.presentationHandout = presentationHandout;
-    }
+	public void setWebinarThumbnail(String webinarThumbnail){
+		this.webinarThumbnail = webinarThumbnail;
+	}
 
-    public List<String> getPresentationHandout() {
-        return presentationHandout;
-    }
+	public String getWebinarThumbnail(){
+		return webinarThumbnail;
+	}
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
+	public void setTimeZone(String timeZone){
+		this.timeZone = timeZone;
+	}
 
-    public String getStartTime() {
-        return startTime;
-    }
+	public String getTimeZone(){
+		return timeZone;
+	}
 
-    public void setTimezones(List<TimezonesItem> timezones) {
-        this.timezones = timezones;
-    }
+	public void setWebinarVideoUrl(String webinarVideoUrl){
+		this.webinarVideoUrl = webinarVideoUrl;
+	}
 
-    public List<TimezonesItem> getTimezones() {
-        return timezones;
-    }
+	public String getWebinarVideoUrl(){
+		return webinarVideoUrl;
+	}
 
-    public void setSeries(String series) {
-        this.series = series;
-    }
+	public void setPresentationHandout(List<String> presentationHandout){
+		this.presentationHandout = presentationHandout;
+	}
 
-    public String getSeries() {
-        return series;
-    }
+	public List<String> getPresentationHandout(){
+		return presentationHandout;
+	}
 
-    public void setRefundAndCancelationPolicy(String refundAndCancelationPolicy) {
-        this.refundAndCancelationPolicy = refundAndCancelationPolicy;
-    }
+	public void setStartTime(String startTime){
+		this.startTime = startTime;
+	}
 
-    public String getRefundAndCancelationPolicy() {
-        return refundAndCancelationPolicy;
-    }
+	public String getStartTime(){
+		return startTime;
+	}
 
-    public void setNasbaApproved(NasbaApproved nasbaApproved) {
-        this.nasbaApproved = nasbaApproved;
-    }
+	public void setWatched(String watched){
+		this.watched = watched;
+	}
 
-    public NasbaApproved getNasbaApproved() {
-        return nasbaApproved;
-    }
+	public String getWatched(){
+		return watched;
+	}
 
-    public void setWebinarStatus(String webinarStatus) {
-        this.webinarStatus = webinarStatus;
-    }
+	public void setTimezones(List<TimezonesItem> timezones){
+		this.timezones = timezones;
+	}
 
-    public String getWebinarStatus() {
-        return webinarStatus;
-    }
+	public List<TimezonesItem> getTimezones(){
+		return timezones;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setSeries(String series){
+		this.series = series;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public String getSeries(){
+		return series;
+	}
 
-    @Override
-    public String toString() {
-        return
-                "WebinarDetail{" +
-                        "subject_area = '" + subjectArea + '\'' +
-                        "timespent = '" + timespent + '\'' +
-                        "play_time_duration = '" + playtimeduration + '\'' +
-                        "join_url = '" + joinurl + '\'' +
-                        ",course_level = '" + courseLevel + '\'' +
-                        ",certificate_link = '" + certificatelink + '\'' +
-                        ",program_description = '" + programDescription + '\'' +
-                        ",advance_preparation = '" + advancePreparation + '\'' +
-                        ",shareable_link = '" + shareableLink + '\'' +
-                        ",webinar_date = '" + webinarDate + '\'' +
-                        ",duration = '" + duration + '\'' +
-                        ",learning_objective = '" + learningObjective + '\'' +
-                        ",like_dislike_status = '" + likeDislikeStatus + '\'' +
-                        ",webinar_id = '" + webinarId + '\'' +
-                        ",instructional_method = '" + instructionalMethod + '\'' +
-                        ",faq = '" + faq + '\'' +
-                        ",webinar_title = '" + webinarTitle + '\'' +
-                        ",credit = '" + credit + '\'' +
-                        ",about_presententer = '" + aboutPresententer + '\'' +
-                        ",start_date = '" + startDate + '\'' +
-                        ",cost = '" + cost + '\'' +
-                        ",prerequisite = '" + prerequisite + '\'' +
-                        ",who_should_attend = '" + whoShouldAttend + '\'' +
-                        ",webinar_thumbnail = '" + webinarThumbnail + '\'' +
-                        ",time_zone = '" + timeZone + '\'' +
-                        ",webinar_video_url = '" + webinarVideoUrl + '\'' +
-                        ",presentation_handout = '" + presentationHandout + '\'' +
-                        ",start_time = '" + startTime + '\'' +
-                        ",timezones = '" + timezones + '\'' +
-                        ",series = '" + series + '\'' +
-                        ",refund_and_cancelation_policy = '" + refundAndCancelationPolicy + '\'' +
-                        ",nasba_approved = '" + nasbaApproved + '\'' +
-                        ",webinar_status = '" + webinarStatus + '\'' +
-                        ",status = '" + status + '\'' +
-                        ",course_id = '" + courseid + '\'' +
-                        ",watched = '" + watched + '\'' +
-                        "}";
-    }
+	public void setCertificateLink(List<String> certificateLink){
+		this.certificateLink = certificateLink;
+	}
+
+	public List<String> getCertificateLink(){
+		return certificateLink;
+	}
+
+	public void setPlayTimeDuration(int playTimeDuration){
+		this.playTimeDuration = playTimeDuration;
+	}
+
+	public int getPlayTimeDuration(){
+		return playTimeDuration;
+	}
+
+	public void setScheduleId(int scheduleId){
+		this.scheduleId = scheduleId;
+	}
+
+	public int getScheduleId(){
+		return scheduleId;
+	}
+
+	public void setRefundAndCancelationPolicy(String refundAndCancelationPolicy){
+		this.refundAndCancelationPolicy = refundAndCancelationPolicy;
+	}
+
+	public String getRefundAndCancelationPolicy(){
+		return refundAndCancelationPolicy;
+	}
+
+	public void setNasbaApproved(NasbaApproved nasbaApproved){
+		this.nasbaApproved = nasbaApproved;
+	}
+
+	public NasbaApproved getNasbaApproved(){
+		return nasbaApproved;
+	}
+
+	public void setWebinarStatus(String webinarStatus){
+		this.webinarStatus = webinarStatus;
+	}
+
+	public String getWebinarStatus(){
+		return webinarStatus;
+	}
+
+	public void setStatus(String status){
+		this.status = status;
+	}
+
+	public String getStatus(){
+		return status;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"WebinarDetail{" + 
+			"subject_area = '" + subjectArea + '\'' + 
+			",course_level = '" + courseLevel + '\'' + 
+			",program_description = '" + programDescription + '\'' + 
+			",advance_preparation = '" + advancePreparation + '\'' + 
+			",shareable_link = '" + shareableLink + '\'' + 
+			",timespent = '" + timespent + '\'' + 
+			",video_status = '" + videoStatus + '\'' + 
+			",webinar_date = '" + webinarDate + '\'' + 
+			",duration = '" + duration + '\'' + 
+			",learning_objective = '" + learningObjective + '\'' + 
+			",like_dislike_status = '" + likeDislikeStatus + '\'' + 
+			",webinar_id = '" + webinarId + '\'' + 
+			",instructional_method = '" + instructionalMethod + '\'' + 
+			",faq = '" + faq + '\'' + 
+			",webinar_testimonial = '" + webinarTestimonial + '\'' + 
+			",webinar_title = '" + webinarTitle + '\'' + 
+			",credit = '" + credit + '\'' + 
+			",about_presententer = '" + aboutPresententer + '\'' + 
+			",start_date = '" + startDate + '\'' + 
+			",course_id = '" + courseId + '\'' + 
+			",join_url = '" + joinUrl + '\'' + 
+			",cost = '" + cost + '\'' + 
+			",prerequisite = '" + prerequisite + '\'' + 
+			",who_should_attend = '" + whoShouldAttend + '\'' + 
+			",webinar_thumbnail = '" + webinarThumbnail + '\'' + 
+			",time_zone = '" + timeZone + '\'' + 
+			",webinar_video_url = '" + webinarVideoUrl + '\'' + 
+			",presentation_handout = '" + presentationHandout + '\'' + 
+			",start_time = '" + startTime + '\'' + 
+			",watched = '" + watched + '\'' + 
+			",timezones = '" + timezones + '\'' + 
+			",series = '" + series + '\'' + 
+			",certificate_link = '" + certificateLink + '\'' + 
+			",play_time_duration = '" + playTimeDuration + '\'' + 
+			",schedule_id = '" + scheduleId + '\'' + 
+			",refund_and_cancelation_policy = '" + refundAndCancelationPolicy + '\'' + 
+			",nasba_approved = '" + nasbaApproved + '\'' + 
+			",webinar_status = '" + webinarStatus + '\'' + 
+			",status = '" + status + '\'' + 
+			"}";
+		}
 }

@@ -129,6 +129,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
 
 
                 Log.e("INSIDE", "" + referenceId);
+                Toast.makeText(mContext, "Download complete", Toast.LENGTH_SHORT).show();
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(mContext)
                                 .setSmallIcon(R.mipmap.app_icon)
@@ -776,7 +777,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
     private void WebinarFavoriteLikeDislike(final TextView textView, final int webinar_id, final ImageView ImageView, final int position) {
 
         mAPIService.PostWebinarLikeDislike(mContext.getResources().getString(R.string.accept),
-                mContext.getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(mContext),
+                mContext.getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(mContext),
                 webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Webinar_Like_Dislike_Model>() {
                     @Override
@@ -844,11 +845,9 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
     }
 
 
-
-
     public void RegisterWebinar(int webinar_id, int schedule_id, final Button button, final int position) {
 
-        mAPIService.RegisterWebinar(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(mContext), webinar_id, schedule_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.RegisterWebinar(mContext.getResources().getString(R.string.accept), mContext.getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(mContext), webinar_id, schedule_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ModelRegisterWebinar>() {
                     @Override
                     public void onCompleted() {

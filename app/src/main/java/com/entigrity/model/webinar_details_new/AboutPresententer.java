@@ -8,36 +8,20 @@ public class AboutPresententer {
     @SerializedName("desgnination")
     private String desgnination;
 
-    @SerializedName("company_website")
-    private String companyWebsite;
-
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
-    }
-
-    @SerializedName("qualification")
-    private String qualification;
-
     @SerializedName("email_id")
     private String emailId;
 
-    public String getCompanyWebsite() {
-        return companyWebsite;
-    }
-
-    public void setCompanyWebsite(String companyWebsite) {
-        this.companyWebsite = companyWebsite;
-    }
+    @SerializedName("qualification")
+    private String qualification;
 
     @SerializedName("company_desc")
     private String companyDesc;
 
     @SerializedName("company_name")
     private String companyName;
+
+    @SerializedName("company_website")
+    private String companyWebsite;
 
     @SerializedName("name")
     private String name;
@@ -61,6 +45,14 @@ public class AboutPresententer {
         return emailId;
     }
 
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
     public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
     }
@@ -75,6 +67,14 @@ public class AboutPresententer {
 
     public String getCompanyName() {
         return companyName;
+    }
+
+    public void setCompanyWebsite(String companyWebsite) {
+        this.companyWebsite = companyWebsite;
+    }
+
+    public String getCompanyWebsite() {
+        return companyWebsite;
     }
 
     public void setName(String name) {
@@ -100,9 +100,9 @@ public class AboutPresententer {
                         "desgnination = '" + desgnination + '\'' +
                         ",email_id = '" + emailId + '\'' +
                         ",qualification = '" + qualification + '\'' +
-                        ",company_website = '" + companyWebsite + '\'' +
                         ",company_desc = '" + companyDesc + '\'' +
                         ",company_name = '" + companyName + '\'' +
+                        ",company_website = '" + companyWebsite + '\'' +
                         ",name = '" + name + '\'' +
                         ",speaker_desc = '" + speakerDesc + '\'' +
                         "}";

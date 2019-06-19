@@ -186,6 +186,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
+
+        <activity
+            android:name=".activity.TestimonialActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
             android:name=".activity.ActivityWhoYouAre"
             android:screenOrientation="portrait"

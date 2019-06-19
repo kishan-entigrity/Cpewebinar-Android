@@ -55,6 +55,9 @@ public class ActivityEvolutionForm extends AppCompatActivity {
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(context, WebinarDetailsActivity.class);
+                i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+                startActivity(i);
                 finish();
             }
         });
@@ -67,9 +70,18 @@ public class ActivityEvolutionForm extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(context, WebinarDetailsActivity.class);
+        i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+        startActivity(i);
+        finish();
+    }
+
     private void GetEvaluationForm() {
 
-        mAPIService.EvaluationForm(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.EvaluationForm(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Evalutionformmodel>() {
                     @Override
                     public void onCompleted() {

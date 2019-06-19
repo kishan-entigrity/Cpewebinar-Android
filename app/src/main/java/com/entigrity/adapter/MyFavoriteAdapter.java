@@ -156,6 +156,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
 
 
                 Log.e("INSIDE", "" + referenceId);
+                Toast.makeText(mContext, "Download complete", Toast.LENGTH_SHORT).show();
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(mContext)
                                 .setSmallIcon(R.mipmap.app_icon)

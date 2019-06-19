@@ -2,6 +2,7 @@ package com.entigrity.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,10 +17,10 @@ import android.view.View;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
-import com.entigrity.adapter.NotificationAdapter;
-import com.entigrity.databinding.ActivityNotificationBinding;
-import com.entigrity.model.notification.NotificationListItem;
-import com.entigrity.model.notification.NotificationModel;
+import com.entigrity.adapter.TestimonialAdapter;
+import com.entigrity.databinding.ActivityTestimonialBinding;
+import com.entigrity.model.testimonial.Model_Testimonial;
+import com.entigrity.model.testimonial.WebinarTestimonialItem;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -34,30 +35,39 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class NotificationActivity extends AppCompatActivity {
-    ActivityNotificationBinding binding;
+public class TestimonialActivity extends AppCompatActivity {
+
+    ActivityTestimonialBinding binding;
+
     private APIService mAPIService;
     ProgressDialog progressDialog;
     public Context context;
-    private static final String TAG = NotificationActivity.class.getName();
+    private static final String TAG = TestimonialActivity.class.getName();
     LinearLayoutManager linearLayoutManager;
-    private NotificationAdapter adapter;
-    private List<NotificationListItem> mListnotificationlist = new ArrayList<NotificationListItem>();
+    private TestimonialAdapter adapter;
+    private List<WebinarTestimonialItem> mListtestimonial = new ArrayList<WebinarTestimonialItem>();
     private boolean loading = true;
     public boolean islast = false;
     public int start = 0, limit = 10;
+    public int webinarid = 0;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_notification);
-        context = NotificationActivity.this;
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_testimonial);
+        context = TestimonialActivity.this;
         mAPIService = ApiUtilsNew.getAPIService();
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            webinarid = intent.getIntExtra(getResources().getString(R.string.pass_webinar_id), 0);
+        }
+
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        binding.rvNotificationlist.setLayoutManager(linearLayoutManager);
-        binding.rvNotificationlist.addItemDecoration(new SimpleDividerItemDecoration(context));
-        binding.rvNotificationlist.setItemAnimator(new DefaultItemAnimator());
+        binding.rvTestimonialList.setLayoutManager(linearLayoutManager);
+        binding.rvTestimonialList.addItemDecoration(new SimpleDividerItemDecoration(context));
+        binding.rvTestimonialList.setItemAnimator(new DefaultItemAnimator());
 
 
         binding.ivback.setOnClickListener(new View.OnClickListener() {
@@ -67,11 +77,12 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
 
+
         if (Constant.isNetworkAvailable(context)) {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-            GetNotificationList(start, limit);
+            GetTestimonialList(start, limit);
         } else {
-            Snackbar.make(binding.rvNotificationlist, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(binding.rvTestimonialList, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
 
 
@@ -83,7 +94,7 @@ public class NotificationActivity extends AppCompatActivity {
         });
 
 
-        binding.rvNotificationlist.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.rvTestimonialList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (loading) {
@@ -104,6 +115,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
+
     private void refreshItems() {
 
         onItemsLoadComplete();
@@ -116,9 +128,9 @@ public class NotificationActivity extends AppCompatActivity {
         loading = true;
 
         if (Constant.isNetworkAvailable(context)) {
-            GetNotificationList(start, limit);
+            GetTestimonialList(start, limit);
         } else {
-            Snackbar.make(binding.rvNotificationlist, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(binding.rvTestimonialList, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -126,18 +138,17 @@ public class NotificationActivity extends AppCompatActivity {
     private void loadNextPage() {
         if (Constant.isNetworkAvailable(context)) {
             binding.progressBar.setVisibility(View.VISIBLE);
-            GetNotificationList(start, limit);
+            GetTestimonialList(start, limit);
         } else {
-            Snackbar.make(binding.rvNotificationlist, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(binding.rvTestimonialList, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
     }
 
+    private void GetTestimonialList(final int start, final int limit) {
 
-    private void GetNotificationList(final int start, final int limit) {
-
-        mAPIService.GetNotificationModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context),
-                start, limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<NotificationModel>() {
+        mAPIService.GetTestimonial(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context),
+                webinarid, start, limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Model_Testimonial>() {
                     @Override
                     public void onCompleted() {
 
@@ -149,9 +160,9 @@ public class NotificationActivity extends AppCompatActivity {
 
                         loading = true;
                         if (start == 0 && limit == 10) {
-                            if (mListnotificationlist.size() > 0) {
-                                adapter = new NotificationAdapter(context, mListnotificationlist);
-                                binding.rvNotificationlist.setAdapter(adapter);
+                            if (mListtestimonial.size() > 0) {
+                                adapter = new TestimonialAdapter(context, mListtestimonial);
+                                binding.rvTestimonialList.setAdapter(adapter);
                             }
                         } else {
                             adapter.addLoadingFooter();
@@ -185,9 +196,9 @@ public class NotificationActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(NotificationModel notificationModel) {
+                    public void onNext(Model_Testimonial model_testimonial) {
 
-                        if (notificationModel.isSuccess() == true) {
+                        if (model_testimonial.isSuccess() == true) {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             } else {
@@ -198,37 +209,37 @@ public class NotificationActivity extends AppCompatActivity {
 
 
                             if (start == 0 && limit == 10) {
-                                if (mListnotificationlist.size() > 0) {
-                                    mListnotificationlist.clear();
+                                if (mListtestimonial.size() > 0) {
+                                    mListtestimonial.clear();
                                 }
                             }
 
-                            islast = notificationModel.getPayload().isIsLast();
+                            islast = model_testimonial.getPayload().isIsLast();
                             Log.e("islast", "islast" + islast);
 
-                            Constant.Log(TAG, "size" + mListnotificationlist.size());
+                            Constant.Log(TAG, "size" + mListtestimonial.size());
 
 
                             if (start == 0 && limit == 10) {
-                                mListnotificationlist = notificationModel.getPayload().getNotificationList();
+                                mListtestimonial = model_testimonial.getPayload().getWebinarTestimonial();
 
                             } else {
 
-                                for (int i = 0; i < mListnotificationlist.size(); i++) {
-                                    if (i == mListnotificationlist.size() - 1) {
-                                        mListnotificationlist.remove(i);
+                                for (int i = 0; i < mListtestimonial.size(); i++) {
+                                    if (i == mListtestimonial.size() - 1) {
+                                        mListtestimonial.remove(i);
                                     }
                                 }
 
 
-                                List<NotificationListItem> webinaritems = notificationModel.getPayload().getNotificationList();
+                                List<WebinarTestimonialItem> webinaritems = model_testimonial.getPayload().getWebinarTestimonial();
                                 adapter.addAll(webinaritems);
 
 
                             }
 
 
-                            if (mListnotificationlist.size() > 0) {
+                            if (mListtestimonial.size() > 0) {
                                 binding.swipeRefreshLayout.setVisibility(View.VISIBLE);
                                 binding.tvNodatafound.setVisibility(View.GONE);
                             } else {
@@ -245,20 +256,22 @@ public class NotificationActivity extends AppCompatActivity {
                                     binding.swipeRefreshLayout.setRefreshing(false);
                                 }
                             }
-                            Snackbar.make(binding.ivback, notificationModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(binding.ivback, model_testimonial.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
                     }
 
 
                 });
 
+
     }
 
     boolean isLastVisible() {
-        LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvNotificationlist.getLayoutManager());
+        LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvTestimonialList.getLayoutManager());
         int pos = layoutManager.findLastCompletelyVisibleItemPosition();
-        int numItems = binding.rvNotificationlist.getAdapter().getItemCount() - 1;
+        int numItems = binding.rvTestimonialList.getAdapter().getItemCount() - 1;
 
         return (pos >= numItems);
     }
+
 }

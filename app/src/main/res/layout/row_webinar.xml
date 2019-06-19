@@ -300,7 +300,6 @@
                     android:ellipsize="end"
                     android:ems="11"
                     android:inputType="textMultiLine"
-                    android:text="Hall Darji"
                     android:textColor="@color/fav_bottom_text_color"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Medium.ttf" />
@@ -315,7 +314,6 @@
                     android:ellipsize="end"
                     android:ems="11"
                     android:inputType="textMultiLine"
-                    android:text="Orange Plenks"
                     android:textColor="@color/fav_bottom_text_color"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Medium.ttf" />

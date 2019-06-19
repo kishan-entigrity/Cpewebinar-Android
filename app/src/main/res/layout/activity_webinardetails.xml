@@ -198,8 +198,6 @@
                     app:font_text="Montserrat-Bold.ttf" />
 
 
-
-
             </RelativeLayout>
 
             <com.entigrity.view.CustomTextView
@@ -221,15 +219,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rel_watched_duration"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:text="@string/str_review_question_lable"
                 android:textColor="@color/webinar_detail_titile"
                 android:textSize="@dimen/_10sdp"
                 android:visibility="gone"
                 app:font_text="Montserrat-Bold.ttf" />
-
-
 
 
         </RelativeLayout>
@@ -807,7 +803,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_designation_company"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:text="chirag@gmail.com"
                         android:textColor="@color/edit_profile_lable_colcr"
                         android:textSize="@dimen/_10sdp"
                         app:font_text="Montserrat-SemiBold.ttf" />
@@ -870,6 +865,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rv_tetimonial"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -891,6 +887,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/lv_tetimonial"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -898,7 +895,7 @@
                     android:visibility="gone">
 
                     <LinearLayout
-                        android:id="@+id/lv_testimonial"
+                        android:id="@+id/lv_testimonial_set"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -907,7 +904,7 @@
                     </LinearLayout>
 
                     <com.entigrity.view.CustomTextView
-                        android:id="@+id/tv_view_more"
+                        android:id="@+id/tv_view_more_testimonial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

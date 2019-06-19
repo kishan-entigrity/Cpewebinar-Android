@@ -156,6 +156,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
 
                 Log.e("INSIDE", "" + referenceId);
+                Toast.makeText(mContext, "Download complete", Toast.LENGTH_SHORT).show();
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(mContext)
                                 .setSmallIcon(R.mipmap.app_icon)
@@ -193,9 +194,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
         }
         return vh;
     }
-
-
-
 
 
     @Override

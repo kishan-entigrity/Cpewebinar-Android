@@ -19,6 +19,7 @@
             android:id="@+id/lv_my_webinar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="horizontal"
             android:weightSum="2">
 

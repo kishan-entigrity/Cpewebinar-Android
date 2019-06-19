@@ -43,6 +43,7 @@ import com.entigrity.model.savenotificationsetting.SubmitNotification;
 import com.entigrity.model.savetopicsofinterest.SaveTopicsInterest;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.subject.SubjectModel;
+import com.entigrity.model.testimonial.Model_Testimonial;
 import com.entigrity.model.topics_subcategory.Topics_subcategory;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
 import com.entigrity.model.topicsofinterestn.Topicsofinterest;
@@ -655,6 +656,17 @@ public interface APIService {
             @Header("Authorization") String authorization,
             @Field("push") String push,
             @Field("text") String text);
+
+
+    //Testimonial
+    @POST("webinar/testimonial")
+    @FormUrlEncoded
+    Observable<Model_Testimonial> GetTestimonial(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
+            @Field("webinar_id") int webinar_id,
+            @Field("start") int start,
+            @Field("limit") int limit);
 
 
 }

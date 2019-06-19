@@ -510,6 +510,7 @@
 
 
     <string name="str_noti">Notification</string>
+    <string name="str_testimonial_header">Testimonial</string>
     <string name="str_my_transaction">My Transactions</string>
     <string name="str_payment_method">Payment Method</string>
     <string name="str_my_credit">My Credit</string>
@@ -541,8 +542,8 @@
     //check condition in webinar details
     <string name="str_webinar_status_register">Register</string>
     <string name="str_webinar_status_enroll">JOIN WEBINAR</string>
-    <string name="str_webinar_status_certificate">Certificate</string>
-    <string name="str_webinar_status_watchnow">Watch Now</string>
+    <string name="str_webinar_status_certificate">MY CERTIFICATE</string>
+    <string name="str_webinar_status_watchnow">WATCH NOW</string>
     <string name="str_webinar_status_resume_watching">Resume Watching</string>
     <string name="str_webinar_status_quiz_pending">Quiz Pending</string>
     <string name="str_webinar_status_pending_evoluation">Pending Evalution</string>

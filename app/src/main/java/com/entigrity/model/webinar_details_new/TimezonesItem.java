@@ -3,73 +3,72 @@ package com.entigrity.model.webinar_details_new;
 import com.google.gson.annotations.SerializedName;
 
 
-public class TimezonesItem {
+public class TimezonesItem{
 
-    @SerializedName("start_time")
-    private String startTime;
+	@SerializedName("start_time")
+	private String startTime;
 
-    @SerializedName("timezone")
-    private String timezone;
+	@SerializedName("timezone")
+	private String timezone;
 
-    public String getTimezoneshort() {
-        return timezoneshort;
-    }
+	@SerializedName("timezone_short")
+	private String timezoneShort;
 
-    public void setTimezoneshort(String timezoneshort) {
-        this.timezoneshort = timezoneshort;
-    }
+	@SerializedName("schedule_id")
+	private int scheduleId;
 
-    @SerializedName("start_date")
-    private String startDate;
+	@SerializedName("start_date")
+	private String startDate;
 
-    public int getScheduleid() {
-        return scheduleid;
-    }
+	public void setStartTime(String startTime){
+		this.startTime = startTime;
+	}
 
-    public void setScheduleid(int scheduleid) {
-        this.scheduleid = scheduleid;
-    }
+	public String getStartTime(){
+		return startTime;
+	}
 
-    @SerializedName("timezone_short")
-    private String timezoneshort;
+	public void setTimezone(String timezone){
+		this.timezone = timezone;
+	}
 
-    @SerializedName("schedule_id")
-    private int scheduleid;
+	public String getTimezone(){
+		return timezone;
+	}
 
+	public void setTimezoneShort(String timezoneShort){
+		this.timezoneShort = timezoneShort;
+	}
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
+	public String getTimezoneShort(){
+		return timezoneShort;
+	}
 
-    public String getStartTime() {
-        return startTime;
-    }
+	public void setScheduleId(int scheduleId){
+		this.scheduleId = scheduleId;
+	}
 
-    public void setTimezone(String timezone) {
-        this.timezone = timezone;
-    }
+	public int getScheduleId(){
+		return scheduleId;
+	}
 
-    public String getTimezone() {
-        return timezone;
-    }
+	public void setStartDate(String startDate){
+		this.startDate = startDate;
+	}
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+	public String getStartDate(){
+		return startDate;
+	}
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    @Override
-    public String toString() {
-        return
-                "TimezonesItem{" +
-                        "start_time = '" + startTime + '\'' +
-                        ",timezone = '" + timezone + '\'' +
-                        ",start_date = '" + startDate + '\'' +
-                        ",timezone_short = '" + timezoneshort + '\'' +
-                        ",schedule_id = '" + scheduleid + '\'' +
-                        "}";
-    }
+	@Override
+ 	public String toString(){
+		return 
+			"TimezonesItem{" + 
+			"start_time = '" + startTime + '\'' + 
+			",timezone = '" + timezone + '\'' + 
+			",timezone_short = '" + timezoneShort + '\'' + 
+			",schedule_id = '" + scheduleId + '\'' + 
+			",start_date = '" + startDate + '\'' + 
+			"}";
+		}
 }
