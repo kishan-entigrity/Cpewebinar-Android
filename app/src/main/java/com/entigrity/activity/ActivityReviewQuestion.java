@@ -49,6 +49,7 @@ public class ActivityReviewQuestion extends AppCompatActivity {
     public int webinar_id = 0;
     public ReviewQuestionAdapter adapter;
     private static ActivityReviewQuestion instance;
+    public String webinar_type = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class ActivityReviewQuestion extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             webinar_id = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are_list_review_question), 0);
+            webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
         }
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -73,6 +75,10 @@ public class ActivityReviewQuestion extends AppCompatActivity {
             public void onClick(View v) {
 
 
+                Intent i = new Intent(context, WebinarDetailsActivity.class);
+                i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+                i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                startActivity(i);
                 finish();
             }
         });
@@ -112,13 +118,16 @@ public class ActivityReviewQuestion extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-
+        Intent i = new Intent(context, WebinarDetailsActivity.class);
+        i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+        i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+        startActivity(i);
         finish();
     }
 
     private void GetSubmitAnswer(String reviewquestion, String reviewanswer) {
 
-        mAPIService.SubmitReviewAnswer(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context), webinar_id
+        mAPIService.SubmitReviewAnswer(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), webinar_id
                 , reviewquestion, reviewanswer).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SubmitAnswerModel>() {
                     @Override
@@ -186,7 +195,7 @@ public class ActivityReviewQuestion extends AppCompatActivity {
         arraylistselectedreviewanswerreview.clear();
         arraylistselectedquestionreview.clear();
 
-        mAPIService.ReviewQuestion(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.ReviewQuestion(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Review_Question>() {
                     @Override
                     public void onCompleted() {

@@ -101,6 +101,7 @@
 
     //Home Screen
     <string name="str_home_title">Webinars</string>
+    <string name="str_home_title_detail">Webinar</string>
     <string name="str_all">ALL</string>
     <string name="str_my_webinar">MY WEBINAR</string>
     <string name="str_live">LIVE</string>
@@ -462,6 +463,7 @@
     <string name="str_refund_cancelation_policy_content">For more information regarding refund,complain and
     program cancellation policies,please connect our offices at 863-337-8573</string>
     <string name="str_nasba_approved">NASBA APPROVED</string>
+    <string name="str_ea_approved">EA APPROVED</string>
     <string name="str_nasba_address">My Cpe LLC 30N,WY80801</string>
     <string name="str_nasba_approved_content">my-cpe.org is registered with the National Association of State Boards of Accountancy (NASBA) as a sponsor of continuing professional education on the National Registry of CPE Sponsors. State Boards of Accountancy have the final authority on the acceptance of individual course for CPE credit.</string>
     <string name="str_hour">Hour</string>
@@ -474,7 +476,7 @@
     <string name="str_subject_area">Subject Area</string>
     <string name="str_course_level">Course Level</string>
     <string name="str_instructionalmethod">Instructional Method</string>
-    <string name="str_prerequisite">Prerequisite</string>
+    <string name="str_prerequisite">PREREQUISITES</string>
     <string name="str_handout">Presentation Handouts</string>
     <string name="str_adavance_preparation">Advance Preparation</string>
     <string name="str_who_should_attend">Who should attend?</string>
@@ -547,6 +549,7 @@
     <string name="str_webinar_status_resume_watching">Resume Watching</string>
     <string name="str_webinar_status_quiz_pending">Quiz Pending</string>
     <string name="str_webinar_status_pending_evoluation">Pending Evalution</string>
+    <string name="str_webinar_status_in_progress">IN PROGRESS</string>
 
 
     //favorites

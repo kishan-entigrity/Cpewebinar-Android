@@ -3,108 +3,108 @@ package com.entigrity.model.webinar_details_new;
 import com.google.gson.annotations.SerializedName;
 
 
-public class AboutPresententer {
+public class AboutPresententer{
 
-    @SerializedName("desgnination")
-    private String desgnination;
+	@SerializedName("desgnination")
+	private String desgnination;
 
-    @SerializedName("email_id")
-    private String emailId;
+	@SerializedName("email_id")
+	private String emailId;
 
-    @SerializedName("qualification")
-    private String qualification;
+	@SerializedName("qualification")
+	private String qualification;
 
-    @SerializedName("company_desc")
-    private String companyDesc;
+	@SerializedName("company_desc")
+	private String companyDesc;
 
-    @SerializedName("company_name")
-    private String companyName;
+	@SerializedName("company_name")
+	private String companyName;
 
-    @SerializedName("company_website")
-    private String companyWebsite;
+	@SerializedName("company_website")
+	private String companyWebsite;
 
-    @SerializedName("name")
-    private String name;
+	@SerializedName("name")
+	private String name;
 
-    @SerializedName("speaker_desc")
-    private String speakerDesc;
+	@SerializedName("speaker_desc")
+	private String speakerDesc;
 
-    public void setDesgnination(String desgnination) {
-        this.desgnination = desgnination;
-    }
+	public void setDesgnination(String desgnination){
+		this.desgnination = desgnination;
+	}
 
-    public String getDesgnination() {
-        return desgnination;
-    }
+	public String getDesgnination(){
+		return desgnination;
+	}
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
+	public void setEmailId(String emailId){
+		this.emailId = emailId;
+	}
 
-    public String getEmailId() {
-        return emailId;
-    }
+	public String getEmailId(){
+		return emailId;
+	}
 
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
-    }
+	public void setQualification(String qualification){
+		this.qualification = qualification;
+	}
 
-    public String getQualification() {
-        return qualification;
-    }
+	public String getQualification(){
+		return qualification;
+	}
 
-    public void setCompanyDesc(String companyDesc) {
-        this.companyDesc = companyDesc;
-    }
+	public void setCompanyDesc(String companyDesc){
+		this.companyDesc = companyDesc;
+	}
 
-    public String getCompanyDesc() {
-        return companyDesc;
-    }
+	public String getCompanyDesc(){
+		return companyDesc;
+	}
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+	public void setCompanyName(String companyName){
+		this.companyName = companyName;
+	}
 
-    public String getCompanyName() {
-        return companyName;
-    }
+	public String getCompanyName(){
+		return companyName;
+	}
 
-    public void setCompanyWebsite(String companyWebsite) {
-        this.companyWebsite = companyWebsite;
-    }
+	public void setCompanyWebsite(String companyWebsite){
+		this.companyWebsite = companyWebsite;
+	}
 
-    public String getCompanyWebsite() {
-        return companyWebsite;
-    }
+	public String getCompanyWebsite(){
+		return companyWebsite;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name){
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName(){
+		return name;
+	}
 
-    public void setSpeakerDesc(String speakerDesc) {
-        this.speakerDesc = speakerDesc;
-    }
+	public void setSpeakerDesc(String speakerDesc){
+		this.speakerDesc = speakerDesc;
+	}
 
-    public String getSpeakerDesc() {
-        return speakerDesc;
-    }
+	public String getSpeakerDesc(){
+		return speakerDesc;
+	}
 
-    @Override
-    public String toString() {
-        return
-                "AboutPresententer{" +
-                        "desgnination = '" + desgnination + '\'' +
-                        ",email_id = '" + emailId + '\'' +
-                        ",qualification = '" + qualification + '\'' +
-                        ",company_desc = '" + companyDesc + '\'' +
-                        ",company_name = '" + companyName + '\'' +
-                        ",company_website = '" + companyWebsite + '\'' +
-                        ",name = '" + name + '\'' +
-                        ",speaker_desc = '" + speakerDesc + '\'' +
-                        "}";
-    }
+	@Override
+ 	public String toString(){
+		return 
+			"AboutPresententer{" + 
+			"desgnination = '" + desgnination + '\'' + 
+			",email_id = '" + emailId + '\'' + 
+			",qualification = '" + qualification + '\'' + 
+			",company_desc = '" + companyDesc + '\'' + 
+			",company_name = '" + companyName + '\'' + 
+			",company_website = '" + companyWebsite + '\'' + 
+			",name = '" + name + '\'' + 
+			",speaker_desc = '" + speakerDesc + '\'' + 
+			"}";
+		}
 }

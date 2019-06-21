@@ -40,34 +40,95 @@ public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<Topicsofi
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        holder.tv_topics.setText(mListrtopicsofinterestsubcategory.get(position).getName());
+        final com.entigrity.model.topics_subcategory.TopicOfInterestsItem tagsItem = mListrtopicsofinterestsubcategory.get(position);
+
+
+        if (!tagsItem.getName().equalsIgnoreCase("")) {
+            holder.tv_topics.setText(tagsItem.getName());
+        }
+
 
         holder.cbselection.setEnabled(false);
 
-        if (mListrtopicsofinterestsubcategory.get(position).isIsChecked()) {
+        if (tagsItem.isIsChecked()) {
+            holder.cbselection.setChecked(true);
+        } else {
+            holder.cbselection.setChecked(false);
+        }
+
+
+       /* if (mListrtopicsofinterestsubcategory.get(position).isIsChecked()) {
             holder.cbselection.setChecked(true);
             // Constant.arraylistselectedtopicsofinterest.set(clickedposition, mListrtopicsofinterestsubcategory.get(clickedposition).getId());
         } else {
             holder.cbselection.setChecked(false);
-        }
+        }*/
 
 
         holder.rel_topics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                Constant.Log("id", "id" + tagsItem.getId());
+
                 try {
 
-                    if (!holder.cbselection.isChecked()) {
+                   /* if (!holder.cbselection.isChecked()) {
+
                         Constant.arraylistselectedtopicsofinterest.add(mListrtopicsofinterestsubcategory.get(position).getId());
                         holder.cbselection.setChecked(true);
                         Constant.Log("size", "added" + Constant.arraylistselectedtopicsofinterest.size());
 
                     } else {
+
+
                         holder.cbselection.setChecked(false);
                         int removed_position = Constant.arraylistselectedtopicsofinterest.indexOf(mListrtopicsofinterestsubcategory.get(position).getId());
                         Constant.arraylistselectedtopicsofinterest.remove(removed_position);
                         Constant.Log("size", "removed" + Constant.arraylistselectedtopicsofinterest.size());
+                    }*/
+
+
+                    if (tagsItem.isIsChecked()) {
+                        tagsItem.setIsChecked(false);
+
+                        for (int i = 0; i < mListrtopicsofinterestsubcategory.size(); i++) {
+                            if (tagsItem.getId() == mListrtopicsofinterestsubcategory.get(i).getId()) {
+                                mListrtopicsofinterestsubcategory.set(i, tagsItem);
+                            }
+                        }
+
+                        int removed_position = Constant.arraylistselectedtopicsofinterest.indexOf(mListrtopicsofinterestsubcategory.get(position).getId());
+                        Constant.arraylistselectedtopicsofinterest.remove(removed_position);
+                        Constant.Log("size", "removed" + Constant.arraylistselectedtopicsofinterest.size());
+
+                    /*    for (int k = 0; k < Constant.arraylistselectedvalue.size(); k++) {
+                            if (tagsItem.getId() == Constant.arraylistselectedvalue.get(k)) {
+                                Constant.arraylistselectedvalue.remove(k);
+                            }
+                        }
+
+                        Constant.Log("size", "removed" + Constant.arraylistselectedvalue.size());
+*/
+
+                        holder.cbselection.setChecked(false);
+
+
+                    } else {
+                        tagsItem.setIsChecked(true);
+
+                        for (int i = 0; i < mListrtopicsofinterestsubcategory.size(); i++) {
+                            if (tagsItem.getId() == mListrtopicsofinterestsubcategory.get(i).getId()) {
+                                mListrtopicsofinterestsubcategory.set(i, tagsItem);
+                                // Constant.arraylistselectedvalue.add(tagsItem.getId());
+                            }
+                        }
+
+
+
+                        Constant.arraylistselectedtopicsofinterest.add(mListrtopicsofinterestsubcategory.get(position).getId());
+                        holder.cbselection.setChecked(true);
+                        Constant.Log("size", "added" + Constant.arraylistselectedtopicsofinterest.size());
                     }
 
 

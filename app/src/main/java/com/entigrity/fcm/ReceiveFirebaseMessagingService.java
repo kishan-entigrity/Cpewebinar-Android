@@ -19,6 +19,8 @@ import com.entigrity.utility.Constant;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Random;
+
 
 /**
  * This will use for the receiving data from the notification
@@ -52,6 +54,8 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData() != null) {
 
             Log.e("remotemessage", "++++++" + remoteMessage.getData());
+
+          // webinar_id = 0;
 
             //   String click_action = remoteMessage.getNotification().getClickAction();
 
@@ -90,8 +94,10 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
                 Intent intent = new Intent(this, SplashActivity.class);
                 intent.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
                 intent.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                final int not_nu = generateRandom();
 
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, not_nu, intent, PendingIntent.FLAG_ONE_SHOT);
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setSmallIcon(R.mipmap.play_icon)
@@ -109,12 +115,15 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
                 // notificationId is a unique int for each notification that you must define
-                notificationManager.notify(0, mBuilder.build());
+                notificationManager.notify(not_nu, mBuilder.build());
 
                 createNotificationChannel();
             } else {
                 Intent intent = new Intent(this, MainActivity.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                final int not_nu = generateRandom();
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, not_nu, intent, PendingIntent.FLAG_ONE_SHOT);
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setSmallIcon(R.mipmap.play_icon)
@@ -132,7 +141,7 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
                 // notificationId is a unique int for each notification that you must define
-                notificationManager.notify(0, mBuilder.build());
+                notificationManager.notify(not_nu, mBuilder.build());
 
                 createNotificationChannel();
             }
@@ -199,6 +208,11 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
    /* private void sendNotification(String title, String messageBody, int flag, int webinar_id, String webinar_type) {
 
     }*/
+
+    public int generateRandom() {
+        Random random = new Random();
+        return random.nextInt(9999 - 1000) + 1000;
+    }
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

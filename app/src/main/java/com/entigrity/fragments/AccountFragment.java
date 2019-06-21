@@ -117,7 +117,7 @@ public class AccountFragment extends Fragment {
 
     private void GetTopicsofInterest() {
 
-        mAPIService_new.GetViewTopicsOfInterest(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetViewTopicsOfInterest(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<View_Topics_Interest_Model>() {
                     @Override
                     public void onCompleted() {
@@ -173,7 +173,7 @@ public class AccountFragment extends Fragment {
 
     public void GetProfile() {
 
-        mAPIService_new.GetProfile(getResources().getString(R.string.accept), getResources().getString(R.string.bearer)+" "+ AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetProfile(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ViewProfileModel>() {
                     @Override
                     public void onCompleted() {
@@ -603,7 +603,7 @@ public class AccountFragment extends Fragment {
                 progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
 
                 if (Constant.isNetworkAvailable(context)) {
-                    Logout(getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
+                    Logout(getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
                 } else {
                     Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
                 }
@@ -658,6 +658,11 @@ public class AccountFragment extends Fragment {
                             }
 
                             AppSettings.removeFromSharedPreferences(context, getResources().getString(R.string.str_token));
+                            AppSettings.set_login_token(context, "");
+                            AppSettings.set_device_id(context, "");
+                            AppSettings.set_profile_picture(context, "");
+                            AppSettings.set_profile_username(context, "");
+                            AppSettings.set_email_id(context, "");
 
 
                             Intent i = new Intent(getActivity(), LoginActivity.class);
@@ -684,7 +689,7 @@ public class AccountFragment extends Fragment {
 
     public void PostFeedback(String accept, String authorization, String message, String subject) {
 
-        mAPIService_new.PostContactUsFeedback(accept, getResources().getString(R.string.bearer)+" "+ authorization, message,
+        mAPIService_new.PostContactUsFeedback(accept, getResources().getString(R.string.bearer) + " " + authorization, message,
                 subject).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<PostFeedback>() {
                     @Override

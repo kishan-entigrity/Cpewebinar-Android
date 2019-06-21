@@ -99,7 +99,8 @@ public class ViewProfileActivity extends AppCompatActivity {
                         binding.tvTopics.setText(subcategory);
                         subcategoryremains = arraylistsubcategory.size() - 1;
                         binding.tvTopicsMore.setVisibility(View.VISIBLE);
-                        binding.tvTopicsMore.setText("" + subcategoryremains + "+" + "  " + "more");
+                        binding.tvTopicsMore.setText(("+" + subcategoryremains
+                                + " more"));
                     }
 
 

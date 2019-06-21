@@ -102,7 +102,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:text="@string/str_number"
                         android:textColor="@color/black_full"
                         android:textSize="@dimen/_14sdp"
                         app:font_button="Montserrat-Regular.ttf" />
@@ -128,7 +127,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:text="@string/str_contactus_emailid"
                         android:textColor="@color/black_full"
                         android:textSize="@dimen/_14sdp"
                         app:font_button="Montserrat-Regular.ttf" />

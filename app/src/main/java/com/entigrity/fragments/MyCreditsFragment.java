@@ -178,6 +178,8 @@ public class MyCreditsFragment extends Fragment {
         return view = binding.getRoot();
     }
 
+
+
     private void loadNextPage() {
 
         if (Constant.isNetworkAvailable(context)) {

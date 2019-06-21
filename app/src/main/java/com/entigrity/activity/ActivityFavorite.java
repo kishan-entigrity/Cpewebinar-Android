@@ -105,7 +105,6 @@ public class ActivityFavorite extends AppCompatActivity {
     }
 
 
-
     public void refreshItems() {
         onItemsLoadComplete();
     }
@@ -131,6 +130,8 @@ public class ActivityFavorite extends AppCompatActivity {
 
         return (pos >= numItems);
     }
+
+
 
     private void loadNextPage() {
         if (Constant.isNetworkAvailable(context)) {

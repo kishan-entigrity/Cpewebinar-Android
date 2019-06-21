@@ -216,8 +216,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void AutoLogout() {
         if (Constant.isNetworkAvailable(context)) {
-
             AppSettings.removeFromSharedPreferences(context, getResources().getString(R.string.str_token));
+            AppSettings.set_login_token(context, "");
+            AppSettings.set_device_id(context, "");
+            AppSettings.set_profile_picture(context, "");
+            AppSettings.set_profile_username(context, "");
+            AppSettings.set_email_id(context, "");
+
             Intent i = new Intent(context, LoginActivity.class);
             startActivity(i);
             finish();
@@ -370,6 +375,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
+                finish();
 
             }
         });

@@ -14,36 +14,6 @@ public class AppSettings {
     public static Editor prefsEditor;
 
 
-    /**
-     * Set user id to preferences
-     *
-     * @param context
-     * @return
-     */
-    public static void setuserid(Context context, int value) {
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefsEditor = mPrefs.edit();
-        // prefsEditor.putInt(context.getResources().getString(R.string.login_userid), value);
-        prefsEditor.commit();
-    }
-
-
-    /**
-     * Get user id from preferences
-     *
-     * @param context
-     * @return
-     */
-    public static int getuserid(Context context) {
-        if (null != context) {
-            mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-            //return mPrefs.getInt(context.getResources().getString(R.string.login_userid), 0);
-        }
-        /*default val*/
-        return 0;
-    }
-
-
     //login token
     public static void set_login_token(Context context, String login_token) {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);

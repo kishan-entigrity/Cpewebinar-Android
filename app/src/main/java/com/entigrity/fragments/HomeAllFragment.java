@@ -55,6 +55,7 @@ public class HomeAllFragment extends Fragment {
     public boolean islast = false;
     private static HomeAllFragment instance;
     View view;
+    public boolean isprogress = false;
 
     @Nullable
     @Override
@@ -404,6 +405,9 @@ public class HomeAllFragment extends Fragment {
 
 
                             islast = webinar_home_new.getPayload().isIsLast();
+
+                            isprogress = webinar_home_new.getPayload().isIsprogress();
+                            UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
 
 
                             if (start == 0 && limit == 10) {

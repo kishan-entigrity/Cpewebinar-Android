@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_home_title"
+                android:text="@string/str_home_title_detail"
                 android:textColor="@color/White"
                 android:textSize="@dimen/_16sdp"
                 app:font_text="Montserrat-Bold.ttf" />
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rel_view"
             android:layout_marginBottom="@dimen/_2sdp"
-            android:background="@android:color/darker_gray">
+            android:background="#fafafa">
 
             <com.entigrity.view.CustomTextView
                 android:id="@+id/tv_webinartitle"
@@ -264,6 +264,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_cost"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -274,6 +275,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -298,6 +300,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_cpe_credit"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -308,6 +311,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -335,6 +339,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_course_id"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -345,6 +350,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -369,6 +375,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_duration"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -379,6 +386,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -404,6 +412,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_subject_area"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -414,6 +423,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -438,6 +448,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_course_level"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -448,6 +459,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -472,6 +484,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_instructionalmethod"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -482,6 +495,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -506,6 +520,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_prerequisite"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -516,6 +531,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -540,6 +556,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_adavance_preparation"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -550,6 +567,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -575,6 +593,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_handout"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -588,6 +607,7 @@
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:background="@drawable/download_button_webinar_detail"
                             android:text="@string/str_handout_value"
+                            android:textAllCaps="true"
                             android:textColor="@color/White"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-SemiBold.ttf" />
@@ -613,6 +633,7 @@
                             android:layout_gravity="center_vertical"
                             android:ems="10"
                             android:text="@string/str_who_should_attend"
+                            android:textAllCaps="true"
                             android:textColor="@color/edit_profile_lable_colcr"
                             android:textSize="@dimen/_10sdp"
                             app:font_text="Montserrat-Regular.ttf" />
@@ -661,6 +682,7 @@
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:gravity="center"
                         android:text="@string/str_overview"
+                        android:textAllCaps="true"
                         android:textColor="@color/webinar_detail_titile"
                         android:textSize="@dimen/_12sdp"
                         app:font_text="Montserrat-Bold.ttf" />
@@ -731,7 +753,7 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:textColor="@color/edit_profile_lable_colcr"
                         android:textSize="@dimen/_10sdp"
-                        app:font_text="Montserrat-Regular.ttf" />
+                        app:font_text="Montserrat-SemiBold.ttf" />
 
 
                     <!-- <LinearLayout
@@ -846,7 +868,10 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_company_name"
                         android:layout_marginLeft="@dimen/_10sdp"
+                        android:autoLink="all"
+                        android:clickable="true"
                         android:textColor="@color/edit_profile_lable_colcr"
+                        android:textColorLink="@color/theme_background"
                         android:textSize="@dimen/_10sdp"
                         app:font_text="Montserrat-SemiBold.ttf" />
 
@@ -995,6 +1020,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rel_nasba"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -1037,6 +1063,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/rel_nasba_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -1044,6 +1071,70 @@
 
                     <com.entigrity.view.CustomTextView
                         android:id="@+id/nasba_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:textColor="@color/edit_profile_lable_colcr"
+                        android:textSize="@dimen/_10sdp"
+                        app:font_text="Montserrat-SemiBold.ttf" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_irs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:visibility="gone"
+                    android:background="@color/background_color"
+                    android:padding="@dimen/_5sdp">
+
+                    <com.entigrity.view.CustomTextView
+                        android:id="@+id/str_irsapproved"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="@string/str_ea_approved"
+                        android:textColor="@color/webinar_detail_titile"
+                        android:textSize="@dimen/_12sdp"
+                        app:font_text="Montserrat-Bold.ttf" />
+
+                    <com.entigrity.view.CustomTextView
+                        android:id="@+id/irs_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/str_irsapproved"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_8sdp"
+                        app:font_text="Montserrat-Regular.ttf" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_irs_profile"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_5sdp" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rel_irs_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/_5sdp">
+
+                    <com.entigrity.view.CustomTextView
+                        android:id="@+id/irs_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"

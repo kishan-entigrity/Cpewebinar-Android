@@ -273,14 +273,27 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
                         }
-                    } else {
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (Build.VERSION.SDK_INT >= 23 && !((Activity) mContext).shouldShowRequestPermissionRationale(permissions[0])) {
+                            Intent intent = new Intent();
+                            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", mContext.getPackageName(), null);
+                            intent.setData(uri);
+                            mContext.startActivity(intent);
+                        } else {
+                            ((Activity) mContext).requestPermissions(
+                                    new String[]{Manifest.permission
+                                            .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    PERMISSIONS_MULTIPLE_REQUEST);
+                        }
+                    } /*else {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             ((Activity) mContext).requestPermissions(
                                     new String[]{Manifest.permission
                                             .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     PERMISSIONS_MULTIPLE_REQUEST);
                         }
-                    }
+                    }*/
                 }
                 break;
 
@@ -288,6 +301,8 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
         }
 
     }
+
+
 
     BroadcastReceiver onComplete = new BroadcastReceiver() {
 

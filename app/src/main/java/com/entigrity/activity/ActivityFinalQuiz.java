@@ -50,6 +50,7 @@ public class ActivityFinalQuiz extends AppCompatActivity {
     public int webinar_id = 0;
     public FinalQuizAdapter adapter;
     private static ActivityFinalQuiz instance;
+    public String webinar_type = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +63,8 @@ public class ActivityFinalQuiz extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             webinar_id = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are_list_review_question), 0);
-        }
+            webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
+    }
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         binding.recyclerviewFinalQuiz.setLayoutManager(linearLayoutManager);
@@ -72,6 +74,10 @@ public class ActivityFinalQuiz extends AppCompatActivity {
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(context, WebinarDetailsActivity.class);
+                i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+                i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                startActivity(i);
                 finish();
             }
         });
@@ -111,12 +117,16 @@ public class ActivityFinalQuiz extends AppCompatActivity {
         super.onBackPressed();
 
 
+        Intent i = new Intent(context, WebinarDetailsActivity.class);
+        i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+        i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+        startActivity(i);
         finish();
     }
 
     private void GetSubmitAnswer(String finalquizquestion, String finalanswer) {
 
-        mAPIService.FinalQuizAnswer(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context), webinar_id
+        mAPIService.FinalQuizAnswer(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), webinar_id
                 , finalquizquestion, finalanswer).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<FinalQuizAnswer>() {
                     @Override
@@ -171,7 +181,7 @@ public class ActivityFinalQuiz extends AppCompatActivity {
         arraylistselectedanswerfinal.clear();
         arraylistselectedquestionfinal.clear();
 
-        mAPIService.FinalQuiz(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.FinalQuiz(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context), webinar_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Final_Quiz>() {
                     @Override
                     public void onCompleted() {

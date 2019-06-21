@@ -53,6 +53,7 @@ import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -138,6 +140,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
         list.add(refid);
     }
+
 
     BroadcastReceiver onComplete = new BroadcastReceiver() {
 
@@ -526,6 +529,20 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                                 } else {
                                     Constant.toast(mContext, mContext.getResources().getString(R.string.str_joinlink_not_avilable));
                                 }
+                            } else if (mList.get(position).getStatus().equalsIgnoreCase(
+                                    mContext.getResources().getString(R.string.str_webinar_status_in_progress))) {
+                                String url = mList.get(position).getJoinurl();
+                                if (!url.equalsIgnoreCase("")) {
+                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                    i.setData(Uri.parse(url));
+                                    mContext.startActivity(i);
+                                } else if (!join_url.equalsIgnoreCase("")) {
+                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                    i.setData(Uri.parse(join_url));
+                                    mContext.startActivity(i);
+                                } /*else {
+                                    Constant.toast(mContext, mContext.getResources().getString(R.string.str_joinlink_not_avilable));
+                                }*/
                             }
                         }
                     }
@@ -1010,14 +1027,29 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
                         }
-                    } else {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (Build.VERSION.SDK_INT >= 23 && !((Activity) mContext).shouldShowRequestPermissionRationale(permissions[0])) {
+                            Intent intent = new Intent();
+                            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", mContext.getPackageName(), null);
+                            intent.setData(uri);
+                            mContext.startActivity(intent);
+                        } else {
                             ((Activity) mContext).requestPermissions(
                                     new String[]{Manifest.permission
                                             .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     PERMISSIONS_MULTIPLE_REQUEST);
                         }
                     }
+
+                    /*else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            ((Activity) mContext).requestPermissions(
+                                    new String[]{Manifest.permission
+                                            .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    PERMISSIONS_MULTIPLE_REQUEST);
+                        }
+                    }*/
                 }
                 break;
 
@@ -1166,12 +1198,35 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                             progressDialog.dismiss();
                         }
 
-                        String message = Constant.GetReturnResponse(mContext, e);
+
+                        assert e != null;
+                        if (e instanceof HttpException) {
+                            assert button != null;
+                            if (((HttpException) e).code() == HttpURLConnection.HTTP_BAD_REQUEST) {
+                                Snackbar.make(button, "Socket Timeout", Snackbar.LENGTH_SHORT).show();
+                            } else {
+                                String message = Constant.GetReturnResponse(mContext, e);
+                                if (Constant.status_code == 401) {
+                                    MainActivity.getInstance().AutoLogout();
+                                } else {
+                                    Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                                }
+                            }
+                        } else {
+                            String message = Constant.GetReturnResponse(mContext, e);
+                            if (Constant.status_code == 401) {
+                                MainActivity.getInstance().AutoLogout();
+                            } else {
+                                Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        /*String message = Constant.GetReturnResponse(mContext, e);
                         if (Constant.status_code == 401) {
                             MainActivity.getInstance().AutoLogout();
                         } else {
                             Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
-                        }
+                        }*/
 
 
                     }

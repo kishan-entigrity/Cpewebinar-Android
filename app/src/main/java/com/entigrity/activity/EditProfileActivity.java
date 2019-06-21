@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -396,7 +397,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        EditPost(getResources().getString(R.string.bearer)+" "+ AppSettings.get_login_token(context),
+                        EditPost(getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context),
                                 Constant.Trim(binding.edtFirstname.getText().toString()), Constant.Trim(binding.edtLastname.getText().toString()),
                                 Constant.Trim(binding.edtEmailname.getText().toString()), Constant.Trim(binding.edtFirmname.getText().toString()), country_id, state_id, city_id, Integer.parseInt(Constant.Trim(binding.edtZipcode.getText().toString())), Constant.Trim(binding.edtMobileNumber.getText()
                                         .toString()), Constant.Trim(binding.edtPtinNumber.getText().toString()), who_you_are_id, jobtitle_id, industry_id);
@@ -473,7 +474,8 @@ public class EditProfileActivity extends AppCompatActivity {
             if (arraylistsubcategory.size() > 1) {
                 subcategoryremains = arraylistsubcategory.size() - 1;
                 binding.tvTopicsMore.setVisibility(View.VISIBLE);
-                binding.tvTopicsMore.setText("" + subcategoryremains + "+" + "  " + "more");
+                binding.tvTopicsMore.setText(("+" + subcategoryremains
+                        + " more"));
             } else {
                 binding.tvTopicsMore.setVisibility(View.GONE);
             }
@@ -532,9 +534,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                             Snackbar.make(binding.btnsubmit, editProfileModel.getMessage(), Snackbar.LENGTH_SHORT).show();
-                            Intent i = new Intent(EditProfileActivity.this, MainActivity.class);
-                            startActivity(i);
-                            finish();
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent i = new Intent(EditProfileActivity.this, MainActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            }, 2000);
 
 
                         } else {
@@ -554,7 +562,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void GetJobTitle() {
 
-        mAPIService_new.GetJobTitle(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetJobTitle(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ModelJobTitle>() {
                     @Override
                     public void onCompleted() {
@@ -618,7 +626,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void GetIndustry() {
 
-        mAPIService_new.GetIndustryList(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService_new.GetIndustryList(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Model_Industry>() {
                     @Override
                     public void onCompleted() {
@@ -1054,8 +1062,8 @@ public class EditProfileActivity extends AppCompatActivity {
                                 for (int j = 0; j < cityModel.getPayload().getCity().size(); j++) {
                                     CityItem cityItem = new CityItem();
                                     for (int i = 0; i < cityModel.getPayload().getCity().size(); i++) {
-                                        cityItem.setId(cityModel.getPayload().getCity().get(i).getId());
-                                        cityItem.setName(cityModel.getPayload().getCity().get(i).getName());
+                                        cityItem.setId(cityModel.getPayload().getCity().get(j).getId());
+                                        cityItem.setName(cityModel.getPayload().getCity().get(j).getName());
                                     }
                                     getcityarray.add(cityItem);
 

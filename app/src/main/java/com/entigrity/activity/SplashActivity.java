@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivitySplashBinding;
-import com.entigrity.utility.AppSettings;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -75,26 +74,31 @@ public class SplashActivity extends AppCompatActivity {
                 }
 */
 
-                if (AppSettings.get_walkthrough(context) == false) {
+               /* if (AppSettings.get_walkthrough(context) == false) {
                     Intent i = new Intent(context, WelcomeActivity.class);
                     startActivity(i);
                     finish();
                 } else {
-                    if (getIntent().getExtras() != null && getIntent().hasExtra(getResources().getString(R.string.pass_webinar_id))) {
-                        webinar_type = getIntent().getExtras().getString(getResources().getString(R.string.pass_webinar_type));
-                        webinar_id = getIntent().getExtras().getInt(getResources().getString(R.string.pass_webinar_id), 0);
 
-                        try {
-                            Intent mIntent;
-                            mIntent = new Intent(SplashActivity.this, WebinarDetailsActivity.class);
-                            mIntent.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
-                            mIntent.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
-                            mIntent.putExtra(getResources().getString(R.string.str_is_notification), true);
-                            startActivity(mIntent);
-                        } catch (Exception e) {
-                            e.printStackTrace();
 
-                        }
+                }
+*/
+
+                if (getIntent().getExtras() != null && getIntent().hasExtra(getResources().getString(R.string.pass_webinar_id))) {
+                    webinar_type = getIntent().getExtras().getString(getResources().getString(R.string.pass_webinar_type));
+                    webinar_id = getIntent().getExtras().getInt(getResources().getString(R.string.pass_webinar_id), 0);
+
+                    try {
+                        Intent mIntent;
+                        mIntent = new Intent(SplashActivity.this, WebinarDetailsActivity.class);
+                        mIntent.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                        mIntent.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+                        mIntent.putExtra(getResources().getString(R.string.str_is_notification), true);
+                        startActivity(mIntent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                    }
 
 
 
@@ -108,12 +112,10 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(i);
                         finish();
 */
-                    } else {
-                        Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                        startActivity(i);
-                        finish();
-
-                    }
+                } else {
+                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
 
                 }
 
