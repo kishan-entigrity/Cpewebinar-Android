@@ -14,6 +14,31 @@
         android:layout_height="match_parent"
         android:background="@color/theme_background">
 
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/str_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_toLeftOf="@+id/iv_forward"
+            android:text="Skip"
+            android:textColor="@color/White"
+            android:textSize="@dimen/_14sdp"
+            app:font_text="Montserrat-Regular.ttf" />
+
+
+        <ImageView
+            android:id="@+id/iv_forward"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:src="@drawable/forward" />
+
+
         <ImageView
             android:id="@+id/iv_mycpe"
             android:layout_width="wrap_content"
@@ -27,13 +52,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/iv_mycpe"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/_25sdp"
+            android:layout_marginLeft="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_25sdp"
-            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_40sdp"
             android:background="@drawable/rounded_transperent_background"
             android:text="@string/str_signup"
             android:textColor="@color/White"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_12sdp"
+            app:font_button="Montserrat-Medium.ttf" />
 
 
         <com.entigrity.view.CustomButtonView
@@ -42,14 +68,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/strsignup"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_40sdp"
             android:background="@drawable/rounded_button"
             android:text="@string/str_login"
             android:textColor="@color/White"
             android:textSize="@dimen/_12sdp"
-            app:font_button="SFUIDisplay-Bold.ttf" />
+            app:font_button="Montserrat-Medium.ttf" />
 
 
     </RelativeLayout>

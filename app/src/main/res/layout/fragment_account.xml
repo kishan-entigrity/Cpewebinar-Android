@@ -74,7 +74,7 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_alignParentRight="true"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/placeholder" />
+                android:src="@drawable/profile_place_holder" />
 
 
         </RelativeLayout>

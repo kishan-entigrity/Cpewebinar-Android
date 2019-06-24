@@ -428,7 +428,10 @@ public class MyWebinarFragment extends Fragment {
 
                         if (binding.progressBar.getVisibility() == View.VISIBLE) {
                             binding.progressBar.setVisibility(View.GONE);
+                        } else if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
                         }
+
                         loading = true;
 
                         if (start == 0 && limit == 10) {
@@ -481,11 +484,17 @@ public class MyWebinarFragment extends Fragment {
                                 }
                             }
 
+                            arraylistselectedvalue.clear();
+
                             islast = webinar_home_new.getPayload().isIsLast();
 
                             isprogress = webinar_home_new.getPayload().isIsprogress();
 
-                            UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
+                            if (topicsofinterest.equalsIgnoreCase("")) {
+
+
+                                UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
+                            }
 
 
                             if (start == 0 && limit == 10) {

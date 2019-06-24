@@ -117,7 +117,7 @@ public class MyFavoriteScreenFragment extends Fragment {
 
     private void GetFavoriteDetails() {
 
-        mAPIService.GetFavoriteCountModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetFavoriteCountModel(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Favorite_Count_Model>() {
                     @Override
                     public void onCompleted() {
@@ -156,7 +156,7 @@ public class MyFavoriteScreenFragment extends Fragment {
                                     && AppSettings.get_profile_picture(context) != null) {
 
                                 Picasso.with(context).load(AppSettings.get_profile_picture(context))
-                                        .placeholder(R.mipmap.placeholder)
+                                        .placeholder(R.drawable.profile_place_holder)
                                         .into(binding.ivProfilepicture);
 
                                 Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));

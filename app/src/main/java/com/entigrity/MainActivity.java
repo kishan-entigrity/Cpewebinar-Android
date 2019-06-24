@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.entigrity.activity.LoginActivity;
+import com.entigrity.activity.PreLoginActivity;
 import com.entigrity.fragments.AccountFragment;
 import com.entigrity.fragments.CompanyFragment;
 import com.entigrity.fragments.ContactUsFragment;
@@ -213,6 +214,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkmywebinardotstatusset = false;
+    }
+
 
     public void AutoLogout() {
         if (Constant.isNetworkAvailable(context)) {
@@ -223,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
             AppSettings.set_profile_username(context, "");
             AppSettings.set_email_id(context, "");
 
-            Intent i = new Intent(context, LoginActivity.class);
+            Intent i = new Intent(context, PreLoginActivity.class);
             startActivity(i);
             finish();
             //  Logout(AppSettings.get_login_token(context), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
@@ -353,6 +360,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
     }
 
 

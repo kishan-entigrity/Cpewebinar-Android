@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent i = new Intent(context, SignUpActivity.class);
                 startActivity(i);
+                finish();
 
 
             }
@@ -202,6 +203,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
 
     }
 

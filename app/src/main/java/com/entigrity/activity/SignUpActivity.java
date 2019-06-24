@@ -287,6 +287,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(context, LoginActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -368,6 +369,8 @@ public class SignUpActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Constant.arraylistselectedvalue.clear();
+        Intent i = new Intent(context, LoginActivity.class);
+        startActivity(i);
         finish();
     }
 
@@ -459,7 +462,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         if (userTypeModel.isSuccess()) {
                             arrayLististusertype.clear();
-                            arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
+                            //arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
 
 
                             for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {

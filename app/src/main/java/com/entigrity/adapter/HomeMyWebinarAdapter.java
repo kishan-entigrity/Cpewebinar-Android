@@ -896,13 +896,13 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                         if (e instanceof HttpException) {
                             assert button != null;
                             if (((HttpException) e).code() == HttpURLConnection.HTTP_BAD_REQUEST) {
-                                Snackbar.make(button, "Socket Timeout", Snackbar.LENGTH_SHORT).show();
+                                //Snackbar.make(button, "Socket Timeout", Snackbar.LENGTH_SHORT).show();
                             } else {
                                 String message = Constant.GetReturnResponse(mContext, e);
                                 if (Constant.status_code == 401) {
                                     MainActivity.getInstance().AutoLogout();
                                 } else {
-                                    Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                                    //Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
                                 }
                             }
                         } else {
@@ -910,7 +910,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                             if (Constant.status_code == 401) {
                                 MainActivity.getInstance().AutoLogout();
                             } else {
-                                Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                                //Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
                             }
                         }
 

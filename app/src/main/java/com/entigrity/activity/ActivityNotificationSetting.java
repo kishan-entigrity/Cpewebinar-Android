@@ -248,7 +248,7 @@ public class ActivityNotificationSetting extends AppCompatActivity {
         });
 
 
-        binding.relWebinarParent.setOnClickListener(new View.OnClickListener() {
+       /* binding.relWebinarParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -265,9 +265,9 @@ public class ActivityNotificationSetting extends AppCompatActivity {
 
 
             }
-        });
+        });*/
 
-        binding.relPendingAction.setOnClickListener(new View.OnClickListener() {
+       /* binding.relPendingAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkexpand_pushnoti_pending_action) {
@@ -283,7 +283,7 @@ public class ActivityNotificationSetting extends AppCompatActivity {
 
             }
         });
-
+*/
 
         binding.relWebinarText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -371,7 +371,7 @@ public class ActivityNotificationSetting extends AppCompatActivity {
     }
 
     private void SaveNotificationSettingList(String push, String text) {
-        mAPIService.SubmitNotification(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context),
+        mAPIService.SubmitNotification(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context),
                 push, text).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SubmitNotification>() {
                     @Override
@@ -416,7 +416,7 @@ public class ActivityNotificationSetting extends AppCompatActivity {
     }
 
     private void GetNotificationSettingList() {
-        mAPIService.GetNotificationSetting(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetNotificationSetting(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GetNotificationModel>() {
                     @Override
                     public void onCompleted() {

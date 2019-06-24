@@ -31,7 +31,7 @@ import com.entigrity.activity.ActivityChangePassword;
 import com.entigrity.activity.ActivityContactUs;
 import com.entigrity.activity.ActivityNotificationSetting;
 import com.entigrity.activity.FaqActivity;
-import com.entigrity.activity.LoginActivity;
+import com.entigrity.activity.PreLoginActivity;
 import com.entigrity.activity.PrivacyPolicyActivity;
 import com.entigrity.activity.TermsandConditionActivity;
 import com.entigrity.activity.TopicsOfInterestActivity;
@@ -233,7 +233,7 @@ public class AccountFragment extends Fragment {
                                     && AppSettings.get_profile_picture(context) != null) {
 
                                 Picasso.with(context).load(AppSettings.get_profile_picture(context))
-                                        .placeholder(R.mipmap.placeholder)
+                                        .placeholder(R.drawable.profile_place_holder)
                                         .into(binding.ivprofilepicture);
 
                                 Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
@@ -665,7 +665,7 @@ public class AccountFragment extends Fragment {
                             AppSettings.set_email_id(context, "");
 
 
-                            Intent i = new Intent(getActivity(), LoginActivity.class);
+                            Intent i = new Intent(getActivity(), PreLoginActivity.class);
                             startActivity(i);
                             getActivity().finish();
 
@@ -726,7 +726,6 @@ public class AccountFragment extends Fragment {
                             myDialog.dismiss();
                         }
                         if (postFeedback.isSuccess()) {
-
                             Snackbar.make(binding.rvFeedback, postFeedback.getMessage(), Snackbar.LENGTH_SHORT).show();
                         } else {
                             Snackbar.make(binding.rvFeedback, postFeedback.getMessage(), Snackbar.LENGTH_SHORT).show();

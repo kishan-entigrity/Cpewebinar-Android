@@ -49,6 +49,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
+
 
 public class EditProfileActivity extends AppCompatActivity {
     ActivityEditProfileBinding binding;
@@ -538,6 +540,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
+                                    checkmywebinardotstatusset = false;
                                     Intent i = new Intent(EditProfileActivity.this, MainActivity.class);
                                     startActivity(i);
                                     finish();

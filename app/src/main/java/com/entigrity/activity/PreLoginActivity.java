@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityPreloginBinding;
 
@@ -19,6 +20,15 @@ public class PreLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prelogin);
 
+        binding.strSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PreLoginActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
 
         binding.strlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +36,8 @@ public class PreLoginActivity extends AppCompatActivity {
                 Intent i = new Intent(PreLoginActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
+
+
             }
         });
         binding.strsignup.setOnClickListener(new View.OnClickListener() {
@@ -38,5 +50,11 @@ public class PreLoginActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -198,7 +198,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:gravity="center_horizontal"
-                        android:text="@string/view_profile_firm_name"
+                        android:text="@string/str_firm_name"
                         android:textColor="@color/edit_profile_lable_colcr"
                         android:textSize="@dimen/_12sdp"
                         app:font_text="SFUIDisplay-Medium.ttf" />

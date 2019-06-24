@@ -185,7 +185,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/_5sdp"
-                            android:src="@mipmap/down_arrow" />
+                            android:src="@mipmap/down_arrow"
+                            android:visibility="gone" />
 
 
                     </RelativeLayout>
@@ -270,8 +271,8 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <com.entigrity.view.CustomTextView
                         android:layout_width="wrap_content"
@@ -302,8 +303,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:visibility="gone"
-                    android:background="@color/background_list" />
+                    android:background="@color/background_list"
+                    android:visibility="gone" />
 
 
                 <LinearLayout
@@ -338,7 +339,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/_5sdp"
-                            android:src="@mipmap/down_arrow" />
+                            android:src="@mipmap/down_arrow"
+                            android:visibility="gone" />
 
 
                     </RelativeLayout>
@@ -348,8 +350,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <com.entigrity.view.CustomTextView
                             android:layout_width="wrap_content"
@@ -414,9 +416,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:visibility="gone"
                     android:background="@color/screen_section_notification_background"
-                    android:padding="@dimen/_5sdp">
+                    android:padding="@dimen/_5sdp"
+                    android:visibility="gone">
 
                     <com.entigrity.view.CustomTextView
                         android:layout_width="wrap_content"
@@ -437,8 +439,8 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:id="@+id/rel_webinar_text"
@@ -538,18 +540,18 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:visibility="gone"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@color/background_list" />
+                    android:background="@color/background_list"
+                    android:visibility="gone" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:visibility="gone"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <com.entigrity.view.CustomTextView
                         android:layout_width="wrap_content"
@@ -588,9 +590,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:visibility="gone"
                     android:layout_marginRight="@dimen/_10sdp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:id="@+id/rel_text_pending_action"

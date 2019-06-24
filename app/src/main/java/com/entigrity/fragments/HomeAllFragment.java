@@ -348,6 +348,8 @@ public class HomeAllFragment extends Fragment {
 
                         if (binding.progressBar.getVisibility() == View.VISIBLE) {
                             binding.progressBar.setVisibility(View.GONE);
+                        } else if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
                         }
 
 
@@ -395,6 +397,7 @@ public class HomeAllFragment extends Fragment {
                     public void onNext(Webinar_Home_New webinar_home_new) {
 
                         if (webinar_home_new.isSuccess() == true) {
+
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             } else {
@@ -403,11 +406,17 @@ public class HomeAllFragment extends Fragment {
                                 }
                             }
 
+                            arraylistselectedvalue.clear();
+
 
                             islast = webinar_home_new.getPayload().isIsLast();
 
                             isprogress = webinar_home_new.getPayload().isIsprogress();
-                            UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
+
+
+                            if (topicsofinterest.equalsIgnoreCase("")) {
+                                UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
+                            }
 
 
                             if (start == 0 && limit == 10) {

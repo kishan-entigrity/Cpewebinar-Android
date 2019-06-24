@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivitySplashBinding;
+import com.entigrity.utility.AppSettings;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -113,9 +114,16 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
 */
                 } else {
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
+                    if (!AppSettings.get_login_token(context).isEmpty()) {
+                        Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Intent i = new Intent(SplashActivity.this, PreLoginActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+
 
                 }
 

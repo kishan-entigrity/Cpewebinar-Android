@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/str_register"
+            android:text="@string/str_signup"
             android:textColor="@color/White"
             android:textSize="@dimen/_18sdp"
             app:font_text="SFUIDisplay-Bold.ttf" />
