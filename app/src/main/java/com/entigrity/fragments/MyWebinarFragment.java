@@ -36,6 +36,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.entigrity.utility.Constant.arraylistselectedvalue;
+import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
 
 public class MyWebinarFragment extends Fragment {
 
@@ -394,11 +395,11 @@ public class MyWebinarFragment extends Fragment {
         start = 0;
         limit = 10;
         loading = true;
+        checkmywebinardotstatusset = true;
 
 
         if (Constant.isNetworkAvailable(context)) {
             GetMyWebinarListNew(webinartypemywebinar, topicsofinterest, start, limit);
-
         } else {
             Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 

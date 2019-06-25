@@ -282,7 +282,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     city_pos = 0;
 
 
-
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                         GetCity(state_id);
@@ -607,11 +606,17 @@ public class EditProfileActivity extends AppCompatActivity {
                             }
 
 
-                            for (int i = 0; i < arrayListjobtitleid.size(); i++) {
-                                if (jobtitle_id_pos == arrayListjobtitleid.get(i)) {
-                                    job_title_set = arrayListjobtitleid.indexOf(arrayListjobtitleid.get(i));
+                            if (jobtitle_id_pos == 0) {
+                                jobtitle_id_pos = arrayListjobtitleid.get(0);
+                                jobtitle_id = jobtitle_id_pos;
+                            } else {
+                                for (int i = 0; i < arrayListjobtitleid.size(); i++) {
+                                    if (jobtitle_id_pos == arrayListjobtitleid.get(i)) {
+                                        job_title_set = arrayListjobtitleid.indexOf(arrayListjobtitleid.get(i));
+                                    }
                                 }
                             }
+
 
                             Show_JobTitle_Adapter();
                         } else {
@@ -670,11 +675,17 @@ public class EditProfileActivity extends AppCompatActivity {
                             }
 
 
-                            for (int i = 0; i < arrayListindustryid.size(); i++) {
-                                if (industry_id_pos == arrayListindustryid.get(i)) {
-                                    industry_set = arrayListindustryid.indexOf(arrayListindustryid.get(i));
+                            if (industry_id_pos == 0) {
+                                industry_id_pos = arrayListindustryid.get(0);
+                                industry_id = industry_id_pos;
+                            } else {
+                                for (int i = 0; i < arrayListindustryid.size(); i++) {
+                                    if (industry_id_pos == arrayListindustryid.get(i)) {
+                                        industry_set = arrayListindustryid.indexOf(arrayListindustryid.get(i));
+                                    }
                                 }
                             }
+
                         } else {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
@@ -732,13 +743,18 @@ public class EditProfileActivity extends AppCompatActivity {
                                 arrayLististusertype.add(userTypeModel.getPayload().getUserType().get(i).getName());
                                 arrayLististusertypeid.add(userTypeModel.getPayload().getUserType().get(i).getId());
                             }
-
-
-                            for (int i = 0; i < arrayLististusertypeid.size(); i++) {
-                                if (who_you_are_pos == arrayLististusertypeid.get(i)) {
-                                    whoyouare_set = arrayLististusertypeid.indexOf(arrayLististusertypeid.get(i));
+                            if (who_you_are_pos == 0) {
+                                who_you_are_pos = arrayLististusertypeid.get(0);
+                                who_you_are_id = who_you_are_pos;
+                            } else {
+                                for (int i = 0; i < arrayLististusertypeid.size(); i++) {
+                                    if (who_you_are_pos == arrayLististusertypeid.get(i)) {
+                                        whoyouare_set = arrayLististusertypeid.indexOf(arrayLististusertypeid.get(i));
+                                    }
                                 }
                             }
+
+
                             ShowAdapter();
                         } else {
                             if (progressDialog.isShowing()) {

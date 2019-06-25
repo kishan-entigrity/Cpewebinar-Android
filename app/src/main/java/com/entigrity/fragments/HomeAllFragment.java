@@ -36,6 +36,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.entigrity.utility.Constant.arraylistselectedvalue;
+import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
 
 public class HomeAllFragment extends Fragment {
     private FragmentAllBinding binding;
@@ -329,6 +330,7 @@ public class HomeAllFragment extends Fragment {
         start = 0;
         limit = 10;
         loading = true;
+        checkmywebinardotstatusset=true;
 
         if (Constant.isNetworkAvailable(context)) {
             GetHomeListNew(webinartype, topicsofinterest, start, limit);
