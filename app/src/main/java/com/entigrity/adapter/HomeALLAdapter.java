@@ -1211,7 +1211,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                                 if (Constant.status_code == 401) {
                                     MainActivity.getInstance().AutoLogout();
                                 } else {
-                                  //  Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                                    //  Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
                                 }
                             }
                         } else {
@@ -1219,7 +1219,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                             if (Constant.status_code == 401) {
                                 MainActivity.getInstance().AutoLogout();
                             } else {
-                               // Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+                                // Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
                             }
                         }
 

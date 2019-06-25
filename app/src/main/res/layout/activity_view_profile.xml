@@ -302,8 +302,6 @@
                     android:background="@color/background_list" />
 
 
-
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -488,8 +486,10 @@
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_toLeftOf="@+id/tv_topics_more"
                         android:background="@drawable/my_credit_status"
+                        android:ems="11"
                         android:gravity="center_horizontal"
                         android:padding="@dimen/_2sdp"
+                        android:singleLine="true"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_10sdp"
                         android:visibility="gone"

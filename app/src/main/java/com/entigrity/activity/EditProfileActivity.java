@@ -243,8 +243,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     State = "";
                     state_set = 0;
-                    city_set = 0;
                     state_pos = 0;
+                    city_set = 0;
                     city_pos = 0;
 
 
@@ -275,10 +275,16 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     state_id = getstatearray.get(position).getId();
 
+                    checkflagset = true;
+
                     City = "";
+                    city_set = 0;
+                    city_pos = 0;
+
 
 
                     if (Constant.isNetworkAvailable(context)) {
+                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                         GetCity(state_id);
                     } else {
                         Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
@@ -324,10 +330,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (boolean_usertype_spinner) {
                     boolean_usertype_spinner = false;
                 } else {
-
                     who_you_are_id = arrayLististusertypeid.get(position);
-
-
                 }
             }
 
@@ -345,7 +348,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (boolean_jobtitle_spinner) {
                     boolean_jobtitle_spinner = false;
                 } else {
-
                     jobtitle_id = arrayListjobtitleid.get(position);
                 }
 
@@ -365,7 +367,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (boolean_industry_spinner) {
                     boolean_industry_spinner = false;
                 } else {
-
                     industry_id = arrayListindustryid.get(position);
                 }
 
@@ -1019,11 +1020,14 @@ public class EditProfileActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<CityModel>() {
                     @Override
                     public void onCompleted() {
-                        if (Constant.isNetworkAvailable(context)) {
-                            GetUserType();
-                        } else {
-                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                        if (!checkflagset) {
+                            if (Constant.isNetworkAvailable(context)) {
+                                GetUserType();
+                            } else {
+                                Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                            }
                         }
+
 
                     }
 
@@ -1049,6 +1053,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                         if (cityModel.isSuccess() == true) {
+
+                            if (checkflagset == true) {
+                                if (progressDialog.isShowing()) {
+                                    progressDialog.dismiss();
+                                }
+
+                            }
 
 
                             getcityarraylist.clear();
