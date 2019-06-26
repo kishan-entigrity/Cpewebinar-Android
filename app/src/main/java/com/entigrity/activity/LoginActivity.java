@@ -1,5 +1,6 @@
 package com.entigrity.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -164,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                             }
 
+                            Constant.hideKeyboard((Activity) context);
 
                             AppSettings.set_login_token(context, login.getPayload().getToken());
 

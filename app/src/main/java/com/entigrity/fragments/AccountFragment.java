@@ -645,7 +645,11 @@ public class AccountFragment extends Fragment {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.rvLogout, message, Snackbar.LENGTH_SHORT).show();
+                        if (Constant.status_code == 401) {
+                            MainActivity.getInstance().AutoLogout();
+                        } else {
+                            Snackbar.make(binding.rvLogout, message, Snackbar.LENGTH_SHORT).show();
+                        }
 
                     }
 

@@ -90,7 +90,14 @@ public class SignUpActivity extends AppCompatActivity {
                 if (boolean_usertype) {
                     boolean_usertype = false;
                 } else {
-                    user_type = arrayLististusertypeid.get(position);
+                    if (arrayLististusertype.get(position).equalsIgnoreCase(getResources()
+                            .getString(R.string.str_who_you_are))) {
+                        user_type=0;
+                    } else {
+                        user_type = arrayLististusertypeid.get(position - 1);
+                        Constant.Log("user_type", "user_type" + user_type);
+                    }
+
                 }
 
             }
@@ -462,7 +469,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         if (userTypeModel.isSuccess()) {
                             arrayLististusertype.clear();
-                            //arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
+                            arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
 
 
                             for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
