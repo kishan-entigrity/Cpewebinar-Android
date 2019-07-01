@@ -55,7 +55,7 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
 
             Log.e("remotemessage", "++++++" + remoteMessage.getData());
 
-          // webinar_id = 0;
+            // webinar_id = 0;
 
             //   String click_action = remoteMessage.getNotification().getClickAction();
 

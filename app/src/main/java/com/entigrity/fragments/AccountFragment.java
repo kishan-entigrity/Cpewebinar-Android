@@ -1,6 +1,5 @@
 package com.entigrity.fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -82,7 +80,6 @@ public class AccountFragment extends Fragment {
     public String state = "", city = "";
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
 
-    public boolean checkkeyboard = false;
 
     @Nullable
     @Override
@@ -358,20 +355,6 @@ public class AccountFragment extends Fragment {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edt_subject.setFocusable(false);
-                edt_subject.setFocusableInTouchMode(false);
-
-                edt_review.setFocusable(false);
-                edt_review.setFocusableInTouchMode(false);
-
-
-                if (!checkkeyboard) {
-                    InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-
-
-                }
-
 
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
@@ -748,8 +731,6 @@ public class AccountFragment extends Fragment {
                             myDialog.dismiss();
                         }
 
-                        checkkeyboard = true;
-
 
                         if (postFeedback.isSuccess()) {
                             Snackbar.make(binding.rvFeedback, postFeedback.getMessage(), Snackbar.LENGTH_SHORT).show();
@@ -774,10 +755,13 @@ public class AccountFragment extends Fragment {
         edt_review.setFocusableInTouchMode(true);
 
         if (edt_subject.getText().toString().isEmpty()) {
-            Snackbar.make(binding.rvFeedback, getResources().getString(R.string.val_subject), Snackbar.LENGTH_SHORT).show();
+            //   Snackbar.make(binding.rvFeedback, getResources().getString(R.string.val_subject), Snackbar.LENGTH_SHORT).show();
+            Constant.toast(context, getResources().getString(R.string.val_subject));
+
             return false;
         } else if (edt_review.getText().toString().isEmpty()) {
-            Snackbar.make(binding.rvFeedback, getResources().getString(R.string.val_review), Snackbar.LENGTH_SHORT).show();
+            //Snackbar.make(binding.rvFeedback, getResources().getString(R.string.val_review), Snackbar.LENGTH_SHORT).show();
+            Constant.toast(context, getResources().getString(R.string.val_review));
             return false;
         } else {
             return true;
