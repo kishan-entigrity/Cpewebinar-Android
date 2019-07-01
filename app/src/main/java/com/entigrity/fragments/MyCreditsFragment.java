@@ -179,7 +179,6 @@ public class MyCreditsFragment extends Fragment {
     }
 
 
-
     private void loadNextPage() {
 
         if (Constant.isNetworkAvailable(context)) {

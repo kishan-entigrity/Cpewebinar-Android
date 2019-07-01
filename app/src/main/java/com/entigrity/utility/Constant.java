@@ -195,6 +195,8 @@ public class Constant {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+
+
     public static String capitalize(String capString) {
         StringBuffer capBuffer = new StringBuffer();
         Matcher capMatcher = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(capString);

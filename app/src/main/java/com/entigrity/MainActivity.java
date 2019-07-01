@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public RelativeLayout rel_top_bottom;
     public ImageView iv_mycredit, iv_mywebinar, iv_home, iv_myfavorite, iv_account;
     private static final String TAG = MainActivity.class.getName();
-    public boolean isclickhome = false;
     public int setselectedtab = 0;
     public int selectmywebinardtab = 0;
     public Dialog myDialog;
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (!AppSettings.get_login_token(context).isEmpty()) {
-                    isclickhome = false;
                     setselectedtab = 0;
                     selectmywebinardtab = 0;
                     SetImageBackground(0);
@@ -109,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (!AppSettings.get_login_token(context).isEmpty()) {
-                    isclickhome = false;
                     setselectedtab = 1;
                     selectmywebinardtab = 1;
                     checkmywebinardotstatusset = false;
@@ -131,12 +128,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setselectedtab = 0;
                 selectmywebinardtab = 0;
-                if (!isclickhome) {
-                    isclickhome = true;
-                    checkmywebinardotstatusset = false;
-                    SetImageBackground(2);
-                    SetDefault();
-                }
+                checkmywebinardotstatusset = false;
+                SetImageBackground(2);
+                SetDefault();
 
             }
         });
@@ -148,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
                 if (!AppSettings.get_login_token(context).isEmpty()) {
                     setselectedtab = 2;
                     selectmywebinardtab = 0;
-                    isclickhome = false;
                     SetImageBackground(3);
                     myFavoriteScreenFragment = new MyFavoriteScreenFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFavoriteScreenFragment, getResources()
@@ -169,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
                 if (!AppSettings.get_login_token(context).isEmpty()) {
                     setselectedtab = 0;
                     selectmywebinardtab = 0;
-                    isclickhome = false;
                     SetImageBackground(4);
                     accountFragment = new AccountFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, accountFragment, getResources()
@@ -290,7 +282,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void SetCreditScreen() {
-        isclickhome = false;
         setselectedtab = 0;
         selectmywebinardtab = 0;
         SetImageBackground(0);
@@ -346,16 +337,6 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-
-    public void SetFavoriteTab() {
-        isclickhome = false;
-        setselectedtab = 1;
-        selectmywebinardtab = 2;
-        SetImageBackground(2);
-        userDashBoardFragment = new UserDashBoardFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, userDashBoardFragment, getResources().getString(R.string.userdashBoard_fragment))
-                .commit();
-    }
 
     @Override
     public void onBackPressed() {

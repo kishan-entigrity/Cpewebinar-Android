@@ -236,23 +236,26 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (boolean_country_spinner) {
                     boolean_country_spinner = false;
                 } else {
-
-
-                    country_id = getcountryarray.get(position).getId();
-                    checkflagset = true;
-
-                    State = "";
-                    state_set = 0;
-                    state_pos = 0;
-                    city_set = 0;
-                    city_pos = 0;
-
-
-                    if (Constant.isNetworkAvailable(context)) {
-                        GetState(country_id);
+                    if (getcountryarraylist.get(position).equalsIgnoreCase("Country")) {
+                        country_id = 0;
                     } else {
-                        Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                        country_id = getcountryarray.get(position - 1).getId();
+                        checkflagset = true;
+
+                        State = "";
+                        state_set = 0;
+                        state_pos = 0;
+                        city_set = 0;
+                        city_pos = 0;
+
+
+                        if (Constant.isNetworkAvailable(context)) {
+                            GetState(country_id);
+                        } else {
+                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                        }
                     }
+
 
                 }
 
@@ -272,21 +275,24 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (boolean_state_spinner) {
                     boolean_state_spinner = false;
                 } else {
-
-                    state_id = getstatearray.get(position).getId();
-
-                    checkflagset = true;
-
-                    City = "";
-                    city_set = 0;
-                    city_pos = 0;
-
-
-                    if (Constant.isNetworkAvailable(context)) {
-                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                        GetCity(state_id);
+                    if (getstatearralist.get(position).equalsIgnoreCase("State")) {
+                        state_id = 0;
                     } else {
-                        Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                        state_id = getstatearray.get(position - 1).getId();
+
+                        checkflagset = true;
+
+                        City = "";
+                        city_set = 0;
+                        city_pos = 0;
+
+
+                        if (Constant.isNetworkAvailable(context)) {
+                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                            GetCity(state_id);
+                        } else {
+                            Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+                        }
                     }
 
 
@@ -309,8 +315,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (boolean_city_spinner) {
                     boolean_city_spinner = false;
                 } else {
-
-                    city_id = getcityarray.get(position).getId();
+                    if (getcityarraylist.get(position).equalsIgnoreCase("City")) {
+                        city_id = 0;
+                    } else {
+                        city_id = getcityarray.get(position - 1).getId();
+                    }
 
 
                 }
@@ -329,7 +338,14 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (boolean_usertype_spinner) {
                     boolean_usertype_spinner = false;
                 } else {
-                    who_you_are_id = arrayLististusertypeid.get(position);
+
+                    if (arrayLististusertype.get(position).equalsIgnoreCase(getResources()
+                            .getString(R.string.str_who_you_are))) {
+                        who_you_are_id = 0;
+                    } else {
+                        who_you_are_id = arrayLististusertypeid.get(position - 1);
+                    }
+
                 }
             }
 
@@ -347,7 +363,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (boolean_jobtitle_spinner) {
                     boolean_jobtitle_spinner = false;
                 } else {
-                    jobtitle_id = arrayListjobtitleid.get(position);
+                    if (arrayListjobtitle.get(position).equalsIgnoreCase("Job Title")) {
+                        jobtitle_id = 0;
+                    } else {
+                        jobtitle_id = arrayListjobtitleid.get(position - 1);
+                    }
+
+
                 }
 
             }
@@ -366,7 +388,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (boolean_industry_spinner) {
                     boolean_industry_spinner = false;
                 } else {
-                    industry_id = arrayListindustryid.get(position);
+                    if (arrayListindustry.get(position).equalsIgnoreCase("Industry")) {
+                        industry_id = 0;
+                    } else {
+                        industry_id = arrayListindustryid.get(position - 1);
+                    }
+
                 }
 
             }
@@ -599,6 +626,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         if (modelJobTitle.isSuccess()) {
                             arrayListjobtitle.clear();
 
+                            arrayListjobtitle.add("Job Title");
+
 
                             for (int i = 0; i < modelJobTitle.getPayload().getJobTitle().size(); i++) {
                                 arrayListjobtitle.add(modelJobTitle.getPayload().getJobTitle().get(i).getName());
@@ -607,7 +636,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                             if (jobtitle_id_pos == 0) {
-                                jobtitle_id_pos = arrayListjobtitleid.get(0);
+                                jobtitle_id_pos = 0;
                                 jobtitle_id = jobtitle_id_pos;
                             } else {
                                 for (int i = 0; i < arrayListjobtitleid.size(); i++) {
@@ -667,6 +696,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         if (model_industry.isSuccess()) {
                             arrayListindustry.clear();
+                            arrayListindustry.add("Industry");
 
 
                             for (int i = 0; i < model_industry.getPayload().getIndustriesList().size(); i++) {
@@ -676,7 +706,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                             if (industry_id_pos == 0) {
-                                industry_id_pos = arrayListindustryid.get(0);
+                                industry_id_pos = 0;
                                 industry_id = industry_id_pos;
                             } else {
                                 for (int i = 0; i < arrayListindustryid.size(); i++) {
@@ -737,14 +767,14 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         if (userTypeModel.isSuccess()) {
                             arrayLististusertype.clear();
-                            //arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
+                            arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
 
                             for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
                                 arrayLististusertype.add(userTypeModel.getPayload().getUserType().get(i).getName());
                                 arrayLististusertypeid.add(userTypeModel.getPayload().getUserType().get(i).getId());
                             }
                             if (who_you_are_pos == 0) {
-                                who_you_are_pos = arrayLististusertypeid.get(0);
+                                who_you_are_pos = 0;
                                 who_you_are_id = who_you_are_pos;
                             } else {
                                 for (int i = 0; i < arrayLististusertypeid.size(); i++) {
@@ -780,7 +810,7 @@ public class EditProfileActivity extends AppCompatActivity {
             //Setting the ArrayAdapter data on the Spinner
             binding.spinner.setAdapter(aa);
 
-            binding.spinner.setSelection(whoyouare_set);
+            binding.spinner.setSelection(whoyouare_set + 1);
 
 
         }
@@ -799,7 +829,11 @@ public class EditProfileActivity extends AppCompatActivity {
             //Setting the ArrayAdapter data on the Spinner
             binding.spinnerJobTitile.setAdapter(aa);
 
-            binding.spinnerJobTitile.setSelection(job_title_set);
+            if (jobtitle_id_pos == 0) {
+                binding.spinnerJobTitile.setSelection(0);
+            } else {
+                binding.spinnerJobTitile.setSelection(job_title_set + 1);
+            }
 
 
         }
@@ -818,7 +852,11 @@ public class EditProfileActivity extends AppCompatActivity {
             //Setting the ArrayAdapter data on the Spinner
             binding.spinnerIndustry.setAdapter(aa);
 
-            binding.spinnerIndustry.setSelection(industry_set);
+            if (industry_id_pos == 0) {
+                binding.spinnerIndustry.setSelection(0);
+            } else {
+                binding.spinnerIndustry.setSelection(industry_set + 1);
+            }
 
 
         }
@@ -837,7 +875,11 @@ public class EditProfileActivity extends AppCompatActivity {
             binding.spinnerCountry.setAdapter(aa);
 
 
-            binding.spinnerCountry.setSelection(country_set);
+            if (country_pos == 0) {
+                binding.spinnerCountry.setSelection(0);
+            } else {
+                binding.spinnerCountry.setSelection(country_set + 1);
+            }
 
 
         }
@@ -878,7 +920,12 @@ public class EditProfileActivity extends AppCompatActivity {
             if (checkcityarray == true) {
                 binding.spinnerCity.setSelection(1);
             } else {
-                binding.spinnerCity.setSelection(city_set);
+                if (city_pos == 0) {
+                    binding.spinnerCity.setSelection(0);
+                } else {
+                    binding.spinnerCity.setSelection(city_set + 1);
+                }
+
 
             }
 
@@ -904,7 +951,12 @@ public class EditProfileActivity extends AppCompatActivity {
             if (checkstatearray == true) {
                 binding.spinnerState.setSelection(1);
             } else {
-                binding.spinnerState.setSelection(state_set);
+                if (state_pos == 0) {
+                    binding.spinnerState.setSelection(0);
+                } else {
+                    binding.spinnerState.setSelection(state_set + 1);
+                }
+
             }
 
 
@@ -983,6 +1035,8 @@ public class EditProfileActivity extends AppCompatActivity {
                             getcountryarraylist.clear();
                             getcountryarray.clear();
 
+                            getcountryarraylist.add("Country");
+
 
                             if (CountryModel.getPayload().getCountry().size() > 0) {
                                 for (int i = 0; i < CountryModel.getPayload().getCountry().size(); i++) {
@@ -1000,7 +1054,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                                 if (country_pos == 0) {
-                                    country_pos = getcountryarray.get(0).getId();
+                                    country_pos = 0;
                                     country_id = country_pos;
                                 } else {
                                     for (int i = 0; i < getcountryarray.size(); i++) {
@@ -1081,6 +1135,8 @@ public class EditProfileActivity extends AppCompatActivity {
                             getcityarraylist.clear();
                             getcityarray.clear();
 
+                            getcityarraylist.add("City");
+
                             //   getcityarraylist.add(getResources().getString(R.string.str_select_city));
 
 
@@ -1101,7 +1157,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                                 if (city_pos == 0) {
-                                    city_pos = getcityarray.get(0).getId();
+                                    city_pos = 0;
                                     city_id = city_pos;
                                 } else {
                                     for (int i = 0; i < getcityarray.size(); i++) {
@@ -1189,6 +1245,8 @@ public class EditProfileActivity extends AppCompatActivity {
                             getstatearralist.clear();
                             getstatearray.clear();
 
+                            getstatearralist.add("State");
+
                             // getstatearralist.add(getResources().getString(R.string.str_select_state));
 
 
@@ -1212,7 +1270,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                                 if (state_pos == 0) {
-                                    state_pos = getstatearray.get(0).getId();
+                                    state_pos = 0;
                                     state_id = state_pos;
                                 } else {
                                     for (int i = 0; i < getstatearray.size(); i++) {

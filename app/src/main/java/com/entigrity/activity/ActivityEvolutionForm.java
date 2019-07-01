@@ -38,6 +38,7 @@ public class ActivityEvolutionForm extends AppCompatActivity {
     private static final String TAG = ActivityEvolutionForm.class.getName();
     public int webinar_id = 0;
     public String webinar_type = "";
+    public String Screen = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,17 +52,31 @@ public class ActivityEvolutionForm extends AppCompatActivity {
         if (intent != null) {
             webinar_id = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are_list_review_question), 0);
             webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
+            Screen = intent.getStringExtra(getResources().getString(R.string.screen));
         }
 
 
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, WebinarDetailsActivity.class);
-                i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
-                i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
-                startActivity(i);
-                finish();
+
+                if (Screen.equalsIgnoreCase(getResources().getString(R.string.mywebinar))) {
+                    Intent i = new Intent(context, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                } else if (Screen.equalsIgnoreCase(getResources().getString(R.string.favroitescreen))) {
+                    Intent i = new Intent(context, ActivityFavorite.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Intent i = new Intent(context, WebinarDetailsActivity.class);
+                    i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+                    i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                    startActivity(i);
+                    finish();
+                }
+
+
             }
         });
 
@@ -76,11 +91,21 @@ public class ActivityEvolutionForm extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(context, WebinarDetailsActivity.class);
-        i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
-        i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
-        startActivity(i);
-        finish();
+        if (Screen.equalsIgnoreCase(getResources().getString(R.string.mywebinar))) {
+            Intent i = new Intent(context, MainActivity.class);
+            startActivity(i);
+            finish();
+        } else if (Screen.equalsIgnoreCase(getResources().getString(R.string.favroitescreen))) {
+            Intent i = new Intent(context, ActivityFavorite.class);
+            startActivity(i);
+            finish();
+        } else {
+            Intent i = new Intent(context, WebinarDetailsActivity.class);
+            i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+            i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+            startActivity(i);
+            finish();
+        }
     }
 
     private void GetEvaluationForm() {

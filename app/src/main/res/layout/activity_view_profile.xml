@@ -530,7 +530,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:gravity="center_horizontal"
-                        android:text="@string/view_profile_who_you_are"
+                        android:text="@string/str_who_you_are"
                         android:textColor="@color/edit_profile_lable_colcr"
                         android:textSize="@dimen/_12sdp"
                         app:font_text="SFUIDisplay-Medium.ttf" />
@@ -543,6 +543,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerHorizontal="true"
                         android:gravity="center_horizontal"
+                        android:inputType="textMultiLine"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp"
                         app:font_text="SFUIDisplay-Medium.ttf" />

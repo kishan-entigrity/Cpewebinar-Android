@@ -1,5 +1,6 @@
 package com.entigrity.fragments;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -79,6 +81,8 @@ public class AccountFragment extends Fragment {
     public int whoyouare = 0;
     public String state = "", city = "";
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
+
+    public boolean checkkeyboard = false;
 
     @Nullable
     @Override
@@ -220,6 +224,8 @@ public class AccountFragment extends Fragment {
                                     && !viewProfileModel.getPayload().getData().getFirstName().equalsIgnoreCase("")) {
                                 firstname = viewProfileModel.getPayload().getData().getFirstName();
 
+                                AppSettings.set_profile_username(context, firstname);
+
                             }
 
                            /* if (!viewProfileModel.getPayload().getData().getProfilePicture().equalsIgnoreCase("")
@@ -352,9 +358,23 @@ public class AccountFragment extends Fragment {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edt_subject.setFocusable(false);
+                edt_subject.setFocusableInTouchMode(false);
+
+                edt_review.setFocusable(false);
+                edt_review.setFocusableInTouchMode(false);
+
+
+                if (!checkkeyboard) {
+                    InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
+
+                }
+
+
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
-
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                         PostFeedback(getResources().getString(R.string.accept), AppSettings.get_login_token(context),
                                 edt_subject.getText().toString(), edt_review.getText().toString());
@@ -573,8 +593,6 @@ public class AccountFragment extends Fragment {
         i.putExtra(getResources().getString(R.string.pass_country_text), country);
         i.putExtra(getResources().getString(R.string.pass_state_text), state);
         i.putExtra(getResources().getString(R.string.pass_city_text), city);
-
-
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
         i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);
         i.putExtra(getResources().getString(R.string.pass_who_you_are_text), whoyouarevalue);
@@ -729,6 +747,10 @@ public class AccountFragment extends Fragment {
                         if (myDialog.isShowing()) {
                             myDialog.dismiss();
                         }
+
+                        checkkeyboard = true;
+
+
                         if (postFeedback.isSuccess()) {
                             Snackbar.make(binding.rvFeedback, postFeedback.getMessage(), Snackbar.LENGTH_SHORT).show();
                         } else {
@@ -745,6 +767,12 @@ public class AccountFragment extends Fragment {
 
 
     public Boolean Validation() {
+        edt_subject.setFocusable(true);
+        edt_subject.setFocusableInTouchMode(true);
+
+        edt_review.setFocusable(true);
+        edt_review.setFocusableInTouchMode(true);
+
         if (edt_subject.getText().toString().isEmpty()) {
             Snackbar.make(binding.rvFeedback, getResources().getString(R.string.val_subject), Snackbar.LENGTH_SHORT).show();
             return false;

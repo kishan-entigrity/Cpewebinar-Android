@@ -48,6 +48,7 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_topicsofinterest);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_topicsofinterest);
         mAPIService = ApiUtilsNew.getAPIService();
         context = TopicsOfInterestActivity.this;
         instance = TopicsOfInterestActivity.this;
@@ -81,7 +82,7 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
 
 
     public void GetTopicsofInterest() {
-        mAPIService.GetTopicsofInterests(getResources().getString(R.string.accept), getResources().getString(R.string.bearer)+" "+ AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetTopicsofInterests(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ViewTopicsFavorite>() {
                     @Override
                     public void onCompleted() {

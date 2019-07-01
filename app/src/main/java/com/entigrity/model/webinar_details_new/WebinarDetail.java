@@ -91,6 +91,18 @@ public class WebinarDetail {
     @SerializedName("time_zone")
     private String timeZone;
 
+    public int getStartutctime() {
+        return startutctime;
+    }
+
+    public void setStartutctime(int startutctime) {
+        this.startutctime = startutctime;
+    }
+
+    @SerializedName("start_utc_time")
+    private int startutctime;
+
+
     @SerializedName("webinar_video_url")
     private String webinarVideoUrl;
 
@@ -490,6 +502,7 @@ public class WebinarDetail {
                         ",who_should_attend = '" + whoShouldAttend + '\'' +
                         ",webinar_thumbnail = '" + webinarThumbnail + '\'' +
                         ",time_zone = '" + timeZone + '\'' +
+                        ",start_utc_time = '" + startutctime + '\'' +
                         ",webinar_video_url = '" + webinarVideoUrl + '\'' +
                         ",presentation_handout = '" + presentationHandout + '\'' +
                         ",start_time = '" + startTime + '\'' +

@@ -55,6 +55,8 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
             viewHolder.itemTitle.setText(tagsItem.getName());
         }
 
+        viewHolder.cbselection.setEnabled(false);
+
         if (tagsItem.isIsChecked()) {
             viewHolder.cbselection.setChecked(true);
         } else {
@@ -62,7 +64,7 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
         }
 
 
-        viewHolder.lv_topics_item.setOnClickListener(new View.OnClickListener() {
+        viewHolder.itemTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

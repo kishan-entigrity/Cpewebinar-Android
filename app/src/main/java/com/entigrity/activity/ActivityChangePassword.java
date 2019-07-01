@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -78,7 +79,7 @@ public class ActivityChangePassword extends AppCompatActivity {
     public void ChangePassword(String Authorization, String current_password, String new_password, String confirm_password) {
 
         // RxJava
-        mAPIService_new.changepassword(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) +" "+ Authorization, current_password
+        mAPIService_new.changepassword(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + Authorization, current_password
                 , new_password, confirm_password).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ChangePasswordModel>() {
                     @Override
@@ -108,11 +109,21 @@ public class ActivityChangePassword extends AppCompatActivity {
                     @Override
                     public void onNext(ChangePasswordModel changePasswordModel) {
                         if (changePasswordModel.isSuccess()) {
-                            ClearData();
+                            //ClearData();
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
                             Snackbar.make(binding.btnSubmit, changePasswordModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+
+                                }
+                            }, 2000);
+
+
                         } else {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();

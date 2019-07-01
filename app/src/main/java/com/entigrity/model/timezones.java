@@ -49,4 +49,14 @@ public class timezones {
     private String start_time = "";
 
     private int schedule_id = 0;
+
+    public int getStart_utc_time() {
+        return start_utc_time;
+    }
+
+    public void setStart_utc_time(int start_utc_time) {
+        this.start_utc_time = start_utc_time;
+    }
+
+    private int start_utc_time = 0;
 }

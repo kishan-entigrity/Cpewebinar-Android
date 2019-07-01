@@ -167,10 +167,12 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                     Intent i = new Intent(mContext, WebinarDetailsActivity.class);
                     i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), Integer.parseInt(mList
                             .get(position).getWebinarId()));
+                    i.putExtra(mContext.getResources().getString(R.string.screen_detail), 2);
                     i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
                             .get(position).getWebinarType());
 
                     mContext.startActivity(i);
+
 
                 }
             });

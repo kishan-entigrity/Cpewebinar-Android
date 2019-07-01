@@ -193,7 +193,6 @@
                     android:id="@+id/input_ptin_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
                     android:layout_alignParentLeft="true">
 
 
@@ -203,7 +202,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/view_profile_ptin_number"
                         android:imeOptions="actionDone"
-                        android:inputType="number"
+                        android:inputType="text"
                         android:maxLength="9"
                         android:singleLine="true"
                         android:textSize="@dimen/_10sdp"
@@ -235,6 +234,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_8sdp"
                         android:src="@mipmap/drop_down_arrow" />
 
                 </RelativeLayout>
@@ -269,6 +269,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_8sdp"
                         android:src="@mipmap/drop_down_arrow" />
 
                 </RelativeLayout>
@@ -303,6 +304,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_8sdp"
                         android:src="@mipmap/drop_down_arrow" />
 
                 </RelativeLayout>
@@ -338,6 +340,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_8sdp"
                         android:src="@mipmap/drop_down_arrow" />
 
                 </RelativeLayout>
@@ -372,6 +375,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_8sdp"
                         android:src="@mipmap/drop_down_arrow" />
 
                 </RelativeLayout>
@@ -411,7 +415,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp">
+                    android:layout_marginTop="@dimen/_10sdp">
 
                     <Spinner
                         android:id="@+id/spinner"
@@ -430,6 +434,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_8sdp"
                         android:src="@mipmap/drop_down_arrow" />
 
                 </RelativeLayout>
@@ -457,7 +462,8 @@
                     android:id="@+id/rel_topics_of_interest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp">
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp">
 
 
                     <com.entigrity.view.CustomTextView
@@ -466,8 +472,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_2sdp"
                         android:background="@drawable/my_credit_status"
+                        android:ems="11"
                         android:gravity="center_horizontal"
                         android:padding="@dimen/_2sdp"
+                        android:singleLine="true"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_10sdp"
                         android:visibility="gone"

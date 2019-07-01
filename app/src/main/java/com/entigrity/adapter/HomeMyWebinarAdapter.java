@@ -8,7 +8,6 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -33,6 +32,7 @@ import android.widget.Toast;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.ActivityEvolutionForm;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
@@ -89,9 +89,9 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
 
         downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
 
-        mContext.registerReceiver(onComplete,
+       /* mContext.registerReceiver(onComplete,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
+*/
     }
 
     public void DownloadCertificate(String Certificate) {
@@ -392,9 +392,11 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                     Intent i = new Intent(mContext, WebinarDetailsActivity.class);
                     i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
                             .get(position).getId());
+                    i.putExtra(mContext.getResources().getString(R.string.screen_detail), 1);
                     i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
                             .get(position).getWebinarType());
                     mContext.startActivity(i);
+                    ((Activity) mContext).finish();
 
                 }
             });
@@ -449,6 +451,14 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                             } /*else {
                                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_joinlink_not_avilable));
                             }*/
+                        } else if (mList.get(position).getStatus().equalsIgnoreCase(
+                                mContext.getResources().getString(R.string.str_webinar_status_pending_evoluation))) {
+                            Intent i = new Intent(mContext, ActivityEvolutionForm.class);
+                            i.putExtra(mContext.getResources().getString(R.string.screen), mContext.getResources().getString(R.string.mywebinar));
+                            i.putExtra(mContext.getResources().getString(R.string.pass_who_you_are_list_review_question), mList.get(position).getId());
+                            i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList.get(position).getWebinarType());
+                            mContext.startActivity(i);
+                            ((Activity) mContext).finish();
                         }
                     }
                 }
@@ -509,7 +519,6 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -525,7 +534,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                         if (!certificate_link.equalsIgnoreCase("")) {
                          /*   downloadTask = new DownloadTask(mContext);
                             downloadTask.execute(certificate_link);*/
-                            DownloadCertificate(certificate_link);
+                        //    DownloadCertificate(certificate_link);
 
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
@@ -568,7 +577,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
             if (!certificate_link.equalsIgnoreCase("")) {
               /*  downloadTask = new DownloadTask(mContext);
                 downloadTask.execute(certificate_link);*/
-                DownloadCertificate(certificate_link);
+            //    DownloadCertificate(certificate_link);
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
             }
@@ -613,7 +622,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
             if (!certificate_link.equalsIgnoreCase("")) {
                /* downloadTask = new DownloadTask(mContext);
                 downloadTask.execute(certificate_link);*/
-                DownloadCertificate(certificate_link);
+              //  DownloadCertificate(certificate_link);
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
             }

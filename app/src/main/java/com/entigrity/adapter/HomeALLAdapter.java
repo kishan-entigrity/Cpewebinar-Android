@@ -9,7 +9,6 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -114,9 +113,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
         downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
 
-        mContext.registerReceiver(onComplete,
+        /*mContext.registerReceiver(onComplete,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
+*/
 
     }
 
@@ -475,10 +474,12 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                         Intent i = new Intent(mContext, WebinarDetailsActivity.class);
                         i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
                                 .get(position).getId());
+                        i.putExtra(mContext.getResources().getString(R.string.screen_detail), 1);
                         i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
                                 .get(position).getWebinarType());
 
                         mContext.startActivity(i);
+                        ((Activity) mContext).finish();
                     } else {
                         ShowPopUp();
                     }
@@ -687,7 +688,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
             if (!certificate_link.equalsIgnoreCase("")) {
                /* downloadTask = new DownloadTask(mContext);
                 downloadTask.execute(certificate_link);*/
-                DownloadCertificate(certificate_link);
+           //     DownloadCertificate(certificate_link);
 
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
@@ -733,7 +734,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
             if (!certificate_link.equalsIgnoreCase("")) {
                /* downloadTask = new DownloadTask(mContext);
                 downloadTask.execute(certificate_link);*/
-                DownloadCertificate(certificate_link);
+            //    DownloadCertificate(certificate_link);
 
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
@@ -1024,7 +1025,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                         if (!certificate_link.equalsIgnoreCase("")) {
                            /* downloadTask = new DownloadTask(mContext);
                             downloadTask.execute(certificate_link);*/
-                            DownloadCertificate(certificate_link);
+                      //      DownloadCertificate(certificate_link);
 
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));

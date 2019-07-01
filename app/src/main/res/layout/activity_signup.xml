@@ -213,7 +213,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp">
+                        android:layout_marginTop="@dimen/_15sdp">
 
                         <Spinner
                             android:id="@+id/spinner"
@@ -232,6 +232,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/_8sdp"
                             android:src="@mipmap/drop_down_arrow" />
 
                     </RelativeLayout>

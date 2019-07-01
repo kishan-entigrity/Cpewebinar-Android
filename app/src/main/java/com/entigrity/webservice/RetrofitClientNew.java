@@ -1,5 +1,7 @@
 package com.entigrity.webservice;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -30,6 +32,8 @@ public class RetrofitClientNew {
         if (retrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            httpClient.connectTimeout(100, TimeUnit.SECONDS)
+                    .readTimeout(100, TimeUnit.SECONDS).build();
             httpClient.addInterceptor(logging);  // <-- this is the important line!
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             retrofit = new Retrofit.Builder()

@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Constant.hideKeyboard((Activity) context);
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
                         progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
@@ -165,7 +166,6 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                             }
 
-                            Constant.hideKeyboard((Activity) context);
 
                             AppSettings.set_login_token(context, login.getPayload().getToken());
 

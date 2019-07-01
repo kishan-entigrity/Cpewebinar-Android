@@ -87,10 +87,12 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.StringTokenizer;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.adapter.rxjava.HttpException;
@@ -147,6 +149,10 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
     public String join_url = "";
     public int schedule_id = 0;
+    public int start_utc_time = 0;
+    public int screen_details = 0;
+    private String calenderdate = "";
+    private String calender_hour = "", calender_min = "";
 
 
     //exo player
@@ -201,6 +207,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             webinarid = intent.getIntExtra(getResources().getString(R.string.pass_webinar_id), 0);
+            screen_details = intent.getIntExtra(getResources().getString(R.string.screen_detail), 0);
             webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
 
             Constant.Log(TAG, "webinar_id" + webinarid);
@@ -243,6 +250,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                     } else if (binding.tvWebinarStatus.getText().toString().equalsIgnoreCase(context
                             .getResources().getString(R.string.str_webinar_status_pending_evoluation))) {
                         Intent i = new Intent(context, ActivityEvolutionForm.class);
+                        i.putExtra(getResources().getString(R.string.screen), getResources().getString(R.string.webinardetail));
                         i.putExtra(getResources().getString(R.string.pass_who_you_are_list_review_question), webinarid);
                         i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
                         startActivity(i);
@@ -404,8 +412,28 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                     finish();
 
                 } else {
-                    handler.removeCallbacks(runnable);
-                    finish();
+
+                    if (screen_details == 0) {
+                        handler.removeCallbacks(runnable);
+                        Intent i = new Intent(context, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else if (screen_details == 1) {
+                        Intent i = new Intent(context, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else if (screen_details == 2) {
+                        finish();
+                    } else if (screen_details == 3) {
+                        Intent i = new Intent(context, NotificationActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else if (screen_details == 4) {
+                        Intent i = new Intent(context, ActivityFavorite.class);
+                        startActivity(i);
+                        finish();
+                    }
+
                 }
 
 
@@ -438,6 +466,28 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             month = tokens.nextToken();//this will contain month
 
                             schedule_id = arrayliattimezones.get(position).getSchedule_id();
+
+                            start_utc_time = arrayliattimezones.get(position).getStart_utc_time();
+
+                            calenderdate = getDateCurrentTimeZone(start_utc_time);
+
+
+                            StringTokenizer token = new StringTokenizer(calenderdate, " ");
+
+                            String date = token.nextToken();
+                            String time = token.nextToken();
+
+
+                            StringTokenizer tok = new StringTokenizer(time, ":");
+
+                            calender_hour = tok.nextToken();
+                            calender_min = tok.nextToken();
+                            String second = tok.nextToken();
+
+                            if (calender_min.equalsIgnoreCase("00")) {
+                                calender_min = "0";
+                            }
+
 
                             month_calendar = month;
 
@@ -593,6 +643,22 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public String getDateCurrentTimeZone(long timestamp) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            TimeZone tz = TimeZone.getDefault();
+            calendar.setTimeInMillis(timestamp * 1000);
+            calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            //sdf.setTimeZone(TimeZone.getDefault());
+            Date currenTimeZone = (Date) calendar.getTime();
+            return sdf.format(currenTimeZone);
+        } catch (Exception e) {
+        }
+        return "";
     }
 
     @Override
@@ -1544,8 +1610,26 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             finish();
 
         } else {
-            handler.removeCallbacks(runnable);
-            super.onBackPressed();
+            if (screen_details == 0) {
+                handler.removeCallbacks(runnable);
+                Intent i = new Intent(context, MainActivity.class);
+                startActivity(i);
+                finish();
+            } else if (screen_details == 1) {
+                Intent i = new Intent(context, MainActivity.class);
+                startActivity(i);
+                finish();
+            } else if (screen_details == 2) {
+                finish();
+            } else if (screen_details == 3) {
+                Intent i = new Intent(context, NotificationActivity.class);
+                startActivity(i);
+                finish();
+            } else if (screen_details == 4) {
+                Intent i = new Intent(context, ActivityFavorite.class);
+                startActivity(i);
+                finish();
+            }
         }
     }
 
@@ -1645,11 +1729,36 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                                             .getTimezones().get(i).getTimezoneShort());
                                     timezones.setSchedule_id(webinar_details.getPayload().getWebinarDetail()
                                             .getTimezones().get(i).getScheduleId());
+                                    timezones.setStart_utc_time(webinar_details.getPayload().getWebinarDetail().getTimezones()
+                                            .get(i).getStartutctime());
                                     arrayliattimezones.add(timezones);
                                 }
 
+
                                 if (arrayliattimezones.size() == 1) {
                                     schedule_id = arrayliattimezones.get(0).getSchedule_id();
+                                    start_utc_time = arrayliattimezones.get(0).getStart_utc_time();
+
+                                    calenderdate = getDateCurrentTimeZone(start_utc_time);
+
+
+                                    StringTokenizer tokens_time = new StringTokenizer(calenderdate, " ");
+
+                                    String date = tokens_time.nextToken();
+                                    String time = tokens_time.nextToken();
+
+
+                                    StringTokenizer tokens_time_min = new StringTokenizer(time, ":");
+
+                                    calender_hour = tokens_time_min.nextToken();
+                                    calender_min = tokens_time_min.nextToken();
+                                    String second = tokens_time_min.nextToken();
+
+                                    if (calender_min.equalsIgnoreCase("00")) {
+                                        calender_min = "0";
+                                    }
+
+
                                 }
 
 
@@ -1750,7 +1859,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                                 String hour = tokens.nextToken();// this will contain year
                                 String min = tokens.nextToken();//this will contain month
 
-                                Constant.Log("hour_min", "hour_min" + hour + " " + min);
+                                //  Constant.Log("hour_min", "hour_min" + hour + " " + min);
 
                                 if (min.equalsIgnoreCase("00")) {
 
@@ -2269,7 +2378,9 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
         Calendar beginTime = Calendar.getInstance();
         beginTime.set(Integer.parseInt(year), Integer.parseInt(month_calendar) - 1, Integer.parseInt(day),
-                Integer.parseInt(hour), Integer.parseInt(min_calendar));
+                Integer.parseInt(calender_hour), Integer.parseInt(calender_min));
+
+
        /* Calendar endTime = Calendar.getInstance();
         endTime.set(2019, 5, 8, 15, 40);*/
         Intent intent = new Intent(Intent.ACTION_INSERT)

@@ -18,16 +18,9 @@ import android.widget.TextView;
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.FragmentChangePasswordBinding;
-import com.entigrity.model.changepassword.ChangePasswordModel;
-import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
-import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtils;
-
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class ChangePasswordFragment extends Fragment {
 
@@ -130,7 +123,7 @@ public class ChangePasswordFragment extends Fragment {
                     } else if (!Constant.Trim(binding.edtNewpassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
                         Constant.ShowPopUp(getResources().getString(R.string.val_new_confirm_password_not_match), context);
                     } else {
-                        Constant.hideKeyboard(getActivity());
+                        //Constant.hideKeyboard(getActivity());
                     }
                     return true;
                 }

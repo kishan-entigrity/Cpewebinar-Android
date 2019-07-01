@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.entigrity.R;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.notification.NotificationListItem;
-import com.entigrity.utility.Constant;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -80,9 +79,11 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                     Intent i = new Intent(mContext, WebinarDetailsActivity.class);
                     i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
                             .get(position).getWebinarId());
+                    i.putExtra(mContext.getResources().getString(R.string.screen_detail), 3);
                     i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
                             .get(position).getWebinartype());
                     mContext.startActivity(i);
+                    ((Activity) mContext).finish();
                 }
             });
 
@@ -92,7 +93,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                 String notificationdate = getDateCurrentTimeZone(mList.get(position).getTimestamp());
 
 
-                Constant.Log("notifification date", "date" + notificationdate);
+                // Constant.Log("notifification date", "date" + notificationdate);
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 try {
                     Date pastdate = sdf.parse(notificationdate);

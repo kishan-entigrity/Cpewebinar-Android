@@ -92,7 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     if (arrayLististusertype.get(position).equalsIgnoreCase(getResources()
                             .getString(R.string.str_who_you_are))) {
-                        user_type=0;
+                        user_type = 0;
                     } else {
                         user_type = arrayLististusertypeid.get(position - 1);
                         Constant.Log("user_type", "user_type" + user_type);
@@ -320,7 +320,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Constant.arraylistselectedvalue.clear();
 
                 Intent i = new Intent(SignUpActivity.this, TopicsofInterestSignUpActivity.class);
-                i.putExtra(getResources().getString(R.string.reg_firstname), Constant.Trim(binding.edtFirmname.getText().toString()));
+                i.putExtra(getResources().getString(R.string.reg_firstname), Constant.Trim(binding.edtFirstname.getText().toString()));
                 i.putExtra(getResources().getString(R.string.reg_lastname), Constant.Trim(binding.edtLastname.getText().toString()));
                 i.putExtra(getResources().getString(R.string.reg_email), Constant.Trim(binding.edtEmailid.getText().toString()));
                 i.putExtra(getResources().getString(R.string.reg_password), Constant.Trim(binding.edtPassword.getText().toString()));
@@ -351,7 +351,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         // String phoneNumbers = binding.edtMobilenumbert.getText().toString().replaceAll("[^\\d]", "");
 
-                        RegisterPost(Constant.Trim(binding.edtFirmname.getText().toString())
+                        RegisterPost(Constant.Trim(binding.edtFirstname.getText().toString())
                                 , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
                                 Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
                                 Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),

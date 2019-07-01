@@ -330,7 +330,7 @@ public class HomeAllFragment extends Fragment {
         start = 0;
         limit = 10;
         loading = true;
-        checkmywebinardotstatusset=true;
+        checkmywebinardotstatusset = true;
 
         if (Constant.isNetworkAvailable(context)) {
             GetHomeListNew(webinartype, topicsofinterest, start, limit);
@@ -413,12 +413,12 @@ public class HomeAllFragment extends Fragment {
 
                             islast = webinar_home_new.getPayload().isIsLast();
 
-                            isprogress = webinar_home_new.getPayload().isIsprogress();
+                            //  isprogress = webinar_home_new.getPayload().isIsprogress();
 
 
-                            if (topicsofinterest.equalsIgnoreCase("")) {
+                           /* if (topicsofinterest.equalsIgnoreCase("")) {
                                 UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
-                            }
+                            }*/
 
 
                             if (start == 0 && limit == 10) {

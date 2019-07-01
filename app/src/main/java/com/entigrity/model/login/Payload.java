@@ -40,7 +40,7 @@ public class Payload{
 	private String firmName;
 
 	@SerializedName("user_type_id")
-	private String userTypeId;
+	private int userTypeId;
 
 	@SerializedName("id")
 	private int id;
@@ -157,11 +157,11 @@ public class Payload{
 		return firmName;
 	}
 
-	public void setUserTypeId(String userTypeId){
+	public void setUserTypeId(int userTypeId){
 		this.userTypeId = userTypeId;
 	}
 
-	public String getUserTypeId(){
+	public int getUserTypeId(){
 		return userTypeId;
 	}
 

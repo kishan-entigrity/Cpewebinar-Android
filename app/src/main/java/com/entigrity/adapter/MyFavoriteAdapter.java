@@ -9,7 +9,6 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -37,6 +36,7 @@ import android.widget.Toast;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.ActivityEvolutionForm;
 import com.entigrity.activity.LoginActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
@@ -114,8 +114,8 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
 
         downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
 
-        mContext.registerReceiver(onComplete,
-                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+      /*  mContext.registerReceiver(onComplete,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));*/
 
 
     }
@@ -457,10 +457,12 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                         Intent i = new Intent(mContext, WebinarDetailsActivity.class);
                         i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
                                 .get(position).getId());
+                        i.putExtra(mContext.getResources().getString(R.string.screen_detail), 4);
                         i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
                                 .get(position).getWebinarType());
 
                         mContext.startActivity(i);
+                        ((Activity) mContext).finish();
                     } else {
                         ShowPopUp();
                     }
@@ -522,6 +524,14 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                                 }/* else {
                                     Constant.toast(mContext, mContext.getResources().getString(R.string.str_joinlink_not_avilable));
                                 }*/
+                            } else if (mList.get(position).getStatus().equalsIgnoreCase(
+                                    mContext.getResources().getString(R.string.str_webinar_status_pending_evoluation))) {
+                                Intent i = new Intent(mContext, ActivityEvolutionForm.class);
+                                i.putExtra(mContext.getResources().getString(R.string.screen), mContext.getResources().getString(R.string.favroitescreen));
+                                i.putExtra(mContext.getResources().getString(R.string.pass_who_you_are_list_review_question), mList.get(position).getId());
+                                i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList.get(position).getWebinarType());
+                                mContext.startActivity(i);
+                                ((Activity) mContext).finish();
                             }
                         }
                     }
@@ -561,7 +571,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
             if (!certificate_link.equalsIgnoreCase("")) {
               /*  downloadTask = new DownloadTask(mContext);
                 downloadTask.execute(certificate_link);*/
-                DownloadCertificate(certificate_link);
+                //       DownloadCertificate(certificate_link);
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
             }
@@ -605,7 +615,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                /* downloadTask = new DownloadTask(mContext);
                 downloadTask.execute(certificate_link);*/
 
-                DownloadCertificate(certificate_link);
+                //     DownloadCertificate(certificate_link);
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
             }
@@ -628,7 +638,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                             /*downloadTask = new DownloadTask(mContext);
                             downloadTask.execute(certificate_link);*/
 
-                            DownloadCertificate(certificate_link);
+                            //        DownloadCertificate(certificate_link);
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
                         }

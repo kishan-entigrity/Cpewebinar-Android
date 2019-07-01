@@ -83,7 +83,7 @@
     <string name="str_email">Email</string>
     <string name="str_password">Password</string>
     <string name="do_not_have_account">Don"'"t have an account?</string>
-    <string name="register_now_login">REGISTER NOW</string>
+    <string name="register_now_login">SIGN UP</string>
     <string name="validate_email_id">Please Enter Email Address</string>
     <string name="validate_password">Please Enter Password</string>
     <string name="str_token">login token</string>
@@ -203,7 +203,7 @@
     <string name="str_reg_confirm_password">Confirm Password</string>
     <string name="str_firm_name">Company Name</string>
     <string name="str_alredy_account">Already have an account?</string>
-    <string name="str_login_now">LOGIN NOW</string>
+    <string name="str_login_now">SIGN IN</string>
     <string name="str_accepted">I accept these</string>
     <string name="str_accepted_condition">Terms and Conditions.</string>
     <string name="str_other_option">Please select other option</string>
@@ -661,6 +661,15 @@
 
     <string name="notification_flag">notificationflag</string>
     <string name="notification_webinar_id">webinarid</string>
+
+    //from home to pending evoluation
+    <string name="screen">screen</string>
+    <string name="mywebinar">mywebinar</string>
+    <string name="webinardetail">webinardetail</string>
+    <string name="favroitescreen">favroitescreen</string>
+
+    //from screen to detail screen
+    <string name="screen_detail">screen_details</string>
 
 
 </resources>

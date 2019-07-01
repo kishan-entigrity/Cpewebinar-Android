@@ -65,7 +65,7 @@ public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<Topicsofi
         }*/
 
 
-        holder.rel_topics.setOnClickListener(new View.OnClickListener() {
+        holder.tv_topics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -123,7 +123,6 @@ public class TopicsofinterestPopUpAdapter extends RecyclerView.Adapter<Topicsofi
                                 // Constant.arraylistselectedvalue.add(tagsItem.getId());
                             }
                         }
-
 
 
                         Constant.arraylistselectedtopicsofinterest.add(mListrtopicsofinterestsubcategory.get(position).getId());

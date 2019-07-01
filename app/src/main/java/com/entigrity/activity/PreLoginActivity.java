@@ -20,7 +20,7 @@ public class PreLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prelogin);
 
-        binding.strSkip.setOnClickListener(new View.OnClickListener() {
+        binding.lvSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PreLoginActivity.this, MainActivity.class);

@@ -169,12 +169,10 @@ public class MyFavoriteScreenFragment extends Fragment {
                                     .into(binding.ivbanner);
 
 
-                            if (!AppSettings.get_profile_username(context).equalsIgnoreCase("")
-                                    && AppSettings.get_profile_username(context) != null) {
-                                binding.profilename.setText("" + AppSettings.get_profile_username(context));
-
-
+                            if (!favorite_count_model.getPayload().getFirstName().equalsIgnoreCase("")) {
+                                binding.profilename.setText("" + favorite_count_model.getPayload().getFirstName());
                             }
+
 
 
                             /*if (!favorite_count_model.getPayload().getBannerImage().equalsIgnoreCase("")) {

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,7 @@ public class ActivityContactUs extends AppCompatActivity {
         binding.btnsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 if (Validation()) {
                     if (Constant.isNetworkAvailable(context)) {
@@ -158,9 +160,20 @@ public class ActivityContactUs extends AppCompatActivity {
                         }
                         if (postContactQuery.isSuccess()) {
                             Snackbar.make(binding.btnsubmit, postContactQuery.getMessage(), Snackbar.LENGTH_SHORT).show();
-                            binding.edtSubject.setText("");
+                           /* binding.edtSubject.setText("");
                             binding.edtReview.setText("");
 
+
+*/
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    finish();
+
+                                }
+                            }, 2000);
                         } else {
                             Snackbar.make(binding.btnsubmit, postContactQuery.getMessage(), Snackbar.LENGTH_SHORT).show();
 

@@ -492,8 +492,6 @@ public class MyWebinarFragment extends Fragment {
                             isprogress = webinar_home_new.getPayload().isIsprogress();
 
                             if (topicsofinterest.equalsIgnoreCase("")) {
-
-
                                 UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
                             }
 
