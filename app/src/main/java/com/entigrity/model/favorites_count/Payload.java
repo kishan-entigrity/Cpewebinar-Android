@@ -17,6 +17,18 @@ public class Payload {
     @SerializedName("banner_image")
     private String bannerImage;
 
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    @SerializedName("profile_picture")
+    private String profilePicture;
+
+
     @SerializedName("first_name")
     private String firstName;
 
@@ -91,6 +103,7 @@ public class Payload {
                         ",company_count = '" + companyCount + '\'' +
                         ",webinar_count = '" + webinarCount + '\'' +
                         ",banner_image = '" + bannerImage + '\'' +
+                        ",profile_picture = '" + profilePicture + '\'' +
                         ",first_name = '" + firstName + '\'' +
                         ",last_name = '" + lastName + '\'' +
                         ",topics_of_interest_count = '" + topicsOfInterestCount + '\'' +

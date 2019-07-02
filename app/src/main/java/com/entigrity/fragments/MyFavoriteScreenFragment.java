@@ -152,17 +152,25 @@ public class MyFavoriteScreenFragment extends Fragment {
                             }
 
 
-                            if (!AppSettings.get_profile_picture(context).equalsIgnoreCase("")
+                           /* if (!AppSettings.get_profile_picture(context).equalsIgnoreCase("")
                                     && AppSettings.get_profile_picture(context) != null) {
-
                                 Picasso.with(context).load(AppSettings.get_profile_picture(context))
                                         .placeholder(R.drawable.profile_place_holder)
                                         .into(binding.ivProfilepicture);
-
-                                Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
-
-
                             }
+*/
+
+
+                            if (!favorite_count_model.getPayload().getProfilePicture().equalsIgnoreCase("")
+                                    && favorite_count_model.getPayload().getProfilePicture() != null) {
+                                Picasso.with(context).load(favorite_count_model.getPayload().getProfilePicture())
+                                        .placeholder(R.drawable.profile_place_holder)
+                                        .into(binding.ivProfilePicture);
+                            } else {
+
+                                binding.ivProfilePicture.setImageResource(R.drawable.profile_place_holder);
+                            }
+
 
                             Picasso.with(context).load("https://my-cpe.com/images/about-us-bg.jpg")
                                     .placeholder(R.mipmap.webinar_placeholder)

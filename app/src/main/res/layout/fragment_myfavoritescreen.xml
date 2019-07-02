@@ -50,14 +50,13 @@
                 android:scaleType="fitXY" />
 
 
-            <ImageView
-                android:id="@+id/iv_profilepicture"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile_picture"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_below="@+id/ivbanner"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/_minus25sdp"
-                android:background="@drawable/profile_place_holder"
                 android:scaleType="centerCrop" />
 
 
@@ -65,7 +64,7 @@
                 android:id="@+id/profilename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_profilepicture"
+                android:layout_below="@+id/iv_profile_picture"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/theme_background"
                 android:textSize="@dimen/_15sdp"

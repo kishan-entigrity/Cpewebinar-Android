@@ -225,23 +225,14 @@ public class AccountFragment extends Fragment {
 
                             }
 
-                           /* if (!viewProfileModel.getPayload().getData().getProfilePicture().equalsIgnoreCase("")
+                            if (!viewProfileModel.getPayload().getData().getProfilePicture().equalsIgnoreCase("")
                                     && viewProfileModel.getPayload().getData().getProfilePicture() != null) {
                                 Picasso.with(context).load(viewProfileModel.getPayload().getData().getProfilePicture())
-                                        .placeholder(R.mipmap.placeholder)
-                                        .into(binding.ivprofilepicture);
-                            }*/
-
-                            if (!AppSettings.get_profile_picture(context).equalsIgnoreCase("")
-                                    && AppSettings.get_profile_picture(context) != null) {
-
-                                Picasso.with(context).load(AppSettings.get_profile_picture(context))
                                         .placeholder(R.drawable.profile_place_holder)
                                         .into(binding.ivprofilepicture);
+                            } else {
 
-                                Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
-
-
+                                binding.ivprofilepicture.setImageResource(R.drawable.profile_place_holder);
                             }
 
 
@@ -665,7 +656,6 @@ public class AccountFragment extends Fragment {
                             AppSettings.removeFromSharedPreferences(context, getResources().getString(R.string.str_token));
                             AppSettings.set_login_token(context, "");
                             AppSettings.set_device_id(context, "");
-                            AppSettings.set_profile_picture(context, "");
                             AppSettings.set_profile_username(context, "");
                             AppSettings.set_email_id(context, "");
 

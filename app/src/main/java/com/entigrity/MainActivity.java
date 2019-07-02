@@ -218,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
             AppSettings.removeFromSharedPreferences(context, getResources().getString(R.string.str_token));
             AppSettings.set_login_token(context, "");
             AppSettings.set_device_id(context, "");
-            AppSettings.set_profile_picture(context, "");
             AppSettings.set_profile_username(context, "");
             AppSettings.set_email_id(context, "");
 

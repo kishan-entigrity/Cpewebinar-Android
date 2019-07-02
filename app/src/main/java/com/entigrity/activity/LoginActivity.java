@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             AppSettings.set_login_token(context, login.getPayload().getToken());
 
-                            AppSettings.set_profile_picture(context, login.getPayload().getProfilePicture());
+                            //AppSettings.set_profile_picture(context, login.getPayload().getProfilePicture());
 
                             AppSettings.set_profile_username(context, login.getPayload().getFirstName());
 
@@ -179,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
 
-                            Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
+
 
 
                             Intent i = new Intent(context, MainActivity.class);

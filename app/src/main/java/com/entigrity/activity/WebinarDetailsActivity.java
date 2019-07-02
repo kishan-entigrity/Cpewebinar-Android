@@ -1702,6 +1702,18 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             if (!webinar_details.getPayload().getWebinarDetail().getCredit().equalsIgnoreCase("")) {
                                 binding.tvCredit.setText("" + webinar_details.getPayload().getWebinarDetail().getCredit());
                             }
+
+
+                            if (!webinar_details.getPayload().getWebinarDetail().getCeCredit().equalsIgnoreCase("")) {
+                                binding.lvCeCredit.setVisibility(View.VISIBLE);
+                                binding.viewCeId.setVisibility(View.VISIBLE);
+                                binding.tvCeCredit.setText("" + webinar_details.getPayload().getWebinarDetail().getCeCredit());
+
+                            } else {
+                                binding.lvCeCredit.setVisibility(View.GONE);
+                                binding.viewCeId.setVisibility(View.GONE);
+                            }
+
                             if (!webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl().equalsIgnoreCase("")) {
                                 VIDEO_URL = webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl();
                             }

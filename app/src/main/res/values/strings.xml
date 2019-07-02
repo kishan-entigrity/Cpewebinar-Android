@@ -471,7 +471,8 @@
 
     /table form
     <string name="str_cost">Cost</string>
-    <string name="str_cpe_credit">Cpe Credit</string>
+    <string name="str_cpe_credit">Cpe Credits</string>
+    <string name="str_ce_credit">Ce Credits</string>
     <string name="str_duration">Duration</string>
     <string name="str_subject_area">Subject Area</string>
     <string name="str_course_level">Course Level</string>

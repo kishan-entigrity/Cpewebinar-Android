@@ -58,8 +58,19 @@ public class WebinarDetail {
     @SerializedName("webinar_type")
     private String webinarType;
 
+    public String getCeCredit() {
+        return ceCredit;
+    }
+
+    public void setCeCredit(String ceCredit) {
+        this.ceCredit = ceCredit;
+    }
+
     @SerializedName("credit")
     private String credit;
+
+    @SerializedName("ce_credit")
+    private String ceCredit;
 
     @SerializedName("about_presententer")
     private AboutPresententer aboutPresententer;
@@ -492,6 +503,7 @@ public class WebinarDetail {
                         ",webinar_title = '" + webinarTitle + '\'' +
                         ",webinar_type = '" + webinarType + '\'' +
                         ",credit = '" + credit + '\'' +
+                        ",ce_credit = '" + ceCredit + '\'' +
                         ",about_presententer = '" + aboutPresententer + '\'' +
                         ",start_date = '" + startDate + '\'' +
                         ",course_id = '" + courseId + '\'' +

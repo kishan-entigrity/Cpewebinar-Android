@@ -41,7 +41,7 @@ public class ActivityFavorite extends AppCompatActivity {
     private static final String TAG = ActivityFavorite.class.getName();
     ProgressDialog progressDialog;
     private List<com.entigrity.model.myfavorites.WebinarItem> arrmyfavorites = new ArrayList<>();
-    private String webinartype = "";
+    private String webinartype = "live";
     private String topicsofinterest = "";
     private boolean loading = true;
     public int start = 0, limit = 10;
@@ -130,7 +130,6 @@ public class ActivityFavorite extends AppCompatActivity {
 
         return (pos >= numItems);
     }
-
 
 
     private void loadNextPage() {

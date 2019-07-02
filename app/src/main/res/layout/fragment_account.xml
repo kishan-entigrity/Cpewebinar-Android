@@ -73,8 +73,7 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_alignParentRight="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile_place_holder" />
+                android:scaleType="centerCrop" />
 
 
         </RelativeLayout>
@@ -124,8 +123,8 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:visibility="gone"
-                    android:background="@color/background_list" />
+                    android:background="@color/background_list"
+                    android:visibility="gone" />
 
 
                 <RelativeLayout
@@ -195,8 +194,8 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:visibility="gone"
-                    android:background="@color/background_list" />
+                    android:background="@color/background_list"
+                    android:visibility="gone" />
 
 
                 <RelativeLayout

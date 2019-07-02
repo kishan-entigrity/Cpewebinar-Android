@@ -520,7 +520,7 @@
                 android:text="@string/forgot_password_submit_button"
                 android:textColor="@color/White"
                 android:textSize="@dimen/_15sdp"
-                app:font_button="SFUIDisplay-Bold.ttf" />
+                app:font_text="Montserrat-Bold.ttf" />
 
 
         </RelativeLayout>

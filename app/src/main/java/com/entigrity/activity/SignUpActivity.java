@@ -524,13 +524,13 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                             Constant.arraylistselectedvalue.clear();
                             AppSettings.set_login_token(context, registrationModel.getPayload().getUser().getToken());
-                            AppSettings.set_profile_picture(context, registrationModel.getPayload().getUser().getProfilePicture());
+                            // AppSettings.set_profile_picture(context, registrationModel.getPayload().getUser().getProfilePicture());
                             AppSettings.set_profile_username(context, registrationModel.getPayload().getUser().getFirstName());
                             AppSettings.set_email_id(context, registrationModel.getPayload().getUser().getEmail());
 
 
                             Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
-                            Constant.Log(TAG, "profile picture" + AppSettings.get_profile_picture(context));
+
 
 
                             Intent i = new Intent(context, MainActivity.class);
