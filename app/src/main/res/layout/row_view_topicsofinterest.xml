@@ -22,7 +22,7 @@
             android:gravity="center"
             android:padding="@dimen/_2sdp"
             android:textColor="@color/grid_topics"
-            android:textSize="@dimen/_8sdp"
+            android:textSize="@dimen/_7sdp"
             app:font_text="Montserrat-Light.ttf" />
 
     </LinearLayout>

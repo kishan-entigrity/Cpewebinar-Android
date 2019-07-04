@@ -29,6 +29,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/_5sdp"
+        android:checked="true"
         android:button="@drawable/checkbox_selection" />
 
 

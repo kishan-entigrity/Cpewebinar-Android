@@ -27,23 +27,17 @@ public class Constant {
     public static boolean developer_mode = true;
     public static String device_type = "A";  //1 for android
     public static String failure_message = "";
-    public static String access_token = "";
     public static int status_code = 0;
     public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
     public static ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     public static boolean checkmywebinardotstatusset = false;
-
+    public static boolean isdataupdate = false;
     public static ArrayList<String> arraylistselectedreviewanswerreview = new ArrayList<String>();
     public static ArrayList<Integer> arraylistselectedquestionreview = new ArrayList<Integer>();
 
     public static ArrayList<String> arraylistselectedanswerfinal = new ArrayList<String>();
     public static ArrayList<Integer> arraylistselectedquestionfinal = new ArrayList<Integer>();
 
-    //public static HashMap<String, Boolean> checkrightanswer = new HashMap<String, Boolean>();
-
-  /*
-    public static HashMap<String, String> checklikedislikestatusmywebinar = new HashMap<String, String>();
-*/
 
     public static boolean isNetworkAvailable(Context con) {
         try {
@@ -194,7 +188,6 @@ public class Constant {
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
 
 
     public static String capitalize(String capString) {

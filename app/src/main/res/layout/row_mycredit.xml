@@ -57,6 +57,7 @@
                     android:layout_centerVertical="true"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:ems="4"
                     android:textColor="@color/my_credit_header_email_id"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Medium.ttf" />
@@ -79,7 +80,7 @@
 
                 <com.entigrity.view.CustomButtonView
                     android:id="@+id/btn_webinar_type"
-                    android:layout_width="@dimen/_30sdp"
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_10sdp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/_5sdp"

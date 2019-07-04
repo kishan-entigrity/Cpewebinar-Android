@@ -206,7 +206,7 @@ public class NotificationActivity extends AppCompatActivity {
                             islast = notificationModel.getPayload().isIsLast();
                             Log.e("islast", "islast" + islast);
 
-                            Constant.Log(TAG, "size" + mListnotificationlist.size());
+
 
 
                             if (start == 0 && limit == 10) {
@@ -219,7 +219,6 @@ public class NotificationActivity extends AppCompatActivity {
                                         mListnotificationlist.remove(i);
                                     }
                                 }
-
 
                                 List<NotificationListItem> webinaritems = notificationModel.getPayload().getNotificationList();
                                 adapter.addAll(webinaritems);

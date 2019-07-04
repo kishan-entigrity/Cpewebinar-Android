@@ -250,8 +250,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
             if (!mList.get(position).getWebinarThumbnailImage().equalsIgnoreCase("")) {
                 Picasso.with(mContext).load(mList.get(position).getWebinarThumbnailImage())
                         .placeholder(R.mipmap.webinar_placeholder)
-                        .fit()
-                        .centerCrop()
                         .into(((HomeViewHolder) viewHolder).ivwebinar_thumbhel);
             } else {
                 ((HomeViewHolder) viewHolder).ivwebinar_thumbhel.setImageResource(R.mipmap.webinar_placeholder);
@@ -688,7 +686,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
             if (!certificate_link.equalsIgnoreCase("")) {
                /* downloadTask = new DownloadTask(mContext);
                 downloadTask.execute(certificate_link);*/
-           //     DownloadCertificate(certificate_link);
+                //     DownloadCertificate(certificate_link);
 
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
@@ -734,7 +732,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
             if (!certificate_link.equalsIgnoreCase("")) {
                /* downloadTask = new DownloadTask(mContext);
                 downloadTask.execute(certificate_link);*/
-            //    DownloadCertificate(certificate_link);
+                //    DownloadCertificate(certificate_link);
 
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
@@ -1025,7 +1023,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                         if (!certificate_link.equalsIgnoreCase("")) {
                            /* downloadTask = new DownloadTask(mContext);
                             downloadTask.execute(certificate_link);*/
-                      //      DownloadCertificate(certificate_link);
+                            //      DownloadCertificate(certificate_link);
 
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));

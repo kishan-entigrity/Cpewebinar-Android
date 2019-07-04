@@ -77,15 +77,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:orientation="vertical">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -94,6 +92,8 @@
                     android:id="@+id/lv_webinar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -128,10 +128,18 @@
                 </LinearLayout>
 
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/line_divider_fav_screen" />
+
+
                 <LinearLayout
                     android:id="@+id/lv_topicsofinterest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -168,10 +176,17 @@
             </LinearLayout>
 
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/line_divider_fav_screen" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -180,6 +195,7 @@
                     android:id="@+id/lv_speaker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -213,11 +229,17 @@
 
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/line_divider_fav_screen" />
+
 
                 <LinearLayout
                     android:id="@+id/lv_company"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -252,6 +274,7 @@
 
 
             </LinearLayout>
+
 
         </LinearLayout>
 

@@ -145,7 +145,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         binding.relTopicsOfInterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigate_ViewProfile();
+                Navigate_Topicsofinterest();
 
             }
         });
@@ -257,12 +257,20 @@ public class ViewProfileActivity extends AppCompatActivity {
         i.putExtra(getResources().getString(R.string.pass_who_you_are), who_you_are_pos);
         i.putStringArrayListExtra(getResources().getString(R.string.pass_selected_list), arraylistsubcategory);
         startActivity(i);
+        finish();
     }
 
-    public void Navigate_ViewProfile() {
+    public void Navigate_Topicsofinterest() {
         Intent i = new Intent(context, ViewTopicsOfInterestActivity.class);
         i.putExtra(getResources().getString(R.string.str_get_key_screen), getResources().getString(R.string.from_view_profile));
         i.putParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest), topicsofinterestitem);
         startActivity(i);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

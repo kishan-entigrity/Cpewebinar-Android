@@ -87,6 +87,17 @@ public class MyCreditsFragment extends Fragment {
         binding.lvCompleted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                binding.lvCompleted.setBackgroundColor(getResources().getColor(R.color.webinar_status));
+                binding.lvPending.setBackgroundColor(0);
+                binding.lvUpcoming.setBackgroundColor(0);
+
+                binding.tvCompltedWebinarCount.setTextColor(getResources().getColor(R.color.White));
+                binding.tvCompleted.setTextColor(getResources().getColor(R.color.White));
+                binding.tvPendingWebinarCount.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvPending.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvUpcomingWebinarCount.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvUpcoming.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+
                 filter_type = 1;
                 start = 0;
                 limit = 10;
@@ -98,12 +109,24 @@ public class MyCreditsFragment extends Fragment {
                     Snackbar.make(binding.recyclerviewMycredit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                 }
 
-
             }
         });
         binding.lvPending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                binding.lvPending.setBackgroundColor(getResources().getColor(R.color.webinar_status));
+                binding.lvCompleted.setBackgroundColor(0);
+                binding.lvUpcoming.setBackgroundColor(0);
+
+
+                binding.tvCompltedWebinarCount.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvCompleted.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvPendingWebinarCount.setTextColor(getResources().getColor(R.color.White));
+                binding.tvPending.setTextColor(getResources().getColor(R.color.White));
+                binding.tvUpcomingWebinarCount.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvUpcoming.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+
+
                 filter_type = 2;
                 start = 0;
                 limit = 10;
@@ -120,6 +143,18 @@ public class MyCreditsFragment extends Fragment {
         binding.lvUpcoming.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                binding.lvUpcoming.setBackgroundColor(getResources().getColor(R.color.webinar_status));
+                binding.lvCompleted.setBackgroundColor(0);
+                binding.lvPending.setBackgroundColor(0);
+
+                binding.tvCompltedWebinarCount.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvCompleted.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvPendingWebinarCount.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvPending.setTextColor(getResources().getColor(R.color.my_credit_webinar_report));
+                binding.tvUpcomingWebinarCount.setTextColor(getResources().getColor(R.color.White));
+                binding.tvUpcoming.setTextColor(getResources().getColor(R.color.White));
+
+
                 filter_type = 3;
                 start = 0;
                 limit = 10;

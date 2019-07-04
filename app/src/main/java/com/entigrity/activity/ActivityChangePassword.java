@@ -148,24 +148,58 @@ public class ActivityChangePassword extends AppCompatActivity {
 
     public Boolean Validation() {
         if (Constant.Trim(binding.edtOldpassword.getText().toString()).isEmpty()) {
+
+            binding.edtOldpassword.requestFocus();
+            binding.edtNewpassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.validate_oldpassword), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtOldpassword.getText().toString()).length() < 6) {
+
+            binding.edtOldpassword.requestFocus();
+            binding.edtNewpassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtNewpassword.getText().toString()).isEmpty()) {
+
+            binding.edtOldpassword.clearFocus();
+            binding.edtNewpassword.requestFocus();
+            binding.edtConfirmpassword.clearFocus();
+
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.validate_newpassword), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtNewpassword.getText().toString()).length() < 6) {
+
+            binding.edtOldpassword.clearFocus();
+            binding.edtNewpassword.requestFocus();
+            binding.edtConfirmpassword.clearFocus();
+
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).isEmpty()) {
+
+            binding.edtOldpassword.clearFocus();
+            binding.edtNewpassword.clearFocus();
+            binding.edtConfirmpassword.requestFocus();
+
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.validate_confirmpassword), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).length() < 6) {
+            binding.edtOldpassword.clearFocus();
+            binding.edtNewpassword.clearFocus();
+            binding.edtConfirmpassword.requestFocus();
+
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.Trim(binding.edtNewpassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
+
+            binding.edtOldpassword.clearFocus();
+            binding.edtNewpassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+
             Snackbar.make(binding.btnSubmit, getResources().getString(R.string.val_new_confirm_password_not_match), Snackbar.LENGTH_SHORT).show();
             return false;
 

@@ -214,6 +214,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 Intent i = new Intent(EditProfileActivity.this, TopicsOfInterestActivity.class);
                 i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_edit_profile));
                 startActivity(i);
+                finish();
 
             }
         });
@@ -224,6 +225,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 Intent i = new Intent(EditProfileActivity.this, TopicsOfInterestActivity.class);
                 i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_edit_profile));
                 startActivity(i);
+                finish();
             }
         });
 
@@ -250,6 +252,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
                         if (Constant.isNetworkAvailable(context)) {
+                            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
                             GetState(country_id);
                         } else {
                             Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
@@ -568,8 +571,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     checkmywebinardotstatusset = false;
-                                    Intent i = new Intent(EditProfileActivity.this, MainActivity.class);
-                                    startActivity(i);
+                                    Constant.isdataupdate = true;
                                     finish();
                                 }
                             }, 2000);
@@ -1242,6 +1244,14 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         if (stateModel.isSuccess() == true) {
 
+                            if (checkflagset == true) {
+                                if (progressDialog.isShowing()) {
+                                    progressDialog.dismiss();
+                                }
+
+                            }
+
+
                             getstatearralist.clear();
                             getstatearray.clear();
 
@@ -1317,37 +1327,112 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public Boolean Validation() {
         if (Constant.Trim(binding.edtFirstname.getText().toString()).isEmpty()) {
+
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.requestFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
+
             Snackbar.make(binding.edtFirstname, getResources().getString(R.string.val_firstname), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtLastname.getText().toString()).isEmpty()) {
+            binding.edtLastname.requestFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
             Snackbar.make(binding.edtLastname, getResources().getString(R.string.val_lastname), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (Constant.Trim(binding.edtFirmname.getText().toString()).isEmpty()) {
-            Snackbar.make(binding.edtFirmname, getResources().getString(R.string.val_firm_name_register), Snackbar.LENGTH_SHORT).show();
-            return false;
         } else if (Constant.Trim(binding.edtMobileNumber.getText().toString()).isEmpty()) {
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.requestFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
+
+
             Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_mobile_number), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (country_id == 0) {
+
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
+
             Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.str_country), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (state_id == 0) {
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
             Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.str_state), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (city_id == 0) {
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
             Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.str_city), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtZipcode.getText().toString()).isEmpty()) {
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.requestFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
+
             Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_zipcode), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (who_you_are_id == 0) {
-            Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_user_type), Snackbar.LENGTH_SHORT).show();
-            return false;
         } else if (jobtitle_id == 0) {
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
             Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_job_title), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (industry_id == 0) {
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
             Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_industry), Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else if (who_you_are_id == 0) {
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.clearFocus();
+            binding.edtPtinNumber.clearFocus();
+            Snackbar.make(binding.edtMobileNumber, getResources().getString(R.string.val_user_type), Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else if (Constant.Trim(binding.edtFirmname.getText().toString()).isEmpty()) {
+            binding.edtLastname.clearFocus();
+            binding.edtFirstname.clearFocus();
+            binding.edtZipcode.clearFocus();
+            binding.edtMobileNumber.clearFocus();
+            binding.edtFirmname.requestFocus();
+            binding.edtPtinNumber.clearFocus();
+
+
+            Snackbar.make(binding.edtFirmname, getResources().getString(R.string.val_firm_name_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

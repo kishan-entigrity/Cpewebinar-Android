@@ -323,7 +323,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
 
 
                 Log.e("INSIDE", "" + referenceId);
-                Toast.makeText(mContext, "Download complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Download complete", Toast.LENGTH_LONG).show();
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(mContext)
                                 .setSmallIcon(R.mipmap.app_icon)

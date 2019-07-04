@@ -213,8 +213,6 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
             if (!mList.get(position).getWebinarThumbnailImage().equalsIgnoreCase("")) {
                 Picasso.with(mContext).load(mList.get(position).getWebinarThumbnailImage())
                         .placeholder(R.mipmap.webinar_placeholder)
-                        .fit()
-                        .centerCrop()
                         .into(((MyWebinarHolder) viewHolder).ivwebinar_thumbhel);
             } else {
                 ((MyWebinarHolder) viewHolder).ivwebinar_thumbhel.setImageResource(R.mipmap.webinar_placeholder);

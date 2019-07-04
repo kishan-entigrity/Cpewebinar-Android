@@ -32,7 +32,7 @@
     <string name="please_check_internet_condition">Please Check Internet Condition</string>
     <string name="device_token">device token</string>
     <string name="device_i">device id</string>
-    <string name="no_data_found">Data Not Found</string>
+    <string name="no_data_found">No Data Available</string>
     <string name="exit_validation">Are you sure you want to Exit?</string>
     <string name="valid_email">Please Enter Valid Email Address</string>
     <string name="logout_text">Are you sure you want to Logout?</string>
@@ -512,11 +512,11 @@
     <string name="str_lable_view">View and edit profile</string>
 
 
-    <string name="str_noti">Notification</string>
+    <string name="str_noti">Notifications</string>
     <string name="str_testimonial_header">Testimonial</string>
     <string name="str_my_transaction">My Transactions</string>
     <string name="str_payment_method">Payment Method</string>
-    <string name="str_my_credit">My Credit</string>
+    <string name="str_my_credit">My Credits</string>
     <string name="str_topics_of_interest">Topic Of Interest</string>
     <string name="str_privacy_policy">Privacy Policy</string>
     <string name="str_terms_condition">Terms &amp; Conditions</string>

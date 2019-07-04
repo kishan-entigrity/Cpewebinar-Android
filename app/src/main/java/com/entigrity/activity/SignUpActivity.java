@@ -399,39 +399,149 @@ public class SignUpActivity extends AppCompatActivity {
     public Boolean Validation() {
 
         if (Constant.Trim(binding.edtFirstname.getText().toString()).isEmpty()) {
+            binding.edtFirstname.requestFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
+
+
             Snackbar.make(binding.edtFirstname, getResources().getString(R.string.val_firstname), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtLastname.getText().toString()).isEmpty()) {
+
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.requestFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
+
+
             Snackbar.make(binding.edtLastname, getResources().getString(R.string.val_lastname), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtEmailid.getText().toString()).isEmpty()) {
+
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.requestFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
+
             Snackbar.make(binding.edtEmailid, getResources().getString(R.string.val_emailid), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtPassword.getText().toString()).isEmpty()) {
+
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.requestFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
+
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_password_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtPassword.getText().toString()).length() < 6) {
+
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.requestFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
+
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).isEmpty()) {
+
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.requestFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
+
+
             Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.val_confirm_password_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtConfirmpassword.getText().toString()).length() < 6) {
+
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.requestFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
+
+
             Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!Constant.Trim(binding.edtPassword.getText().toString()).equals(Constant.Trim(binding.edtConfirmpassword.getText().toString()))) {
+
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
+
+
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_confirm_password_not_match), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtFirmname.getText().toString()).isEmpty()) {
+
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.requestFocus();
+
+
             Snackbar.make(binding.edtFirmname, getResources().getString(R.string.val_firm_name_register), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtMobilenumbert.getText().toString()).isEmpty()) {
+
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.requestFocus();
+            binding.edtFirmname.clearFocus();
+
             Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_mobile_number), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (user_type == 0) {
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
+
             Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_user_type), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (!checkprivacypolicystatus) {
+            binding.edtFirstname.clearFocus();
+            binding.edtLastname.clearFocus();
+            binding.edtEmailid.clearFocus();
+            binding.edtPassword.clearFocus();
+            binding.edtConfirmpassword.clearFocus();
+            binding.edtMobilenumbert.clearFocus();
+            binding.edtFirmname.clearFocus();
             Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_terms_and_condition), Snackbar.LENGTH_SHORT).show();
             return false;
 
@@ -530,7 +640,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                             Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
-
 
 
                             Intent i = new Intent(context, MainActivity.class);

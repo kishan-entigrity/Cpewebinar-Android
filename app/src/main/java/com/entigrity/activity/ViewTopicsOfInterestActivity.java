@@ -92,9 +92,15 @@ public class ViewTopicsOfInterestActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void GetTopicsofInterest() {
 
-        mAPIService.GetViewTopicsOfInterestFavorite(getResources().getString(R.string.accept), getResources().getString(R.string.bearer)+" "+AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mAPIService.GetViewTopicsOfInterestFavorite(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ViewTopicsFavorite>() {
                     @Override
                     public void onCompleted() {

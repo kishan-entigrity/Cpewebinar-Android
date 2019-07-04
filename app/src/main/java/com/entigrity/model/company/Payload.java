@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import static com.entigrity.utility.Constant.access_token;
-
 
 public class Payload {
 

@@ -116,6 +116,23 @@ public class AccountFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (Constant.isdataupdate) {
+            Constant.isdataupdate = false;
+            if (Constant.isNetworkAvailable(context)) {
+                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                GetProfile();
+            } else {
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            }
+            Constant.Log("onresume", "onresume");
+        }
+
+    }
+
     private void GetTopicsofInterest() {
 
         mAPIService_new.GetViewTopicsOfInterest(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + " " + AppSettings.get_login_token(context)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -147,6 +164,10 @@ public class AccountFragment extends Fragment {
 
                         if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
+                        }
+
+                        if (topicsofinterestitem.size() > 0) {
+                            topicsofinterestitem.clear();
                         }
 
 

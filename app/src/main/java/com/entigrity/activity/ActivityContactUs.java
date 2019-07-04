@@ -188,9 +188,13 @@ public class ActivityContactUs extends AppCompatActivity {
 
     public Boolean Validation() {
         if (binding.edtSubject.getText().toString().isEmpty()) {
+            binding.edtSubject.requestFocus();
+            binding.edtReview.clearFocus();
             Snackbar.make(binding.edtSubject, getResources().getString(R.string.val_subject), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (binding.edtReview.getText().toString().isEmpty()) {
+            binding.edtSubject.clearFocus();
+            binding.edtReview.requestFocus();
             Snackbar.make(binding.edtReview, getResources().getString(R.string.val_review), Snackbar.LENGTH_SHORT).show();
             return false;
         } else {

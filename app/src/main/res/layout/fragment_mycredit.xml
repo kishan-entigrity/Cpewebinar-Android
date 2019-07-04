@@ -113,6 +113,7 @@
                     app:font_text="Montserrat-SemiBold.ttf" />
 
                 <com.entigrity.view.CustomTextView
+                    android:id="@+id/tv_completed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -152,6 +153,7 @@
                     app:font_text="Montserrat-SemiBold.ttf" />
 
                 <com.entigrity.view.CustomTextView
+                    android:id="@+id/tv_pending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -190,6 +192,7 @@
                     app:font_text="Montserrat-SemiBold.ttf" />
 
                 <com.entigrity.view.CustomTextView
+                    android:id="@+id/tv_upcoming"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

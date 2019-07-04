@@ -720,7 +720,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
                 Log.e("INSIDE", "" + referenceId);
-                Toast.makeText(context, "Download complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Download complete", Toast.LENGTH_LONG).show();
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(context)
                                 .setSmallIcon(R.mipmap.app_icon)

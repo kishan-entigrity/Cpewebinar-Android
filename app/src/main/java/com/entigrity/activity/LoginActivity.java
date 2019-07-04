@@ -180,8 +180,6 @@ public class LoginActivity extends AppCompatActivity {
                             Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
 
 
-
-
                             Intent i = new Intent(context, MainActivity.class);
                             startActivity(i);
                             finish();
@@ -211,12 +209,18 @@ public class LoginActivity extends AppCompatActivity {
 
     public Boolean Validation() {
         if (Constant.Trim(binding.edtusername.getText().toString()).isEmpty()) {
+            binding.edtusername.requestFocus();
+            binding.edtpassword.clearFocus();
             Snackbar.make(binding.edtusername, getResources().getString(R.string.validate_email_id), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtpassword.getText().toString()).isEmpty()) {
+            binding.edtusername.clearFocus();
+            binding.edtpassword.requestFocus();
             Snackbar.make(binding.edtpassword, getResources().getString(R.string.validate_password), Snackbar.LENGTH_SHORT).show();
             return false;
         } else if (Constant.Trim(binding.edtpassword.getText().toString()).length() < 6) {
+            binding.edtusername.clearFocus();
+            binding.edtpassword.requestFocus();
             Snackbar.make(binding.edtpassword, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
             return false;
         } else {

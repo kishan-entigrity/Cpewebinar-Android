@@ -18,7 +18,7 @@
             android:id="@+id/rel_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/topics_popup_label_background"
+            android:background="@color/webinar_status"
             android:padding="@dimen/_5sdp">
 
 
