@@ -223,16 +223,26 @@ public class ActivityFavorite extends AppCompatActivity {
 
                             } else {
 
-                                for (int i = 0; i < arrmyfavorites.size(); i++) {
-                                    if (i == arrmyfavorites.size() - 1) {
-                                        arrmyfavorites.remove(i);
+                             /*   if (islast) {
+
+                                }*/
+                                // arrmyfavorites.remove( arrmyfavorites.size() - 1);
+
+                              /*  if (islast) {
+                                    for (int i = 0; i < arrmyfavorites.size(); i++) {
+                                        if (i == arrmyfavorites.size() - 1) {
+                                            arrmyfavorites.remove(i);
+                                        }
                                     }
+                                }
+*/
+
+                                if (arrmyfavorites.size() > 20) {
+                                    arrmyfavorites.remove(arrmyfavorites.size() - 1);
                                 }
 
 
                                 List<com.entigrity.model.myfavorites.WebinarItem> webinaritems = modelFavorites.getPayload().getWebinar();
-
-
                                 adapter.addAll(webinaritems);
 
 

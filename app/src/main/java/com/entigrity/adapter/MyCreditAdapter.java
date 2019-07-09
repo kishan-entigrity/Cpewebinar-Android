@@ -117,6 +117,8 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
 
         if (viewHolder instanceof ViewHolder) {
 
+            Constant.Log("size", "" + mList.size());
+
 
             if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
                 ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.VISIBLE);

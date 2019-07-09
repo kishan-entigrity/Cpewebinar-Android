@@ -357,11 +357,26 @@ public class MyCreditsFragment extends Fragment {
                                     mlistmycredit = myCredit.getPayload().get(i).getMyCredits();
                                 }
                             } else {
-                                for (int i = 0; i < mlistmycredit.size(); i++) {
-                                    if (i == mlistmycredit.size() - 1) {
-                                        mlistmycredit.remove(i);
-                                    }
+
+                              /*  if (islast) {
+
+                                }*/
+                                if (mlistmycredit.size() > 20) {
+                                    mlistmycredit.remove(mlistmycredit.size() - 1);
                                 }
+
+
+                                /*if (islast) {
+
+                                 *//* for (int i = 0; i < mlistmycredit.size(); i++) {
+                                        if (i == mlistmycredit.size() - 1) {
+                                            mlistmycredit.remove(i);
+                                        }
+                                    }*//*
+                                    mlistmycredit.remove( mlistmycredit.size() - 1);
+                                }*/
+
+
                                 List<MyCreditsItem> webinaritems = new ArrayList<>();
                                 for (int i = 0; i < myCredit.getPayload().size(); i++) {
                                     webinaritems = myCredit.getPayload().get(i).getMyCredits();

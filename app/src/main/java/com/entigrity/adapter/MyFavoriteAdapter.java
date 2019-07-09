@@ -201,7 +201,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int position) {
 
         if (viewHolder instanceof HomeViewHolder) {
-
+            Constant.Log("size", "" + mList.size());
 
             if (!mList.get(position).getWebinarTitle().equalsIgnoreCase("")) {
                 ((HomeViewHolder) viewHolder).tv_webinar_title.setText(mList.get(position).getWebinarTitle());

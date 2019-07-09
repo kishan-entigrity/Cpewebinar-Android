@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/White"
                 android:clipToPadding="false"
-                android:paddingBottom="@dimen/_70sdp">
+                android:paddingBottom="@dimen/_50sdp">
 
 
             </android.support.v7.widget.RecyclerView>

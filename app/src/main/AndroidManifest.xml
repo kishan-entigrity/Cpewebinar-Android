@@ -156,6 +156,12 @@
 
 
         <activity
+            android:name=".activity.PaymentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <activity
             android:name=".activity.PrivacyPolicyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>

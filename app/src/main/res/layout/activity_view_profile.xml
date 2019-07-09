@@ -35,7 +35,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
                     android:padding="@dimen/_5sdp"
                     android:src="@mipmap/back" />
 
@@ -328,6 +327,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerHorizontal="true"
                         android:gravity="center_horizontal"
+                        android:text="United States"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp"
                         app:font_text="SFUIDisplay-Medium.ttf" />

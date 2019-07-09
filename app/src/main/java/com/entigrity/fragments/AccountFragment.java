@@ -295,13 +295,13 @@ public class AccountFragment extends Fragment {
                             if (viewProfileModel.getPayload().getData().getJobTitle() != null
                                     && !viewProfileModel.getPayload().getData().getJobTitle().equalsIgnoreCase("")) {
 
-                                jobtitle_id = Integer.parseInt(viewProfileModel.getPayload().getData().getJobtitleId());
+                                jobtitle_id = viewProfileModel.getPayload().getData().getJobtitleId();
                                 job_titile = viewProfileModel.getPayload().getData().getJobTitle();
                             }
 
                             if (viewProfileModel.getPayload().getData().getIndustry() != null
                                     && !viewProfileModel.getPayload().getData().getIndustry().equalsIgnoreCase("")) {
-                                industry_id = Integer.parseInt(viewProfileModel.getPayload().getData().getIndustryId());
+                                industry_id = viewProfileModel.getPayload().getData().getIndustryId();
                                 industry = viewProfileModel.getPayload().getData().getIndustry();
                             }
 
@@ -313,13 +313,13 @@ public class AccountFragment extends Fragment {
                             }
                             if (viewProfileModel.getPayload().getData().getState() != null
                                     && !viewProfileModel.getPayload().getData().getState().equalsIgnoreCase("")) {
-                                state_id = Integer.parseInt(viewProfileModel.getPayload().getData().getStateId());
+                                state_id = viewProfileModel.getPayload().getData().getStateId();
                                 state = viewProfileModel.getPayload().getData().getState();
                             }
 
                             if (viewProfileModel.getPayload().getData().getCity() != null
                                     && !viewProfileModel.getPayload().getData().getCity().equalsIgnoreCase("")) {
-                                city_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCityId());
+                                city_id = viewProfileModel.getPayload().getData().getCityId();
                                 city = viewProfileModel.getPayload().getData().getCity();
                             }
 
@@ -578,7 +578,7 @@ public class AccountFragment extends Fragment {
         i.putExtra(getResources().getString(R.string.pass_firm_name), firmname);
         i.putExtra(getResources().getString(R.string.pass_mobile_number), mobilenumber);
         i.putExtra(getResources().getString(R.string.pass_ptin_number), ptin_number);
-        i.putExtra(getResources().getString(R.string.pass_country), country_id);
+        i.putExtra(getResources().getString(R.string.pass_country), 1);
         i.putExtra(getResources().getString(R.string.pass_state), state_id);
         i.putExtra(getResources().getString(R.string.pass_city), city_id);
         i.putExtra(getResources().getString(R.string.pass_job_title), jobtitle_id);

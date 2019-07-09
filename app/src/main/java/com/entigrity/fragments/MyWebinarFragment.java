@@ -521,27 +521,16 @@ public class MyWebinarFragment extends Fragment {
 
                             } else {
 
-                                for (int i = 0; i < arrHomeMyWebinarlistnew.size(); i++) {
-
-                                    if (i == arrHomeMyWebinarlistnew.size() - 1) {
-                                        arrHomeMyWebinarlistnew.remove(i);
+                                if (islast) {
+                                    for (int i = 0; i < arrHomeMyWebinarlistnew.size(); i++) {
+                                        if (i == arrHomeMyWebinarlistnew.size() - 1) {
+                                            arrHomeMyWebinarlistnew.remove(i);
+                                        }
                                     }
-
-
                                 }
 
 
                                 List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
-
-
-                                /*for (int i = 0; i < webinaritems.size(); i++) {
-                                    Constant.checklikedislikestatusmywebinar.put(webinaritems.get(i).getWebinarTitle(), webinaritems.get(i)
-                                            .getWebinarLike());
-                                }
-
-                                Constant.Log(TAG, "hashmap_pagination  " + Constant.checklikedislikestatusmywebinar.size());
-*/
-
                                 adapter.addAll(webinaritems);
                             }
 

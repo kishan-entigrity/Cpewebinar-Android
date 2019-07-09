@@ -434,15 +434,27 @@ public class HomeAllFragment extends Fragment {
 
                             } else {
 
-                                for (int i = 0; i < arrHomelistnew.size(); i++) {
-                                    if (i == arrHomelistnew.size() - 1) {
-                                        arrHomelistnew.remove(i);
+
+                                if (islast) {
+                                    for (int i = 0; i < arrHomelistnew.size(); i++) {
+                                        if (i == arrHomelistnew.size() - 1) {
+                                            arrHomelistnew.remove(i);
+                                        }
                                     }
+
                                 }
 
 
                                 List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
                                 adapter.addAll(webinaritems);
+
+
+
+                               /* for (int i = 0; i < arrHomelistnew.size(); i++) {
+                                    if (i == arrHomelistnew.size() - 1) {
+                                        arrHomelistnew.remove(i);
+                                    }
+                                }*/
 
 
                             }

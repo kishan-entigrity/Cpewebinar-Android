@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.entigrity.R;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.notification.NotificationListItem;
+import com.entigrity.utility.Constant;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,6 +69,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
         if (viewHolder instanceof ViewHolder) {
 
+            Constant.Log("size", "" + mList.size());
             if (!mList.get(position).getNotificationTitle().equalsIgnoreCase("")) {
                 ((ViewHolder) viewHolder).tv_notification_title.setText(mList.get(position).getNotificationTitle());
             }
@@ -159,6 +161,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         return (position == mList.size() - 1 && isLoadingAdded) ? VIEW_ITEM : VIEW_PROG;
+
     }
 
 

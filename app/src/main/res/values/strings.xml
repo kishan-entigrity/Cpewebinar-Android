@@ -672,5 +672,8 @@
     //from screen to detail screen
     <string name="screen_detail">screen_details</string>
 
+    //payment
+    <string name="str_payment_screen">Payment</string>
+
 
 </resources>

@@ -3,6 +3,7 @@ package com.entigrity.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,7 @@ import com.entigrity.model.notification.NotificationModel;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
+import com.entigrity.view.DividerItemDecoration;
 import com.entigrity.view.SimpleDividerItemDecoration;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
@@ -140,14 +142,15 @@ public class NotificationActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<NotificationModel>() {
                     @Override
                     public void onCompleted() {
-
-
                         if (binding.progressBar.getVisibility() == View.VISIBLE) {
                             binding.progressBar.setVisibility(View.GONE);
+                        } else if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
                         }
 
 
                         loading = true;
+
                         if (start == 0 && limit == 10) {
                             if (mListnotificationlist.size() > 0) {
                                 adapter = new NotificationAdapter(context, mListnotificationlist);
@@ -197,16 +200,15 @@ public class NotificationActivity extends AppCompatActivity {
                             }
 
 
+                            islast = notificationModel.getPayload().isIsLast();
+
+                            Log.e("islast", "islast" + islast);
+
                             if (start == 0 && limit == 10) {
                                 if (mListnotificationlist.size() > 0) {
                                     mListnotificationlist.clear();
                                 }
                             }
-
-                            islast = notificationModel.getPayload().isIsLast();
-                            Log.e("islast", "islast" + islast);
-
-
 
 
                             if (start == 0 && limit == 10) {
@@ -214,11 +216,13 @@ public class NotificationActivity extends AppCompatActivity {
 
                             } else {
 
-                                for (int i = 0; i < mListnotificationlist.size(); i++) {
-                                    if (i == mListnotificationlist.size() - 1) {
-                                        mListnotificationlist.remove(i);
-                                    }
+                            /*    if (islast) {
+                                    mListnotificationlist.remove( mListnotificationlist.size() - 1);
+                                }*/
+                                if (mListnotificationlist.size() > 20) {
+                                    mListnotificationlist.remove(mListnotificationlist.size() - 1);
                                 }
+
 
                                 List<NotificationListItem> webinaritems = notificationModel.getPayload().getNotificationList();
                                 adapter.addAll(webinaritems);

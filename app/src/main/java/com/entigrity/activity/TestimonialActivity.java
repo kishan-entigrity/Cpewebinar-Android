@@ -38,7 +38,6 @@ import rx.schedulers.Schedulers;
 public class TestimonialActivity extends AppCompatActivity {
 
     ActivityTestimonialBinding binding;
-
     private APIService mAPIService;
     ProgressDialog progressDialog;
     public Context context;
@@ -224,18 +223,26 @@ public class TestimonialActivity extends AppCompatActivity {
                                 mListtestimonial = model_testimonial.getPayload().getWebinarTestimonial();
 
                             } else {
+                               /* if (islast) {
 
-                                for (int i = 0; i < mListtestimonial.size(); i++) {
-                                    if (i == mListtestimonial.size() - 1) {
-                                        mListtestimonial.remove(i);
-                                    }
+
+                                  *//*  for (int i = 0; i < mListtestimonial.size(); i++) {
+                                        if (i == mListtestimonial.size() - 1) {
+                                            mListtestimonial.remove(i);
+                                        }
+                                    }*//*
+                                }*/
+
+                                if(mListtestimonial.size()>20)
+                                {
+                                    mListtestimonial.remove(mListtestimonial.size() - 1);
                                 }
+
+
 
 
                                 List<WebinarTestimonialItem> webinaritems = model_testimonial.getPayload().getWebinarTestimonial();
                                 adapter.addAll(webinaritems);
-
-
                             }
 
 
