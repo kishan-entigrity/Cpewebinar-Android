@@ -11,6 +11,8 @@
     <color name="login_do_not_have_account">#C9C9C9</color>
     <color name="background_topics">#C7C6CB</color>
     <color name="view_edit_profile">#A7A7A8</color>
+    <color name="detail_heading">#fafafa</color>
+
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>

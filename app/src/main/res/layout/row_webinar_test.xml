@@ -108,6 +108,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp"
+        android:visibility="gone"
         android:layout_toRightOf="@+id/tv_duration_name"
         android:textColor="@color/fav_date_time"
         android:textSize="@dimen/_9sdp"
@@ -120,7 +121,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_webinar_date"
         android:layout_centerInParent="true"
-
         android:layout_marginTop="@dimen/_5sdp">
 
 

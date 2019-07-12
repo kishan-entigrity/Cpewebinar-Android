@@ -3,6 +3,8 @@ package com.entigrity.model;
 public class timezones {
     private String timezone = "";
 
+    private String title = "";
+
     public String getTimezone_short() {
         return timezone_short;
     }
@@ -47,6 +49,14 @@ public class timezones {
 
     private String start_date = "";
     private String start_time = "";
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     private int schedule_id = 0;
 

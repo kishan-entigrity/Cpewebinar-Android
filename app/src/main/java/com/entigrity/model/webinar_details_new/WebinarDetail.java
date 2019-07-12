@@ -129,6 +129,9 @@ public class WebinarDetail {
     @SerializedName("timezones")
     private List<TimezonesItem> timezones;
 
+    @SerializedName("static_timezones")
+    private List<StaticTimezonesItem> statictimezones;
+
     @SerializedName("series")
     private String series;
 
@@ -481,6 +484,14 @@ public class WebinarDetail {
         return status;
     }
 
+    public List<StaticTimezonesItem> getStatictimezones() {
+        return statictimezones;
+    }
+
+    public void setStatictimezones(List<StaticTimezonesItem> statictimezones) {
+        this.statictimezones = statictimezones;
+    }
+
     @Override
     public String toString() {
         return
@@ -520,6 +531,7 @@ public class WebinarDetail {
                         ",start_time = '" + startTime + '\'' +
                         ",watched = '" + watched + '\'' +
                         ",timezones = '" + timezones + '\'' +
+                        ",static_timezones = '" + statictimezones + '\'' +
                         ",series = '" + series + '\'' +
                         ",certificate_link = '" + certificateLink + '\'' +
                         ",play_time_duration = '" + playTimeDuration + '\'' +

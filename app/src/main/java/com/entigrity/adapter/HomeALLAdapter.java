@@ -282,7 +282,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                 ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.VISIBLE);
                 ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.VISIBLE);
                 ((HomeViewHolder) viewHolder).dv_divider.setVisibility(View.VISIBLE);
-                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.VISIBLE);
+                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.GONE);
 
 
             } else {
@@ -291,7 +291,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                 ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.INVISIBLE);
                 ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.INVISIBLE);
                 ((HomeViewHolder) viewHolder).dv_divider.setVisibility(View.INVISIBLE);
-                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.INVISIBLE);
+                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.GONE);
             }
 
 
@@ -380,13 +380,13 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                 }
 
 
-                ((HomeViewHolder) viewHolder).tv_webinar_date.setText(day + " " + month + " " + year);
+                ((HomeViewHolder) viewHolder).tv_webinar_date.setText(month + " " + day + ", " + year);
 
 
             }
-            if (mList.get(position).getTimeZone() != null) {
+           /* if (mList.get(position).getTimeZone() != null) {
                 ((HomeViewHolder) viewHolder).tv_timezone.setText(mList.get(position).getTimeZone());
-            }
+            }*/
 
        /*     if (Constant.checklikedislikestatusall.size() > 0) {
                 String webinarlikestatus = Constant.checklikedislikestatusall.get(mList.get(position).getWebinarTitle());
@@ -408,7 +408,8 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
             }
 
             if (!mList.get(position).getStartTime().equalsIgnoreCase("")) {
-                ((HomeViewHolder) viewHolder).tv_webinar_time.setText(mList.get(position).getStartTime());
+                ((HomeViewHolder) viewHolder).tv_webinar_time.setText(mList.get(position).getStartTime()
+                        + " " + mList.get(position).getTimeZone());
             }
 
 
@@ -555,7 +556,8 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                 public void onClick(View v) {
                     if (!AppSettings.get_login_token(mContext).isEmpty()) {
                         if (Constant.isNetworkAvailable(mContext)) {
-                            progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
+                            ((HomeViewHolder) viewHolder).ivfavorite.setEnabled(false);
+                            /*progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));*/
                             WebinarFavoriteLikeDislike(((HomeViewHolder) viewHolder).tv_favorite_count, mList.get(position).getId(), ((HomeViewHolder) viewHolder).ivfavorite, position);
                         } else {
                             Snackbar.make(((HomeViewHolder) viewHolder).ivfavorite, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
@@ -1125,10 +1127,10 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
                     @Override
                     public void onError(Throwable e) {
-                        if (progressDialog.isShowing()) {
+                      /*  if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
-
+*/
                         String message = Constant.GetReturnResponse(mContext, e);
 
                         if (Constant.status_code == 401) {
@@ -1136,6 +1138,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                         } else {
                             Snackbar.make(ImageView, message, Snackbar.LENGTH_SHORT).show();
                         }
+                        ImageView.setEnabled(true);
 
 
                     }
@@ -1143,11 +1146,13 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                     @Override
                     public void onNext(Webinar_Like_Dislike_Model webinar_like_dislike_model) {
 
-                        if (progressDialog.isShowing()) {
+                      /*  if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
-                        }
+                        }*/
+
 
                         if (webinar_like_dislike_model.isSuccess()) {
+
                             if (webinar_like_dislike_model.getPayload().getIsLike().equalsIgnoreCase(mContext
                                     .getResources().getString(R.string.fav_yes))) {
                                 ImageView.setImageResource(R.mipmap.like_orange);
@@ -1170,10 +1175,12 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                                 /*Constant.checklikedislikestatusall.put(mList.get(position).getWebinarTitle(),
                                         webinar_like_dislike_model.getPayload().getIsLike());*/
                             }
-                            Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            //Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         } else {
                             Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
+
+                        ImageView.setEnabled(true);
 
 
                     }

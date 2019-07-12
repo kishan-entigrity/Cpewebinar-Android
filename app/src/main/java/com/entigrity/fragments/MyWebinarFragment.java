@@ -521,12 +521,17 @@ public class MyWebinarFragment extends Fragment {
 
                             } else {
 
-                                if (islast) {
+                               /* if (islast) {
                                     for (int i = 0; i < arrHomeMyWebinarlistnew.size(); i++) {
                                         if (i == arrHomeMyWebinarlistnew.size() - 1) {
                                             arrHomeMyWebinarlistnew.remove(i);
                                         }
                                     }
+                                }*/
+
+
+                                if (arrHomeMyWebinarlistnew.size() > 20) {
+                                    arrHomeMyWebinarlistnew.remove(arrHomeMyWebinarlistnew.size() - 1);
                                 }
 
 

@@ -1,14 +1,18 @@
 package com.entigrity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +33,7 @@ import com.entigrity.utility.Constant;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
 
+import static android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
 import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
 
 public class MainActivity extends AppCompatActivity {
@@ -71,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         instance = MainActivity.this;
         intent = getIntent();
 
+
         rel_top_bottom = (RelativeLayout) findViewById(R.id.rel_top_bottom);
         iv_mycredit = (ImageView) findViewById(R.id.iv_mycredit);
         iv_mywebinar = (ImageView) findViewById(R.id.iv_mywebinar);
@@ -81,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
         context = MainActivity.this;
         mAPIService_new = ApiUtilsNew.getAPIService();
+
+        Constant.setLightStatusBar(MainActivity.this);
 
 
         iv_mycredit.setOnClickListener(new View.OnClickListener() {

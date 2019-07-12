@@ -812,7 +812,12 @@ public class EditProfileActivity extends AppCompatActivity {
             //Setting the ArrayAdapter data on the Spinner
             binding.spinner.setAdapter(aa);
 
-            binding.spinner.setSelection(whoyouare_set + 1);
+
+            if (who_you_are_pos == 0) {
+                binding.spinner.setSelection(0);
+            } else {
+                binding.spinner.setSelection(whoyouare_set + 1);
+            }
 
 
         }

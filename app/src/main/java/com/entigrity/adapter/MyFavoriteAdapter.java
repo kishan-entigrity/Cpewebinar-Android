@@ -266,7 +266,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                 ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.VISIBLE);
                 ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.VISIBLE);
                 ((HomeViewHolder) viewHolder).dv_divider.setVisibility(View.VISIBLE);
-                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.VISIBLE);
+                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.GONE);
 
             } else {
                 ((HomeViewHolder) viewHolder).tv_webinar_date.setVisibility(View.INVISIBLE);
@@ -274,7 +274,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                 ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.INVISIBLE);
                 ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.INVISIBLE);
                 ((HomeViewHolder) viewHolder).dv_divider.setVisibility(View.INVISIBLE);
-                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.INVISIBLE);
+                ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.GONE);
             }
 
 
@@ -363,13 +363,13 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                 }
 
 
-                ((HomeViewHolder) viewHolder).tv_webinar_date.setText(day + " " + month + " " + year);
+                ((HomeViewHolder) viewHolder).tv_webinar_date.setText(month + " " + day + ", " + year);
 
 
             }
-            if (mList.get(position).getTimeZone() != null) {
+            /*if (mList.get(position).getTimeZone() != null) {
                 ((HomeViewHolder) viewHolder).tv_timezone.setText(mList.get(position).getTimeZone());
-            }
+            }*/
 
        /*     if (Constant.checklikedislikestatusall.size() > 0) {
                 String webinarlikestatus = Constant.checklikedislikestatusall.get(mList.get(position).getWebinarTitle());
@@ -391,7 +391,8 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
             }
 
             if (!mList.get(position).getStartTime().equalsIgnoreCase("")) {
-                ((HomeViewHolder) viewHolder).tv_webinar_time.setText(mList.get(position).getStartTime());
+                ((HomeViewHolder) viewHolder).tv_webinar_time.setText(mList.get(position).getStartTime()
+                        + " " + mList.get(position).getTimeZone());
             }
 
 
@@ -543,7 +544,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                 public void onClick(View v) {
                     if (!AppSettings.get_login_token(mContext).isEmpty()) {
                         if (Constant.isNetworkAvailable(mContext)) {
-                            progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));
+                            /*progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));*/
                             WebinarFavoriteLikeDislike(((HomeViewHolder) viewHolder).tv_favorite_count, mList.get(position).getId(), ((HomeViewHolder) viewHolder).ivfavorite, position);
                         } else {
                             Snackbar.make(((HomeViewHolder) viewHolder).ivfavorite, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
@@ -915,9 +916,9 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
 
                     @Override
                     public void onError(Throwable e) {
-                        if (progressDialog.isShowing()) {
+                    /*    if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
-                        }
+                        }*/
 
                         String message = Constant.GetReturnResponse(mContext, e);
 
@@ -927,15 +928,17 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                             Snackbar.make(ImageView, message, Snackbar.LENGTH_SHORT).show();
                         }
 
+                        ImageView.setEnabled(true);
+
 
                     }
 
                     @Override
                     public void onNext(Webinar_Like_Dislike_Model webinar_like_dislike_model) {
 
-                        if (progressDialog.isShowing()) {
+                      /*  if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
-                        }
+                        }*/
 
                         if (webinar_like_dislike_model.isSuccess()) {
                             if (webinar_like_dislike_model.getPayload().getIsLike().equalsIgnoreCase(mContext
@@ -961,10 +964,12 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter implements ActivityC
                                 /*Constant.checklikedislikestatusall.put(mList.get(position).getWebinarTitle(),
                                         webinar_like_dislike_model.getPayload().getIsLike());*/
                             }
-                            Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                            //Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         } else {
                             Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
+                        ImageView.setEnabled(true);
 
 
                     }

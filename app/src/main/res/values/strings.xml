@@ -676,4 +676,13 @@
     <string name="str_payment_screen">Payment</string>
 
 
+    //details tab
+    <string name="str_details">DETAILS</string>
+    <string name="str_description">DESCRIPTION</string>
+    <string name="str_presenter">PRESENTER</string>
+    <string name="str_detail_company">COMPANY</string>
+    <string name="str_testimonials">TESTIMONIALS</string>
+    <string name="str_others">OTHERS</string>
+
+
 </resources>

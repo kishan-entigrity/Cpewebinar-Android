@@ -4,11 +4,11 @@
     android:id="@+id/tv_who_attend"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
     android:background="@drawable/my_credit_status"
     android:gravity="center_horizontal"
     android:padding="@dimen/_1sdp"
-    android:ems="7"
-    android:singleLine="true"
     android:textColor="@color/black"
     android:textSize="@dimen/_10sdp"
     app:font_text="Montserrat-SemiBold.ttf" />

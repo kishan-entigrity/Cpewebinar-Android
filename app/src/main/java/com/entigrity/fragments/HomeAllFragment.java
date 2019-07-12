@@ -435,13 +435,17 @@ public class HomeAllFragment extends Fragment {
                             } else {
 
 
-                                if (islast) {
+                              /*  if (islast) {
                                     for (int i = 0; i < arrHomelistnew.size(); i++) {
                                         if (i == arrHomelistnew.size() - 1) {
                                             arrHomelistnew.remove(i);
                                         }
                                     }
 
+                                }*/
+
+                                if (arrHomelistnew.size() > 20) {
+                                    arrHomelistnew.remove(arrHomelistnew.size() - 1);
                                 }
 
 

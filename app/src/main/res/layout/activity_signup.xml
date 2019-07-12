@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/rel_login_top"
-            android:layout_marginTop="@dimen/_minus80sdp"
+            android:layout_marginTop="@dimen/_minus90sdp"
             android:layout_marginBottom="@dimen/_5sdp">
 
             <RelativeLayout
@@ -65,6 +65,7 @@
                     android:layout_below="@+id/str_header"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:orientation="vertical">
 
                     <android.support.design.widget.TextInputLayout

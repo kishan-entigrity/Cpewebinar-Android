@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.entigrity.R;
+import com.entigrity.activity.ActivityEvolutionForm;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.My_Credit.MyCreditsItem;
 import com.entigrity.utility.Constant;
@@ -123,6 +124,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
             if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
                 ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.VISIBLE);
                 ((ViewHolder) viewHolder).tv_webinar_status.setVisibility(View.GONE);
+                ((ViewHolder) viewHolder).btn_certification_download.setText(mList.get(position).getWebinarStatus());
             } else {
                 ((ViewHolder) viewHolder).tv_webinar_status.setVisibility(View.VISIBLE);
                 ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.GONE);
@@ -139,6 +141,33 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                     checkAndroidVersion();
                 }
             });
+
+            ((ViewHolder) viewHolder).tv_webinar_status.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (!mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext.getResources().getString(R.string.str_webinar_status_enroll))) {
+                        String url = mList.get(position).getJoinUrl();
+                        if (!url.equalsIgnoreCase("")) {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url));
+                            mContext.startActivity(i);
+                        } else {
+                            Constant.toast(mContext, mContext.getResources().getString(R.string.str_joinlink_not_avilable));
+                        }
+                    } else if (!mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext.getResources().getString(R.string.str_webinar_status_in_progress))) {
+                        String url = mList.get(position).getJoinUrl();
+                        if (!url.equalsIgnoreCase("")) {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url));
+                            mContext.startActivity(i);
+                        }
+                    }
+
+
+                }
+            });
+
 
             if (!mList.get(position).getWebinarTitle().equalsIgnoreCase("")) {
                 ((ViewHolder) viewHolder).tv_webinar_title.setText(mList.get(position).getWebinarTitle());
@@ -181,14 +210,14 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
 
             if (!mList.get(position).getHostDate().equalsIgnoreCase("")) {
                 StringTokenizer tokens = new StringTokenizer(mList.get(position).getHostDate(), " ");
-                String year = tokens.nextToken();// this will contain year
+                String day = tokens.nextToken();// this will contain year
                 String month = tokens.nextToken();//this will contain month
-                String day = tokens.nextToken();//this will contain day
+                String year = tokens.nextToken();//this will contain day
 
                 // year = year.substring(2);
 
 
-                if (month.equalsIgnoreCase("01")) {
+               /* if (month.equalsIgnoreCase("01")) {
                     month = mContext.getResources().getString(R.string.jan);
 
                 } else if (month.equalsIgnoreCase("02")) {
@@ -225,9 +254,9 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                     month = mContext.getResources().getString(R.string.dec);
 
                 }
+*/
 
-
-                ((ViewHolder) viewHolder).webinar_date.setText(year + " " + month + " " + day);
+                ((ViewHolder) viewHolder).webinar_date.setText(month + " " + day + ", " + year);
 
             }
 
@@ -305,7 +334,6 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
         }
 
     }
-
 
 
     BroadcastReceiver onComplete = new BroadcastReceiver() {
