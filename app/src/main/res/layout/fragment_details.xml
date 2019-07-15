@@ -414,8 +414,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:background="@drawable/download_button_webinar_detail"
-                    android:text="@string/str_handout_value"
                     android:textAllCaps="true"
+                    android:text="@string/str_handout_value"
                     android:textColor="@color/White"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-SemiBold.ttf" />
@@ -446,16 +446,7 @@
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Regular.ttf" />
 
-                <com.entigrity.view.CustomTextView
-                    android:id="@+id/tv_who_should_attend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:textColor="@color/edit_profile_lable_colcr"
-                    android:textSize="@dimen/_10sdp"
-                    android:visibility="gone"
-                    app:font_text="Montserrat-SemiBold.ttf" />
+
 
 
                 <LinearLayout
@@ -464,6 +455,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:orientation="vertical">
+
 
                 </LinearLayout>
 

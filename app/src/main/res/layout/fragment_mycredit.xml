@@ -98,7 +98,7 @@
                 android:id="@+id/lv_completed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.9"
+                android:layout_weight="0.8"
                 android:orientation="vertical">
 
                 <com.entigrity.view.CustomTextView
@@ -138,7 +138,7 @@
                 android:id="@+id/lv_pending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.9"
+                android:layout_weight="1.2"
                 android:orientation="vertical">
 
                 <com.entigrity.view.CustomTextView
@@ -177,7 +177,7 @@
                 android:id="@+id/lv_upcoming"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:orientation="vertical">
 
                 <com.entigrity.view.CustomTextView

@@ -6,9 +6,10 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginBottom="@dimen/_5sdp"
-    android:background="@drawable/my_credit_status"
     android:gravity="center_horizontal"
     android:padding="@dimen/_1sdp"
-    android:textColor="@color/black"
+    android:background="@drawable/download_button_webinar_detail"
+    android:textAllCaps="true"
+    android:textColor="@color/White"
     android:textSize="@dimen/_10sdp"
     app:font_text="Montserrat-SemiBold.ttf" />

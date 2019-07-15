@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rel_item"
     android:layout_width="match_parent"
+    android:layout_marginBottom="@dimen/_2sdp"
     android:layout_height="wrap_content">
 
 
@@ -34,7 +35,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp">
+                android:layout_marginTop="@dimen/_2sdp">
 
                 <com.entigrity.view.CustomTextView
                     android:id="@+id/tv_speaker_name"
@@ -47,19 +48,6 @@
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Medium.ttf" />
 
-                <com.entigrity.view.CustomButtonView
-                    android:id="@+id/btn_webinar_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_15sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:background="@drawable/rounded_webinar_status"
-                    android:gravity="center"
-                    android:textColor="@color/White"
-                    android:textSize="@dimen/_7sdp"
-                    app:font_button="Montserrat-Medium.ttf" />
-
 
             </RelativeLayout>
 
@@ -68,7 +56,7 @@
                 android:id="@+id/rel_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:gravity="center_vertical">
 
                 <com.entigrity.view.CustomTextView
@@ -101,13 +89,47 @@
                 </View>
 
 
+            </RelativeLayout>
+
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/tv_job_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel_main"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/my_credit_header_email_id"
+                android:textSize="@dimen/_10sdp"
+                app:font_text="Montserrat-Medium.ttf" />
+
+
+            <RelativeLayout
+                android:id="@+id/rel_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center_vertical">
+
+
+                <com.entigrity.view.CustomTextView
+                    android:id="@+id/webinar_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="@color/my_credit_header_email_id"
+                    android:textSize="@dimen/_10sdp"
+                    app:font_text="Montserrat-Medium.ttf" />
+
+
                 <com.entigrity.view.CustomButtonView
                     android:id="@+id/tv_webinar_status"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_15sdp"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_toLeftOf="@+id/btn_webinar_type"
                     android:background="@drawable/my_credit_status"
                     android:gravity="center"
                     android:textAllCaps="false"
@@ -121,9 +143,9 @@
                     android:id="@+id/btn_certification_download"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_15sdp"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_toLeftOf="@+id/btn_webinar_type"
                     android:background="@drawable/my_credit_status"
                     android:gravity="center"
                     android:textColor="@color/theme_background"
@@ -132,30 +154,22 @@
                     app:font_button="Montserrat-Regular.ttf" />
 
 
+                <com.entigrity.view.CustomButtonView
+                    android:id="@+id/btn_webinar_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@drawable/rounded_webinar_status"
+                    android:gravity="center"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/_7sdp"
+                    android:visibility="visible"
+                    app:font_button="Montserrat-Medium.ttf" />
+
+
             </RelativeLayout>
-
-            <com.entigrity.view.CustomTextView
-                android:id="@+id/tv_job_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rel_main"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/my_credit_header_email_id"
-                android:textSize="@dimen/_10sdp"
-                app:font_text="Montserrat-Medium.ttf" />
-
-            <com.entigrity.view.CustomTextView
-                android:id="@+id/webinar_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:textColor="@color/my_credit_header_email_id"
-                android:textSize="@dimen/_10sdp"
-                app:font_text="Montserrat-Medium.ttf" />
 
 
         </LinearLayout>

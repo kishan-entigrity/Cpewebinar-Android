@@ -324,6 +324,8 @@ public class AccountFragment extends Fragment {
                             }
 
 
+
+
                            /* if (viewProfileModel.getPayload().getData().getTags().size() > 0) {
                                 for (int i = 0; i < viewProfileModel.getPayload().getData().getTags().size(); i++) {
                                     arraylistselectedtopicsofinterest.add(viewProfileModel.getPayload().getData().getTags().get(i).getId());
@@ -578,7 +580,7 @@ public class AccountFragment extends Fragment {
         i.putExtra(getResources().getString(R.string.pass_firm_name), firmname);
         i.putExtra(getResources().getString(R.string.pass_mobile_number), mobilenumber);
         i.putExtra(getResources().getString(R.string.pass_ptin_number), ptin_number);
-        i.putExtra(getResources().getString(R.string.pass_country), 1);
+        i.putExtra(getResources().getString(R.string.pass_country), country_id);
         i.putExtra(getResources().getString(R.string.pass_state), state_id);
         i.putExtra(getResources().getString(R.string.pass_city), city_id);
         i.putExtra(getResources().getString(R.string.pass_job_title), jobtitle_id);

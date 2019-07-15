@@ -132,7 +132,7 @@
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/detail_heading">
 
-            <com.entigrity.view.CustomTextView
+          <!--  <com.entigrity.view.CustomTextView
                 android:id="@+id/tv_webinartitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,13 +144,12 @@
                 android:textColor="@color/webinar_detail_titile"
                 android:textSize="@dimen/_12sdp"
                 android:visibility="gone"
-                app:font_text="Montserrat-Bold.ttf" />
+                app:font_text="Montserrat-Bold.ttf" />-->
 
             <RelativeLayout
                 android:id="@+id/rel_timezone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_webinartitle"
                 android:layout_centerVertical="true">
 
 
@@ -160,7 +159,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Regular.ttf" />
@@ -172,7 +170,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/tv_webinardate"
                     android:spinnerMode="dialog" />
 
@@ -184,7 +181,6 @@
                 android:id="@+id/rel_watched_duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_webinartitle"
                 android:layout_centerVertical="true"
                 android:visibility="gone">
 
@@ -208,7 +204,7 @@
                 android:layout_below="@+id/rel_timezone"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/str_add_to_calendar"
                 android:textColor="@color/webinar_detail_titile"
                 android:textSize="@dimen/_10sdp"

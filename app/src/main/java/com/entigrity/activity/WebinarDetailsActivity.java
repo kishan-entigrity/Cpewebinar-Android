@@ -123,6 +123,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     private static final String TAG = WebinarDetailsActivity.class.getName();
     public int webinarid = 0;
     public String webinar_type = "";
+    public String Webinar_title = "";
     private String webinar_share_link = "";
     private String is_favorite = "";
     ProgressDialog mProgressDialog;
@@ -636,7 +637,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                ShowPopupAddtoCalender(binding.tvWebinartitle.getText().toString());
+                ShowPopupAddtoCalender(Webinar_title);
 
             }
         });
@@ -1757,7 +1758,9 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
-
+                            if (!webinar_details.getPayload().getWebinarDetail().getWebinarTitle().equalsIgnoreCase("")) {
+                                Webinar_title = webinar_details.getPayload().getWebinarDetail().getWebinarTitle();
+                            }
 
                            /* if (!webinar_details.getPayload().getWebinarDetail().getWebinarTitle().equalsIgnoreCase("")) {
                                 binding.tvWebinartitle.setText("" + webinar_details.getPayload().getWebinarDetail().getWebinarTitle());
@@ -2686,7 +2689,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
                 /*.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())*/
-                .putExtra(CalendarContract.Events.TITLE, binding.tvWebinartitle.getText().toString())
+                .putExtra(CalendarContract.Events.TITLE, Webinar_title)
                 .putExtra(Intent.EXTRA_EMAIL, AppSettings.get_email_id(context));
         startActivity(intent);
 
