@@ -15,6 +15,8 @@ import com.entigrity.R;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.databinding.FragmentDescriptionBinding;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+
 public class DescriptionFragment extends Fragment {
 
     FragmentDescriptionBinding binding;
@@ -27,15 +29,28 @@ public class DescriptionFragment extends Fragment {
 
 
         if (!WebinarDetailsActivity.getInstance().programDescription.equalsIgnoreCase("")) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                binding.tvDescription.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+            }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 binding.tvDescription.setText(Html.fromHtml(WebinarDetailsActivity.getInstance().programDescription, Html.FROM_HTML_MODE_COMPACT));
             } else {
                 binding.tvDescription.setText(Html.fromHtml(WebinarDetailsActivity.getInstance().programDescription));
             }
+
+           // binding.tvDescription.loadData(WebinarDetailsActivity.getInstance().programDescription, "text/html", "utf-8");
+
+           // binding.tvDescription.setText(WebinarDetailsActivity.getInstance().programDescription);
+
         }
 
 
         if (!WebinarDetailsActivity.getInstance().learningObjective.equalsIgnoreCase("")) {
+
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                binding.tvLearningObjective.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 binding.tvLearningObjective.setText(Html.fromHtml(WebinarDetailsActivity.getInstance().learningObjective, Html.FROM_HTML_MODE_COMPACT));

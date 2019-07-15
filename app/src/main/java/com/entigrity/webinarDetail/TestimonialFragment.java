@@ -2,6 +2,7 @@ package com.entigrity.webinarDetail;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import com.entigrity.R;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.databinding.FragmentTestimonialBinding;
+
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
 public class TestimonialFragment extends Fragment {
 
@@ -42,6 +45,14 @@ public class TestimonialFragment extends Fragment {
                 final TextView tv_username_name = (TextView) _itemRow.findViewById(R.id.tv_username_name);
                 final ImageView iv_testimonial_star = (ImageView) _itemRow.findViewById(R.id.iv_testimonial_star);
                 final TextView tv_review_decription = (TextView) _itemRow.findViewById(R.id.tv_review_decription);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    tv_username_name.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+                }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    tv_review_decription.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+                }
 
 
                 if (!WebinarDetailsActivity.getInstance().webinartestimonial.get(i).getFirstName().equalsIgnoreCase("")) {

@@ -17,6 +17,8 @@ import com.entigrity.R;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.databinding.FragmentPresenterBinding;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+
 public class PresenterFragment extends Fragment {
 
     FragmentPresenterBinding binding;
@@ -48,6 +50,10 @@ public class PresenterFragment extends Fragment {
 
 
         if (!WebinarDetailsActivity.getInstance().aboutpresenternameSpeakerDesc.equalsIgnoreCase("")) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                binding.tvAboutPresenter.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 binding.tvAboutPresenter.setText(Html.fromHtml(WebinarDetailsActivity.getInstance().aboutpresenternameSpeakerDesc, Html.FROM_HTML_MODE_COMPACT));

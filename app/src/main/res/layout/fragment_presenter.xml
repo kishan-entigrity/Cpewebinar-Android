@@ -62,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_presenter_emailid"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/edit_profile_lable_colcr"
                 android:textSize="@dimen/_10sdp"

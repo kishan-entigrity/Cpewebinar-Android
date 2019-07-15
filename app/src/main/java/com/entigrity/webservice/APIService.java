@@ -121,7 +121,7 @@ public interface APIService {
             @Field("confirm_password") String confirm_password,
             @Field("firm_name") String firm_name,
             @Field("contact_no") String contact_no,
-            @Field("tags") ArrayList<Integer> tags,
+            @Field("tags") String tags,
             @Field("user_type_id") int user_type_id,
             @Field("device_id") String device_id,
             @Field("device_token") String device_token,

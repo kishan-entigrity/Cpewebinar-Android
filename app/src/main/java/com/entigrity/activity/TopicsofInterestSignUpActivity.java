@@ -117,11 +117,14 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                 if (fromscreen.equalsIgnoreCase(getResources().getString(R.string.from_sign_up_screen))) {
                     if (Constant.arraylistselectedvalue.size() != 0) {
                         if (Constant.isNetworkAvailable(context)) {
+
+                            String topicsofinterest = android.text.TextUtils.join(",", Constant.arraylistselectedvalue);
+                            System.out.println(topicsofinterest);
+
                             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-                            // String phoneNumbers = mobilenumber.replaceAll("[^\\d]", "");
 
                             RegisterPost(fname, lname, email, password, confirm_password, firmname, mobilenumber,
-                                    Constant.arraylistselectedvalue, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
+                                    topicsofinterest, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
                         } else {
                             Snackbar.make(tv_submit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -179,7 +182,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
     }
 
     public void RegisterPost(String first_name, String last_name, String email, String password, String confirm_password,
-                             String firm_name, String contact_no, ArrayList<Integer> tags, int user_type,
+                             String firm_name, String contact_no, String tags, int user_type,
                              String device_id, String device_token, String device_type
     ) {
 
@@ -222,7 +225,6 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
 
                             Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
-
 
 
                             Intent i = new Intent(context, MainActivity.class);

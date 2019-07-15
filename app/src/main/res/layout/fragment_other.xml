@@ -52,8 +52,9 @@
                     android:id="@+id/tv_faq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_below="@+id/rel_faq"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:textColor="@color/edit_profile_lable_colcr"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-SemiBold.ttf" />
@@ -92,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:textColor="@color/edit_profile_lable_colcr"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-SemiBold.ttf" />
@@ -154,6 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:textColor="@color/edit_profile_lable_colcr"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-SemiBold.ttf" />
@@ -218,6 +221,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:textColor="@color/edit_profile_lable_colcr"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-SemiBold.ttf" />

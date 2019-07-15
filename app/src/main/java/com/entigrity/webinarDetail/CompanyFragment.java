@@ -15,6 +15,8 @@ import com.entigrity.R;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.databinding.FragmentCompanyDetailBinding;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+
 public class CompanyFragment extends Fragment {
 
     FragmentCompanyDetailBinding binding;
@@ -31,12 +33,21 @@ public class CompanyFragment extends Fragment {
             binding.tvCompanyName.setText(WebinarDetailsActivity.getInstance().aboutpresenterCompanyName);
         }
 
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            binding.tvCompanyDescription.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
+
+
         if (!WebinarDetailsActivity.getInstance().aboutpresenterCompanyWebsite.equalsIgnoreCase("")) {
             binding.tvCompanyWebsite.setText(WebinarDetailsActivity.getInstance().aboutpresenterCompanyWebsite);
         }
 
 
         if (!WebinarDetailsActivity.getInstance().aboutpresenterCompanyDesc.equalsIgnoreCase("")) {
+
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 binding.tvCompanyDescription.setText(Html.fromHtml(WebinarDetailsActivity.getInstance().aboutpresenterCompanyDesc, Html.FROM_HTML_MODE_COMPACT));

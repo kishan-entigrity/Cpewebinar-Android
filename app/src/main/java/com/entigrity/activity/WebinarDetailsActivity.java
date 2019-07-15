@@ -2235,6 +2235,8 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
                             if (!webinar_details.getPayload().getWebinarDetail().getProgramDescription().equalsIgnoreCase("")) {
                                 programDescription = webinar_details.getPayload().getWebinarDetail().getProgramDescription();
+
+                                //  Constant.Log("descrption","+++"+programDescription);
                             }
 
                             if (!webinar_details.getPayload().getWebinarDetail().getLearningObjective().equalsIgnoreCase("")) {
@@ -2905,7 +2907,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DetailsFragment(), getResources().getString(R.string.str_details));
         adapter.addFragment(new DescriptionFragment(), getResources().getString(R.string.str_description));
-        adapter.addFragment(new PresenterFragment(), getResources().getString(R.string.str_presenter));
         adapter.addFragment(new PresenterFragment(), getResources().getString(R.string.str_presenter));
         adapter.addFragment(new CompanyFragment(), getResources().getString(R.string.str_detail_company));
         adapter.addFragment(new TestimonialFragment(), getResources().getString(R.string.str_testimonials));

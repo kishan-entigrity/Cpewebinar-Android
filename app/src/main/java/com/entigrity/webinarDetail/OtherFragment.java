@@ -16,6 +16,8 @@ import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.databinding.FragmentOtherBinding;
 import com.squareup.picasso.Picasso;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+
 public class OtherFragment extends Fragment {
 
     FragmentOtherBinding binding;
@@ -36,8 +38,24 @@ public class OtherFragment extends Fragment {
         }
 
 
-        if (!WebinarDetailsActivity.getInstance().refund_and_cancelation.equalsIgnoreCase("")) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            binding.tvFaq.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            binding.tvRefundCancelationPolicy.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            binding.irsDescription.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            binding.nasbaDescription.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
+
+
+        if (!WebinarDetailsActivity.getInstance().refund_and_cancelation.equalsIgnoreCase("")) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 binding.tvRefundCancelationPolicy.setText(Html.fromHtml(WebinarDetailsActivity.getInstance().refund_and_cancelation, Html.FROM_HTML_MODE_COMPACT));
             } else {
@@ -59,10 +77,12 @@ public class OtherFragment extends Fragment {
 
             if (!WebinarDetailsActivity.getInstance().nasba_address.equalsIgnoreCase("")) {
 
+
                 binding.nasbaAddress.setText(WebinarDetailsActivity.getInstance().nasba_address);
             }
 
             if (!WebinarDetailsActivity.getInstance().nasba_description.equalsIgnoreCase("")) {
+
 
                 binding.nasbaDescription.setText(WebinarDetailsActivity.getInstance().nasba_description);
             }
@@ -70,10 +90,12 @@ public class OtherFragment extends Fragment {
 
             if (!WebinarDetailsActivity.getInstance().ea_address.equalsIgnoreCase("")) {
 
+
                 binding.irsAddress.setText(WebinarDetailsActivity.getInstance().ea_address);
             }
 
             if (!WebinarDetailsActivity.getInstance().ea_description.equalsIgnoreCase("")) {
+
 
                 binding.irsDescription.setText(WebinarDetailsActivity.getInstance().ea_description);
             }

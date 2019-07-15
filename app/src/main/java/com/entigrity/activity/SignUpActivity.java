@@ -351,11 +351,14 @@ public class SignUpActivity extends AppCompatActivity {
 
                         // String phoneNumbers = binding.edtMobilenumbert.getText().toString().replaceAll("[^\\d]", "");
 
+                        String topicsofinterest = android.text.TextUtils.join(",", Constant.arraylistselectedvalue);
+                        System.out.println(topicsofinterest);
+
                         RegisterPost(Constant.Trim(binding.edtFirstname.getText().toString())
                                 , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
                                 Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
                                 Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
-                                Constant.arraylistselectedvalue, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
+                                topicsofinterest, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
                     } else {
                         Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -597,7 +600,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     public void RegisterPost(String first_name, String last_name, String email, String password, String confirm_password,
-                             String firm_name, String contact_no, ArrayList<Integer> tags, int user_type, String device_id,
+                             String firm_name, String contact_no,String tags, int user_type, String device_id,
                              String device_token, String device_type
     ) {
 

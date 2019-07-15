@@ -219,7 +219,7 @@ public class DetailsFragment extends Fragment {
                 }
             } else {
 
-                Constant.Log("comming", "comming");
+             //   Constant.Log("comming", "comming");
 
                 for (int i = 0; i < 4; i++) {
                     final View myView_inflat = inflater_new.inflate(R.layout.row_who_should_attend, null);
