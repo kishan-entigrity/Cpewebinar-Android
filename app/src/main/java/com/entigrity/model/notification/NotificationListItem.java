@@ -29,8 +29,20 @@ public class NotificationListItem {
     @SerializedName("webinar_id")
     private int webinarId;
 
+    public String getNotificationMessage() {
+        return notificationMessage;
+    }
+
+    public void setNotificationMessage(String notificationMessage) {
+        this.notificationMessage = notificationMessage;
+    }
+
     @SerializedName("notification_title")
     private String notificationTitle;
+
+    @SerializedName("notification_message")
+    private String notificationMessage;
+
 
     public int getWebinarflag() {
         return webinarflag;
@@ -101,6 +113,7 @@ public class NotificationListItem {
                 "NotificationListItem{" +
                         "is_read = '" + isRead + '\'' +
                         ",notification_type = '" + notificationType + '\'' +
+                        ",notification_message = '" + notificationMessage + '\'' +
                         ",webinar_type = '" + webinartype + '\'' +
                         ",webinar_flag = '" + webinarflag + '\'' +
                         ",image = '" + image + '\'' +

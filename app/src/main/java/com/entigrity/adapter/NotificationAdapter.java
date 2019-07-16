@@ -70,8 +70,8 @@ public class NotificationAdapter extends RecyclerView.Adapter {
         if (viewHolder instanceof ViewHolder) {
 
             Constant.Log("size", "" + mList.size());
-            if (!mList.get(position).getNotificationTitle().equalsIgnoreCase("")) {
-                ((ViewHolder) viewHolder).tv_notification_title.setText(mList.get(position).getNotificationTitle());
+            if (!mList.get(position).getNotificationMessage().equalsIgnoreCase("")) {
+                ((ViewHolder) viewHolder).tv_notification_title.setText(mList.get(position).getNotificationMessage());
             }
 
 
