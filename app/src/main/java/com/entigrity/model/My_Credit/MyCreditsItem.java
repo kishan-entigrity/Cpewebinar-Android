@@ -41,6 +41,30 @@ public class MyCreditsItem {
     @SerializedName("credit")
     private String credit;
 
+
+    public String getWebinarCreditType() {
+        return WebinarCreditType;
+    }
+
+    public void setWebinarCreditType(String webinarCreditType) {
+        WebinarCreditType = webinarCreditType;
+    }
+
+    public String getCeCredit() {
+        return ceCredit;
+    }
+
+    public void setCeCredit(String ceCredit) {
+        this.ceCredit = ceCredit;
+    }
+
+    @SerializedName("webinar_credit_type")
+    private String WebinarCreditType;
+
+    @SerializedName("ce_credit")
+    private String ceCredit;
+
+
     @SerializedName("webinar_status")
     private String webinarStatus;
 
@@ -124,6 +148,8 @@ public class MyCreditsItem {
                         ",webinar_id = '" + webinarId + '\'' +
                         ",subject = '" + subject + '\'' +
                         ",joinUrl = '" + joinUrl + '\'' +
+                        ",ce_credit = '" + ceCredit + '\'' +
+                        ",webinar_credit_type = '" + WebinarCreditType + '\'' +
                         ",speaker_name = '" + speakerName + '\'' +
                         ",certificate_link = '" + certificateLink + '\'' +
                         ",webinar_title = '" + webinarTitle + '\'' +

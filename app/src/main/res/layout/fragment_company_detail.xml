@@ -21,12 +21,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivprofilepicture"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                />
+
             <com.entigrity.view.CustomTextView
                 android:id="@+id/tv_company_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_toRightOf="@+id/ivprofilepicture"
                 android:textColor="@color/webinar_detail_form_details"
                 android:textSize="@dimen/_12sdp"
                 app:font_text="Montserrat-Bold.ttf" />
@@ -38,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_company_name"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_toRightOf="@+id/ivprofilepicture"
                 android:autoLink="all"
                 android:clickable="true"
                 android:textColor="@color/edit_profile_lable_colcr"
@@ -50,10 +61,10 @@
                 android:id="@+id/tv_company_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_company_website"
+                android:layout_below="@+id/ivprofilepicture"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/edit_profile_lable_colcr"
                 android:textSize="@dimen/_10sdp"
                 app:font_text="Montserrat-SemiBold.ttf" />

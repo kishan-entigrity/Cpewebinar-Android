@@ -56,6 +56,7 @@ import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.timezones;
 import com.entigrity.model.video_duration.Video_duration_model;
 import com.entigrity.model.webinar_details_new.StaticTimezonesItem;
+import com.entigrity.model.webinar_details_new.WebinarDetail;
 import com.entigrity.model.webinar_details_new.WebinarTestimonialItem;
 import com.entigrity.model.webinar_details_new.Webinar_details;
 import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
@@ -238,6 +239,8 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
     private String time_zone = "";
     public int timezoneselection = 0;
+    public String presenter_image = "";
+    public String company_logo = "";
 
 
     @Override
@@ -1761,6 +1764,19 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             if (!webinar_details.getPayload().getWebinarDetail().getWebinarTitle().equalsIgnoreCase("")) {
                                 Webinar_title = webinar_details.getPayload().getWebinarDetail().getWebinarTitle();
                             }
+
+
+                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getPresenterImage()
+                                    .equalsIgnoreCase("")) {
+                                presenter_image = webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getPresenterImage();
+                            }
+
+
+                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyLogo().
+                                    equalsIgnoreCase("")) {
+                                company_logo = webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyLogo();
+                            }
+
 
                            /* if (!webinar_details.getPayload().getWebinarDetail().getWebinarTitle().equalsIgnoreCase("")) {
                                 binding.tvWebinartitle.setText("" + webinar_details.getPayload().getWebinarDetail().getWebinarTitle());

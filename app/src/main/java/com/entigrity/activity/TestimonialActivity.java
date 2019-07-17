@@ -216,29 +216,26 @@ public class TestimonialActivity extends AppCompatActivity {
                             islast = model_testimonial.getPayload().isIsLast();
                             Log.e("islast", "islast" + islast);
 
-                            Constant.Log(TAG, "size" + mListtestimonial.size());
+
 
 
                             if (start == 0 && limit == 10) {
                                 mListtestimonial = model_testimonial.getPayload().getWebinarTestimonial();
 
                             } else {
-                               /* if (islast) {
+                                /* if (islast) {
 
 
-                                  *//*  for (int i = 0; i < mListtestimonial.size(); i++) {
+                                 *//*  for (int i = 0; i < mListtestimonial.size(); i++) {
                                         if (i == mListtestimonial.size() - 1) {
                                             mListtestimonial.remove(i);
                                         }
                                     }*//*
                                 }*/
 
-                                if(mListtestimonial.size()>20)
-                                {
+                                if (mListtestimonial.size() > 20) {
                                     mListtestimonial.remove(mListtestimonial.size() - 1);
                                 }
-
-
 
 
                                 List<WebinarTestimonialItem> webinaritems = model_testimonial.getPayload().getWebinarTestimonial();

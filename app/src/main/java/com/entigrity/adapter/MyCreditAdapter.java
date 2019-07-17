@@ -176,9 +176,27 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                 ((ViewHolder) viewHolder).tv_speaker_name.setText(mList.get(position).getSpeakerName());
             }
 
-            if (!mList.get(position).getCredit().equalsIgnoreCase("")) {
+            if (mList.get(position).getWebinarCreditType().equalsIgnoreCase("CPE/CE")) {
+                ((ViewHolder) viewHolder).tv_credit.setText(mList.get(position).getCredit() + " CPE , "
+                        + mList.get(position).getCeCredit() + " CE");
+            } else if (mList.get(position).getWebinarCreditType().equalsIgnoreCase("CPE")) {
+                ((ViewHolder) viewHolder).tv_credit.setText(mList.get(position).getCredit() + " CPE");
+
+            } else if (mList.get(position).getWebinarCreditType().equalsIgnoreCase("CE")) {
+                ((ViewHolder) viewHolder).tv_credit.setText(mList.get(position).getCeCredit() + " CE");
+            }
+
+
+
+
+
+
+
+         /*   if (!mList.get(position).getCredit().equalsIgnoreCase("")) {
                 ((ViewHolder) viewHolder).tv_credit.setText(mList.get(position).getCredit() + " Credit");
             }
+*/
+
 
             if (!mList.get(position).getSubject().equalsIgnoreCase("")) {
                 ((ViewHolder) viewHolder).tv_job_title.setText(mList.get(position).getSubject());

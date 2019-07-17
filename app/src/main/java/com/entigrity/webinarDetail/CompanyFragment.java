@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.entigrity.R;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.databinding.FragmentCompanyDetailBinding;
+import com.squareup.picasso.Picasso;
 
 import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
@@ -33,7 +34,15 @@ public class CompanyFragment extends Fragment {
             binding.tvCompanyName.setText(WebinarDetailsActivity.getInstance().aboutpresenterCompanyName);
         }
 
+        if (!WebinarDetailsActivity.getInstance().company_logo.equalsIgnoreCase("")) {
+            Picasso.with(getActivity()).load(WebinarDetailsActivity.getInstance().company_logo)
+                    .placeholder(R.drawable.profile_place_holder)
+                    .fit()
+                    .into((binding.ivprofilepicture));
+        } else {
 
+            binding.ivprofilepicture.setImageResource(R.drawable.profile_place_holder);
+        }
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

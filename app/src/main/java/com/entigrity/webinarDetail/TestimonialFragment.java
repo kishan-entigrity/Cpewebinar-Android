@@ -1,6 +1,7 @@
 package com.entigrity.webinarDetail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.entigrity.R;
+import com.entigrity.activity.TestimonialActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.databinding.FragmentTestimonialBinding;
 
@@ -28,6 +30,18 @@ public class TestimonialFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_testimonial, null, false);
+
+
+        binding.tvViewMoreTestimonial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), TestimonialActivity.class);
+                i.putExtra(getResources().getString(R.string.pass_webinar_id), WebinarDetailsActivity
+                        .getInstance().webinarid);
+                startActivity(i);
+
+            }
+        });
 
 
         if (WebinarDetailsActivity.getInstance().webinartestimonial.size() > 0) {

@@ -156,8 +156,7 @@
     <string name="val_new_confirm_password_not_match">New Password and Confirm Password does not match</string>
 
 
-    <string name="payment_validate_msg">For register this webinar please visit our web application and
-    complete your payment.</string>
+    <string name="payment_validate_msg">To Register this webinar please visit our web application and complete your payment.</string>
 
 
     //vimeo

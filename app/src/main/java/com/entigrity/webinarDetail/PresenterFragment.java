@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.entigrity.R;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.databinding.FragmentPresenterBinding;
+import com.squareup.picasso.Picasso;
 
 import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
@@ -34,6 +35,15 @@ public class PresenterFragment extends Fragment {
         if (!WebinarDetailsActivity.getInstance().aboutpresentername.equalsIgnoreCase("")) {
             binding.tvPresenterName.setText(WebinarDetailsActivity.getInstance().aboutpresentername +
                     " " + WebinarDetailsActivity.getInstance().aboutpresenternameQualification);
+        }
+
+        if (!WebinarDetailsActivity.getInstance().presenter_image.equalsIgnoreCase("")) {
+            Picasso.with(getActivity()).load(WebinarDetailsActivity.getInstance().presenter_image)
+                    .placeholder(R.drawable.profile_place_holder)
+                    .fit()
+                    .into((binding.ivprofilepicture));
+        } else {
+            binding.ivprofilepicture.setImageResource(R.drawable.profile_place_holder);
         }
 
 
