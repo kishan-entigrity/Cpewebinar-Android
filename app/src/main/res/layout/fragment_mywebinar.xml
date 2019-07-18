@@ -90,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/background_list"
                 android:clipToPadding="false"
-                android:paddingBottom="@dimen/_50sdp"
+                android:paddingBottom="@dimen/_70sdp"
                 android:scrollbars="vertical" />
         </android.support.v4.widget.SwipeRefreshLayout>
 

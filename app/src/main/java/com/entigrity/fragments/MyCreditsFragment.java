@@ -190,8 +190,6 @@ public class MyCreditsFragment extends Fragment {
                         }
                     }
                 }
-
-
             }
         });
 
@@ -215,7 +213,6 @@ public class MyCreditsFragment extends Fragment {
 
 
     private void loadNextPage() {
-
         if (Constant.isNetworkAvailable(context)) {
             binding.progressBar.setVisibility(View.VISIBLE);
             GetMyCredit(start, limit);

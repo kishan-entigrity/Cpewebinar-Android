@@ -217,8 +217,6 @@ public class TestimonialActivity extends AppCompatActivity {
                             Log.e("islast", "islast" + islast);
 
 
-
-
                             if (start == 0 && limit == 10) {
                                 mListtestimonial = model_testimonial.getPayload().getWebinarTestimonial();
 

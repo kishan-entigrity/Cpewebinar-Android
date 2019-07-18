@@ -274,7 +274,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/White"
                 android:clipToPadding="false"
-                android:paddingBottom="@dimen/_50sdp">
+                android:paddingBottom="@dimen/_70sdp">
 
             </android.support.v7.widget.RecyclerView>
 
