@@ -100,11 +100,11 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, not_nu, intent, PendingIntent.FLAG_ONE_SHOT);
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                        .setSmallIcon(R.mipmap.play_icon)
+                        .setSmallIcon(R.mipmap.app_icon)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(title))
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                         .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                                R.mipmap.play_icon))
+                                R.mipmap.app_icon))
                         .setContentTitle(title)
                         .setColor(getResources().getColor(R.color.webinar_status))
                         .setContentText(message)
@@ -126,11 +126,11 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, not_nu, intent, PendingIntent.FLAG_ONE_SHOT);
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                        .setSmallIcon(R.mipmap.play_icon)
+                        .setSmallIcon(R.mipmap.app_icon)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(title))
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                         .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                                R.mipmap.play_icon))
+                                R.mipmap.app_icon))
                         .setContentTitle(title)
                         .setColor(getResources().getColor(R.color.webinar_status))
                         .setContentText(message)
