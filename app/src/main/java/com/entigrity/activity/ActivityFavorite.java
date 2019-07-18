@@ -125,9 +125,6 @@ public class ActivityFavorite extends AppCompatActivity {
         LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvFavoritelist.getLayoutManager());
         int pos = layoutManager.findLastCompletelyVisibleItemPosition();
         int numItems = binding.rvFavoritelist.getAdapter().getItemCount() - 1;
-
-        //Constant.Log(TAG, "pos + numitem" + pos + "  " + "  " + numItems);
-
         return (pos >= numItems);
     }
 
@@ -223,19 +220,6 @@ public class ActivityFavorite extends AppCompatActivity {
 
                             } else {
 
-                             /*   if (islast) {
-
-                                }*/
-                                // arrmyfavorites.remove( arrmyfavorites.size() - 1);
-
-                              /*  if (islast) {
-                                    for (int i = 0; i < arrmyfavorites.size(); i++) {
-                                        if (i == arrmyfavorites.size() - 1) {
-                                            arrmyfavorites.remove(i);
-                                        }
-                                    }
-                                }
-*/
 
                                 if (arrmyfavorites.size() > 20) {
                                     arrmyfavorites.remove(arrmyfavorites.size() - 1);

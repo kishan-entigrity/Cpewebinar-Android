@@ -55,10 +55,6 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
 
             Log.e("remotemessage", "++++++" + remoteMessage.getData());
 
-            // webinar_id = 0;
-
-            //   String click_action = remoteMessage.getNotification().getClickAction();
-
             if (remoteMessage.getData().size() > 0) {
 
                 System.out.println("+++++ remoteMessage:" + remoteMessage.getData().get("flag"));
@@ -73,22 +69,9 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
                 webinar_type = remoteMessage.getData().get("webinar_type");
                 webinar_id = Integer.parseInt(remoteMessage.getData().get("webinar_id"));
 
-               /* JSONObject data = new JSONObject(remoteMessage.getData());
-                try {
-                    flag = data.getInt("flag");
-                    message = data.getString("text");
-                    title = data.getString("title");
-                    webinar_type = data.getString("webinar_type");
-                    webinar_id = data.getInt("webinar_id");
 
-
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
             }
-            Constant.Log("flag", "+++" + webinar_type + "  " + webinar_id);
+            Constant.Log("type_and_id", "+++" + webinar_type + "  " + webinar_id);
 
             if (!AppSettings.get_login_token(ReceiveFirebaseMessagingService.this).isEmpty()) {
                 Intent intent = new Intent(this, SplashActivity.class);
@@ -100,11 +83,11 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, not_nu, intent, PendingIntent.FLAG_ONE_SHOT);
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                        .setSmallIcon(R.mipmap.app_icon)
+                        .setSmallIcon(R.mipmap.notification_app_icon)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(title))
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                         .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                                R.mipmap.app_icon))
+                                R.mipmap.notification_app_icon))
                         .setContentTitle(title)
                         .setColor(getResources().getColor(R.color.webinar_status))
                         .setContentText(message)
@@ -126,11 +109,11 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, not_nu, intent, PendingIntent.FLAG_ONE_SHOT);
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                        .setSmallIcon(R.mipmap.app_icon)
+                        .setSmallIcon(R.mipmap.notification_app_icon)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(title))
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                         .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                                R.mipmap.app_icon))
+                                R.mipmap.notification_app_icon))
                         .setContentTitle(title)
                         .setColor(getResources().getColor(R.color.webinar_status))
                         .setContentText(message)
@@ -147,67 +130,11 @@ public class ReceiveFirebaseMessagingService extends FirebaseMessagingService {
             }
 
 
-            /*title = remoteMessage.getNotification().getTitle(); //get title
-            message = remoteMessage.getNotification().getBody(); //get message
-            click_action = remoteMessage.getNotification().getClickAction(); //get click_action
-
-            Log.d("", "Notification Title: " + title);
-            Log.d("", "Notification Body: " + message);
-            Log.d("", "Notification click_action: " + click_action);
-
-            sendNotification(title, message, click_action);*/
-
-
-
-/*
-            Log.e("remotemessage", "++++++" + remoteMessage.getData());
-
-
-            Notification notification = new NotificationCompat.Builder(this)
-                    .setContentTitle(remoteMessage.getNotification().getTitle())
-                    .setContentText(remoteMessage.getNotification().getBody())
-                    .setSmallIcon(R.mipmap.play_icon)
-                    .build();
-            NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
-            manager.notify(0, notification);*/
-
-         /*   String title = remoteMessage.getData().get(“title”);
-            String body = remoteMessage.getData().get(“body”);
-            String objectId = remoteMessage.getData().get(object_id);
-            String objectType = remoteMessage.getData().get(objectType”);
-            */
-
-            /*Intent intent = new Intent(this, SplashActivity.class);
-
-            intent.putExtra("flag", remoteMessage.getData().get("flag"));
-            PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-            Notification notification = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.play_icon)
-                    .setWhen(System.currentTimeMillis())
-                    .setContentTitle(remoteMessage.getNotification().getTitle())
-                    .setContentText(remoteMessage.getNotification().getBody())
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(remoteMessage.getNotification().getBody()))
-                    .setContentIntent(pIntent)
-                    .setAutoCancel(true)
-//                .setGroup("black_race")
-//                .setGroupSummary(true)
-                    .getNotification();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                notification.priority = Notification.PRIORITY_MAX;
-            }
-
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            manager.notify(0, notification);
-*/
         }
 
 
     }
 
-   /* private void sendNotification(String title, String messageBody, int flag, int webinar_id, String webinar_type) {
-
-    }*/
 
     public int generateRandom() {
         Random random = new Random();

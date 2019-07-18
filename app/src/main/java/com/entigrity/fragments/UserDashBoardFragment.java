@@ -36,8 +36,8 @@ public class UserDashBoardFragment extends Fragment {
     View view;
     private FragmentDashboardBinding binding;
     public Context context;
-    private static final String TAG = UserDashBoardFragment.class.getName();
     private static UserDashBoardFragment instance;
+    private static final String TAG = UserDashBoardFragment.class.getName();
     TextView tabadddot;
 
 
@@ -49,35 +49,6 @@ public class UserDashBoardFragment extends Fragment {
 
         setupViewPager(binding.viewpager);
         binding.homeparenttabs.setupWithViewPager(binding.viewpager);
-
-
-        binding.homeparenttabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                switch (tab.getPosition()) {
-                    case 0:
-                        // MainActivity.getInstance().SetHomeScreen();
-                        // Log.e("AllWebinar","AllWebinar");
-                        break;
-                    case 1:
-                        //MainActivity.getInstance().SetMyWebinar();
-                        //Log.e("MyWebinar","MyWebinar");
-                        break;
-                }
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
 
         MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);

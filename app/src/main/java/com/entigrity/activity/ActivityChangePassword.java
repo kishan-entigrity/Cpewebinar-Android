@@ -19,7 +19,6 @@ import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
 
 import rx.Subscriber;
@@ -30,7 +29,6 @@ public class ActivityChangePassword extends AppCompatActivity {
 
     ActivityChangePasswordBinding binding;
     public Context context;
-    private APIService mAPIService;
     private APIService mAPIService_new;
     private static final String TAG = ActivityChangePassword.class.getName();
     ProgressDialog progressDialog;
@@ -40,7 +38,6 @@ public class ActivityChangePassword extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_change_password);
-        mAPIService = ApiUtils.getAPIService();
         mAPIService_new = ApiUtilsNew.getAPIService();
         context = ActivityChangePassword.this;
 
@@ -109,7 +106,6 @@ public class ActivityChangePassword extends AppCompatActivity {
                     @Override
                     public void onNext(ChangePasswordModel changePasswordModel) {
                         if (changePasswordModel.isSuccess()) {
-                            //ClearData();
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
@@ -136,13 +132,6 @@ public class ActivityChangePassword extends AppCompatActivity {
 
                 });
 
-    }
-
-    private void ClearData() {
-
-        binding.edtOldpassword.setText("");
-        binding.edtNewpassword.setText("");
-        binding.edtConfirmpassword.setText("");
     }
 
 

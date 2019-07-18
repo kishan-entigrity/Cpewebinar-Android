@@ -35,12 +35,10 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
     private APIService mAPIService;
     private static final String TAG = TopicsOfInterestActivity.class.getName();
     ProgressDialog progressDialog;
-    // private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
     LinearLayoutManager linearLayoutManager;
     RecycleviewSectionTestAdapter adapter;
     private String fromscreen = "";
     private static TopicsOfInterestActivity instance;
-    //   private ArrayList<com.entigrity.model.view_topics_of_interest.TopicOfInterestsItem> topicsofinterestitem = new ArrayList<>();
     private ArrayList<com.entigrity.model.view_interest_favorite.TopicOfInterestsItem> topicsofinterestitemfavorite = new ArrayList<com.entigrity.model.view_interest_favorite.TopicOfInterestsItem>();
 
 
@@ -146,8 +144,6 @@ public class TopicsOfInterestActivity extends AppCompatActivity {
                                     topicsofinterestitemfavorite.add(topicOfInterestsItem);
                                 }
 
-
-                                //  Constant.Log(TAG, "size" + topicsofinterestitemfavorite.size());
 
                             }
 

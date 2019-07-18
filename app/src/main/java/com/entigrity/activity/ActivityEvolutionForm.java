@@ -35,10 +35,10 @@ public class ActivityEvolutionForm extends AppCompatActivity {
     private APIService mAPIService;
     ProgressDialog progressDialog;
     public Context context;
-    private static final String TAG = ActivityEvolutionForm.class.getName();
     public int webinar_id = 0;
     public String webinar_type = "";
     public String Screen = "";
+    private static final String TAG = ActivityEvolutionForm.class.getName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,8 +144,6 @@ public class ActivityEvolutionForm extends AppCompatActivity {
                             webSetting.setJavaScriptEnabled(true);
                             webSetting.setDisplayZoomControls(true);
                             binding.webview.loadUrl(evalutionformmodel.getPayload().getLink());
-
-                            Log.e("link", "link" + evalutionformmodel.getPayload().getLink());
 
 
                         } else {

@@ -1,39 +1,24 @@
 package com.entigrity.adapter;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DownloadManager;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
@@ -48,15 +33,7 @@ import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -65,7 +42,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class HomeALLAdapter extends RecyclerView.Adapter {
 
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
@@ -73,35 +50,11 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
     private Context mContext;
     LayoutInflater mInflater;
     public List<com.entigrity.model.homewebinarnew.WebinarItem> mList;
-    private String start_time;
     private APIService mAPIService;
     ProgressDialog progressDialog;
-    DownloadTask downloadTask;
-    ProgressDialog mProgressDialog;
     public Dialog myDialog;
-    private static final int CARD_NUMBER_TOTAL_SYMBOLS = 19; // size of pattern 0000-0000-0000-0000
-    private static final int CARD_NUMBER_TOTAL_DIGITS = 16; // max numbers of digits in pattern: 0000 x 4
-    private static final int CARD_NUMBER_DIVIDER_MODULO = 5; // means divider position is every 5th symbol beginning with 1
-    private static final int CARD_NUMBER_DIVIDER_POSITION = CARD_NUMBER_DIVIDER_MODULO - 1; // means divider position is every 4th symbol beginning with 0
-    private static final char CARD_NUMBER_DIVIDER = '-';
-
-    private static final int CARD_DATE_TOTAL_SYMBOLS = 5; // size of pattern MM/YY
-    private static final int CARD_DATE_TOTAL_DIGITS = 4; // max numbers of digits in pattern: MM + YY
-    private static final int CARD_DATE_DIVIDER_MODULO = 3; // means divider position is every 3rd symbol beginning with 1
-    private static final int CARD_DATE_DIVIDER_POSITION = CARD_DATE_DIVIDER_MODULO - 1; // means divider position is every 2nd symbol beginning with 0
-    private static final char CARD_DATE_DIVIDER = '/';
-
-    private static final int CARD_CVC_TOTAL_SYMBOLS = 3;
-    private TextView tv_submit, tv_cancel, tv_login;
-    private EditText edt_card_number, edt_card_holder_name, edt_expiry_month, edt_expiry_year, edt_cvv;
-    Integer[] imageArray = {R.drawable.visa, R.drawable.mastercard, R.drawable.discover, R.drawable.amx};
-    private String cardtype = "";
-    public static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
-
+    private TextView tv_cancel, tv_login;
     public String certificate_link = "";
-    private DownloadManager downloadManager;
-    private long refid;
-    ArrayList<Long> list = new ArrayList<>();
     String join_url = "";
 
 
@@ -111,69 +64,8 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
         mAPIService = ApiUtilsNew.getAPIService();
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-
-        /*mContext.registerReceiver(onComplete,
-                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-*/
 
     }
-
-
-    public void DownloadCertificate(String Certificate) {
-
-        list.clear();
-
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Certificate));
-        String extension = Certificate.substring(Certificate.lastIndexOf('.') + 1).trim();
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        request.setAllowedOverRoaming(false);
-        request.setTitle("Downloading Document");
-        request.setVisibleInDownloadsUi(true);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_Document" + "." + extension);
-
-        refid = downloadManager.enqueue(request);
-
-
-        Log.e("OUT", "" + refid);
-
-        list.add(refid);
-    }
-
-
-    BroadcastReceiver onComplete = new BroadcastReceiver() {
-
-        public void onReceive(Context ctxt, Intent intent) {
-
-
-            long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-
-
-            Log.e("IN", "" + referenceId);
-
-            list.remove(referenceId);
-
-
-            if (list.isEmpty()) {
-
-
-                Log.e("INSIDE", "" + referenceId);
-                Toast.makeText(mContext, "Download complete", Toast.LENGTH_SHORT).show();
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(mContext)
-                                .setSmallIcon(R.mipmap.app_icon)
-                                .setContentTitle("Document")
-                                .setContentText("MYCpe");
-
-
-                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.notify(455, mBuilder.build());
-
-
-            }
-
-        }
-    };
 
 
     @NonNull
@@ -226,20 +118,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                 ((HomeViewHolder) viewHolder).webinar_status.setText(mList.get(position).getStatus());
             }
 
-          /*  if (Constant.checklikedislikestatusallregister.size() > 0) {
-                String status = Constant.checklikedislikestatusallregister.get(mList.get(position).getWebinarTitle());
-
-                if (status.equalsIgnoreCase(mContext
-                        .getResources().getString(R.string.str_webinar_status_register))) {
-                    ((HomeViewHolder) viewHolder).webinar_status.setBackgroundResource(R.drawable.rounded_credit_home);
-                } else {
-                    ((HomeViewHolder) viewHolder).webinar_status.setBackgroundResource(R.drawable.rounded_webinar_status);
-                }
-
-                ((HomeViewHolder) viewHolder).webinar_status.setText(mList.get(position).getStatus());
-
-            }
-*/
 
             if (!mList.get(position).getFee().equalsIgnoreCase("")) {
                 ((HomeViewHolder) viewHolder).tv_webinar_price_status.setText("$" + mList.get(position).getFee());
@@ -384,20 +262,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
 
             }
-           /* if (mList.get(position).getTimeZone() != null) {
-                ((HomeViewHolder) viewHolder).tv_timezone.setText(mList.get(position).getTimeZone());
-            }*/
-
-       /*     if (Constant.checklikedislikestatusall.size() > 0) {
-                String webinarlikestatus = Constant.checklikedislikestatusall.get(mList.get(position).getWebinarTitle());
-
-                if (webinarlikestatus.equalsIgnoreCase(mContext
-                        .getResources().getString(R.string.fav_yes))) {
-                    ((HomeViewHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like_hover);
-                } else {
-                    ((HomeViewHolder) viewHolder).ivfavorite.setImageResource(R.drawable.like);
-                }
-            }*/
 
 
             if (mList.get(position).getWebinarLike().equalsIgnoreCase(mContext
@@ -411,37 +275,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                 ((HomeViewHolder) viewHolder).tv_webinar_time.setText(mList.get(position).getStartTime()
                         + " " + mList.get(position).getTimeZone());
             }
-
-
-           /* if (!mList.get(clickedposition).getStartTime().equalsIgnoreCase("")) {
-                ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.VISIBLE);
-
-                StringTokenizer tokens = new StringTokenizer(mList.get(clickedposition).getStartTime(), " ");
-                String date = tokens.nextToken();// this will contain date
-
-                start_time = tokens.nextToken();
-
-
-                StringTokenizer tokens_split_time = new StringTokenizer(start_time, ":");
-                String hours = tokens_split_time.nextToken();
-                String min = tokens_split_time.nextToken();
-                String second = tokens_split_time.nextToken();
-
-
-                if (Integer.parseInt(hours) > 12) {
-                    ((HomeViewHolder) viewHolder).tv_webinar_time.setText(hours + " : " + min + " " +
-                            mContext.getResources().getString(R.string.time_pm));
-
-                } else {
-                    ((HomeViewHolder) viewHolder).tv_webinar_time.setText(hours + " : " + min + " " +
-                            mContext.getResources().getString(R.string.time_am));
-
-                }
-
-
-            } else {
-                ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.GONE);
-            }*/
 
 
             ((HomeViewHolder) viewHolder).ivshare.setOnClickListener(new View.OnClickListener() {
@@ -483,9 +316,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                         ShowPopUp();
                     }
 
-                   /* Intent i = new Intent(mContext, StripePaymentActivity.class);
-                    mContext.startActivity(i);*/
-
 
                 }
             });
@@ -511,9 +341,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                             }
 
 
-                        } else if (mList.get(position).getStatus().equalsIgnoreCase(mContext
-                                .getResources().getString(R.string.str_webinar_status_certificate))) {
-                            checkAndroidVersion();
                         } else if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources().getString(R.string.str_filter_live))) {
                             if (mList.get(position).getStatus().equalsIgnoreCase(
                                     mContext.getResources().getString(R.string.str_webinar_status_enroll))) {
@@ -540,9 +367,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                                     Intent i = new Intent(Intent.ACTION_VIEW);
                                     i.setData(Uri.parse(join_url));
                                     mContext.startActivity(i);
-                                } /*else {
-                                    Constant.toast(mContext, mContext.getResources().getString(R.string.str_joinlink_not_avilable));
-                                }*/
+                                }
                             }
                         }
                     }
@@ -557,7 +382,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                     if (!AppSettings.get_login_token(mContext).isEmpty()) {
                         if (Constant.isNetworkAvailable(mContext)) {
                             ((HomeViewHolder) viewHolder).ivfavorite.setEnabled(false);
-                            /*progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));*/
                             WebinarFavoriteLikeDislike(((HomeViewHolder) viewHolder).tv_favorite_count, mList.get(position).getId(), ((HomeViewHolder) viewHolder).ivfavorite, position);
                         } else {
                             Snackbar.make(((HomeViewHolder) viewHolder).ivfavorite, mContext.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
@@ -576,292 +400,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
     }
 
 
-    private class DownloadTask extends AsyncTask<String, Integer, String> {
-
-        private Context context;
-        //private PowerManager.WakeLock mWakeLock;
-
-        public DownloadTask(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // take CPU lock to prevent CPU from going off if the user
-            // presses the power button during download
-            /*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                    getClass().getName());
-            mWakeLock.acquire();*/
-            mProgressDialog = new ProgressDialog(mContext);
-            mProgressDialog.show();
-            mProgressDialog.setMessage("downloading");
-            mProgressDialog.setMax(100);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setCancelable(true);
-        }
-
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            int count;
-            try {
-
-                for (int i = 0; i < sUrl.length; i++) {
-                    URL url = new URL(sUrl[i]);
-                    URLConnection conection = url.openConnection();
-                    conection.connect();
-                    // getting file length
-                    int lenghtOfFile = conection.getContentLength();
-
-                    Constant.Log("URL", "++++" + url);
-
-                    String extension = sUrl[i].substring(sUrl[i].lastIndexOf('.') + 1).trim();
-                    Constant.Log("result", "++++" + extension);
-
-
-                    // input stream to read file - with 8k buffer
-                    InputStream input = new BufferedInputStream(
-                            url.openStream(), 8192);
-                    // System.out.println("Data::" + sUrl[i]);
-                    // Output stream to write file
-                    OutputStream output = new FileOutputStream(
-                            "/sdcard/certificate" + new Date().getTime() + "." + extension);
-
-                    byte data[] = new byte[1024];
-
-                    long total = 0;
-
-                    while ((count = input.read(data)) != -1) {
-                        total += count;
-                        // publishing the progress....
-                        // After this onProgressUpdate will be called
-                        publishProgress((int) ((total * 100) / lenghtOfFile));
-
-                        // writing data to file
-                        output.write(data, 0, count);
-                    }
-
-                    // flushing output
-                    output.flush();
-
-                    // closing streams
-                    output.close();
-                    input.close();
-                }
-            } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            super.onProgressUpdate(progress);
-            // if we get here, length is known, now set indeterminate to false
-           /* mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setMax(100);*/
-            mProgressDialog.setProgress(progress[0]);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            // mWakeLock.release();
-            mProgressDialog.dismiss();
-            if (result != null)
-                Toast.makeText(context, "Download error: " + result, Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(context, "Download complete", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void checkAndroidVersion() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkPermission();
-        } else {
-            // write your logic here
-
-
-            if (!certificate_link.equalsIgnoreCase("")) {
-               /* downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);*/
-                //     DownloadCertificate(certificate_link);
-
-            } else {
-                Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
-            }
-
-
-        }
-
-    }
-
-
-    private void checkPermission() {
-
-        if (ContextCompat.checkSelfPermission(mContext,
-                Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
-                .checkSelfPermission(mContext,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale
-                    ((Activity) mContext, Manifest.permission.READ_EXTERNAL_STORAGE) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale
-                            ((Activity) mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    ((Activity) mContext).requestPermissions(new String[]{Manifest.permission
-                                    .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            PERMISSIONS_MULTIPLE_REQUEST);
-                }
-
-
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    ((Activity) mContext).requestPermissions(
-                            new String[]{Manifest.permission
-                                    .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            PERMISSIONS_MULTIPLE_REQUEST);
-                }
-            }
-        } else {
-            // write your logic code if permission already granted
-
-            if (!certificate_link.equalsIgnoreCase("")) {
-               /* downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);*/
-                //    DownloadCertificate(certificate_link);
-
-            } else {
-                Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
-            }
-        }
-    }
-
-
-    /*public void ShowStripePopup() {
-        myDialog = new Dialog(mContext);
-        myDialog.setContentView(R.layout.stripe_popup);
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        edt_card_number = (EditText) myDialog.findViewById(R.id.edt_card_number);
-
-        edt_card_holder_name = (EditText) myDialog.findViewById(R.id.edt_card_holder_name);
-        edt_expiry_month = (EditText) myDialog.findViewById(R.id.edt_expiry_month);
-
-
-        edt_cvv = (EditText) myDialog.findViewById(R.id.edt_cvv);
-
-        tv_submit = (TextView) myDialog.findViewById(R.id.tv_submit);
-        tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel);
-
-        //  edt_card_number.addTextChangedListener(new CreditCardNumberFormattingTextWatcher());
-
-        edt_card_number.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                String ccNum = s.toString();
-
-                if (ccNum.length() >= 2) {
-                    for (int i = 0; i < Constant.listOfPattern().size(); i++) {
-                        if (ccNum.substring(0, 2).matches(Constant.listOfPattern().get(i))) {
-                            edt_card_number.setCompoundDrawablesWithIntrinsicBounds(0, 0, imageArray[i], 0);
-
-                            cardtype = String.valueOf(i);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                if (!edt_card_number.getText().toString().equalsIgnoreCase("")) {
-                    for (int i = 0; i < Constant.listOfPattern().size(); i++) {
-                        if (edt_card_number.getText().toString().matches(Constant.listOfPattern().get(i))) {
-                            edt_card_number.setCompoundDrawablesWithIntrinsicBounds(0, 0, imageArray[i], 0);
-
-                            cardtype = String.valueOf(i);
-                        }
-                    }
-                } else {
-                    edt_card_number.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                }
-
-
-                if (!isInputCorrect(s, CARD_NUMBER_TOTAL_SYMBOLS, CARD_NUMBER_DIVIDER_MODULO, CARD_NUMBER_DIVIDER)) {
-                    s.replace(0, s.length(), concatString(getDigitArray(s, CARD_NUMBER_TOTAL_DIGITS), CARD_NUMBER_DIVIDER_POSITION, CARD_NUMBER_DIVIDER));
-                }
-
-
-            }
-        });
-
-
-        edt_expiry_month.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!isInputCorrect(s, CARD_DATE_TOTAL_SYMBOLS, CARD_DATE_DIVIDER_MODULO, CARD_DATE_DIVIDER)) {
-                    s.replace(0, s.length(), concatString(getDigitArray(s, CARD_DATE_TOTAL_DIGITS), CARD_DATE_DIVIDER_POSITION, CARD_DATE_DIVIDER));
-                }
-
-            }
-        });
-
-
-        edt_cvv.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > CARD_CVC_TOTAL_SYMBOLS) {
-                    s.delete(CARD_CVC_TOTAL_SYMBOLS, s.length());
-                }
-
-            }
-        });
-
-        tv_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myDialog.isShowing()) {
-                    myDialog.dismiss();
-                }
-
-            }
-        });
-
-
-        myDialog.show();
-
-    }*/
     public void ShowPopUp() {
 
         myDialog = new Dialog(mContext);
@@ -904,74 +442,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
     }
 
-    private boolean isInputCorrect(Editable s, int size, int dividerPosition, char divider) {
-        boolean isCorrect = s.length() <= size;
-        for (int i = 0; i < s.length(); i++) {
-            if (i > 0 && (i + 1) % dividerPosition == 0) {
-                isCorrect &= divider == s.charAt(i);
-            } else {
-                isCorrect &= Character.isDigit(s.charAt(i));
-            }
-        }
-        return isCorrect;
-    }
-
-    private String concatString(char[] digits, int dividerPosition, char divider) {
-        final StringBuilder formatted = new StringBuilder();
-
-        for (int i = 0; i < digits.length; i++) {
-            if (digits[i] != 0) {
-                formatted.append(digits[i]);
-                if ((i > 0) && (i < (digits.length - 1)) && (((i + 1) % dividerPosition) == 0)) {
-                    formatted.append(divider);
-                }
-            }
-        }
-
-        return formatted.toString();
-    }
-
-    private char[] getDigitArray(final Editable s, final int size) {
-        char[] digits = new char[size];
-        int index = 0;
-        for (int i = 0; i < s.length() && index < size; i++) {
-            char current = s.charAt(i);
-            if (Character.isDigit(current)) {
-                digits[index] = current;
-                index++;
-            }
-        }
-        return digits;
-    }
-
-
-    /*public static class CreditCardNumberFormattingTextWatcher implements TextWatcher {
-
-        private boolean lock;
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (lock || s.length() > 16) {
-                return;
-            }
-            lock = true;
-            for (int i = 4; i < s.length(); i += 5) {
-                if (s.toString().charAt(i) != ' ') {
-                    s.insert(i, " ");
-                }
-            }
-            lock = false;
-        }
-    }*/
-
 
     public String formatHoursAndMinutes(int totalMinutes) {
         String minutes = Integer.toString(totalMinutes % 60);
@@ -1007,59 +477,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
     @Override
     public int getItemViewType(int position) {
         return (position == mList.size() - 1 && isLoadingAdded) ? VIEW_ITEM : VIEW_PROG;
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-
-        switch (requestCode) {
-            case PERMISSIONS_MULTIPLE_REQUEST:
-                if (grantResults.length > 0) {
-                    boolean writePermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    boolean readExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
-                    if (writePermission && readExternalFile) {
-                        // write your logic here
-                        if (!certificate_link.equalsIgnoreCase("")) {
-                           /* downloadTask = new DownloadTask(mContext);
-                            downloadTask.execute(certificate_link);*/
-                            //      DownloadCertificate(certificate_link);
-
-                        } else {
-                            Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
-                        }
-                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (Build.VERSION.SDK_INT >= 23 && !((Activity) mContext).shouldShowRequestPermissionRationale(permissions[0])) {
-                            Intent intent = new Intent();
-                            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.fromParts("package", mContext.getPackageName(), null);
-                            intent.setData(uri);
-                            mContext.startActivity(intent);
-                        } else {
-                            ((Activity) mContext).requestPermissions(
-                                    new String[]{Manifest.permission
-                                            .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    PERMISSIONS_MULTIPLE_REQUEST);
-                        }
-                    }
-
-                    /*else {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            ((Activity) mContext).requestPermissions(
-                                    new String[]{Manifest.permission
-                                            .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    PERMISSIONS_MULTIPLE_REQUEST);
-                        }
-                    }*/
-                }
-                break;
-
-
-        }
-
-
     }
 
 
@@ -1127,10 +544,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
 
                     @Override
                     public void onError(Throwable e) {
-                      /*  if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-*/
+
                         String message = Constant.GetReturnResponse(mContext, e);
 
                         if (Constant.status_code == 401) {
@@ -1146,36 +560,25 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                     @Override
                     public void onNext(Webinar_Like_Dislike_Model webinar_like_dislike_model) {
 
-                      /*  if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }*/
-
 
                         if (webinar_like_dislike_model.isSuccess()) {
 
                             if (webinar_like_dislike_model.getPayload().getIsLike().equalsIgnoreCase(mContext
                                     .getResources().getString(R.string.fav_yes))) {
                                 ImageView.setImageResource(R.mipmap.like_orange);
-                                // int favcount = mList.get(position).getFavWebinarCount() + 1;
                                 textView.setText("" + webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setFavWebinarCount(webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setWebinarLike(mContext
                                         .getResources().getString(R.string.fav_yes));
-                               /* Constant.checklikedislikestatusall.put(mList.get(position).getWebinarTitle(),
-                                        webinar_like_dislike_model.getPayload().getIsLike());*/
+
                             } else {
                                 ImageView.setImageResource(R.drawable.like);
-                              /*  int favcount = mList.get(position).getFavWebinarCount() - 1;
-                                textView.setText("" + favcount);*/
                                 textView.setText("" + webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setFavWebinarCount(webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setWebinarLike(mContext
                                         .getResources().getString(R.string.fav_No));
-
-                                /*Constant.checklikedislikestatusall.put(mList.get(position).getWebinarTitle(),
-                                        webinar_like_dislike_model.getPayload().getIsLike());*/
                             }
-                            //Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+
                         } else {
                             Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
@@ -1229,13 +632,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                             }
                         }
 
-                        /*String message = Constant.GetReturnResponse(mContext, e);
-                        if (Constant.status_code == 401) {
-                            MainActivity.getInstance().AutoLogout();
-                        } else {
-                            Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
-                        }*/
-
 
                     }
 
@@ -1252,22 +648,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter implements ActivityComp
                             mList.get(position).setStatus(modelRegisterWebinar.getPayload().getRegisterStatus());
                             if (!modelRegisterWebinar.getPayload().getJoinUrl().equalsIgnoreCase("")) {
                                 join_url = modelRegisterWebinar.getPayload().getJoinUrl();
-                                Constant.Log("joinurl", "joinurl" + join_url);
+
                             }
 
-
-
-                          /*  if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
-                                    .getString(R.string.str_filter_live))) {
-                                button.setText("JOIN WEBINAR");
-                                button.setBackgroundResource(R.drawable.rounded_webinar_status);
-                                mList.get(position).setStatus("JOIN WEBINAR");
-                            } else if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
-                                    .getString(R.string.str_self_study_on_demand))) {
-                                button.setText("WATCH NOW");
-                                button.setBackgroundResource(R.drawable.rounded_webinar_status);
-                                mList.get(position).setStatus("WATCH NOW");
-                            }*/
 
                         } else {
                             Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();

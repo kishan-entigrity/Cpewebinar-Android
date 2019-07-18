@@ -169,11 +169,6 @@ public class LoginActivity extends AppCompatActivity {
 
                             AppSettings.set_login_token(context, login.getPayload().getToken());
 
-                            //AppSettings.set_profile_picture(context, login.getPayload().getProfilePicture());
-
-                            AppSettings.set_profile_username(context, login.getPayload().getFirstName());
-
-
                             AppSettings.set_email_id(context, login.getPayload().getEmail());
 
 

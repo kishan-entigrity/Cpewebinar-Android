@@ -1,25 +1,13 @@
 package com.entigrity.adapter;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.DownloadManager;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
@@ -43,15 +30,8 @@ import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -60,24 +40,17 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private boolean isLoadingAdded = false;
     private Context mContext;
     LayoutInflater mInflater;
     public List<com.entigrity.model.homewebinarnew.WebinarItem> mList;
-    private String start_time;
     private APIService mAPIService;
     ProgressDialog progressDialog;
-
-    DownloadTask downloadTask;
-    ProgressDialog mProgressDialog;
     public String certificate_link = "";
-    public static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
     String join_url = "";
-    private DownloadManager downloadManager;
-    private long refid;
     ArrayList<Long> list = new ArrayList<>();
 
 
@@ -87,66 +60,8 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
         mAPIService = ApiUtilsNew.getAPIService();
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
 
-       /* mContext.registerReceiver(onComplete,
-                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-*/
     }
-
-    public void DownloadCertificate(String Certificate) {
-
-        list.clear();
-
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Certificate));
-        String extension = Certificate.substring(Certificate.lastIndexOf('.') + 1).trim();
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        request.setAllowedOverRoaming(false);
-        request.setTitle("Downloading Document");
-        request.setVisibleInDownloadsUi(true);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_Document" + "." + extension);
-
-        refid = downloadManager.enqueue(request);
-
-
-        Log.e("OUT", "" + refid);
-
-        list.add(refid);
-    }
-
-    BroadcastReceiver onComplete = new BroadcastReceiver() {
-
-        public void onReceive(Context ctxt, Intent intent) {
-
-
-            long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-
-
-            Log.e("IN", "" + referenceId);
-
-            list.remove(referenceId);
-
-
-            if (list.isEmpty()) {
-
-
-                Log.e("INSIDE", "" + referenceId);
-                Toast.makeText(mContext, "Download complete", Toast.LENGTH_SHORT).show();
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(mContext)
-                                .setSmallIcon(R.mipmap.app_icon)
-                                .setContentTitle("Document")
-                                .setContentText("MYCpe");
-
-
-                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.notify(455, mBuilder.build());
-
-
-            }
-
-        }
-    };
 
 
     @NonNull
@@ -380,10 +295,6 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                 }
             });
 
-        /*    if (mList.get(position).getTimeZone() != null) {
-                ((MyWebinarHolder) viewHolder).tv_timezone.setText(mList.get(position).getTimeZone());
-            }
-*/
 
             ((MyWebinarHolder) viewHolder).ivwebinar_thumbhel.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -420,9 +331,6 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                         }
 
 
-                    } else if (mList.get(position).getStatus().equalsIgnoreCase(mContext
-                            .getResources().getString(R.string.str_webinar_status_certificate))) {
-                        checkAndroidVersion();
                     } else if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources().getString(R.string.str_filter_live))) {
                         if (mList.get(position).getStatus().equalsIgnoreCase(mContext.getResources().getString(R.string.str_webinar_status_enroll))) {
                             String url = mList.get(position).getJoinurl();
@@ -448,9 +356,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 i.setData(Uri.parse(join_url));
                                 mContext.startActivity(i);
-                            } /*else {
-                                Constant.toast(mContext, mContext.getResources().getString(R.string.str_joinlink_not_avilable));
-                            }*/
+                            }
                         } else if (mList.get(position).getStatus().equalsIgnoreCase(
                                 mContext.getResources().getString(R.string.str_webinar_status_pending_evoluation))) {
                             Intent i = new Intent(mContext, ActivityEvolutionForm.class);
@@ -482,254 +388,11 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
             });
 
 
-           /* if (!mList.get(clickedposition).getStartTime().equalsIgnoreCase("")) {
-                ((MyWebinarHolder) viewHolder).tv_webinar_time.setVisibility(View.VISIBLE);
-
-                StringTokenizer tokens = new StringTokenizer(mList.get(clickedposition).getStartTime(), " ");
-                String date = tokens.nextToken();// this will contain date
-
-                start_time = tokens.nextToken();
-
-
-                StringTokenizer tokens_split_time = new StringTokenizer(start_time, ":");
-                String hours = tokens_split_time.nextToken();
-                String min = tokens_split_time.nextToken();
-                String second = tokens_split_time.nextToken();
-
-
-                if (Integer.parseInt(hours) > 12) {
-                    ((MyWebinarHolder) viewHolder).tv_webinar_time.setText(hours + " : " + min + " " +
-                            mContext.getResources().getString(R.string.time_pm));
-
-                } else {
-                    ((MyWebinarHolder) viewHolder).tv_webinar_time.setText(hours + " : " + min + " " +
-                            mContext.getResources().getString(R.string.time_am));
-
-                }
-
-
-            } else {
-                ((MyWebinarHolder) viewHolder).tv_webinar_time.setVisibility(View.GONE);
-            }
-*/
         } /*else {
             ((ProgressViewHolder) viewHolder).progressBar.setIndeterminate(true);
 
         }*/
 
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-
-        switch (requestCode) {
-            case PERMISSIONS_MULTIPLE_REQUEST:
-                if (grantResults.length > 0) {
-                    boolean writePermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    boolean readExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
-                    if (writePermission && readExternalFile) {
-                        // write your logic here
-                        if (!certificate_link.equalsIgnoreCase("")) {
-                         /*   downloadTask = new DownloadTask(mContext);
-                            downloadTask.execute(certificate_link);*/
-                            //    DownloadCertificate(certificate_link);
-
-                        } else {
-                            Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
-                        }
-                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (Build.VERSION.SDK_INT >= 23 && !((Activity) mContext).shouldShowRequestPermissionRationale(permissions[0])) {
-                            Intent intent = new Intent();
-                            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.fromParts("package", mContext.getPackageName(), null);
-                            intent.setData(uri);
-                            mContext.startActivity(intent);
-                        } else {
-                            ((Activity) mContext).requestPermissions(
-                                    new String[]{Manifest.permission
-                                            .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    PERMISSIONS_MULTIPLE_REQUEST);
-                        }
-                    } /*else {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            ((Activity) mContext).requestPermissions(
-                                    new String[]{Manifest.permission
-                                            .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    PERMISSIONS_MULTIPLE_REQUEST);
-                        }
-                    }*/
-                }
-                break;
-
-
-        }
-
-
-    }
-
-    private void checkAndroidVersion() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkPermission();
-        } else {
-            // write your logic here
-            if (!certificate_link.equalsIgnoreCase("")) {
-              /*  downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);*/
-                //    DownloadCertificate(certificate_link);
-            } else {
-                Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
-            }
-
-
-        }
-
-    }
-
-
-    private void checkPermission() {
-
-        if (ContextCompat.checkSelfPermission(mContext,
-                Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
-                .checkSelfPermission(mContext,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale
-                    ((Activity) mContext, Manifest.permission.READ_EXTERNAL_STORAGE) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale
-                            ((Activity) mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    ((Activity) mContext).requestPermissions(new String[]{Manifest.permission
-                                    .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            PERMISSIONS_MULTIPLE_REQUEST);
-                }
-
-
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    ((Activity) mContext).requestPermissions(
-                            new String[]{Manifest.permission
-                                    .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            PERMISSIONS_MULTIPLE_REQUEST);
-                }
-            }
-        } else {
-            // write your logic code if permission already granted
-
-            if (!certificate_link.equalsIgnoreCase("")) {
-               /* downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);*/
-                //  DownloadCertificate(certificate_link);
-            } else {
-                Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
-            }
-        }
-    }
-
-    private class DownloadTask extends AsyncTask<String, Integer, String> {
-
-        private Context context;
-        //private PowerManager.WakeLock mWakeLock;
-
-        public DownloadTask(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // take CPU lock to prevent CPU from going off if the user
-            // presses the power button during download
-            /*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                    getClass().getName());
-            mWakeLock.acquire();*/
-            mProgressDialog = new ProgressDialog(mContext);
-            mProgressDialog.show();
-            mProgressDialog.setMessage("downloading");
-            mProgressDialog.setMax(100);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setCancelable(true);
-        }
-
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            int count;
-            try {
-
-                for (int i = 0; i < sUrl.length; i++) {
-                    URL url = new URL(sUrl[i]);
-                    URLConnection conection = url.openConnection();
-                    conection.connect();
-                    // getting file length
-                    int lenghtOfFile = conection.getContentLength();
-
-                    Constant.Log("URL", "++++" + url);
-
-                    String extension = sUrl[i].substring(sUrl[i].lastIndexOf('.') + 1).trim();
-                    Constant.Log("result", "++++" + extension);
-
-
-                    // input stream to read file - with 8k buffer
-                    InputStream input = new BufferedInputStream(
-                            url.openStream(), 8192);
-                    // System.out.println("Data::" + sUrl[i]);
-                    // Output stream to write file
-                    OutputStream output = new FileOutputStream(
-                            "/sdcard/certificate" + new Date().getTime() + "." + extension);
-
-                    byte data[] = new byte[1024];
-
-                    long total = 0;
-
-                    while ((count = input.read(data)) != -1) {
-                        total += count;
-                        // publishing the progress....
-                        // After this onProgressUpdate will be called
-                        publishProgress((int) ((total * 100) / lenghtOfFile));
-
-                        // writing data to file
-                        output.write(data, 0, count);
-                    }
-
-                    // flushing output
-                    output.flush();
-
-                    // closing streams
-                    output.close();
-                    input.close();
-                }
-            } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            super.onProgressUpdate(progress);
-            // if we get here, length is known, now set indeterminate to false
-           /* mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setMax(100);*/
-            mProgressDialog.setProgress(progress[0]);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            // mWakeLock.release();
-            mProgressDialog.dismiss();
-            if (result != null)
-                Toast.makeText(context, "Download error: " + result, Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(context, "Download complete", Toast.LENGTH_SHORT).show();
-        }
     }
 
 
@@ -829,9 +492,7 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
 
                     @Override
                     public void onError(Throwable e) {
-                      /*  if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }*/
+
 
                         String message = Constant.GetReturnResponse(mContext, e);
 
@@ -848,34 +509,27 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
                     @Override
                     public void onNext(Webinar_Like_Dislike_Model webinar_like_dislike_model) {
 
-                       /* if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }*/
 
                         if (webinar_like_dislike_model.isSuccess()) {
                             if (webinar_like_dislike_model.getPayload().getIsLike().equalsIgnoreCase(mContext
                                     .getResources().getString(R.string.fav_yes))) {
                                 ImageView.setImageResource(R.mipmap.like_orange);
-                                //int favcount = mList.get(position).getFavWebinarCount() + 1;
                                 textView.setText("" + webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setFavWebinarCount(webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setWebinarLike(mContext
                                         .getResources().getString(R.string.fav_yes));
-                               /* Constant.checklikedislikestatusmywebinar.put(mList.get(position).getWebinarTitle(),
-                                        webinar_like_dislike_model.getPayload().getIsLike());*/
+
                             } else {
                                 ImageView.setImageResource(R.drawable.like);
-                                // int favcount = mList.get(position).getFavWebinarCount() - 1;
                                 textView.setText("" + webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setFavWebinarCount(webinar_like_dislike_model.getPayload().getTotalcount());
                                 mList.get(position).setWebinarLike(mContext
                                         .getResources().getString(R.string.fav_No));
 
-                                /*Constant.checklikedislikestatusmywebinar.put(mList.get(position).getWebinarTitle(),
-                                        webinar_like_dislike_model.getPayload().getIsLike());*/
+
                             }
 
-                            // Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+
                         } else {
                             Snackbar.make(ImageView, webinar_like_dislike_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
@@ -944,20 +598,9 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter implements Activi
 
                             if (!modelRegisterWebinar.getPayload().getJoinUrl().equalsIgnoreCase("")) {
                                 join_url = modelRegisterWebinar.getPayload().getJoinUrl();
-                                Constant.Log("joinurl", "joinurl" + join_url);
+
                             }
 
-                          /*  if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
-                                    .getString(R.string.str_filter_live))) {
-                                button.setText("JOIN WEBINAR");
-                                button.setBackgroundResource(R.drawable.rounded_webinar_status);
-                                mList.get(position).setStatus("JOIN WEBINAR");
-                            } else if (mList.get(position).getWebinarType().equalsIgnoreCase(mContext.getResources()
-                                    .getString(R.string.str_self_study_on_demand))) {
-                                button.setText("WATCH NOW");
-                                button.setBackgroundResource(R.drawable.rounded_webinar_status);
-                                mList.get(position).setStatus("WATCH NOW");
-                            }*/
 
                         } else {
                             Snackbar.make(button, modelRegisterWebinar.getMessage(), Snackbar.LENGTH_SHORT).show();

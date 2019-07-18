@@ -219,12 +219,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                             Constant.arraylistselectedvalue.clear();
 
                             AppSettings.set_login_token(context, registrationModel.getPayload().getUser().getToken());
-                            // AppSettings.set_profile_picture(context, registrationModel.getPayload().getUser().getProfilePicture());
-                            AppSettings.set_profile_username(context, registrationModel.getPayload().getUser().getFirstName());
                             AppSettings.set_email_id(context, registrationModel.getPayload().getUser().getEmail());
-
-
-                            Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
 
 
                             Intent i = new Intent(context, MainActivity.class);
@@ -312,7 +307,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
                                 }
                             }
-                            Constant.Log("subcategory", "subcategory" + topicsofinterestitem.size());
+
                         } else {
                             Snackbar.make(tv_submit, topicsofinterest.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }

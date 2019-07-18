@@ -102,8 +102,6 @@ public class TermsandConditionActivity extends AppCompatActivity {
                             webSetting.setDisplayZoomControls(true);
                             binding.webview.loadUrl(getTermsCondition.getPayload().getLink());
 
-                            //      Constant.Log("link", "link" + getTermsCondition.getPayload().getLink());
-
 
                         } else {
                             if (progressDialog.isShowing()) {

@@ -187,17 +187,6 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
             }
 
 
-
-
-
-
-
-         /*   if (!mList.get(position).getCredit().equalsIgnoreCase("")) {
-                ((ViewHolder) viewHolder).tv_credit.setText(mList.get(position).getCredit() + " Credit");
-            }
-*/
-
-
             if (!mList.get(position).getSubject().equalsIgnoreCase("")) {
                 ((ViewHolder) viewHolder).tv_job_title.setText(mList.get(position).getSubject());
             }
@@ -232,47 +221,6 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                 String month = tokens.nextToken();//this will contain month
                 String year = tokens.nextToken();//this will contain day
 
-                // year = year.substring(2);
-
-
-               /* if (month.equalsIgnoreCase("01")) {
-                    month = mContext.getResources().getString(R.string.jan);
-
-                } else if (month.equalsIgnoreCase("02")) {
-                    month = mContext.getResources().getString(R.string.feb);
-
-                } else if (month.equalsIgnoreCase("03")) {
-                    month = mContext.getResources().getString(R.string.march);
-
-                } else if (month.equalsIgnoreCase("04")) {
-                    month = mContext.getResources().getString(R.string.april);
-
-                } else if (month.equalsIgnoreCase("05")) {
-                    month = mContext.getResources().getString(R.string.may);
-
-                } else if (month.equalsIgnoreCase("06")) {
-                    month = mContext.getResources().getString(R.string.june);
-
-                } else if (month.equalsIgnoreCase("07")) {
-                    month = mContext.getResources().getString(R.string.july);
-
-                } else if (month.equalsIgnoreCase("08")) {
-                    month = mContext.getResources().getString(R.string.aug);
-
-                } else if (month.equalsIgnoreCase("09")) {
-                    month = mContext.getResources().getString(R.string.sept);
-
-                } else if (month.equalsIgnoreCase("10")) {
-                    month = mContext.getResources().getString(R.string.oct);
-
-                } else if (month.equalsIgnoreCase("11")) {
-                    month = mContext.getResources().getString(R.string.nov);
-
-                } else if (month.equalsIgnoreCase("12")) {
-                    month = mContext.getResources().getString(R.string.dec);
-
-                }
-*/
 
                 ((ViewHolder) viewHolder).webinar_date.setText(month + " " + day + ", " + year);
 
@@ -317,9 +265,6 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                     if (writePermission && readExternalFile) {
                         // write your logic here
                         if (!certificate_link.equalsIgnoreCase("")) {
-                         /*   downloadTask = new DownloadTask(mContext);
-                            downloadTask.execute(certificate_link);*/
-
                             DownloadCertificate(certificate_link);
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
@@ -337,14 +282,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                                             .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     PERMISSIONS_MULTIPLE_REQUEST);
                         }
-                    } /*else {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            ((Activity) mContext).requestPermissions(
-                                    new String[]{Manifest.permission
-                                            .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    PERMISSIONS_MULTIPLE_REQUEST);
-                        }
-                    }*/
+                    }
                 }
                 break;
 
@@ -362,15 +300,12 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
 
 
-            Log.e("IN", "" + referenceId);
-
             list.remove(referenceId);
 
 
             if (list.isEmpty()) {
 
 
-                Log.e("INSIDE", "" + referenceId);
                 Toast.makeText(mContext, "Download complete", Toast.LENGTH_LONG).show();
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(mContext)
@@ -452,10 +387,8 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                     // getting file length
                     int lenghtOfFile = conection.getContentLength();
 
-                    Constant.Log("URL", "++++" + url);
 
                     String extension = sUrl[i].substring(sUrl[i].lastIndexOf('.') + 1).trim();
-                    Constant.Log("result", "++++" + extension);
 
 
                     // input stream to read file - with 8k buffer
@@ -522,8 +455,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
 
 
             if (!certificate_link.equalsIgnoreCase("")) {
-               /* downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);*/
+
                 DownloadCertificate(certificate_link);
 
 
@@ -589,9 +521,6 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
             // write your logic code if permission already granted
 
             if (!certificate_link.equalsIgnoreCase("")) {
-               /* downloadTask = new DownloadTask(mContext);
-                downloadTask.execute(certificate_link);*/
-
                 DownloadCertificate(certificate_link);
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));

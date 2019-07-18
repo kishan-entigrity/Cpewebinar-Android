@@ -161,7 +161,6 @@ public class ActivityReviewQuestion extends AppCompatActivity {
                             }
                             arraylistselectedquestionreview.clear();
                             arraylistselectedreviewanswerreview.clear();
-                            // Snackbar.make(binding.ivback, submitAnswerModel.getMessage(), Snackbar.LENGTH_SHORT).show();
                             finish();
 
 
@@ -255,7 +254,7 @@ public class ActivityReviewQuestion extends AppCompatActivity {
                             for (int i = 0; i < reviewquestion.size(); i++) {
                                 arrayboolean.add(false);
                             }
-                            //  Constant.Log(TAG, "size" + finalquizquestion.size() + "  " + arrayboolean.size());
+
 
                             if (reviewquestion.size() > 0) {
                                 binding.recyclerviewReviewQuestion.setVisibility(View.VISIBLE);

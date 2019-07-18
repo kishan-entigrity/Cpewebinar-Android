@@ -50,13 +50,9 @@ import android.widget.Toast;
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityWebinardetailsBinding;
-import com.entigrity.fragments.AboutCompanyFragment;
-import com.entigrity.fragments.CompanyDetailsFragment;
 import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.timezones;
 import com.entigrity.model.video_duration.Video_duration_model;
-import com.entigrity.model.webinar_details_new.StaticTimezonesItem;
-import com.entigrity.model.webinar_details_new.WebinarDetail;
 import com.entigrity.model.webinar_details_new.WebinarTestimonialItem;
 import com.entigrity.model.webinar_details_new.Webinar_details;
 import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
@@ -440,28 +436,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             }
         });
 
-      /*  binding.lvWhoAttend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(context, ActivityWhoYouAre.class);
-                i.putStringArrayListExtra(getResources().getString(R.string.pass_who_you_are_list), whoshouldattend);
-                startActivity(i);
-
-            }
-        });
-
-        binding.tvViewMoreTestimonial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Snackbar.make(binding.tvViewMoreTestimonial, context.getResources().getString(R.string.str_comming_soon), Snackbar.LENGTH_SHORT).show();
-                Intent i = new Intent(context, TestimonialActivity.class);
-                i.putExtra(getResources().getString(R.string.pass_webinar_id), webinarid);
-                startActivity(i);
-
-            }
-        });*/
-
 
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -500,16 +474,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
             }
         });
-
-
-     /*   binding.tvDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                checkAndroidVersion();
-            }
-        });*/
 
 
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -645,22 +609,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             }
         });
 
-       /* binding.tvPresenterEmailid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (!email_id.equalsIgnoreCase("")) {
-
-                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                            "mailto", email_id, null));
-                    startActivity(Intent.createChooser(emailIntent, "mail"));
-
-                }
-
-
-            }
-        });*/
-
 
         binding.ivnotification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -788,15 +736,12 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
 
 
-            Log.e("IN", "" + referenceId);
-
             list.remove(referenceId);
 
 
             if (list.isEmpty()) {
 
 
-                Log.e("INSIDE", "" + referenceId);
                 Toast.makeText(context, "Download complete", Toast.LENGTH_LONG).show();
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(context)
@@ -814,30 +759,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         }
     };
 
-   /* public void DownloadCertificate(String[] mcertificateArray) {
-        list.clear();
-
-        for (int i = 0; i < mcertificateArray.length; i++) {
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(mcertificateArray.toString()));
-            String extension = mcertificateArray.toString().substring(mcertificateArray.toString().lastIndexOf('.') + 1).trim();
-            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-            request.setAllowedOverRoaming(false);
-            request.setTitle("Downloading Document");
-            request.setVisibleInDownloadsUi(true);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_Document" + "." + extension);
-
-            refid = downloadManager.enqueue(request);
-        }
-
-
-        Log.e("OUT", "" + refid);
-
-        list.add(refid);
-
-
-    }
-*/
-
 
     public void DownloadCertificate(ArrayList<String> arrayListcertificate) {
         list.clear();
@@ -853,8 +774,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             refid = downloadManager.enqueue(request);
         }
 
-
-        Log.e("OUT", "" + refid);
 
         list.add(refid);
 
@@ -876,8 +795,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             refid = downloadManager.enqueue(request);
         }
 
-
-        Log.e("OUT", "" + refid);
 
         list.add(refid);
 
@@ -1185,7 +1102,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
                         if (video_duration_model.isSuccess() == true) {
-                            //Snackbar.make(button, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+
                             if (!video_duration_model.getPayload().getWatched().equalsIgnoreCase("")) {
                                 watched_duration = video_duration_model.getPayload().getWatched();
                                 videostatus = video_duration_model.getPayload().getVideostatus();
@@ -1200,7 +1117,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             }
 
                         } else {
-                            //  Snackbar.make(button, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
+
 
                         }
 
@@ -1347,30 +1264,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     }
 
 
-    private void checkAndroidVersion() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkPermission();
-        } else {
-            // write your logic here
-            if (arrayListhandout.size() > 0) {
-                /*mhandoutArray = new String[arrayListhandout.size()];
-                mhandoutArray = arrayListhandout.toArray(mhandoutArray);*/
-                /*  if (mhandoutArray.length > 0) {
-                 *//*downloadTask = new DownloadTask(context);
-                    downloadTask.execute(mhandoutArray);*//*
-
-                }*/
-                DownloadHandouts(arrayListhandout);
-
-            } else {
-                Constant.toast(context, getResources().getString(R.string.str_download_link_not_found));
-            }
-
-
-        }
-
-    }
-
     private void checkAndroidVersion_Calender() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             CheckPermission_Calender();
@@ -1461,12 +1354,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                     if (writePermission && readExternalFile) {
 
                         if (arrayListCertificate.size() > 0) {
-                         /*   mcertificateArray = new String[arrayListCertificate.size()];
-                            mcertificateArray = arrayListCertificate.toArray(mcertificateArray);
-                            if (mcertificateArray.length > 0) {
-                                downloadTaskCerificate = new DownloadTaskCerificate(context);
-                                downloadTaskCerificate.execute(mcertificateArray);
-                            }*/
 
 
                             DownloadCertificate(arrayListCertificate);
@@ -1524,16 +1411,10 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             // write your logic code if permission already granted
 
             if (arrayListhandout.size() > 0) {
-              /*  mhandoutArray = new String[arrayListhandout.size()];
-                mhandoutArray = arrayListhandout.toArray(mhandoutArray);*/
+
 
                 DownloadHandouts(arrayListhandout);
-                /* if (mhandoutArray.length > 0) {
-                 *//* downloadTask = new DownloadTask(context);
-                    downloadTask.execute(mhandoutArray);*//*
 
-
-                }*/
             } else {
                 Constant.toast(context, getResources().getString(R.string.str_download_link_not_found));
             }
@@ -1569,12 +1450,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             // write your logic code if permission already granted
 
             if (arrayListCertificate.size() > 0) {
-                /*mcertificateArray = new String[arrayListCertificate.size()];
-                mcertificateArray = arrayListCertificate.toArray(mcertificateArray);
-                if (mcertificateArray.length > 0) {
-                    downloadTaskCerificate = new DownloadTaskCerificate(context);
-                    downloadTaskCerificate.execute(mcertificateArray);
-                }*/
+
 
                 DownloadCertificate(arrayListCertificate);
 
@@ -1800,19 +1676,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             }
 
 
-
-
-
-                            /*if (!webinar_details.getPayload().getWebinarDetail().getCourseId().equalsIgnoreCase("")) {
-                                binding.viewCourseId.setVisibility(View.VISIBLE);
-                                binding.lvCourseId.setVisibility(View.VISIBLE);
-                                binding.tvCouseId.setText(webinar_details.getPayload().getWebinarDetail().getCourseId());
-                            } else {
-                                binding.viewCourseId.setVisibility(View.GONE);
-                                binding.lvCourseId.setVisibility(View.GONE);
-                            }*/
-
-
                             if (!webinar_details.getPayload().getWebinarDetail().getWatched().equalsIgnoreCase("")) {
                                 watched_duration = webinar_details.getPayload().getWebinarDetail().getWatched();
                             }
@@ -1834,36 +1697,9 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             }
 
 
-                           /* if (!webinar_details.getPayload().getWebinarDetail().getCredit().equalsIgnoreCase("")) {
-                                binding.tvCredit.setText("" + webinar_details.getPayload().getWebinarDetail().getCredit());
-                            }
-
-
-
-
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getCeCredit().equalsIgnoreCase("")) {
-                                binding.lvCeCredit.setVisibility(View.VISIBLE);
-                                binding.viewCeId.setVisibility(View.VISIBLE);
-                                binding.tvCeCredit.setText("" + webinar_details.getPayload().getWebinarDetail().getCeCredit());
-
-                            } else {
-                                binding.lvCeCredit.setVisibility(View.GONE);
-                                binding.viewCeId.setVisibility(View.GONE);
-                            }*/
-
                             if (!webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl().equalsIgnoreCase("")) {
                                 VIDEO_URL = webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl();
                             }
-
-
-                           /* if (!webinar_details.getPayload().getWebinarDetail().getCost().equalsIgnoreCase("")) {
-                                Cost = webinar_details.getPayload().getWebinarDetail().getCost();
-                                binding.tvCost.setText("$" + webinar_details.getPayload().getWebinarDetail().getCost());
-                            } else {
-                                binding.tvCost.setText("FREE");
-                            }*/
 
 
                             if (!webinar_details.getPayload().getWebinarDetail().getCost().equalsIgnoreCase("")) {
@@ -1999,9 +1835,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                                 }
 
 
-                                //Constant.Log(TAG, "event" + hour + "  " + min_calendar);
-
-
                                 binding.tvWebinardate.setText(month + " " + day + ", " + year +
                                         " | " + webinar_details.getPayload().getWebinarDetail().getStartTime()
 
@@ -2041,218 +1874,10 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             }
 
 
-
-                          /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                binding.tvRefundCancelationPolicy.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getRefundAndCancelationPolicy(), Html.FROM_HTML_MODE_COMPACT));
-                            } else {
-                                binding.tvRefundCancelationPolicy.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getRefundAndCancelationPolicy()));
-                            }
-*/
-
-                          /*  if (webinar_details.getPayload().getWebinarDetail().getDuration() != 0) {
-
-                                String result = formatHoursAndMinutes(webinar_details.getPayload().getWebinarDetail().getDuration());
-
-                                //  Constant.Log(TAG, "duration" + webinar_details.getPayload().getWebinarDetail().getDuration());
-
-                                //Constant.Log(TAG, "minutes" + result);
-
-                                StringTokenizer tokens = new StringTokenizer(result, ":");
-                                String hour = tokens.nextToken();// this will contain year
-                                String min = tokens.nextToken();//this will contain month
-
-                                //  Constant.Log("hour_min", "hour_min" + hour + " " + min);
-
-                                if (min.equalsIgnoreCase("00")) {
-
-
-                                    binding.tvDuration.setText(hour + " " + getResources().getString(R.string.str_hour));
-                                    //   presentation_length = Integer.parseInt(binding.tvDuration.getText().toString().trim());
-
-                                } else {
-
-                                    if (hour.equalsIgnoreCase("0")) {
-                                        binding.tvDuration.setText(min +
-                                                " " + getResources().getString(R.string.str_min));
-                                    } else {
-                                        binding.tvDuration.setText(hour + " " + getResources().getString(R.string.str_hour) + " " + min +
-                                                " " + getResources().getString(R.string.str_min));
-                                    }
-
-
-                                    //  presentation_length = Integer.parseInt(binding.tvDuration.getText().toString().trim());
-                                }
-
-
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getSubjectArea().equalsIgnoreCase("")) {
-                                binding.tvSubjectarea.setText("" + webinar_details.getPayload().getWebinarDetail().getSubjectArea());
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getCourseLevel().equalsIgnoreCase("")) {
-                                binding.tvCourseLevel.setText("" + webinar_details.getPayload().getWebinarDetail().getCourseLevel());
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getInstructionalMethod().equalsIgnoreCase("")) {
-                                binding.tvInstructionalmethod.setText("" + webinar_details.getPayload().getWebinarDetail().getInstructionalMethod());
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getPrerequisite().equalsIgnoreCase("")) {
-                                binding.tvPrerequisite.setText("" + webinar_details.getPayload().getWebinarDetail().getPrerequisite());
-                            } else {
-                                binding.tvPrerequisite.setText("None");
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getAdvancePreparation().equalsIgnoreCase("")) {
-                                binding.tvAdvancePreparation.setText("" + webinar_details.getPayload().getWebinarDetail().getAdvancePreparation());
-                            } else {
-                                binding.tvAdvancePreparation.setText("None");
-                            }
-*/
-                           /* if (webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size() > 0) {
-                                whoshouldattend.addAll(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend());
-                                final LinearLayout[] myview = new LinearLayout[webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size()];
-
-                                final TextView[] myTextViews = new TextView[webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size()]; // create an empty array;
-
-                                if (webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size() == 1) {
-                                    final View myView_inflat = inflater_new.inflate(R.layout.row_who_should_attend, null);
-                                    tv_who_attend = (TextView) myView_inflat.findViewById(R.id.tv_who_attend);
-                                    tv_who_attend.setText(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().get(0));
-                                    binding.lvWhoAttend.addView(tv_who_attend);
-                                } else {
-                                    for (int i = 0; i < 2; i++) {
-                                        // create a new textview
-                                        final View myView_inflat = inflater_new.inflate(R.layout.row_who_should_attend, null);
-                                        tv_who_attend = (TextView) myView_inflat.findViewById(R.id.tv_who_attend);
-
-                                        if (i == 0) {
-                                            tv_who_attend.setText(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().get(i));
-                                        } else {
-                                          *//*  tv_who_attend.setText(webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size() - 1
-                                                    + "+" + "  " + "more");*//*
-                                            int count = webinar_details.getPayload().getWebinarDetail().getWhoShouldAttend().size() - 1;
-                                            tv_who_attend.setText("+" + count
-                                                    + " more");
-
-
-                                        }
-
-                                        binding.lvWhoAttend.addView(tv_who_attend);
-                                        LinearLayout.LayoutParams tvlp = (LinearLayout.LayoutParams) tv_who_attend.getLayoutParams();
-                                        tvlp.rightMargin = 5;
-                                        tvlp.leftMargin = 5;
-                                        tv_who_attend.setLayoutParams(tvlp);
-                                        myTextViews[i] = tv_who_attend;
-
-
-                                    }
-                                }
-
-                                if (webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().size() > 0) {
-
-                                    binding.rvTetimonial.setVisibility(View.VISIBLE);
-                                    binding.lvTetimonial.setVisibility(View.VISIBLE);
-
-
-                                    for (int i = 0; i < webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().size(); i++) {
-
-
-                                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                                        View _itemRow = inflater.inflate(R.layout.row_tetimonial, null);
-
-
-                                        final TextView tv_username_name = (TextView) _itemRow.findViewById(R.id.tv_username_name);
-                                        final ImageView iv_testimonial_star = (ImageView) _itemRow.findViewById(R.id.iv_testimonial_star);
-                                        final TextView tv_review_decription = (TextView) _itemRow.findViewById(R.id.tv_review_decription);
-
-
-                                        if (!webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getFirstName().equalsIgnoreCase("")) {
-
-                                            tv_username_name.setText(webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getFirstName()
-                                                    + " " + webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getLastName());
-
-                                        }
-
-                                        if (!webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getReview().equalsIgnoreCase("")) {
-                                            tv_review_decription.setText(webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getReview());
-                                        }
-                                        if (!webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getRate()
-                                                .equalsIgnoreCase("")) {
-
-                                            if (webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getRate().equalsIgnoreCase("0")) {
-
-                                                iv_testimonial_star.setImageResource(R.mipmap.rev_star_zero);
-
-                                            } else if (webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getRate().equalsIgnoreCase("1")) {
-
-                                                iv_testimonial_star.setImageResource(R.mipmap.rev_star_one);
-                                            } else if (webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getRate().equalsIgnoreCase("2")) {
-                                                iv_testimonial_star.setImageResource(R.mipmap.rev_star_two);
-
-                                            } else if (webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getRate().equalsIgnoreCase("3")) {
-
-                                                iv_testimonial_star.setImageResource(R.mipmap.rev_star_three);
-
-                                            } else if (webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getRate().equalsIgnoreCase("4")) {
-
-                                                iv_testimonial_star.setImageResource(R.mipmap.rev_star_four);
-
-                                            } else if (webinar_details.getPayload().getWebinarDetail().getWebinarTestimonial().get(i).getRate().equalsIgnoreCase("5")) {
-
-                                                iv_testimonial_star.setImageResource(R.mipmap.rev_star_five);
-                                            }
-
-
-                                        }
-
-
-                                        binding.lvTestimonialSet.addView(_itemRow);
-
-
-                                    }
-                                } else {
-                                    binding.rvTetimonial.setVisibility(View.GONE);
-                                    binding.lvTetimonial.setVisibility(View.GONE);
-
-                                }
-
-
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getProgramDescription().equalsIgnoreCase("")) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvDescription.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getProgramDescription(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvDescription.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getProgramDescription()));
-                                }
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getLearningObjective().equalsIgnoreCase("")) {
-
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvLearningObjective.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getLearningObjective(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvLearningObjective.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getLearningObjective()));
-                                }
-
-
-                            }
-*/
-
-
                             if (!webinar_details.getPayload().getWebinarDetail().getProgramDescription().equalsIgnoreCase("")) {
                                 programDescription = webinar_details.getPayload().getWebinarDetail().getProgramDescription();
 
-                                //  Constant.Log("descrption","+++"+programDescription);
+
                             }
 
                             if (!webinar_details.getPayload().getWebinarDetail().getLearningObjective().equalsIgnoreCase("")) {
@@ -2312,73 +1937,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
                             }
 
-
-
-
-
-
-                           /* if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getName().equalsIgnoreCase("")) {
-                                binding.tvPresenterName.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getName() +
-                                        " " + webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getQualification());
-                            }
-
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getDesgnination().equalsIgnoreCase("")) {
-                                binding.tvDesignationCompany.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getDesgnination()
-                                        + ", " + webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyName());
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getEmailId().equalsIgnoreCase("")) {
-                                email_id = webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getEmailId();
-                                binding.tvPresenterEmailid.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getEmailId());
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyName().equalsIgnoreCase("")) {
-                                binding.tvCompanyName.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyName());
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer()
-                                    .getCompanyWebsite().equalsIgnoreCase("")) {
-                                binding.tvCompanyWebsite.setText(webinar_details.getPayload().getWebinarDetail().getAboutPresententer()
-                                        .getCompanyWebsite());
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc().equalsIgnoreCase("")) {
-
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvCompanyDescription.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvCompanyDescription.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getCompanyDesc()));
-                                }
-
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getSpeakerDesc().equalsIgnoreCase("")) {
-
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvAboutPresenter.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getSpeakerDesc(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvAboutPresenter.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getAboutPresententer().getSpeakerDesc()));
-                                }
-
-                            }
-
-
-                            if (!webinar_details.getPayload().getWebinarDetail().getFaq().equalsIgnoreCase("")) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.tvFaq.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getFaq(), Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.tvFaq.setText(Html.fromHtml(webinar_details.getPayload().getWebinarDetail().getFaq()));
-                                }
-                            }
-
-*/
 
                             if (!webinar_details.getPayload().getWebinarDetail().getFaq().equalsIgnoreCase("")) {
                                 faq = webinar_details.getPayload().getWebinarDetail().getFaq();
@@ -2446,109 +2004,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
                             }
 
-
-
-
-
-
-
-
-                          /*  if (webinar_details.getPayload().getWebinarDetail().getWebinarType().equalsIgnoreCase("CPE/CE")) {
-
-
-                                binding.relNasba.setVisibility(View.VISIBLE);
-                                binding.relNasbaDesc.setVisibility(View.VISIBLE);
-
-                                binding.relIrs.setVisibility(View.VISIBLE);
-                                binding.relIrsDesc.setVisibility(View.VISIBLE);
-
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getAddress().equalsIgnoreCase("")) {
-
-                                    binding.nasbaAddress.setText(webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getAddress());
-                                }
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getNasbaDesc().equalsIgnoreCase("")) {
-
-                                    binding.nasbaDescription.setText(webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getNasbaDesc());
-                                }
-
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getEaApproved().getAddress().equalsIgnoreCase("")) {
-
-                                    binding.irsAddress.setText(webinar_details.getPayload().getWebinarDetail().getEaApproved().getAddress());
-                                }
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getEaApproved().getEaDesc().equalsIgnoreCase("")) {
-
-                                    binding.irsDescription.setText(webinar_details.getPayload().getWebinarDetail().getEaApproved().getEaDesc());
-                                }
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getNasbaProfileIcon().equalsIgnoreCase("")) {
-                                    Picasso.with(context).load(webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getNasbaProfileIcon())
-                                            .placeholder(R.mipmap.webinar_placeholder)
-                                            .into((binding.ivNasbaProfile));
-                                }
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getEaApproved().getEaProfileIcon().equalsIgnoreCase("")) {
-                                    Picasso.with(context).load(webinar_details.getPayload().getWebinarDetail().getEaApproved().getEaProfileIcon())
-                                            .placeholder(R.mipmap.webinar_placeholder)
-                                            .into((binding.ivIrsProfile));
-                                }
-
-
-                            } else if (webinar_details.getPayload().getWebinarDetail().getWebinarType().equalsIgnoreCase("CPE")) {
-
-                                binding.relNasba.setVisibility(View.VISIBLE);
-                                binding.relNasbaDesc.setVisibility(View.VISIBLE);
-
-                                binding.relIrs.setVisibility(View.GONE);
-                                binding.relIrsDesc.setVisibility(View.GONE);
-
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getAddress().equalsIgnoreCase("")) {
-
-                                    binding.nasbaAddress.setText(webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getAddress());
-                                }
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getNasbaDesc().equalsIgnoreCase("")) {
-
-                                    binding.nasbaDescription.setText(webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getNasbaDesc());
-                                }
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getNasbaProfileIcon().equalsIgnoreCase("")) {
-                                    Picasso.with(context).load(webinar_details.getPayload().getWebinarDetail().getNasbaApproved().getNasbaProfileIcon())
-                                            .placeholder(R.mipmap.webinar_placeholder)
-                                            .into((binding.ivNasbaProfile));
-                                }
-
-
-                            } else if (webinar_details.getPayload().getWebinarDetail().getWebinarType().equalsIgnoreCase("CE")) {
-
-                                binding.relNasba.setVisibility(View.GONE);
-                                binding.relNasbaDesc.setVisibility(View.GONE);
-
-                                binding.relIrs.setVisibility(View.VISIBLE);
-                                binding.relIrsDesc.setVisibility(View.VISIBLE);
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getEaApproved().getAddress().equalsIgnoreCase("")) {
-
-                                    binding.irsAddress.setText(webinar_details.getPayload().getWebinarDetail().getEaApproved().getAddress());
-                                }
-
-                                if (!webinar_details.getPayload().getWebinarDetail().getEaApproved().getEaDesc().equalsIgnoreCase("")) {
-
-                                    binding.irsDescription.setText(webinar_details.getPayload().getWebinarDetail().getEaApproved().getEaDesc());
-                                }
-                                if (!webinar_details.getPayload().getWebinarDetail().getEaApproved().getEaProfileIcon().equalsIgnoreCase("")) {
-                                    Picasso.with(context).load(webinar_details.getPayload().getWebinarDetail().getEaApproved().getEaProfileIcon())
-                                            .placeholder(R.mipmap.webinar_placeholder)
-                                            .into((binding.ivIrsProfile));
-                                }
-
-
-                            }
-*/
 
                             if (!webinar_details.getPayload().getWebinarDetail().getShareableLink().equalsIgnoreCase("")) {
                                 webinar_share_link = webinar_details.getPayload().getWebinarDetail().getShareableLink();
@@ -2664,12 +2119,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         } else {
             // write your logic here
             if (arrayListCertificate.size() > 0) {
-               /* mcertificateArray = new String[arrayListCertificate.size()];
-                mcertificateArray = arrayListCertificate.toArray(mcertificateArray);
-                if (mcertificateArray.length > 0) {
-                    downloadTaskCerificate = new DownloadTaskCerificate(context);
-                    downloadTaskCerificate.execute(mcertificateArray);
-                }*/
+
 
                 DownloadCertificate(arrayListCertificate);
 
@@ -2680,13 +2130,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
         }
 
-    }
-
-
-    public String formatHoursAndMinutes(int totalMinutes) {
-        String minutes = Integer.toString(totalMinutes % 60);
-        minutes = minutes.length() == 1 ? "0" + minutes : minutes;
-        return (totalMinutes / 60) + ":" + minutes;
     }
 
 
@@ -2754,10 +2197,8 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                     // getting file length
                     int lenghtOfFile = conection.getContentLength();
 
-                    Constant.Log("URL", "++++" + url);
 
                     String extension = sUrl[i].substring(sUrl[i].lastIndexOf('.') + 1).trim();
-                    Constant.Log("result", "++++" + extension);
 
 
                     // input stream to read file - with 8k buffer
@@ -2856,10 +2297,8 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                     // getting file length
                     int lenghtOfFile = conection.getContentLength();
 
-                    Constant.Log("URL", "++++" + url);
 
                     String extension = sUrl[i].substring(sUrl[i].lastIndexOf('.') + 1).trim();
-                    Constant.Log("result", "++++" + extension);
 
 
                     // input stream to read file - with 8k buffer

@@ -56,7 +56,6 @@ public class HomeAllFragment extends Fragment {
     public boolean islast = false;
     private static HomeAllFragment instance;
     View view;
-    public boolean isprogress = false;
 
     @Nullable
     @Override
@@ -271,7 +270,6 @@ public class HomeAllFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Constant.Log(TAG, "size" + arraylistselectedvalue.size());
 
         if (arraylistselectedvalue.size() > 0) {
             topicsofinterest = "";
@@ -289,7 +287,6 @@ public class HomeAllFragment extends Fragment {
                     commaSepValueBuilder.append(",");
                 }
             }
-            //System.out.println(commaSepValueBuilder.toString());
             topicsofinterest = commaSepValueBuilder.toString();
 
             System.out.println(topicsofinterest);
@@ -413,13 +410,6 @@ public class HomeAllFragment extends Fragment {
 
                             islast = webinar_home_new.getPayload().isIsLast();
 
-                            //  isprogress = webinar_home_new.getPayload().isIsprogress();
-
-
-                           /* if (topicsofinterest.equalsIgnoreCase("")) {
-                                UserDashBoardFragment.getInstance().setupTabIcons(isprogress);
-                            }*/
-
 
                             if (start == 0 && limit == 10) {
                                 if (arrHomelistnew.size() > 0) {
@@ -434,16 +424,6 @@ public class HomeAllFragment extends Fragment {
 
                             } else {
 
-
-                              /*  if (islast) {
-                                    for (int i = 0; i < arrHomelistnew.size(); i++) {
-                                        if (i == arrHomelistnew.size() - 1) {
-                                            arrHomelistnew.remove(i);
-                                        }
-                                    }
-
-                                }*/
-
                                 if (arrHomelistnew.size() > 20) {
                                     arrHomelistnew.remove(arrHomelistnew.size() - 1);
                                 }
@@ -451,14 +431,6 @@ public class HomeAllFragment extends Fragment {
 
                                 List<com.entigrity.model.homewebinarnew.WebinarItem> webinaritems = webinar_home_new.getPayload().getWebinar();
                                 adapter.addAll(webinaritems);
-
-
-
-                               /* for (int i = 0; i < arrHomelistnew.size(); i++) {
-                                    if (i == arrHomelistnew.size() - 1) {
-                                        arrHomelistnew.remove(i);
-                                    }
-                                }*/
 
 
                             }
@@ -498,8 +470,6 @@ public class HomeAllFragment extends Fragment {
         LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvhome.getLayoutManager());
         int pos = layoutManager.findLastCompletelyVisibleItemPosition();
         int numItems = binding.rvhome.getAdapter().getItemCount() - 1;
-
-        //Constant.Log(TAG, "pos + numitem" + pos + "  " + "  " + numItems);
 
         return (pos >= numItems);
     }

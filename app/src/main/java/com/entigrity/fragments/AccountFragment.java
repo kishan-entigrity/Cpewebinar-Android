@@ -46,7 +46,6 @@ import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 
@@ -61,24 +60,20 @@ public class AccountFragment extends Fragment {
     View view;
     public Context context;
     FragmentAccountBinding binding;
-    private static final String TAG = AccountFragment.class.getName();
     ProgressDialog progressDialog;
     public Dialog myDialog;
-    private APIService mAPIService;
     private APIService mAPIService_new;
     public ImageView ivclose;
     public EditText edt_subject, edt_review;
     public Button btn_submit;
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "", ptin_number = "";
     public int country_id = 0, state_id = 0, city_id = 0, jobtitle_id = 0, industry_id = 0;
-
     public String job_titile = "", industry = "";
-
-
     public String whoyouarevalue = "";
     public int whoyouare = 0;
     public String state = "", city = "";
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
+    private static final String TAG = AccountFragment.class.getName();
 
 
     @Nullable
@@ -86,7 +81,6 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, null, false);
         context = getActivity();
-        mAPIService = ApiUtils.getAPIService();
         mAPIService_new = ApiUtilsNew.getAPIService();
 
         OnClick();
@@ -128,7 +122,6 @@ public class AccountFragment extends Fragment {
             } else {
                 Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
             }
-            Constant.Log("onresume", "onresume");
         }
 
     }
@@ -173,16 +166,10 @@ public class AccountFragment extends Fragment {
 
                         if (view_topics_interest_model.isSuccess() == true) {
                             if (view_topics_interest_model.getPayload().getTopicOfInterests().size() > 0) {
-
                                 for (int i = 0; i < view_topics_interest_model.getPayload().getTopicOfInterests().size(); i++) {
-
                                     topicsofinterestitem.add(view_topics_interest_model.getPayload().getTopicOfInterests().get(i));
                                 }
-
-
                             }
-
-
                         } else {
                             Snackbar.make(binding.tvTopicsOfInterest, view_topics_interest_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
@@ -236,13 +223,9 @@ public class AccountFragment extends Fragment {
 
                         if (viewProfileModel.isSuccess() == true) {
 
-                            Constant.Log("token", AppSettings.get_login_token(context));
-
                             if (viewProfileModel.getPayload().getData().getFirstName() != null
                                     && !viewProfileModel.getPayload().getData().getFirstName().equalsIgnoreCase("")) {
                                 firstname = viewProfileModel.getPayload().getData().getFirstName();
-
-                                AppSettings.set_profile_username(context, firstname);
 
                             }
 
@@ -324,13 +307,6 @@ public class AccountFragment extends Fragment {
                             }
 
 
-
-
-                           /* if (viewProfileModel.getPayload().getData().getTags().size() > 0) {
-                                for (int i = 0; i < viewProfileModel.getPayload().getData().getTags().size(); i++) {
-                                    arraylistselectedtopicsofinterest.add(viewProfileModel.getPayload().getData().getTags().get(i).getId());
-                                }
-                            }*/
                             if (viewProfileModel.getPayload().getData().getZipcode() != null
                                     && !viewProfileModel.getPayload().getData().getZipcode().equalsIgnoreCase("")) {
                                 zipcode = viewProfileModel.getPayload().getData().getZipcode();
@@ -358,7 +334,7 @@ public class AccountFragment extends Fragment {
 
     public void ShowFeedBackPopUp() {
         myDialog = new Dialog(context);
-        myDialog.setContentView(R.layout.rating_popup);
+        myDialog.setContentView(R.layout.feedback_popup);
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         ivclose = (ImageView) myDialog.findViewById(R.id.ivclose);
@@ -594,8 +570,6 @@ public class AccountFragment extends Fragment {
         i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);
         i.putExtra(getResources().getString(R.string.pass_who_you_are_text), whoyouarevalue);
         i.putParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest), topicsofinterestitem);
-
-
         startActivity(i);
     }
 
@@ -654,7 +628,6 @@ public class AccountFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        //handle failure response
                         if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
@@ -679,7 +652,6 @@ public class AccountFragment extends Fragment {
                             AppSettings.removeFromSharedPreferences(context, getResources().getString(R.string.str_token));
                             AppSettings.set_login_token(context, "");
                             AppSettings.set_device_id(context, "");
-                            AppSettings.set_profile_username(context, "");
                             AppSettings.set_email_id(context, "");
 
 
@@ -717,7 +689,6 @@ public class AccountFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        //handle failure response
                         if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
@@ -768,12 +739,10 @@ public class AccountFragment extends Fragment {
         edt_review.setFocusableInTouchMode(true);
 
         if (edt_subject.getText().toString().isEmpty()) {
-            //   Snackbar.make(binding.rvFeedback, getResources().getString(R.string.val_subject), Snackbar.LENGTH_SHORT).show();
             Constant.toast(context, getResources().getString(R.string.val_subject));
 
             return false;
         } else if (edt_review.getText().toString().isEmpty()) {
-            //Snackbar.make(binding.rvFeedback, getResources().getString(R.string.val_review), Snackbar.LENGTH_SHORT).show();
             Constant.toast(context, getResources().getString(R.string.val_review));
             return false;
         } else {

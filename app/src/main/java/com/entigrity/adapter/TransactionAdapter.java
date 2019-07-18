@@ -9,18 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.entigrity.R;
-import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
     private Context mContext;
-    private APIService mAPIService;
     LayoutInflater mInflater;
 
     public TransactionAdapter(Context mContext) {
         this.mContext = mContext;
-        mAPIService = ApiUtils.getAPIService();
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
     }

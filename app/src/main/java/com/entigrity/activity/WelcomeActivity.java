@@ -32,21 +32,13 @@ public class WelcomeActivity extends AppCompatActivity {
     private int[] layouts;
 
     // public boolean checkflagindicator = false;
-   /* private boolean isLastPageSwiped;
-    private int counterPageScroll;*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Checking for first time launch - before calling setContentView()
 
-
-        // Making notification bar transparent
-       /* if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
-*/
         setContentView(R.layout.activity_welcome);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -123,7 +115,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     //	viewpager change listener
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-        boolean lastPageChange = false;
+
 
         @Override
         public void onPageSelected(int position) {
@@ -140,14 +132,11 @@ public class WelcomeActivity extends AppCompatActivity {
             }
 
 
-            // changing the next button text 'NEXT' / 'GOT IT'
-
         }
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            // Constant.Log("onPageScrolled", "onPageScrolled" + clickedposition);
 
 
 

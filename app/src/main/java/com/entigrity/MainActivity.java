@@ -1,18 +1,13 @@
 package com.entigrity;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,52 +15,29 @@ import android.widget.TextView;
 import com.entigrity.activity.LoginActivity;
 import com.entigrity.activity.PreLoginActivity;
 import com.entigrity.fragments.AccountFragment;
-import com.entigrity.fragments.CompanyFragment;
-import com.entigrity.fragments.ContactUsFragment;
-import com.entigrity.fragments.FavoritesFragment;
-import com.entigrity.fragments.InstructorFragment;
 import com.entigrity.fragments.MyCreditsFragment;
 import com.entigrity.fragments.MyFavoriteScreenFragment;
 import com.entigrity.fragments.UserDashBoardFragment;
-import com.entigrity.fragments.ViewProfileFragment;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
-import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtilsNew;
 
-import static android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
 import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
 
 public class MainActivity extends AppCompatActivity {
 
     UserDashBoardFragment userDashBoardFragment;
-    ViewProfileFragment viewProfileFragment;
     AccountFragment accountFragment;
     MyCreditsFragment myCreditsFragment;
     MyFavoriteScreenFragment myFavoriteScreenFragment;
-
-
-    FavoritesFragment favoritesFragment;
-    ContactUsFragment contactUsFragment;
-    InstructorFragment instructorFragment;
-    CompanyFragment companyFragment;
-
-
     public Context context;
-    private APIService mAPIService_new;
-    public TextView tv_popup_ok, tv_popup_cancel;
-    public TextView tv_popup_msg, tv_popup_submit;
-    ProgressDialog progressDialog;
     private static MainActivity instance;
     public RelativeLayout rel_top_bottom;
     public ImageView iv_mycredit, iv_mywebinar, iv_home, iv_myfavorite, iv_account;
-    private static final String TAG = MainActivity.class.getName();
     public int setselectedtab = 0;
     public int selectmywebinardtab = 0;
     public Dialog myDialog;
     public TextView tv_login, tv_cancel;
     Intent intent;
-    public int webinarid = 0;
     public String webinar_type = "";
 
 
@@ -86,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         context = MainActivity.this;
-        mAPIService_new = ApiUtilsNew.getAPIService();
-
         Constant.setLightStatusBar(MainActivity.this);
 
 
@@ -184,33 +154,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         SetDefault();
-       /* if (intent != null) {
-            if (getIntent().hasExtra(getResources().getString(R.string.pass_webinar_id))) {
-                webinarid = intent.getIntExtra(getResources().getString(R.string.pass_webinar_id), 0);
-                webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
 
-                Constant.Log("flag", "+++" + webinar_type + "  " + webinarid);
-
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Do something after 100ms
-                        if (Constant.isNetworkAvailable(context)) {
-                            Intent i = new Intent(MainActivity.this, WebinarDetailsActivity.class);
-                            i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
-                            i.putExtra(getResources().getString(R.string.pass_webinar_id), webinarid);
-                            startActivity(i);
-                        } else {
-                            Snackbar.make(iv_mycredit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                }, 2000);
-            }
-
-
-        }
-*/
 
     }
 
@@ -226,66 +170,15 @@ public class MainActivity extends AppCompatActivity {
             AppSettings.removeFromSharedPreferences(context, getResources().getString(R.string.str_token));
             AppSettings.set_login_token(context, "");
             AppSettings.set_device_id(context, "");
-            AppSettings.set_profile_username(context, "");
             AppSettings.set_email_id(context, "");
 
             Intent i = new Intent(context, PreLoginActivity.class);
             startActivity(i);
             finish();
-            //  Logout(AppSettings.get_login_token(context), AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
         } else {
             Constant.ShowPopUp(getResources().getString(R.string.please_check_internet_condition), context);
         }
     }
-
-
-  /*  public void Logout(String Authorization, String device_id, String device_token, String device_type) {
-
-        // RxJava
-        mAPIService_new.logout(getResources().getString(R.string.accept), getResources().getString(R.string.bearer) + Authorization, device_id
-                , device_token, device_type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<LogoutModel>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        //handle failure response
-                        *//*if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }*//*
-
-                        String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(iv_home, message, Snackbar.LENGTH_SHORT).show();
-
-                    }
-
-
-                    @Override
-                    public void onNext(LogoutModel logoutModel) {
-                        if (logoutModel.isSuccess()) {
-                          *//*  if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }*//*
-
-
-                            Snackbar.make(iv_home, logoutModel.getMessage(), Snackbar.LENGTH_SHORT).show();
-
-                        } else {
-                           *//* if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }*//*
-
-                            Snackbar.make(iv_home, logoutModel.getMessage(), Snackbar.LENGTH_SHORT).show();
-                        }
-
-
-                    }
-                });
-
-    }*/
 
 
     public void SetCreditScreen() {

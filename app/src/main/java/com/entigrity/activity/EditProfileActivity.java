@@ -1,7 +1,6 @@
 package com.entigrity.activity;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,7 +37,6 @@ import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.UsPhoneNumberFormatter;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
 
 import java.lang.ref.WeakReference;
@@ -54,13 +51,8 @@ import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
 
 public class EditProfileActivity extends AppCompatActivity {
     ActivityEditProfileBinding binding;
-    public Dialog myDialog;
     public Context context;
-    private APIService mAPIService;
     private APIService mAPIService_new;
-    public RecyclerView recyclerview_topics_interest;
-    public ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
-    public TextView tv_apply, tv_cancel;
 
 
     private ArrayList<String> arrayLististusertype = new ArrayList<String>();
@@ -84,9 +76,6 @@ public class EditProfileActivity extends AppCompatActivity {
     public ArrayList<String> getcityarraylist = new ArrayList<String>();
     public ArrayList<CityItem> getcityarray = new ArrayList<CityItem>();
     private ArrayList<String> arraylistsubcategory = new ArrayList<>();
-
-
-    public boolean checkedadapter = false;
 
 
     private int country_id = 0;
@@ -118,9 +107,6 @@ public class EditProfileActivity extends AppCompatActivity {
     public boolean boolean_jobtitle_spinner = true;
     public boolean boolean_industry_spinner = true;
 
-
-    public EditText edt_search;
-
     public boolean checkstatearray = false;
     public boolean checkcityarray = false;
 
@@ -143,7 +129,6 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         context = EditProfileActivity.this;
-        mAPIService = ApiUtils.getAPIService();
         mAPIService_new = ApiUtilsNew.getAPIService();
 
         Intent intent = getIntent();
@@ -804,8 +789,6 @@ public class EditProfileActivity extends AppCompatActivity {
         if (arrayLististusertype.size() > 0) {
             //Getting the instance of Spinner and applying OnItemSelectedListener on it
 
-            //binding.spinner.setOnItemSelectedListener(this);
-
             //Creating the ArrayAdapter instance having the user type list
             ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, arrayLististusertype);
             aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -828,8 +811,6 @@ public class EditProfileActivity extends AppCompatActivity {
         if (arrayListjobtitle.size() > 0) {
             //Getting the instance of Spinner and applying OnItemSelectedListener on it
 
-            //binding.spinner.setOnItemSelectedListener(this);
-
             //Creating the ArrayAdapter instance having the user type list
             ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, arrayListjobtitle);
             aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -851,7 +832,6 @@ public class EditProfileActivity extends AppCompatActivity {
         if (arrayListindustry.size() > 0) {
             //Getting the instance of Spinner and applying OnItemSelectedListener on it
 
-            //binding.spinner.setOnItemSelectedListener(this);
 
             //Creating the ArrayAdapter instance having the user type list
             ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, arrayListindustry);
@@ -872,8 +852,6 @@ public class EditProfileActivity extends AppCompatActivity {
     public void Show_Country_Adapter() {
         if (getcountryarraylist.size() > 0) {
             //Getting the instance of Spinner and applying OnItemSelectedListener on it
-
-            //binding.spinnerCountry.setOnItemSelectedListener(this);
 
             //Creating the ArrayAdapter instance having the user type list
             ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getcountryarraylist);
@@ -899,8 +877,6 @@ public class EditProfileActivity extends AppCompatActivity {
         if (getcityarraylist.size() > 0) {
             //Getting the instance of Spinner and applying OnItemSelectedListener on it
 
-            //binding.spinnerCountry.setOnItemSelectedListener(this);
-
             //Creating the ArrayAdapter instance having the user type list
             ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getcityarraylist);
             aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -916,8 +892,6 @@ public class EditProfileActivity extends AppCompatActivity {
     public void Show_City_Adapter() {
         if (getcityarraylist.size() > 0) {
             //Getting the instance of Spinner and applying OnItemSelectedListener on it
-
-            //binding.spinnerCountry.setOnItemSelectedListener(this);
 
             //Creating the ArrayAdapter instance having the user type list
             ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getcityarraylist);
@@ -947,8 +921,6 @@ public class EditProfileActivity extends AppCompatActivity {
         if (getstatearralist.size() > 0) {
             //Getting the instance of Spinner and applying OnItemSelectedListener on it
 
-            //binding.spinnerCountry.setOnItemSelectedListener(this);
-
             //Creating the ArrayAdapter instance having the user type list
             ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getstatearralist);
             aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -976,8 +948,6 @@ public class EditProfileActivity extends AppCompatActivity {
     public void Show_State_else_Adapter() {
         if (getstatearralist.size() > 0) {
             //Getting the instance of Spinner and applying OnItemSelectedListener on it
-
-            //binding.spinnerCountry.setOnItemSelectedListener(this);
 
             //Creating the ArrayAdapter instance having the user type list
             ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, getstatearralist);
@@ -1144,8 +1114,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             getcityarraylist.add("City");
 
-                            //   getcityarraylist.add(getResources().getString(R.string.str_select_city));
-
 
                             if (cityModel.getPayload().getCity().size() > 0) {
                                 for (int i = 0; i < cityModel.getPayload().getCity().size(); i++) {
@@ -1261,9 +1229,6 @@ public class EditProfileActivity extends AppCompatActivity {
                             getstatearray.clear();
 
                             getstatearralist.add("State");
-
-                            // getstatearralist.add(getResources().getString(R.string.str_select_state));
-
 
                             if (stateModel.getPayload().getState().size() > 0) {
                                 for (int i = 0; i < stateModel.getPayload().getState().size(); i++) {

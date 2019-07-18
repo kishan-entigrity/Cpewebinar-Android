@@ -13,12 +13,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     @Override
     public void onTokenRefresh() {
-      /*  String deviceToken = FirebaseInstanceId.getInstance().getToken();
-        AppConfig.deviceToken = deviceToken;
 
-
-       // Constant.Log("device token", "device token" + FirebaseInstanceId.getInstance().getToken());
-        AppSettings.set_device_token(FirebaseInstanceIDService.this, FirebaseInstanceId.getInstance().getToken());*/
 
     }
 }

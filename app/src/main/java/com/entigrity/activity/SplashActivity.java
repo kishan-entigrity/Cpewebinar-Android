@@ -21,10 +21,8 @@ public class SplashActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
     ActivitySplashBinding binding;
     public Context context;
-    private int flag = 0, webinar_id = 0;
+    private int webinar_id = 0;
     private String webinar_type = "";
-
-    private static final String TAG = SplashActivity.class.getName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,27 +62,6 @@ public class SplashActivity extends AppCompatActivity {
                 // Start your app main activity
 
 
-              /*  if (!AppSettings.get_login_token(context).isEmpty()) {
-
-
-
-                } else {
-                    Intent i = new Intent(context, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-*/
-
-               /* if (AppSettings.get_walkthrough(context) == false) {
-                    Intent i = new Intent(context, WelcomeActivity.class);
-                    startActivity(i);
-                    finish();
-                } else {
-
-
-                }
-*/
-
                 if (getIntent().getExtras() != null && getIntent().hasExtra(getResources().getString(R.string.pass_webinar_id))) {
                     webinar_type = getIntent().getExtras().getString(getResources().getString(R.string.pass_webinar_type));
                     webinar_id = getIntent().getExtras().getInt(getResources().getString(R.string.pass_webinar_id), 0);
@@ -101,18 +78,6 @@ public class SplashActivity extends AppCompatActivity {
 
                     }
 
-
-
-                        /* webinar_type = getIntent().getStringExtra(getResources().getString(R.string.pass_webinar_type));
-                        webinar_id = getIntent().getIntExtra(getResources().getString(R.string.pass_webinar_id), 0);
-
-                        Constant.Log("flag", "+++" + flag + "  " + webinar_type + "  " + webinar_id);
-                        Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                        i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
-                        i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
-                        startActivity(i);
-                        finish();
-*/
                 } else {
                     if (!AppSettings.get_login_token(context).isEmpty()) {
                         Intent i = new Intent(SplashActivity.this, MainActivity.class);
@@ -131,19 +96,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
 
-
-      /*  if (getIntent().getExtras() != null && getIntent().hasExtra("flag")) {
-
-            if (getIntent().getExtras().getString("flag").equalsIgnoreCase("1")) {
-                Intent mainIntent = new Intent(SplashActivity.this, HomeActivity.class);
-                startActivity(mainIntent);
-                finish();
-            }
-        } else {
-            Intent mainIntent = new Intent(SplashActivity.this, HomeActivity.class);
-            startActivity(mainIntent);
-            finish();
-        }*/
 
     }
 }

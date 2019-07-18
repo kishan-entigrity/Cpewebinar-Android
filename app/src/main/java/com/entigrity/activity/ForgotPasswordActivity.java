@@ -16,7 +16,6 @@ import com.entigrity.model.forgotpassword.Forgotpaawordmodel;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtils;
 import com.entigrity.webservice.ApiUtilsNew;
 
 import rx.Subscriber;
@@ -27,7 +26,6 @@ import rx.schedulers.Schedulers;
 public class ForgotPasswordActivity extends AppCompatActivity {
     ActivityForgotpasswordBinding binding;
     public Context context;
-    private APIService mAPIService;
     private APIService mAPIService_new;
     ProgressDialog progressDialog;
 
@@ -36,7 +34,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_forgotpassword);
         context = ForgotPasswordActivity.this;
-        mAPIService = ApiUtils.getAPIService();
         mAPIService_new = ApiUtilsNew.getAPIService();
 
 
@@ -119,10 +116,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                             binding.edtEmailId.setText("");
                             Snackbar.make(binding.btnSubmit, forgotpaawordmodel.getMessage(), Snackbar.LENGTH_SHORT).show();
-
                         } else {
-
-
                             Snackbar.make(binding.btnSubmit, forgotpaawordmodel.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 

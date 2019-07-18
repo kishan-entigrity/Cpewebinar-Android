@@ -41,7 +41,6 @@ public class DetailsFragment extends Fragment {
 
     FragmentDetailsBinding binding;
     View view;
-    public ArrayList<String> whoshouldattend = new ArrayList<>();
     LayoutInflater inflater_new;
     TextView tv_who_attend;
     public static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
@@ -97,24 +96,14 @@ public class DetailsFragment extends Fragment {
 
             String result = formatHoursAndMinutes(WebinarDetailsActivity.getInstance().duration);
 
-            //  Constant.Log(TAG, "duration" + webinar_details.getPayload().getWebinarDetail().getDuration());
-
-            //Constant.Log(TAG, "minutes" + result);
-
             StringTokenizer tokens = new StringTokenizer(result, ":");
             String hour = tokens.nextToken();// this will contain year
             String min = tokens.nextToken();//this will contain month
 
-            //  Constant.Log("hour_min", "hour_min" + hour + " " + min);
 
             if (min.equalsIgnoreCase("00")) {
-
-
                 binding.tvDuration.setText(hour + " " + getResources().getString(R.string.str_hour));
-                //   presentation_length = Integer.parseInt(binding.tvDuration.getText().toString().trim());
-
             } else {
-
                 if (hour.equalsIgnoreCase("0")) {
                     binding.tvDuration.setText(min +
                             " " + getResources().getString(R.string.str_min));
@@ -219,7 +208,6 @@ public class DetailsFragment extends Fragment {
                 }
             } else {
 
-             //   Constant.Log("comming", "comming");
 
                 for (int i = 0; i < 4; i++) {
                     final View myView_inflat = inflater_new.inflate(R.layout.row_who_should_attend, null);
@@ -282,15 +270,12 @@ public class DetailsFragment extends Fragment {
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
 
 
-            Log.e("IN", "" + referenceId);
-
             WebinarDetailsActivity.getInstance().list.remove(referenceId);
 
 
             if (WebinarDetailsActivity.getInstance().list.isEmpty()) {
 
 
-                Log.e("INSIDE", "" + referenceId);
                 Toast.makeText(getActivity(), "Download complete", Toast.LENGTH_LONG).show();
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(getActivity())
@@ -320,7 +305,6 @@ public class DetailsFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkPermission();
         } else {
-            // write your logic here
             if (WebinarDetailsActivity.getInstance().arrayListhandout.size() > 0) {
                 DownloadHandouts(WebinarDetailsActivity.getInstance().arrayListhandout);
 
@@ -347,9 +331,6 @@ public class DetailsFragment extends Fragment {
 
             WebinarDetailsActivity.getInstance().refid = downloadManager.enqueue(request);
         }
-
-
-        Log.e("OUT", "" + WebinarDetailsActivity.getInstance().refid);
 
         WebinarDetailsActivity.getInstance().list.add(WebinarDetailsActivity.getInstance().refid);
 

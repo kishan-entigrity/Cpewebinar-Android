@@ -69,7 +69,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
         if (viewHolder instanceof ViewHolder) {
 
-            Constant.Log("size", "" + mList.size());
+
             if (!mList.get(position).getNotificationMessage().equalsIgnoreCase("")) {
                 ((ViewHolder) viewHolder).tv_notification_title.setText(mList.get(position).getNotificationMessage());
             }
@@ -94,8 +94,6 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
                 String notificationdate = getDateCurrentTimeZone(mList.get(position).getTimestamp());
 
-
-                // Constant.Log("notifification date", "date" + notificationdate);
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 try {
                     Date pastdate = sdf.parse(notificationdate);

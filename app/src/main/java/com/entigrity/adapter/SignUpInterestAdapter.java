@@ -69,9 +69,6 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
             public void onClick(View v) {
 
 
-                Constant.Log("id", "id" + tagsItem.getId());
-
-
                 if (tagsItem.isIsChecked()) {
                     tagsItem.setIsChecked(false);
 
@@ -87,8 +84,6 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
                         }
                     }
 
-                    Constant.Log("size", "removed" + Constant.arraylistselectedvalue.size());
-
 
                     viewHolder.cbselection.setChecked(false);
 
@@ -102,7 +97,6 @@ public class SignUpInterestAdapter extends RecyclerView.Adapter<SignUpInterestAd
                             Constant.arraylistselectedvalue.add(tagsItem.getId());
                         }
                     }
-                    Constant.Log("size", "added" + Constant.arraylistselectedvalue.size());
 
 
                     viewHolder.cbselection.setChecked(true);

@@ -160,11 +160,6 @@ public class ActivityContactUs extends AppCompatActivity {
                         }
                         if (postContactQuery.isSuccess()) {
                             Snackbar.make(binding.btnsubmit, postContactQuery.getMessage(), Snackbar.LENGTH_SHORT).show();
-                           /* binding.edtSubject.setText("");
-                            binding.edtReview.setText("");
-
-
-*/
 
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -241,10 +236,6 @@ public class ActivityContactUs extends AppCompatActivity {
                             contact_number = getContactUsInfo.getPayload().getContactNumber();
                             email_id = getContactUsInfo.getPayload().getEmailId();
 
-                          /*  if (!getContactUsInfo.getPayload().getAddress().equalsIgnoreCase("")) {
-                                binding.tvAddress.setText(getContactUsInfo.getPayload().getAddress());
-                            }
-*/
                             if (!getContactUsInfo.getPayload().getContactNumber().equalsIgnoreCase("")) {
                                 binding.tvMobileNumber.setText(getContactUsInfo.getPayload().getContactNumber());
                             }

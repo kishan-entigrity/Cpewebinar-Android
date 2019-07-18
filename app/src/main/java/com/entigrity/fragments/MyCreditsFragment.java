@@ -46,7 +46,6 @@ public class MyCreditsFragment extends Fragment {
     View view;
     public Context context;
     FragmentMycreditBinding binding;
-    private static final String TAG = MyCreditsFragment.class.getName();
     MyCreditAdapter adapter;
     private APIService mAPIService;
     Typeface font;
@@ -57,6 +56,7 @@ public class MyCreditsFragment extends Fragment {
     public int start = 0, limit = 10;
     private boolean loading = true;
     public boolean islast = false;
+    private static final String TAG = MyCreditsFragment.class.getName();
 
     @Nullable
     @Override
@@ -347,7 +347,6 @@ public class MyCreditsFragment extends Fragment {
                             }
 
                             islast = myCredit.getPayload().get(0).isIslast();
-                            Log.e("islast", "islast" + islast);
 
                             if (start == 0 && limit == 10) {
                                 for (int i = 0; i < myCredit.getPayload().size(); i++) {
@@ -355,23 +354,9 @@ public class MyCreditsFragment extends Fragment {
                                 }
                             } else {
 
-                              /*  if (islast) {
-
-                                }*/
                                 if (mlistmycredit.size() > 20) {
                                     mlistmycredit.remove(mlistmycredit.size() - 1);
                                 }
-
-
-                                /*if (islast) {
-
-                                 *//* for (int i = 0; i < mlistmycredit.size(); i++) {
-                                        if (i == mlistmycredit.size() - 1) {
-                                            mlistmycredit.remove(i);
-                                        }
-                                    }*//*
-                                    mlistmycredit.remove( mlistmycredit.size() - 1);
-                                }*/
 
 
                                 List<MyCreditsItem> webinaritems = new ArrayList<>();
@@ -403,8 +388,6 @@ public class MyCreditsFragment extends Fragment {
                                 binding.tvUpcomingWebinarCount.setText("" + myCredit.getPayload().get(0).getUpcomingCount());
                             }
 
-
-                            Constant.Log(TAG, "size" + mlistmycredit.size());
 
                             if (mlistmycredit.size() > 0) {
                                 binding.swipeRefreshLayout.setVisibility(View.VISIBLE);

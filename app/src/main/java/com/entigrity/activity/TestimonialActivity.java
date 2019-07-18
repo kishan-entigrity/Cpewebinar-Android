@@ -214,23 +214,12 @@ public class TestimonialActivity extends AppCompatActivity {
                             }
 
                             islast = model_testimonial.getPayload().isIsLast();
-                            Log.e("islast", "islast" + islast);
 
 
                             if (start == 0 && limit == 10) {
                                 mListtestimonial = model_testimonial.getPayload().getWebinarTestimonial();
 
                             } else {
-                                /* if (islast) {
-
-
-                                 *//*  for (int i = 0; i < mListtestimonial.size(); i++) {
-                                        if (i == mListtestimonial.size() - 1) {
-                                            mListtestimonial.remove(i);
-                                        }
-                                    }*//*
-                                }*/
-
                                 if (mListtestimonial.size() > 20) {
                                     mListtestimonial.remove(mListtestimonial.size() - 1);
                                 }
@@ -272,7 +261,6 @@ public class TestimonialActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.rvTestimonialList.getLayoutManager());
         int pos = layoutManager.findLastCompletelyVisibleItemPosition();
         int numItems = binding.rvTestimonialList.getAdapter().getItemCount() - 1;
-
         return (pos >= numItems);
     }
 

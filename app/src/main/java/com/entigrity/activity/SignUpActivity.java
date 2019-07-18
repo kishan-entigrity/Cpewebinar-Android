@@ -95,7 +95,6 @@ public class SignUpActivity extends AppCompatActivity {
                         user_type = 0;
                     } else {
                         user_type = arrayLististusertypeid.get(position - 1);
-                        Constant.Log("user_type", "user_type" + user_type);
                     }
 
                 }
@@ -600,7 +599,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     public void RegisterPost(String first_name, String last_name, String email, String password, String confirm_password,
-                             String firm_name, String contact_no,String tags, int user_type, String device_id,
+                             String firm_name, String contact_no, String tags, int user_type, String device_id,
                              String device_token, String device_type
     ) {
 
@@ -637,12 +636,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                             Constant.arraylistselectedvalue.clear();
                             AppSettings.set_login_token(context, registrationModel.getPayload().getUser().getToken());
-                            // AppSettings.set_profile_picture(context, registrationModel.getPayload().getUser().getProfilePicture());
-                            AppSettings.set_profile_username(context, registrationModel.getPayload().getUser().getFirstName());
                             AppSettings.set_email_id(context, registrationModel.getPayload().getUser().getEmail());
-
-
-                            Constant.Log(TAG, "login token" + AppSettings.get_login_token(context));
 
 
                             Intent i = new Intent(context, MainActivity.class);

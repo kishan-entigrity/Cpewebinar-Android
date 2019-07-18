@@ -66,24 +66,20 @@ public class ViewProfileActivity extends AppCompatActivity {
             who_you_are_pos = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are), 0);
             job_title_pos = intent.getIntExtra(getResources().getString(R.string.pass_job_title), 0);
             industry_pos = intent.getIntExtra(getResources().getString(R.string.pass_industry), 0);
-
-
             job_titile = intent.getStringExtra(getResources().getString(R.string.pass_job_title_text));
             industry = intent.getStringExtra(getResources().getString(R.string.pass_industry_text));
 
 
             topicsofinterestitem = intent.getParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest));
 
-            Constant.Log(TAG, "topics_size" + topicsofinterestitem.size());
 
             if (topicsofinterestitem.size() > 0) {
                 for (int i = 0; i < topicsofinterestitem.size(); i++) {
                     for (int j = 0; j < topicsofinterestitem.get(i).getTags().size(); j++) {
-                        Constant.Log(TAG, "subcategory_value" + topicsofinterestitem.get(i).getTags().get(j).getName());
                         arraylistsubcategory.add(topicsofinterestitem.get(i).getTags().get(j).getName());
                     }
                 }
-                Constant.Log(TAG, "subcategory_topics_size" + arraylistsubcategory.size());
+
 
                 if (arraylistsubcategory.size() > 0) {
 

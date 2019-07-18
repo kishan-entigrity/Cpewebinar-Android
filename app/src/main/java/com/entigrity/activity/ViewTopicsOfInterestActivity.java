@@ -151,8 +151,6 @@ public class ViewTopicsOfInterestActivity extends AppCompatActivity {
                                 }
 
 
-                                Constant.Log(TAG, "size" + topicsofinterestitemfavorite.size());
-
                             }
 
 

@@ -38,9 +38,6 @@ public class DescriptionFragment extends Fragment {
                 binding.tvDescription.setText(Html.fromHtml(WebinarDetailsActivity.getInstance().programDescription));
             }
 
-           // binding.tvDescription.loadData(WebinarDetailsActivity.getInstance().programDescription, "text/html", "utf-8");
-
-           // binding.tvDescription.setText(WebinarDetailsActivity.getInstance().programDescription);
 
         }
 

@@ -10,7 +10,6 @@ import io.fabric.sdk.android.Fabric;
 public class MyCpe extends Application {
 
     private static MyCpe smycpe;
-    private static final String TAG = MyCpe.class.getSimpleName();
 
     @Override
     public void onCreate() {

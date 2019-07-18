@@ -81,9 +81,6 @@ public interface APIService {
     //rxjava
 
 
-    //MileStone-1
-
-
     //login
     @POST("login")
     @FormUrlEncoded
@@ -152,8 +149,6 @@ public interface APIService {
 
 
     //forgot password
-
-
     @POST("forgot-password")
     @FormUrlEncoded
     Observable<Forgotpaawordmodel> forgotpassword(
@@ -226,9 +221,6 @@ public interface APIService {
     );
 
 
-    //MileStone-2
-
-
     //NA
     //Instructor List
     @GET("speaker")
@@ -252,7 +244,6 @@ public interface APIService {
 
     //NA
     //company details
-
     @GET("company/{company_ids}")
     Observable<Company_details_model> GetCompanyDetails(
             @Path("company_ids") String company_ids,
@@ -261,7 +252,6 @@ public interface APIService {
 
     //NA
     //instructor follow status
-
     @POST("speaker/follow/{speaker_ids}")
     @FormUrlEncoded
     Observable<Instructor_Follow_Model> InstructorFollowStatus(
@@ -273,7 +263,6 @@ public interface APIService {
 
     //NA
     //instructor like status
-
     @POST("speaker/like/{speaker_ids}")
     @FormUrlEncoded
     Observable<Instructor_Like_Model> InstructorFavoriteStatus(
@@ -285,7 +274,6 @@ public interface APIService {
 
     //NA
     //company like status
-
     @POST("company/like/{company_ids}")
     @FormUrlEncoded
     Observable<Company_Like_Model> CompanyFavoriteStatus(
@@ -297,7 +285,6 @@ public interface APIService {
 
     //NA
     //Webinar like status
-
     @POST("webinar/like/{webinar_ids}")
     @FormUrlEncoded
     Observable<Webinar_Like_Model> WebinarFavoriteStatus(
@@ -308,7 +295,6 @@ public interface APIService {
 
     //NA
     //company favorites list
-
     @POST("company/my-favorite")
     Observable<Company_Favorite> CompanyFavoriteList(
             @Header("Authorization") String authorization
@@ -318,7 +304,6 @@ public interface APIService {
 
     //NA
     //instructor favorites list
-
     @POST("speaker/my-favorite")
     Observable<Instructor_Favorite> InstructorFavoriteList(
             @Header("Authorization") String authorization
@@ -328,15 +313,12 @@ public interface APIService {
 
     //NA
     //webinars favorites list
-
     @POST("webinar/my-favorite")
     Observable<Webinar_Favorite> WebinarFavoriteList(
             @Header("Authorization") String authorization
 
     );
 
-
-    //Milestone-3
 
     @GET("webinar")
     Observable<Webinar_Home> GetHomeWebinarList(@Header("Accept") String accept, @Header("Authorization") String authorization,
@@ -368,7 +350,6 @@ public interface APIService {
             @Field("topic_of_interest") String topic_of_interest);
 
     //get my webinar list
-
     @POST("webinar/my-webinar")
     @FormUrlEncoded
     Observable<Webinar_Home_New> GetMyWebinarListNew(
@@ -380,7 +361,6 @@ public interface APIService {
             @Field("topic_of_interest") String topic_of_interest);
 
     //get my favorites
-
     @POST("webinar/favorite")
     @FormUrlEncoded
     Observable<ModelFavorites> GetMyFavorites(
@@ -393,22 +373,12 @@ public interface APIService {
 
 
     //get topics of interest for logged user
-
     @GET("topic-of-interest/get-selected-toi")
     Observable<ViewTopicsFavorite> GetTopicsofInterests(
             @Header("Accept") String accept,
             @Header("Authorization") String authorization
 
     );
-
-
-
-    /*@GET("topic-of-interest/list")
-    Observable<Topicsofinterest> GetTopicsofInterests(
-            @Header("Accept") String accept,
-            @Header("Authorization") String authorization
-
-    );*/
 
 
     //get webinar details
@@ -508,8 +478,6 @@ public interface APIService {
 
 
     //get topics of interest for sign up user
-
-
     @GET("topic-of-interest/list")
     Observable<Topicsofinterest> GetTopicsofInterestsSignUp(
             @Header("Accept") String accept
@@ -517,7 +485,6 @@ public interface APIService {
 
 
     //get webinar details
-
     @POST("webinar/detail")
     @FormUrlEncoded
     Observable<Webinar_details> GetWebinardetails(
@@ -527,8 +494,6 @@ public interface APIService {
 
 
     //get sub category of topics of interest
-
-
     @POST("topic-of-interest/tag")
     @FormUrlEncoded
     Observable<Topics_subcategory> GetSubcategoryTopics(
@@ -538,8 +503,6 @@ public interface APIService {
 
 
     //register webinar
-
-    //post topics of interest
     @POST("webinar/register-webinar")
     @FormUrlEncoded
     Observable<ModelRegisterWebinar> RegisterWebinar(
@@ -550,8 +513,6 @@ public interface APIService {
 
 
     //job tiitle
-
-
     @GET("job-title/list")
     Observable<ModelJobTitle> GetJobTitle(
             @Header("Accept") String accept,
@@ -566,7 +527,6 @@ public interface APIService {
 
 
     //review question
-
     @POST("webinar/review-questions")
     @FormUrlEncoded
     Observable<Review_Question> ReviewQuestion(
@@ -606,7 +566,6 @@ public interface APIService {
     );
 
     //video duration
-
     @POST("webinar/video-duration")
     @FormUrlEncoded
     Observable<Video_duration_model> SaveVideoDuration(
@@ -619,7 +578,6 @@ public interface APIService {
 
 
     //evolution API.
-
     @POST("webinar/evaluation-form-request")
     @FormUrlEncoded
     Observable<Evalutionformmodel> EvaluationForm(
@@ -630,7 +588,6 @@ public interface APIService {
 
 
     //my credit API
-
     @POST("my-credits")
     @FormUrlEncoded
     Observable<My_Credit> GetMyCredit(

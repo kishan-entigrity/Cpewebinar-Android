@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/str_skip"
-                    android:textColor="@color/guest_button_color"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_15sdp"
                     app:font_text="SFUIDisplay-Bold.ttf" />
 
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/Yes"
-                    android:textColor="@color/guest_button_color"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_15sdp"
                     app:font_text="SFUIDisplay-Bold.ttf" />
             </LinearLayout>

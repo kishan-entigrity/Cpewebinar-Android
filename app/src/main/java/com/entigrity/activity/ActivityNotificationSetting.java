@@ -248,43 +248,6 @@ public class ActivityNotificationSetting extends AppCompatActivity {
         });
 
 
-       /* binding.relWebinarParent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (checkexpand_pushnoti_webinar) {
-                    checkexpand_pushnoti_webinar = false;
-                    collapse(binding.relRegisterNotification, 500, 0);
-                    collapse(binding.relReminderNotification, 500, 0);
-
-                } else {
-                    checkexpand_pushnoti_webinar = true;
-                    expand(binding.relRegisterNotification, 500, 50);
-                    expand(binding.relReminderNotification, 500, 50);
-                }
-
-
-            }
-        });*/
-
-       /* binding.relPendingAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkexpand_pushnoti_pending_action) {
-                    checkexpand_pushnoti_pending_action = false;
-                    collapse(binding.relPushQuizPending, 500, 0);
-                    collapse(binding.relPushPendingEvolution, 500, 0);
-
-                } else {
-                    checkexpand_pushnoti_pending_action = true;
-                    expand(binding.relPushQuizPending, 500, 50);
-                    expand(binding.relPushPendingEvolution, 500, 50);
-                }
-
-            }
-        });
-*/
-
         binding.relWebinarText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -398,12 +361,8 @@ public class ActivityNotificationSetting extends AppCompatActivity {
                     public void onNext(SubmitNotification submitNotification) {
 
                         if (submitNotification.isSuccess() == true) {
-
-                            //Snackbar.make(binding.ivback, submitNotification.getMessage(), Snackbar.LENGTH_SHORT).show();
                             finish();
                         } else {
-
-                            //Snackbar.make(binding.ivback, submitNotification.getMessage(), Snackbar.LENGTH_SHORT).show();
                             finish();
 
                         }
@@ -477,12 +436,6 @@ public class ActivityNotificationSetting extends AppCompatActivity {
                                 }
                             }
 
-
-                            Log.e("push", "push" + arraypushboolean.size());
-                            Log.e("text", "text" + arraytextboolean.size());
-
-                            Log.e("push_string", "push_string" + arraypush_string.size());
-                            Log.e("text_string", "text_string" + arraytext_string.size());
 
                             if (arraypushboolean.size() > 0) {
                                 if (arraypushboolean.get(0)) {
@@ -610,11 +563,9 @@ public class ActivityNotificationSetting extends AppCompatActivity {
         super.onResume();
 
         if (NotificationManagerCompat.from(ActivityNotificationSetting.this).areNotificationsEnabled()) {
-            Log.e("status", "++" + NotificationManagerCompat.from(ActivityNotificationSetting.this).areNotificationsEnabled());
             binding.relPushNotification.setVisibility(View.GONE);
             binding.relRelPushSettings.setVisibility(View.GONE);
         } else {
-            Log.e("status", "++" + NotificationManagerCompat.from(ActivityNotificationSetting.this).areNotificationsEnabled());
             binding.relPushNotification.setVisibility(View.VISIBLE);
             binding.relRelPushSettings.setVisibility(View.VISIBLE);
         }

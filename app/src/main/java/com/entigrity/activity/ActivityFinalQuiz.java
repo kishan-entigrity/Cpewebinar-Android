@@ -115,8 +115,6 @@ public class ActivityFinalQuiz extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-
         Intent i = new Intent(context, WebinarDetailsActivity.class);
         i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
         i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);

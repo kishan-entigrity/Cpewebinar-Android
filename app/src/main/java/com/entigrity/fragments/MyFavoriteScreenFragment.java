@@ -40,6 +40,7 @@ public class MyFavoriteScreenFragment extends Fragment {
     ProgressDialog progressDialog;
     FragmentMyfavoritescreenBinding binding;
     private static final String TAG = MyFavoriteScreenFragment.class.getName();
+    private String BannerImage = "https://my-cpe.com/images/about-us-bg.jpg";
 
     @Nullable
     @Override
@@ -84,7 +85,6 @@ public class MyFavoriteScreenFragment extends Fragment {
         binding.lvWebinar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  MainActivity.getInstance().SetFavoriteTab();
 
                 Intent i = new Intent(context, ActivityFavorite.class);
                 startActivity(i);
@@ -152,15 +152,6 @@ public class MyFavoriteScreenFragment extends Fragment {
                             }
 
 
-                           /* if (!AppSettings.get_profile_picture(context).equalsIgnoreCase("")
-                                    && AppSettings.get_profile_picture(context) != null) {
-                                Picasso.with(context).load(AppSettings.get_profile_picture(context))
-                                        .placeholder(R.drawable.profile_place_holder)
-                                        .into(binding.ivProfilepicture);
-                            }
-*/
-
-
                             if (!favorite_count_model.getPayload().getProfilePicture().equalsIgnoreCase("")
                                     && favorite_count_model.getPayload().getProfilePicture() != null) {
                                 Picasso.with(context).load(favorite_count_model.getPayload().getProfilePicture())
@@ -172,7 +163,7 @@ public class MyFavoriteScreenFragment extends Fragment {
                             }
 
 
-                            Picasso.with(context).load("https://my-cpe.com/images/about-us-bg.jpg")
+                            Picasso.with(context).load(BannerImage)
                                     .placeholder(R.mipmap.webinar_placeholder)
                                     .into(binding.ivbanner);
 
@@ -181,13 +172,6 @@ public class MyFavoriteScreenFragment extends Fragment {
                                 binding.profilename.setText("" + favorite_count_model.getPayload().getFirstName());
                             }
 
-
-
-                            /*if (!favorite_count_model.getPayload().getBannerImage().equalsIgnoreCase("")) {
-                                Picasso.with(context).load(favorite_count_model.getPayload().getBannerImage())
-                                        .placeholder(R.mipmap.placeholder)
-                                        .into(binding.ivbanner);
-                            }*/
 
                             if (favorite_count_model.getPayload().getWebinarCount() == 0) {
                                 binding.webinarcount.setText("" + "(" + 0 + ")");
