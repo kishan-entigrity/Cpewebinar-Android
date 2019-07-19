@@ -6,26 +6,16 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityPaymentBinding;
-import com.entigrity.model.gettermscondition.GetTermsCondition;
-import com.entigrity.utility.Constant;
-import com.entigrity.view.DialogsUtils;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
-
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -43,13 +33,6 @@ public class PaymentActivity extends AppCompatActivity {
         mAPIService = ApiUtilsNew.getAPIService();
 
 
-        if (Constant.isNetworkAvailable(context)) {
-            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-            GetTermsandCondition();
-        } else {
-            Snackbar.make(binding.ivback, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-        }
-
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,61 +44,6 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
-
-    private void GetTermsandCondition() {
-
-        mAPIService.GetTermsandCondition(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GetTermsCondition>() {
-                    @Override
-                    public void onCompleted() {
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-
-                        String message = Constant.GetReturnResponse(context, e);
-
-                        if (Constant.status_code == 401) {
-                            MainActivity.getInstance().AutoLogout();
-                        } else {
-                            Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onNext(GetTermsCondition getTermsCondition) {
-
-                        if (getTermsCondition.isSuccess() == true) {
-
-                            binding.webview.setWebViewClient(new CustomWebViewClient());
-                            WebSettings webSetting = binding.webview.getSettings();
-                            webSetting.setJavaScriptEnabled(true);
-                            webSetting.setDisplayZoomControls(true);
-                            binding.webview.loadUrl(getTermsCondition.getPayload().getLink());
-
-
-                        } else {
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
-                            Snackbar.make(binding.ivback, getTermsCondition.getMessage(), Snackbar.LENGTH_SHORT).show();
-                        }
-
-
-                    }
-
-                });
-
-
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -138,9 +66,17 @@ public class PaymentActivity extends AppCompatActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
+            // view.loadUrl(url);
+            System.out.println("when you click on any interlink on webview that time you got url :-" + url);
+            return super.shouldOverrideUrlLoading(view, url);
         }
+
+
+        @Override
+        public void onLoadResource(WebView view, String url) {
+            super.onLoadResource(view, url);
+        }
+
 
         @Override
         public void onPageFinished(WebView view, String url) {

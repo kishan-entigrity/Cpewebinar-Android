@@ -420,7 +420,6 @@ public class MyCreditsFragment extends Fragment {
         LinearLayoutManager layoutManager = ((LinearLayoutManager) binding.recyclerviewMycredit.getLayoutManager());
         int pos = layoutManager.findLastCompletelyVisibleItemPosition();
         int numItems = binding.recyclerviewMycredit.getAdapter().getItemCount() - 1;
-
         return (pos >= numItems);
     }
 
