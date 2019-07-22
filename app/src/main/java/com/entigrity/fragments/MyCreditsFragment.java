@@ -377,15 +377,15 @@ public class MyCreditsFragment extends Fragment {
                             if (!myCredit.getPayload().get(0).getEmail().equalsIgnoreCase("")) {
                                 binding.tvUseremailid.setText(myCredit.getPayload().get(0).getEmail());
                             }
-                            if (myCredit.getPayload().get(0).getCompletedCount() != 0) {
-                                binding.tvCompltedWebinarCount.setText("" + myCredit.getPayload().get(0).getCompletedCount());
+                            if (!myCredit.getPayload().get(0).getCompletedCount().equalsIgnoreCase("")) {
+                                binding.tvCompltedWebinarCount.setText(myCredit.getPayload().get(0).getCompletedCount());
                             }
 
-                            if (myCredit.getPayload().get(0).getPendingCount() != 0) {
-                                binding.tvPendingWebinarCount.setText("" + myCredit.getPayload().get(0).getPendingCount());
+                            if (!myCredit.getPayload().get(0).getPendingCount().equalsIgnoreCase("")) {
+                                binding.tvPendingWebinarCount.setText(myCredit.getPayload().get(0).getPendingCount());
                             }
-                            if (myCredit.getPayload().get(0).getUpcomingCount() != 0) {
-                                binding.tvUpcomingWebinarCount.setText("" + myCredit.getPayload().get(0).getUpcomingCount());
+                            if (!myCredit.getPayload().get(0).getUpcomingCount().equalsIgnoreCase("")) {
+                                binding.tvUpcomingWebinarCount.setText(myCredit.getPayload().get(0).getUpcomingCount());
                             }
 
 

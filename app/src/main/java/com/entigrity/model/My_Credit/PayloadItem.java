@@ -8,19 +8,19 @@ import java.util.List;
 public class PayloadItem {
 
     @SerializedName("pending_count")
-    private int pendingCount;
+    private String pendingCount;
 
     @SerializedName("full_name")
     private String fullName;
 
     @SerializedName("upcoming_count")
-    private int upcomingCount;
+    private String upcomingCount;
 
     @SerializedName("my_credits")
     private List<MyCreditsItem> myCredits;
 
     @SerializedName("completed_count")
-    private int completedCount;
+    private String completedCount;
 
     @SerializedName("email")
     private String email;
@@ -37,11 +37,11 @@ public class PayloadItem {
     private boolean islast;
 
 
-    public void setPendingCount(int pendingCount) {
+    public void setPendingCount(String pendingCount) {
         this.pendingCount = pendingCount;
     }
 
-    public int getPendingCount() {
+    public String getPendingCount() {
         return pendingCount;
     }
 
@@ -53,11 +53,11 @@ public class PayloadItem {
         return fullName;
     }
 
-    public void setUpcomingCount(int upcomingCount) {
+    public void setUpcomingCount(String upcomingCount) {
         this.upcomingCount = upcomingCount;
     }
 
-    public int getUpcomingCount() {
+    public String getUpcomingCount() {
         return upcomingCount;
     }
 
@@ -69,11 +69,11 @@ public class PayloadItem {
         return myCredits;
     }
 
-    public void setCompletedCount(int completedCount) {
+    public void setCompletedCount(String completedCount) {
         this.completedCount = completedCount;
     }
 
-    public int getCompletedCount() {
+    public String getCompletedCount() {
         return completedCount;
     }
 
