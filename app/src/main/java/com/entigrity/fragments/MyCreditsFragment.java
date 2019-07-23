@@ -81,7 +81,7 @@ public class MyCreditsFragment extends Fragment {
             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
             GetMyCredit(start, limit);
         } else {
-            Snackbar.make(binding.recyclerviewMycredit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
         }
 
         binding.lvCompleted.setOnClickListener(new View.OnClickListener() {

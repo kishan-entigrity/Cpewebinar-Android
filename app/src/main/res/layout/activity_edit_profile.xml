@@ -397,6 +397,7 @@
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:hint="@string/str_topics_interset"
+                    android:visibility="gone"
                     android:textSize="@dimen/_10sdp"
                     app:font_edit="SFUIDisplay-Medium.ttf" />
 
@@ -406,6 +407,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
+                    android:visibility="gone"
                     android:layout_marginBottom="@dimen/_5sdp">
 
 
@@ -446,6 +448,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="@dimen/_4sdp"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_3sdp"
                     android:background="@color/view_edit_profile" />

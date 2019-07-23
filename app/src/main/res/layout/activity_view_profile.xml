@@ -462,7 +462,8 @@
                     android:id="@+id/rel_topics_of_interest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_8sdp">
+                    android:padding="@dimen/_8sdp"
+                    android:visibility="gone">
 
 
                     <com.entigrity.view.CustomTextView
@@ -515,7 +516,8 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="@color/background_list" />
+                    android:background="@color/background_list"
+                    android:visibility="gone" />
 
 
                 <RelativeLayout

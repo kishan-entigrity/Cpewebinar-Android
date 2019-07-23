@@ -160,7 +160,28 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Validation()) {
-                    ShowTopicsOfInterestPopup();
+                    //ShowTopicsOfInterestPopup();
+
+
+                    if (Constant.isNetworkAvailable(context)) {
+                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+
+                        // String phoneNumbers = binding.edtMobilenumbert.getText().toString().replaceAll("[^\\d]", "");
+
+                        String topicsofinterest = android.text.TextUtils.join(",", Constant.arraylistselectedvalue);
+                        System.out.println(topicsofinterest);
+
+                        RegisterPost(Constant.Trim(binding.edtFirstname.getText().toString())
+                                , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
+                                Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
+                                Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
+                                topicsofinterest, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
+                    } else {
+                        Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
+                    }
+
+
                 }
 
 

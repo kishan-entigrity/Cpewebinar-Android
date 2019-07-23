@@ -350,7 +350,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_40sdp"
                         android:background="@drawable/rounded_button"
-                        android:text="@string/str_btn_next"
+                        android:text="@string/str_signup"
                         android:textColor="@color/White"
                         app:font_button="SFUIDisplay-Bold.ttf" />
 

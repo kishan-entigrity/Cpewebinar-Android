@@ -75,9 +75,9 @@ public class MyFavoriteScreenFragment extends Fragment {
         binding.lvTopicsofinterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ViewTopicsOfInterestActivity.class);
+             /*   Intent i = new Intent(getActivity(), ViewTopicsOfInterestActivity.class);
                 i.putExtra(getResources().getString(R.string.str_get_key_screen), getResources().getString(R.string.from_favorite));
-                startActivity(i);
+                startActivity(i);*/
 
             }
         });
