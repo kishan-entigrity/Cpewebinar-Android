@@ -10,6 +10,18 @@ public class WebinarDetail {
     @SerializedName("subject_area")
     private String subjectArea;
 
+    public String getPaymentlink() {
+        return paymentlink;
+    }
+
+    public void setPaymentlink(String paymentlink) {
+        this.paymentlink = paymentlink;
+    }
+
+    @SerializedName("payment_link")
+    private String paymentlink;
+
+
     @SerializedName("course_level")
     private String courseLevel;
 
@@ -534,6 +546,7 @@ public class WebinarDetail {
                         ",static_timezones = '" + statictimezones + '\'' +
                         ",series = '" + series + '\'' +
                         ",certificate_link = '" + certificateLink + '\'' +
+                        ",payment_link = '" + paymentlink + '\'' +
                         ",play_time_duration = '" + playTimeDuration + '\'' +
                         ",schedule_id = '" + scheduleId + '\'' +
                         ",refund_and_cancelation_policy = '" + refundAndCancelationPolicy + '\'' +

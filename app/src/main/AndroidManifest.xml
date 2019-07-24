@@ -175,7 +175,7 @@
         <activity
             android:name=".activity.MyTransactionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
 
 
         <activity

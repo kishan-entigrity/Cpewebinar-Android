@@ -52,11 +52,22 @@ public class WebinarItem {
     @SerializedName("webinar_share_link")
     private String webinarShareLink;
 
+    public String getPaymentlink() {
+        return paymentlink;
+    }
+
+    public void setPaymentlink(String paymentlink) {
+        this.paymentlink = paymentlink;
+    }
+
     @SerializedName("duration")
     private int duration;
 
     @SerializedName("certificate_link")
     private String certificatelink;
+
+    @SerializedName("payment_link")
+    private String paymentlink;
 
     public String getCertificatelink() {
         return certificatelink;
@@ -255,6 +266,7 @@ public class WebinarItem {
                         "join_url = '" + joinurl + '\'' +
                         ",speaker_name = '" + speakerName + '\'' +
                         ",certificate_link = '" + certificatelink + '\'' +
+                        ",payment_link = '" + paymentlink + '\'' +
                         ",fee = '" + fee + '\'' +
                         ",webinar_image = '" + webinarImage + '\'' +
                         ",people_register_webinar = '" + peopleRegisterWebinar + '\'' +

@@ -57,7 +57,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
     public static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
     ProgressDialog mProgressDialog;
     DownloadTask downloadTask;
-    public String certificate_link = "";
+    //  public String certificate_link = "";
     private DownloadManager downloadManager;
     private long refid;
     ArrayList<Long> list = new ArrayList<>();
@@ -130,15 +130,15 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                 ((ViewHolder) viewHolder).btn_certification_download.setVisibility(View.GONE);
             }
 
-            if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
+          /*  if (!mList.get(position).getCertificateLink().equalsIgnoreCase("")) {
                 certificate_link = mList.get(position).getCertificateLink();
-            }
+            }*/
 
 
             ((ViewHolder) viewHolder).btn_certification_download.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    checkAndroidVersion();
+                    checkAndroidVersion(mList.get(position).getCertificateLink());
                 }
             });
 
@@ -264,11 +264,11 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
 
                     if (writePermission && readExternalFile) {
                         // write your logic here
-                        if (!certificate_link.equalsIgnoreCase("")) {
+                       /* if (!certificate_link.equalsIgnoreCase("")) {
                             DownloadCertificate(certificate_link);
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
-                        }
+                        }*/
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (Build.VERSION.SDK_INT >= 23 && !((Activity) mContext).shouldShowRequestPermissionRationale(permissions[0])) {
                             Intent intent = new Intent();
@@ -287,6 +287,18 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                 break;
 
 
+        }
+
+    }
+
+    public void unregister(final Context context) {
+        if (onComplete != null) {
+            try {
+                context.unregisterReceiver(onComplete);
+            } catch (Exception e) {
+                // ignore
+            }
+            onComplete = null;
         }
 
     }
@@ -447,9 +459,9 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
         }
     }
 
-    private void checkAndroidVersion() {
+    private void checkAndroidVersion(String certificate_link) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkPermission();
+            checkPermission(certificate_link);
         } else {
             // write your logic here
 
@@ -476,20 +488,18 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
         String extension = Certificate.substring(Certificate.lastIndexOf('.') + 1).trim();
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
         request.setAllowedOverRoaming(false);
-        request.setTitle("Downloading Document");
+        request.setTitle("Downloading Certificate");
         request.setVisibleInDownloadsUi(true);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_Document" + "." + extension);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Certificate" + "." + extension);
 
         refid = downloadManager.enqueue(request);
 
-
-        Log.e("OUT", "" + refid);
 
         list.add(refid);
     }
 
 
-    private void checkPermission() {
+    private void checkPermission(String certificate_link) {
 
         if (ContextCompat.checkSelfPermission(mContext,
                 Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat

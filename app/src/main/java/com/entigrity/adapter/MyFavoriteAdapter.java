@@ -24,6 +24,7 @@ import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.activity.ActivityEvolutionForm;
 import com.entigrity.activity.LoginActivity;
+import com.entigrity.activity.PaymentActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
 import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
@@ -333,7 +334,20 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter {
                         if (mList.get(position).getStatus().equalsIgnoreCase(mContext
                                 .getResources().getString(R.string.str_webinar_status_register))) {
                             if (!mList.get(position).getFee().equalsIgnoreCase("")) {
-                                Constant.ShowPopUp(mContext.getResources().getString(R.string.payment_validate_msg), mContext);
+                                //Constant.ShowPopUp(mContext.getResources().getString(R.string.payment_validate_msg), mContext);
+
+                                Intent i = new Intent(mContext, PaymentActivity.class);
+                                i.putExtra(mContext.getResources().getString(R.string.pass_webinar_id), mList
+                                        .get(position).getId());
+                                i.putExtra(mContext.getResources().getString(R.string.str_payment_link), mList
+                                        .get(position).getPaymentlink());
+                                i.putExtra(mContext.getResources().getString(R.string.pass_webinar_type), mList
+                                        .get(position).getWebinarType());
+
+                                mContext.startActivity(i);
+                                ((Activity) mContext).finish();
+
+
                             } else {
                                 if (Constant.isNetworkAvailable(mContext)) {
                                     progressDialog = DialogsUtils.showProgressDialog(mContext, mContext.getResources().getString(R.string.progrees_msg));

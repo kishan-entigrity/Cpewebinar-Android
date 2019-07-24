@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_10sdp"
-    android:layout_marginBottom="@dimen/_10sdp"
-    android:background="@color/White">
+    android:layout_marginBottom="@dimen/_10sdp">
 
 
     <RelativeLayout
@@ -18,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_5sdp"
-
+            android:layout_marginRight="@dimen/_5sdp"
             android:orientation="vertical">
 
 
@@ -29,8 +28,9 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:inputType="textMultiLine"
                 android:text="@string/str_basic_management"
+                android:textAllCaps="true"
                 android:textColor="@color/my_credit_webinar_report"
                 android:textSize="@dimen/_10sdp"
                 app:font_text="Montserrat-SemiBold.ttf" />
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="@string/str_payment_date_label"
-                    android:textColor="@color/my_credit_webinar_report"
+                    android:textColor="@color/black_full"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Regular.ttf" />
 
@@ -60,7 +60,7 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/tv_payment_date_label"
                     android:text="@string/str_payment_date"
-                    android:textColor="@color/my_credit_webinar_report"
+                    android:textColor="@color/black_full"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Regular.ttf" />
 
@@ -72,7 +72,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/tv_payment_date"
-                    android:background="@drawable/transcation_webinar_status"
+                    android:background="@drawable/rounded_webinar_status"
                     android:gravity="center"
                     android:text="@string/transcation_str_live"
                     android:textColor="@color/White"
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="@string/str_trx_label"
-                    android:textColor="@color/my_credit_webinar_report"
+                    android:textColor="@color/black_full"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Regular.ttf" />
 
@@ -118,7 +118,7 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/tv_trx_label"
                     android:text="@string/str_trx_value"
-                    android:textColor="@color/my_credit_webinar_report"
+                    android:textColor="@color/black_full"
                     android:textSize="@dimen/_10sdp"
                     app:font_text="Montserrat-Regular.ttf" />
 
@@ -129,7 +129,8 @@
                     android:layout_height="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/tv_trx_value"
-                    android:background="@color/my_credit_header_email_id"></View>
+                    android:background="@color/my_credit_header_email_id"
+                    android:visibility="gone"></View>
 
 
                 <com.entigrity.view.CustomTextView
@@ -141,6 +142,7 @@
                     android:text="@string/str_payment_status"
                     android:textColor="@color/transcation_status"
                     android:textSize="@dimen/_10sdp"
+                    android:visibility="gone"
                     app:font_text="Montserrat-Regular.ttf" />
 
 
@@ -148,12 +150,13 @@
                     android:id="@+id/tv_download_receipt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_trx_value"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:text="@string/str_download_receipt"
-                    android:textColor="@color/home_topbar_bgcolor"
+                    android:textColor="@color/my_credit_webinar_report"
                     android:textSize="@dimen/_9sdp"
-                    app:font_text="Montserrat-Regular.ttf" />
+                    app:font_text="Montserrat-SemiBold.ttf" />
 
 
             </RelativeLayout>

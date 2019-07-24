@@ -114,6 +114,20 @@ public class MyFavoriteScreenFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Constant.isdataupdate) {
+            Constant.isdataupdate = false;
+            if (Constant.isNetworkAvailable(context)) {
+                progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+                GetFavoriteDetails();
+            } else {
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
+
+            }
+        }
+    }
 
     private void GetFavoriteDetails() {
 

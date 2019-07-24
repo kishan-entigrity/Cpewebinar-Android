@@ -68,10 +68,11 @@ public class SplashActivity extends AppCompatActivity {
 
                     try {
                         Intent mIntent;
-                        mIntent = new Intent(SplashActivity.this, WebinarDetailsActivity.class);
+                        mIntent = new Intent(SplashActivity.this, WebinarDetailsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         mIntent.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
                         mIntent.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
                         mIntent.putExtra(getResources().getString(R.string.str_is_notification), true);
+                        mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(mIntent);
                     } catch (Exception e) {
                         e.printStackTrace();

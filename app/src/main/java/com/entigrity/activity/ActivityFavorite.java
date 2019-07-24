@@ -92,6 +92,7 @@ public class ActivityFavorite extends AppCompatActivity {
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Constant.isdataupdate = true;
                 finish();
             }
         });
@@ -104,6 +105,12 @@ public class ActivityFavorite extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Constant.isdataupdate = true;
+        finish();
+    }
 
     public void refreshItems() {
         onItemsLoadComplete();

@@ -34,6 +34,7 @@ import com.entigrity.model.login.LoginModel;
 import com.entigrity.model.logout.LogoutModel;
 import com.entigrity.model.myfavorites.ModelFavorites;
 import com.entigrity.model.notification.NotificationModel;
+import com.entigrity.model.payment_transcation.Model_Transcation;
 import com.entigrity.model.postcontactus.PostContactQuery;
 import com.entigrity.model.postfeedback.PostFeedback;
 import com.entigrity.model.registerwebinar.ModelRegisterWebinar;
@@ -622,6 +623,16 @@ public interface APIService {
             @Header("Accept") String accept,
             @Header("Authorization") String authorization,
             @Field("webinar_id") int webinar_id,
+            @Field("start") int start,
+            @Field("limit") int limit);
+
+
+    //my transcation
+    @POST("payment-transaction")
+    @FormUrlEncoded
+    Observable<Model_Transcation> GetMyTranscation(
+            @Header("Accept") String accept,
+            @Header("Authorization") String authorization,
             @Field("start") int start,
             @Field("limit") int limit);
 

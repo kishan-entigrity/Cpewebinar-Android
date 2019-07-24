@@ -2,6 +2,7 @@ package com.entigrity.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,35 +10,66 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityPaymentBinding;
-import com.entigrity.webservice.APIService;
-import com.entigrity.webservice.ApiUtilsNew;
+import com.entigrity.view.DialogsUtils;
 
 public class PaymentActivity extends AppCompatActivity {
 
     ActivityPaymentBinding binding;
     public Context context;
-    private APIService mAPIService;
     ProgressDialog progressDialog;
     private static final String TAG = PaymentActivity.class.getName();
+    public String payment_link = "";
+    public int webinarid = 0;
+    public String webinar_type = "";
+    private String validate = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment);
         context = PaymentActivity.this;
-        mAPIService = ApiUtilsNew.getAPIService();
+
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            payment_link = intent.getStringExtra(getResources().getString(R.string.str_payment_link));
+            webinarid = intent.getIntExtra(getResources().getString(R.string.pass_webinar_id), 0);
+            webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
+
+
+            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
+            binding.webview.setWebViewClient(new CustomWebViewClient());
+            WebSettings webSetting = binding.webview.getSettings();
+            webSetting.setJavaScriptEnabled(true);
+            webSetting.setDisplayZoomControls(true);
+            binding.webview.loadUrl(payment_link);
+        }
 
 
         binding.ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                finish();
+                if (validate.equalsIgnoreCase("success")) {
+                    Intent i = new Intent(PaymentActivity.this, WebinarDetailsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.putExtra(context.getResources().getString(R.string.pass_webinar_id), webinarid);
+                    i.putExtra(context.getResources().getString(R.string.pass_webinar_type), webinar_type);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                    PaymentActivity.this.finish();
+
+                } else {
+                    Intent i = new Intent(PaymentActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
 
             }
         });
@@ -67,7 +99,20 @@ public class PaymentActivity extends AppCompatActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             // view.loadUrl(url);
-            System.out.println("when you click on any interlink on webview that time you got url :-" + url);
+            System.out.println("url :-" + url);
+            validate = getLastBitFromUrl(url);
+            System.out.println("url :-" + validate);
+
+            if (validate.equalsIgnoreCase("success")) {
+                Intent i = new Intent(PaymentActivity.this, WebinarDetailsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra(context.getResources().getString(R.string.pass_webinar_id), webinarid);
+                i.putExtra(context.getResources().getString(R.string.pass_webinar_type), webinar_type);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                PaymentActivity.this.finish();
+
+            }
+
             return super.shouldOverrideUrlLoading(view, url);
         }
 
@@ -89,4 +134,29 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
+    public static String getLastBitFromUrl(final String url) {
+        return url.replaceFirst(".*/([^/?]+).*", "$1");
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if (validate.equalsIgnoreCase("success")) {
+            Intent i = new Intent(PaymentActivity.this, WebinarDetailsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra(context.getResources().getString(R.string.pass_webinar_id), webinarid);
+            i.putExtra(context.getResources().getString(R.string.pass_webinar_type), webinar_type);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            PaymentActivity.this.finish();
+
+        } else {
+            Intent i = new Intent(PaymentActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+
+    }
 }

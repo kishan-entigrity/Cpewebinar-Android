@@ -237,6 +237,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     public int timezoneselection = 0;
     public String presenter_image = "";
     public String company_logo = "";
+    private String payment_link = "";
 
 
     @Override
@@ -292,7 +293,17 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             .getString(R.string.str_webinar_status_register))) {
 
                         if (!Cost.equalsIgnoreCase("")) {
-                            Constant.ShowPopUp(getResources().getString(R.string.payment_validate_msg), context);
+                            // Constant.ShowPopUp(getResources().getString(R.string.payment_validate_msg), context);
+
+                            Intent i = new Intent(WebinarDetailsActivity.this, PaymentActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            i.putExtra(getResources().getString(R.string.pass_webinar_id), webinarid);
+                            i.putExtra(getResources().getString(R.string.str_payment_link), payment_link);
+                            i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
+                            finish();
+
+
                         } else {
                             if (Constant.isNetworkAvailable(context)) {
                                 progressDialog = DialogsUtils.showProgressDialog(context, context.getResources().getString(R.string.progrees_msg));
@@ -449,7 +460,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                 } else {
 
                     if (screen_details == 0) {
-                        handler.removeCallbacks(runnable);
+                        // handler.removeCallbacks(runnable);
                         Intent i = new Intent(context, MainActivity.class);
                         startActivity(i);
                         finish();
@@ -458,6 +469,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                         startActivity(i);
                         finish();
                     } else if (screen_details == 2) {
+                        Constant.isdataupdate=true;
                         finish();
                     } else if (screen_details == 3) {
                         Intent i = new Intent(context, NotificationActivity.class);
@@ -690,8 +702,6 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(onComplete);
-
-
     }
 
 
@@ -767,9 +777,9 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(arrayListcertificate.get(i)));
             String extension = arrayListcertificate.get(i).substring(arrayListcertificate.get(i).lastIndexOf('.') + 1).trim();
             request.setAllowedOverRoaming(false);
-            request.setTitle("Downloading Document");
+            request.setTitle("Downloading Certificate");
             request.setVisibleInDownloadsUi(true);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_Document" + i + "." + extension);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Certificate" + i + "." + extension);
 
             refid = downloadManager.enqueue(request);
         }
@@ -1582,7 +1592,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
         } else {
             if (screen_details == 0) {
-                handler.removeCallbacks(runnable);
+                // handler.removeCallbacks(runnable);
                 Intent i = new Intent(context, MainActivity.class);
                 startActivity(i);
                 finish();
@@ -1591,6 +1601,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
             } else if (screen_details == 2) {
+                Constant.isdataupdate=true;
                 finish();
             } else if (screen_details == 3) {
                 Intent i = new Intent(context, NotificationActivity.class);
@@ -1639,6 +1650,12 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             }
                             if (!webinar_details.getPayload().getWebinarDetail().getWebinarTitle().equalsIgnoreCase("")) {
                                 Webinar_title = webinar_details.getPayload().getWebinarDetail().getWebinarTitle();
+                            }
+
+
+                            if (!webinar_details.getPayload().getWebinarDetail()
+                                    .getPaymentlink().equalsIgnoreCase("")) {
+                                payment_link = webinar_details.getPayload().getWebinarDetail().getPaymentlink();
                             }
 
 
