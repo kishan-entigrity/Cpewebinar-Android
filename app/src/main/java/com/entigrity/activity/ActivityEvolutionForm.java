@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -38,6 +37,7 @@ public class ActivityEvolutionForm extends AppCompatActivity {
     public int webinar_id = 0;
     public String webinar_type = "";
     public String Screen = "";
+    private String validate = "";
     private static final String TAG = ActivityEvolutionForm.class.getName();
 
     @Override
@@ -61,17 +61,20 @@ public class ActivityEvolutionForm extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (Screen.equalsIgnoreCase(getResources().getString(R.string.mywebinar))) {
-                    Intent i = new Intent(context, MainActivity.class);
+                    Intent i = new Intent(ActivityEvolutionForm.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                     finish();
                 } else if (Screen.equalsIgnoreCase(getResources().getString(R.string.favroitescreen))) {
-                    Intent i = new Intent(context, ActivityFavorite.class);
+                    Intent i = new Intent(ActivityEvolutionForm.this, ActivityFavorite.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                     finish();
                 } else {
-                    Intent i = new Intent(context, WebinarDetailsActivity.class);
+                    Intent i = new Intent(ActivityEvolutionForm.this, WebinarDetailsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
                     i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                     finish();
                 }
@@ -92,17 +95,20 @@ public class ActivityEvolutionForm extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         if (Screen.equalsIgnoreCase(getResources().getString(R.string.mywebinar))) {
-            Intent i = new Intent(context, MainActivity.class);
+            Intent i = new Intent(ActivityEvolutionForm.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             finish();
         } else if (Screen.equalsIgnoreCase(getResources().getString(R.string.favroitescreen))) {
-            Intent i = new Intent(context, ActivityFavorite.class);
+            Intent i = new Intent(ActivityEvolutionForm.this, ActivityFavorite.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             finish();
         } else {
-            Intent i = new Intent(context, WebinarDetailsActivity.class);
+            Intent i = new Intent(ActivityEvolutionForm.this, WebinarDetailsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
             i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             finish();
         }
@@ -170,8 +176,34 @@ public class ActivityEvolutionForm extends AppCompatActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
+
+            System.out.println("url :-" + url);
+            validate = getLastBitFromUrl(url);
+            System.out.println("url :-" + validate);
+
+            if (validate.equalsIgnoreCase("success")) {
+
+                if (Screen.equalsIgnoreCase(getResources().getString(R.string.mywebinar))) {
+                    Intent i = new Intent(ActivityEvolutionForm.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                    finish();
+                } else if (Screen.equalsIgnoreCase(getResources().getString(R.string.favroitescreen))) {
+                    Intent i = new Intent(ActivityEvolutionForm.this, ActivityFavorite.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Intent i = new Intent(ActivityEvolutionForm.this, WebinarDetailsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.putExtra(getResources().getString(R.string.pass_webinar_id), webinar_id);
+                    i.putExtra(getResources().getString(R.string.pass_webinar_type), webinar_type);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                    finish();
+                }
+            }
+
+            return super.shouldOverrideUrlLoading(view, url);
         }
 
         @Override
@@ -183,6 +215,10 @@ public class ActivityEvolutionForm extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         }
+    }
+
+    public String getLastBitFromUrl(final String url) {
+        return url.replaceFirst(".*/([^/?]+).*", "$1");
     }
 
 }

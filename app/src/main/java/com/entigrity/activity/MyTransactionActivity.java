@@ -57,7 +57,7 @@ public class MyTransactionActivity extends AppCompatActivity {
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         binding.myTranscationlist.setLayoutManager(linearLayoutManager);
-        binding.myTranscationlist.addItemDecoration(new SimpleDividerItemDecoration(context));
+        //binding.myTranscationlist.addItemDecoration(new SimpleDividerItemDecoration(context));
         binding.myTranscationlist.setItemAnimator(new DefaultItemAnimator());
 
 

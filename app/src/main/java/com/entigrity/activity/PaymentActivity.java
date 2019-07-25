@@ -134,7 +134,7 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
-    public static String getLastBitFromUrl(final String url) {
+    public  String getLastBitFromUrl(final String url) {
         return url.replaceFirst(".*/([^/?]+).*", "$1");
     }
 
