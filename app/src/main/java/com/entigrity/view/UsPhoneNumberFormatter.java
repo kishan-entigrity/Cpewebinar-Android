@@ -8,9 +8,9 @@ import java.lang.ref.WeakReference;
 
 public class UsPhoneNumberFormatter implements TextWatcher {
 
-/*
-* For Uses Syntax
-* */
+    /*
+     * For Uses Syntax
+     * */
 //    UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
 //            new WeakReference<EditText>(mYourEditText));
 //    mYourEditText.addTextChangedListener(addLineNumberFormatter);
@@ -30,9 +30,9 @@ public class UsPhoneNumberFormatter implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-       /* if (after == 0 && s.toString().equals("1 ")) {
+        if (after == 0 && s.toString().equals("1 ")) {
             clearFlag = true;
-        }*/
+        }
         mLastStartLocation = start;
         mLastBeforeText = s.toString();
     }

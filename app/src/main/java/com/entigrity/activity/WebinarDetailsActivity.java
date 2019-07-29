@@ -469,7 +469,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                         startActivity(i);
                         finish();
                     } else if (screen_details == 2) {
-                        Constant.isdataupdate=true;
+                        Constant.isdataupdate = true;
                         finish();
                     } else if (screen_details == 3) {
                         Intent i = new Intent(context, NotificationActivity.class);
@@ -1601,7 +1601,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
             } else if (screen_details == 2) {
-                Constant.isdataupdate=true;
+                Constant.isdataupdate = true;
                 finish();
             } else if (screen_details == 3) {
                 Intent i = new Intent(context, NotificationActivity.class);

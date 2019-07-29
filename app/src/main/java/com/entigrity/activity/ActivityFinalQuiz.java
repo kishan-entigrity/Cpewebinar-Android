@@ -198,6 +198,7 @@ public class ActivityFinalQuiz extends AppCompatActivity {
 
                         String message = Constant.GetReturnResponse(context, e);
                         if (Constant.status_code == 401) {
+                            finish();
                             MainActivity.getInstance().AutoLogout();
                         } else {
                             Snackbar.make(binding.ivback, message, Snackbar.LENGTH_SHORT).show();

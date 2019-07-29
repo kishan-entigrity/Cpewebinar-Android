@@ -388,6 +388,8 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                                 }
                             }
                         }
+                    } else {
+                        ShowPopUp();
                     }
 
 

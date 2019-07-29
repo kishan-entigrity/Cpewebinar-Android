@@ -184,6 +184,10 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+                if (s.toString().length() == 1 && s.toString().startsWith("0")) {
+                    s.clear();
+                }
+
                 if (s.length() == 14) {
                     Constant.hideKeyboard((Activity) context);
                 }
