@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:inputType="textMultiLine"
                 android:layout_toRightOf="@+id/ivprofilepicture"
                 android:textColor="@color/webinar_detail_form_details"
                 android:textSize="@dimen/_12sdp"

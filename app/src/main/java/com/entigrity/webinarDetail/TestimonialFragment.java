@@ -46,6 +46,13 @@ public class TestimonialFragment extends Fragment {
 
         if (WebinarDetailsActivity.getInstance().webinartestimonial.size() > 0) {
 
+            if (WebinarDetailsActivity.getInstance().webinartestimonial.size() > 2) {
+                binding.tvViewMoreTestimonial.setVisibility(View.VISIBLE);
+            } else {
+                binding.tvViewMoreTestimonial.setVisibility(View.GONE);
+            }
+
+
             binding.lvTetimonial.setVisibility(View.VISIBLE);
 
 

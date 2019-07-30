@@ -64,7 +64,7 @@ public class ActivityFinalQuiz extends AppCompatActivity {
         if (intent != null) {
             webinar_id = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are_list_review_question), 0);
             webinar_type = intent.getStringExtra(getResources().getString(R.string.pass_webinar_type));
-    }
+        }
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         binding.recyclerviewFinalQuiz.setLayoutManager(linearLayoutManager);

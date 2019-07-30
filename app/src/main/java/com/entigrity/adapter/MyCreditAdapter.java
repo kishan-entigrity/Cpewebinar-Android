@@ -146,7 +146,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                 @Override
                 public void onClick(View v) {
 
-                    if (!mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext.getResources().getString(R.string.str_webinar_status_enroll))) {
+                    if (mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext.getResources().getString(R.string.str_webinar_status_enroll))) {
                         String url = mList.get(position).getJoinUrl();
                         if (!url.equalsIgnoreCase("")) {
                             Intent i = new Intent(Intent.ACTION_VIEW);
@@ -155,7 +155,7 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_joinlink_not_avilable));
                         }
-                    } else if (!mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext.getResources().getString(R.string.str_webinar_status_in_progress))) {
+                    } else if (mList.get(position).getWebinarStatus().equalsIgnoreCase(mContext.getResources().getString(R.string.str_webinar_status_in_progress))) {
                         String url = mList.get(position).getJoinUrl();
                         if (!url.equalsIgnoreCase("")) {
                             Intent i = new Intent(Intent.ACTION_VIEW);
