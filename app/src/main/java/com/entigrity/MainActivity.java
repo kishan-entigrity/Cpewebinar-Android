@@ -252,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
         myDialog.setContentView(R.layout.guest_user_popup);
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+
         tv_login = (TextView) myDialog.findViewById(R.id.tv_login_guest);
         tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel_guest);
 

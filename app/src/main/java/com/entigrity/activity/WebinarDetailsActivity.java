@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DownloadManager;
+import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -38,6 +39,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -129,7 +131,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
     public ArrayList<String> arrayListhandout = new ArrayList<>();
     public ArrayList<String> arrayListCertificate = new ArrayList<>();
-    private String VIDEO_URL = "";
+    private String VIDEO_URL = "https://my-cpe.com/uploads/webinar_video/one_hour_video.mp4";
 
     // private String VIDEO_URL = "https://my-cpe.com/uploads/webinar_video/united-states-taxation-of-foreign-real-estate-Investors.mp4";
     TextView tv_who_attend, tv_lerning_objectives;
@@ -159,6 +161,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
     public Handler handler = new Handler();
+    //PlaybackControlView controlView;
 
     public String join_url = "";
     public int schedule_id = 0;
@@ -174,7 +177,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     private final String STATE_RESUME_WINDOW = "resumeWindow";
     private final String STATE_RESUME_POSITION = "resumePosition";
     private final String STATE_PLAYER_FULLSCREEN = "playerFullscreen";
-    private SimpleExoPlayerView mExoPlayerView;
+    public SimpleExoPlayerView mExoPlayerView;
     private boolean mExoPlayerFullscreen = false;
     private FrameLayout mFullScreenButton;
     private ImageView mFullScreenIcon, exo_pause, exo_play;
@@ -239,10 +242,13 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     public String company_logo = "";
     private String payment_link = "";
 
+    public int watched = 1;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_webinardetails);
         context = WebinarDetailsActivity.this;
         instance = WebinarDetailsActivity.this;
@@ -251,6 +257,8 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mProgressDialog = new ProgressDialog(context);
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        mExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
+
 
         registerReceiver(onComplete,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -676,6 +684,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
     }
 
+
     public static WebinarDetailsActivity getInstance() {
         return instance;
 
@@ -974,18 +983,25 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
                         binding.progressBar.setVisibility(View.GONE);
 
-                        if (!videostatus) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                handler.post(runnable);
+                            }
+                        }, 20000);
+
+                       /* if (!videostatus) {
                             if (!checkpause) {
-                                new Handler().postDelayed(new Runnable() {
+                                *//*new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         handler.post(runnable);
                                     }
-                                }, 10000);
+                                }, 10000);*//*
                             } else {
                                 handler.removeCallbacks(runnable);
                             }
-                        }
+                        }*/
 
 
                         Log.e("STATE_READY", "STATE_READY");
@@ -1004,7 +1020,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onPlayerError(ExoPlaybackException error) {
-                handler.removeCallbacks(runnable);
+                //handler.removeCallbacks(runnable);
                 exoPlayer.setPlayWhenReady(false);
             }
 
@@ -1027,7 +1043,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         @Override
         public void run() {
 
-            if (!videostatus) {
+           /* if (!videostatus) {
                 if (!checkpause) {
                     if (Constant.isNetworkAvailable(context)) {
                         mResumePosition = Math.max(0, mExoPlayerView.getPlayer().getContentPosition());
@@ -1040,9 +1056,14 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                     } else {
                         Snackbar.make(binding.ivfavorite, context.getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                     }
-                    handler.postDelayed(runnable, 10000);
+                   // handler.postDelayed(runnable, 10000);
                 }
-            }
+            }*/
+            watched = watched + 1;
+
+            binding.tvWatchedduration.setText("You have completed only " + watched + "% of the video.");
+
+            handler.postDelayed(runnable, 10000);
 
 
         }
@@ -1128,7 +1149,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
                         } else {
 
-
+                            Snackbar.make(binding.ivback, video_duration_model.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
 
 
@@ -1520,6 +1541,10 @@ public class WebinarDetailsActivity extends AppCompatActivity {
             mResumePosition = Math.max(0, mExoPlayerView.getPlayer().getContentPosition());
             mExoPlayerView.getPlayer().release();
         }
+
+        if (mExoPlayerFullscreen)
+            closeFullscreenDialog();
+
         if (mFullScreenDialog != null)
             mFullScreenDialog.dismiss();
     }
@@ -1530,16 +1555,20 @@ public class WebinarDetailsActivity extends AppCompatActivity {
         if (ispause) {
             checkpause = false;
             mExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
-            initFullscreenDialog();
-            initFullscreenButton();
 
-            initExoPlayer();
-            if (mExoPlayerFullscreen) {
-                ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
-                mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(WebinarDetailsActivity.this, R.drawable.ic_fullscreen_skrink));
-                mFullScreenDialog.show();
+            if (mExoPlayerView != null) {
+                initFullscreenDialog();
+                initFullscreenButton();
+
+                initExoPlayer();
+                if (mExoPlayerFullscreen) {
+                    ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+                    mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(WebinarDetailsActivity.this, R.drawable.ic_fullscreen_skrink));
+                    mFullScreenDialog.show();
+                }
             }
+
         }
 
 
@@ -1551,20 +1580,26 @@ public class WebinarDetailsActivity extends AppCompatActivity {
 
 
         if (ispause) {
+
             checkpause = false;
             mExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
-            initFullscreenDialog();
-            initFullscreenButton();
 
-            initExoPlayer();
+            if (mExoPlayerView != null) {
+                initFullscreenDialog();
+                initFullscreenButton();
+
+                initExoPlayer();
 
 
-            if (mExoPlayerFullscreen) {
-                ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
-                mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(WebinarDetailsActivity.this, R.drawable.ic_fullscreen_skrink));
-                mFullScreenDialog.show();
+                if (mExoPlayerFullscreen) {
+                    ((ViewGroup) mExoPlayerView.getParent()).removeView(mExoPlayerView);
+                    mFullScreenDialog.addContentView(mExoPlayerView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    mFullScreenIcon.setImageDrawable(ContextCompat.getDrawable(WebinarDetailsActivity.this, R.drawable.ic_fullscreen_skrink));
+                    mFullScreenDialog.show();
+                }
             }
+
+
         }
     }
 
@@ -1714,9 +1749,9 @@ public class WebinarDetailsActivity extends AppCompatActivity {
                             }
 
 
-                            if (!webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl().equalsIgnoreCase("")) {
+                           /* if (!webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl().equalsIgnoreCase("")) {
                                 VIDEO_URL = webinar_details.getPayload().getWebinarDetail().getWebinarVideoUrl();
-                            }
+                            }*/
 
 
                             if (!webinar_details.getPayload().getWebinarDetail().getCost().equalsIgnoreCase("")) {

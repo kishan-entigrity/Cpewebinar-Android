@@ -29,7 +29,7 @@
 
 
     //common message
-    <string name="please_check_internet_condition">Please Check Internet Condition</string>
+    <string name="please_check_internet_condition">Please Check Internet Connection.</string>
     <string name="device_token">device token</string>
     <string name="device_i">device id</string>
     <string name="no_data_found">No Data Available</string>

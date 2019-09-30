@@ -68,7 +68,6 @@
         <activity
             android:name=".activity.WebinarDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
 
         <activity

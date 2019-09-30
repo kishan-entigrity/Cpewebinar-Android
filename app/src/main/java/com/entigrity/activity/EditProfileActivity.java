@@ -1227,7 +1227,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             }
 
-
                             getstatearralist.clear();
                             getstatearray.clear();
 
