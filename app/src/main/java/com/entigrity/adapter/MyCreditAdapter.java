@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.entigrity.R;
 import com.entigrity.activity.ActivityEvolutionForm;
+import com.entigrity.activity.PdfViewActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.model.My_Credit.MyCreditsItem;
 import com.entigrity.utility.Constant;
@@ -69,8 +70,8 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
 
-        mContext.registerReceiver(onComplete,
-                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+       /* mContext.registerReceiver(onComplete,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));*/
 
     }
 
@@ -269,6 +270,8 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
                         } else {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
                         }*/
+
+
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (Build.VERSION.SDK_INT >= 23 && !((Activity) mContext).shouldShowRequestPermissionRationale(permissions[0])) {
                             Intent intent = new Intent();
@@ -465,15 +468,19 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
         } else {
             // write your logic here
 
+            Intent i = new Intent(mContext, PdfViewActivity.class);
+            i.putExtra(mContext.getResources().getString(R.string.str_document_link), certificate_link);
+            mContext.startActivity(i);
 
-            if (!certificate_link.equalsIgnoreCase("")) {
+
+          /*  if (!certificate_link.equalsIgnoreCase("")) {
 
                 DownloadCertificate(certificate_link);
 
 
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
-            }
+            }*/
 
 
         }
@@ -531,7 +538,12 @@ public class MyCreditAdapter extends RecyclerView.Adapter implements ActivityCom
             // write your logic code if permission already granted
 
             if (!certificate_link.equalsIgnoreCase("")) {
-                DownloadCertificate(certificate_link);
+                //DownloadCertificate(certificate_link);
+
+                Intent i = new Intent(mContext, PdfViewActivity.class);
+                i.putExtra(mContext.getResources().getString(R.string.str_document_link), certificate_link);
+                mContext.startActivity(i);
+
             } else {
                 Constant.toast(mContext, mContext.getResources().getString(R.string.str_certificate_link_not_found));
             }

@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.entigrity.R;
 import com.entigrity.activity.ActivityWhoYouAre;
+import com.entigrity.activity.PdfViewActivity;
 import com.entigrity.activity.WebinarDetailsActivity;
 import com.entigrity.databinding.FragmentDetailsBinding;
 import com.entigrity.utility.Constant;
@@ -307,11 +308,9 @@ public class DetailsFragment extends Fragment {
         } else {
             if (WebinarDetailsActivity.getInstance().arrayListhandout.size() > 0) {
                 DownloadHandouts(WebinarDetailsActivity.getInstance().arrayListhandout);
-
             } else {
                 Constant.toast(getActivity(), getResources().getString(R.string.str_download_link_not_found));
             }
-
 
         }
 
@@ -327,6 +326,8 @@ public class DetailsFragment extends Fragment {
             request.setAllowedOverRoaming(false);
             request.setTitle("Downloading Handouts");
             request.setVisibleInDownloadsUi(true);
+
+            Log.e("handout", "arrayListhandout" + arrayListhandout.get(i));
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/MyCpe/" + "/" + "Webinar_handouts" + i + "." + extension);
 
             WebinarDetailsActivity.getInstance().refid = downloadManager.enqueue(request);

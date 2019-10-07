@@ -58,6 +58,9 @@ public class FaqActivity extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
     @Override
@@ -105,7 +108,6 @@ public class FaqActivity extends AppCompatActivity {
                             webSetting.setJavaScriptEnabled(true);
                             webSetting.setDisplayZoomControls(true);
                             binding.webview.loadUrl(getFaq.getPayload().getLink());
-
                         } else {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
@@ -120,6 +122,7 @@ public class FaqActivity extends AppCompatActivity {
 
 
     }
+
 
     private class CustomWebViewClient extends WebViewClient {
         @Override

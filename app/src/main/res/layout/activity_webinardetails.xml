@@ -102,21 +102,7 @@
                     android:layout_gravity="center"
                     android:visibility="gone" />
 
-                <com.universalvideoview.UniversalVideoView
-                    android:id="@+id/videoView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    app:uvv_autoRotation="false"
-                    app:uvv_fitXY="false" />
 
-                <com.universalvideoview.UniversalMediaController
-                    android:id="@+id/media_controller"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:uvv_scalable="true" />
 
             </FrameLayout>
 

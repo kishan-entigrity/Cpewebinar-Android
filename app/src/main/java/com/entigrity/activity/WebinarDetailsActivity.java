@@ -131,7 +131,7 @@ public class WebinarDetailsActivity extends AppCompatActivity {
     private static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
     public ArrayList<String> arrayListhandout = new ArrayList<>();
     public ArrayList<String> arrayListCertificate = new ArrayList<>();
-    private String VIDEO_URL = "https://my-cpe.com/uploads/webinar_video/one_hour_video.mp4";
+    private String VIDEO_URL = "";
 
     // private String VIDEO_URL = "https://my-cpe.com/uploads/webinar_video/united-states-taxation-of-foreign-real-estate-Investors.mp4";
     TextView tv_who_attend, tv_lerning_objectives;

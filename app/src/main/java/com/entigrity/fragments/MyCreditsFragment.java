@@ -67,9 +67,6 @@ public class MyCreditsFragment extends Fragment {
 
         font = Typeface.createFromAsset(getActivity().getAssets(), "Montserrat-Light.ttf");
 
-        binding.btnAll.setTypeface(font);
-        binding.btnDate.setTypeface(font);
-
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         binding.recyclerviewMycredit.setLayoutManager(linearLayoutManager);

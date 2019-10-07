@@ -521,6 +521,9 @@
     <string name="str_terms_condition">Terms &amp; Conditions</string>
     <string name="str_contact_us">Contact Us</string>
     <string name="str_faqs">FAQ"'"s</string>
+    <string name="str_view_web_view_handouts">Handouts</string>
+    <string name="str_view_web_view_certificate">Certificate</string>
+    <string name="str_share">Share</string>
     <string name="str_give_us_your_feedback">Give us your feedback</string>
     <string name="str_logout">Logout</string>
 
@@ -688,5 +691,8 @@
     <string name="payment_link_not_available">Payment Link is Not Available</string>
     <string name="payment_receipt_not_available">Receipt is Not Available</string>
 
+
+    //my credit to pdfview
+    <string name="str_document_link">documentlink</string>
 
 </resources>

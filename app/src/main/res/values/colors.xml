@@ -6,6 +6,7 @@
     <color name="White">#FFFFFF</color>
     <color name="home_tab_color_unselected">#484848</color>
     <color name="theme_background">#193f70</color>
+    <color name="uvv_gray">#969696</color>
     <color name="forgot_password_header">#213B5B</color>
     <color name="company_detail_bottom">#001F44</color>
     <color name="login_do_not_have_account">#C9C9C9</color>

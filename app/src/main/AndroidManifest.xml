@@ -36,6 +36,7 @@
             </intent-filter>
         </activity>
 
+
         <activity
             android:name=".activity.WelcomeActivity"
             android:screenOrientation="portrait"
@@ -159,6 +160,12 @@
             android:name=".activity.FaqActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.PdfViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
             android:name=".activity.ActivityChangePassword"
             android:screenOrientation="portrait"
