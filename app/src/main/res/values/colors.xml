@@ -14,6 +14,14 @@
     <color name="view_edit_profile">#A7A7A8</color>
     <color name="detail_heading">#fafafa</color>
 
+    <color name="sign_up_heading">#001944</color>
+    <color name="edit_field_hint">#bcbcbc</color>
+    <color name="home_edit_search">#c3c3c3</color>
+
+    <color name="home_filter_selection">#606060</color>
+    <color name="home_filter_unselected_background">#f2f2f2</color>
+    <color name="home_filter_border">#dbdbdb</color>
+
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>
@@ -38,12 +46,16 @@
         <item>@color/dot_light_screen2</item>
         <item>@color/dot_light_screen3</item>
         <item>@color/dot_light_screen4</item>
+        <item>@color/dot_light_screen4</item>
+        <item>@color/dot_light_screen4</item>
     </array>
 
     <array name="array_dot_inactive">
         <item>@color/dot_dark_screen1</item>
         <item>@color/dot_dark_screen2</item>
         <item>@color/dot_dark_screen3</item>
+        <item>@color/dot_dark_screen4</item>
+        <item>@color/dot_dark_screen4</item>
         <item>@color/dot_dark_screen4</item>
     </array>
 

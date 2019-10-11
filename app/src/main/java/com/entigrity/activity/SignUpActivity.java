@@ -1,42 +1,31 @@
 package com.entigrity.activity;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivitySignupBinding;
 import com.entigrity.model.registration.RegistrationModel;
-import com.entigrity.model.usertype.UserTypeModel;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
-import com.entigrity.view.DialogsUtils;
-import com.entigrity.view.UsPhoneNumberFormatter;
 import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -48,16 +37,9 @@ public class SignUpActivity extends AppCompatActivity {
     ActivitySignupBinding binding;
     private APIService mAPIService_new;
     private static final String TAG = SignUpActivity.class.getName();
-    private ArrayList<String> arrayLististusertype = new ArrayList<String>();
-    private ArrayList<Integer> arrayLististusertypeid = new ArrayList<Integer>();
-    public boolean checkprivacypolicystatus = false;
     private boolean checkpasswordvisiblestatus = false;
     private boolean checkconfirmpasswordvisiblestatus = false;
     ProgressDialog progressDialog;
-    public boolean boolean_usertype = true;
-    private int user_type = 0;
-    public Dialog myDialog;
-    public TextView tv_skip, tv_yes;
 
 
     @Override
@@ -69,129 +51,27 @@ public class SignUpActivity extends AppCompatActivity {
 
         AppSettings.set_device_id(context, Constant.GetDeviceid(context));
 
+        final String email = binding.edtEmailid.getText().toString().trim();
 
-        binding.edtMobilenumbert.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
-                new WeakReference<EditText>(binding.edtMobilenumbert));
-        binding.edtMobilenumbert.addTextChangedListener(addLineNumberFormatter);
+        final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
 
-        if (Constant.isNetworkAvailable(context)) {
-            progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-            GetUserType();
-        } else {
-            Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-        }
 
-
-        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.edtEmailid.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (boolean_usertype) {
-                    boolean_usertype = false;
-                } else {
-                    if (arrayLististusertype.get(position).equalsIgnoreCase(getResources()
-                            .getString(R.string.str_who_you_are))) {
-                        user_type = 0;
-                    } else {
-                        user_type = arrayLististusertypeid.get(position - 1);
-                    }
-
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    // Do you job here which you want to done through event
+                    Toast.makeText(context, "Got Clicked", Toast.LENGTH_SHORT).show();
                 }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-
-            }
-        });
-
-        binding.tvtermsAndCondtion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(context, TermsandConditionActivity.class);
-                startActivity(i);
-
-            }
-        });
-
-        binding.tvTermsAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkprivacypolicystatus == false) {
-                    checkprivacypolicystatus = true;
-                    binding.ivcheckbox.setImageResource(R.mipmap.check_box_click);
-                } else {
-                    checkprivacypolicystatus = false;
-                    binding.ivcheckbox.setImageResource(R.mipmap.check_box);
-                }
-
+                return false;
             }
         });
 
 
-        binding.edtMobilenumbert.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
 
 
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                if (s.toString().length() == 1 && s.toString().startsWith("0")) {
-                    s.clear();
-                }
-
-
-                if (s.length() == 14) {
-                    Constant.hideKeyboard((Activity) context);
-                }
-
-            }
-        });
-
-
-        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Validation()) {
-                    //ShowTopicsOfInterestPopup();
-
-
-                    if (Constant.isNetworkAvailable(context)) {
-                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-
-                        // String phoneNumbers = binding.edtMobilenumbert.getText().toString().replaceAll("[^\\d]", "");
-
-                        String topicsofinterest = android.text.TextUtils.join(",", Constant.arraylistselectedvalue);
-                        System.out.println(topicsofinterest);
-
-                        RegisterPost(Constant.Trim(binding.edtFirstname.getText().toString())
-                                , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
-                                Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
-                                Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
-                                topicsofinterest, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
-                    } else {
-                        Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-
-                    }
-
-
-                }
-
-
-            }
-        });
 
 
         binding.edtPassword.setOnTouchListener(new View.OnTouchListener() {
@@ -282,38 +162,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-        binding.ivcheckbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (checkprivacypolicystatus == false) {
-                    checkprivacypolicystatus = true;
-                    binding.ivcheckbox.setImageResource(R.mipmap.check_box_click);
-                } else {
-                    checkprivacypolicystatus = false;
-                    binding.ivcheckbox.setImageResource(R.mipmap.check_box);
-                }
-
-
-            }
-        });
-
-
-        binding.ivcheckbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (checkprivacypolicystatus == false) {
-                    checkprivacypolicystatus = true;
-                    binding.ivcheckbox.setImageResource(R.mipmap.check_box_click);
-                } else {
-                    checkprivacypolicystatus = false;
-                    binding.ivcheckbox.setImageResource(R.mipmap.check_box);
-                }
-
-            }
-        });
-
         binding.tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -323,79 +171,15 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-
-    }
-
-
-    public void ShowTopicsOfInterestPopup() {
-        myDialog = new Dialog(context);
-        myDialog.setContentView(R.layout.topics_popup);
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        tv_skip = (TextView) myDialog.findViewById(R.id.tv_skip);
-        tv_yes = (TextView) myDialog.findViewById(R.id.tv_yes);
-
-        tv_yes.setOnClickListener(new View.OnClickListener() {
+        binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (myDialog.isShowing()) {
-                    myDialog.dismiss();
-                }
-                Constant.arraylistselectedvalue.clear();
-
-                Intent i = new Intent(SignUpActivity.this, TopicsofInterestSignUpActivity.class);
-                i.putExtra(getResources().getString(R.string.reg_firstname), Constant.Trim(binding.edtFirstname.getText().toString()));
-                i.putExtra(getResources().getString(R.string.reg_lastname), Constant.Trim(binding.edtLastname.getText().toString()));
-                i.putExtra(getResources().getString(R.string.reg_email), Constant.Trim(binding.edtEmailid.getText().toString()));
-                i.putExtra(getResources().getString(R.string.reg_password), Constant.Trim(binding.edtPassword.getText().toString()));
-                i.putExtra(getResources().getString(R.string.reg_confirm_password), Constant.Trim(binding.edtConfirmpassword.getText().toString()));
-                i.putExtra(getResources().getString(R.string.reg_firmname), Constant.Trim(binding.edtFirmname.getText().toString()));
-                i.putExtra(getResources().getString(R.string.reg_mobilenumber), Constant.Trim(binding.edtMobilenumbert.getText().toString()));
-                i.putExtra(getResources().getString(R.string.reg_whoyouare), user_type);
-                i.putExtra(getResources().getString(R.string.str_get_key_screen_key), getResources().getString(R.string.from_sign_up_screen));
-                i.putExtra(getResources().getString(R.string.reg_isaccepted), checkprivacypolicystatus);
-
+                Intent i = new Intent(context, SignUpNextActivity.class);
                 startActivity(i);
-
+                finish();
             }
         });
 
-
-        tv_skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (myDialog.isShowing()) {
-                    myDialog.dismiss();
-                }
-
-
-                if (Validation()) {
-                    if (Constant.isNetworkAvailable(context)) {
-                        progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
-
-                        // String phoneNumbers = binding.edtMobilenumbert.getText().toString().replaceAll("[^\\d]", "");
-
-                        String topicsofinterest = android.text.TextUtils.join(",", Constant.arraylistselectedvalue);
-                        System.out.println(topicsofinterest);
-
-                        RegisterPost(Constant.Trim(binding.edtFirstname.getText().toString())
-                                , Constant.Trim(binding.edtLastname.getText().toString()), Constant.Trim(binding.edtEmailid.getText().toString()),
-                                Constant.Trim(binding.edtPassword.getText().toString()), Constant.Trim(binding.edtConfirmpassword.getText().toString()),
-                                Constant.Trim(binding.edtFirmname.getText().toString()), Constant.Trim(binding.edtMobilenumbert.getText().toString()),
-                                topicsofinterest, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
-                    } else {
-                        Snackbar.make(binding.btnRegister, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
-
-                    }
-                }
-
-
-            }
-        });
-
-
-        myDialog.show();
 
     }
 
@@ -403,24 +187,9 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Constant.arraylistselectedvalue.clear();
         Intent i = new Intent(context, LoginActivity.class);
         startActivity(i);
         finish();
-    }
-
-
-    public void ShowAdapter() {
-        if (arrayLististusertype.size() > 0) {
-            //Getting the instance of Spinner and applying OnItemSelectedListener on it
-
-
-            //Creating the ArrayAdapter instance having the user type list
-            ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, arrayLististusertype);
-            aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
-            //Setting the ArrayAdapter data on the Spinner
-            binding.spinner.setAdapter(aa);
-        }
     }
 
 
@@ -432,8 +201,6 @@ public class SignUpActivity extends AppCompatActivity {
             binding.edtEmailid.clearFocus();
             binding.edtPassword.clearFocus();
             binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
 
 
             Snackbar.make(binding.edtFirstname, getResources().getString(R.string.val_firstname), Snackbar.LENGTH_SHORT).show();
@@ -445,8 +212,6 @@ public class SignUpActivity extends AppCompatActivity {
             binding.edtEmailid.clearFocus();
             binding.edtPassword.clearFocus();
             binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
 
 
             Snackbar.make(binding.edtLastname, getResources().getString(R.string.val_lastname), Snackbar.LENGTH_SHORT).show();
@@ -458,8 +223,7 @@ public class SignUpActivity extends AppCompatActivity {
             binding.edtEmailid.requestFocus();
             binding.edtPassword.clearFocus();
             binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
+
 
             Snackbar.make(binding.edtEmailid, getResources().getString(R.string.val_emailid), Snackbar.LENGTH_SHORT).show();
             return false;
@@ -470,8 +234,6 @@ public class SignUpActivity extends AppCompatActivity {
             binding.edtEmailid.clearFocus();
             binding.edtPassword.requestFocus();
             binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
 
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_password_register), Snackbar.LENGTH_SHORT).show();
             return false;
@@ -482,8 +244,6 @@ public class SignUpActivity extends AppCompatActivity {
             binding.edtEmailid.clearFocus();
             binding.edtPassword.requestFocus();
             binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
 
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
             return false;
@@ -494,8 +254,6 @@ public class SignUpActivity extends AppCompatActivity {
             binding.edtEmailid.clearFocus();
             binding.edtPassword.clearFocus();
             binding.edtConfirmpassword.requestFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
 
 
             Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.val_confirm_password_register), Snackbar.LENGTH_SHORT).show();
@@ -507,8 +265,6 @@ public class SignUpActivity extends AppCompatActivity {
             binding.edtEmailid.clearFocus();
             binding.edtPassword.clearFocus();
             binding.edtConfirmpassword.requestFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
 
 
             Snackbar.make(binding.edtConfirmpassword, getResources().getString(R.string.password_length), Snackbar.LENGTH_SHORT).show();
@@ -520,107 +276,13 @@ public class SignUpActivity extends AppCompatActivity {
             binding.edtEmailid.clearFocus();
             binding.edtPassword.clearFocus();
             binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
 
 
             Snackbar.make(binding.edtPassword, getResources().getString(R.string.val_confirm_password_not_match), Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (Constant.Trim(binding.edtFirmname.getText().toString()).isEmpty()) {
-
-            binding.edtFirstname.clearFocus();
-            binding.edtLastname.clearFocus();
-            binding.edtEmailid.clearFocus();
-            binding.edtPassword.clearFocus();
-            binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.requestFocus();
-
-
-            Snackbar.make(binding.edtFirmname, getResources().getString(R.string.val_firm_name_register), Snackbar.LENGTH_SHORT).show();
-            return false;
-        } else if (Constant.Trim(binding.edtMobilenumbert.getText().toString()).isEmpty()) {
-
-            binding.edtFirstname.clearFocus();
-            binding.edtLastname.clearFocus();
-            binding.edtEmailid.clearFocus();
-            binding.edtPassword.clearFocus();
-            binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.requestFocus();
-            binding.edtFirmname.clearFocus();
-
-            Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_mobile_number), Snackbar.LENGTH_SHORT).show();
-            return false;
-        } else if (user_type == 0) {
-            binding.edtFirstname.clearFocus();
-            binding.edtLastname.clearFocus();
-            binding.edtEmailid.clearFocus();
-            binding.edtPassword.clearFocus();
-            binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
-
-            Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_user_type), Snackbar.LENGTH_SHORT).show();
-            return false;
-        } else if (!checkprivacypolicystatus) {
-            binding.edtFirstname.clearFocus();
-            binding.edtLastname.clearFocus();
-            binding.edtEmailid.clearFocus();
-            binding.edtPassword.clearFocus();
-            binding.edtConfirmpassword.clearFocus();
-            binding.edtMobilenumbert.clearFocus();
-            binding.edtFirmname.clearFocus();
-            Snackbar.make(binding.edtMobilenumbert, getResources().getString(R.string.val_terms_and_condition), Snackbar.LENGTH_SHORT).show();
-            return false;
-
         } else {
             return true;
         }
-    }
-
-    public void GetUserType() {
-        mAPIService_new.Getusertype(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<UserTypeModel>() {
-                    @Override
-                    public void onCompleted() {
-                        ShowAdapter();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-
-                        String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.edtConfirmpassword, message, Snackbar.LENGTH_SHORT).show();
-
-
-                    }
-
-                    @Override
-                    public void onNext(UserTypeModel userTypeModel) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-
-                        if (userTypeModel.isSuccess()) {
-                            arrayLististusertype.clear();
-                            arrayLististusertype.add(getResources().getString(R.string.str_who_you_are));
-
-
-                            for (int i = 0; i < userTypeModel.getPayload().getUserType().size(); i++) {
-                                arrayLististusertype.add(userTypeModel.getPayload().getUserType().get(i).getName());
-                                arrayLististusertypeid.add(userTypeModel.getPayload().getUserType().get(i).getId());
-                            }
-                        } else {
-                            Snackbar.make(binding.btnRegister, userTypeModel.getMessage(), Snackbar.LENGTH_SHORT).show();
-                        }
-
-
-                    }
-                });
     }
 
 
@@ -648,7 +310,7 @@ public class SignUpActivity extends AppCompatActivity {
                         }
 
                         String message = Constant.GetReturnResponse(context, e);
-                        Snackbar.make(binding.btnRegister, message, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.btnNext, message, Snackbar.LENGTH_SHORT).show();
 
 
                     }
@@ -676,7 +338,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
 
 
-                            Snackbar.make(binding.btnRegister, registrationModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(binding.btnNext, registrationModel.getMessage(), Snackbar.LENGTH_SHORT).show();
 
 
                         }

@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/footer_mycredits" />
+            android:src="@mipmap/footer_certificate" />
 
         <ImageView
             android:id="@+id/iv_mywebinar"
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/footer_favorites" />
+            android:src="@mipmap/footer_premium" />
 
         <ImageView
             android:id="@+id/iv_account"

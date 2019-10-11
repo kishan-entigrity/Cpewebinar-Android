@@ -21,14 +21,12 @@ import android.widget.TextView;
 import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.activity.NotificationActivity;
-import com.entigrity.activity.TopicsofInterestSignUpActivity;
 import com.entigrity.databinding.FragmentDashboardBinding;
 import com.entigrity.utility.AppSettings;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.entigrity.utility.Constant.arraylistselectedvalue;
 import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
 
 public class UserDashBoardFragment extends Fragment {
@@ -59,7 +57,7 @@ public class UserDashBoardFragment extends Fragment {
             selectPage(0);
         }
 
-        binding.ivfilter.setOnClickListener(new View.OnClickListener() {
+       /* binding.ivfilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -74,7 +72,7 @@ public class UserDashBoardFragment extends Fragment {
 
 
             }
-        });
+        });*/
 
         binding.ivnotification.setOnClickListener(new View.OnClickListener() {
             @Override

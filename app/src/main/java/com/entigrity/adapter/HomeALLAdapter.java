@@ -97,9 +97,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
         if (viewHolder instanceof HomeViewHolder) {
             Constant.Log("size", "" + mList.size());
 
-            if (!mList.get(position).getWebinarTitle().equalsIgnoreCase("")) {
+          /*  if (!mList.get(position).getWebinarTitle().equalsIgnoreCase("")) {
                 ((HomeViewHolder) viewHolder).tv_webinar_title.setText(mList.get(position).getWebinarTitle());
-            }
+            }*/
 
             if (!mList.get(position).getCertificatelink().equalsIgnoreCase("")) {
                 certificate_link = mList.get(position).getCertificatelink();
@@ -110,7 +110,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
                 if (mList.get(position).getStatus().equalsIgnoreCase(mContext
                         .getResources().getString(R.string.str_webinar_status_register))) {
-                    ((HomeViewHolder) viewHolder).webinar_status.setBackgroundResource(R.drawable.rounded_webinar_status);
+                    ((HomeViewHolder) viewHolder).webinar_status.setBackgroundResource(R.drawable.rounded_webinar_home);
                 } else {
                     ((HomeViewHolder) viewHolder).webinar_status.setBackgroundResource(R.drawable.rounded_webinar_status);
                 }
@@ -158,8 +158,7 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                     .getResources().getString(R.string.str_filter_live))) {
                 ((HomeViewHolder) viewHolder).tv_webinar_date.setVisibility(View.VISIBLE);
                 ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.VISIBLE);
-                ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.VISIBLE);
-                ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.VISIBLE);
+
                 ((HomeViewHolder) viewHolder).dv_divider.setVisibility(View.VISIBLE);
                 ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.GONE);
 
@@ -167,32 +166,12 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             } else {
                 ((HomeViewHolder) viewHolder).tv_webinar_date.setVisibility(View.INVISIBLE);
                 ((HomeViewHolder) viewHolder).tv_webinar_time.setVisibility(View.INVISIBLE);
-                ((HomeViewHolder) viewHolder).tv_duration_name.setVisibility(View.INVISIBLE);
-                ((HomeViewHolder) viewHolder).dv_time_duration.setVisibility(View.INVISIBLE);
                 ((HomeViewHolder) viewHolder).dv_divider.setVisibility(View.INVISIBLE);
                 ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.GONE);
             }
 
 
-            if (mList.get(position).getDuration() != 0) {
 
-
-                String result = formatHoursAndMinutes(mList.get(position).getDuration());
-
-
-                StringTokenizer tokens = new StringTokenizer(result, ":");
-                String hour = tokens.nextToken();// this will contain year
-                String min = tokens.nextToken();//th
-
-                if (min.equalsIgnoreCase("00")) {
-                    ((HomeViewHolder) viewHolder).tv_duration_name.setText(hour + " " + mContext.getResources().getString(R.string.str_hour));
-                } else {
-                    ((HomeViewHolder) viewHolder).tv_duration_name.setText(hour + " " + mContext.getResources().getString(R.string.str_hour) + " " + min +
-                            " " + mContext.getResources().getString(R.string.str_min));
-                }
-
-
-            }
 
 
             if (mList.get(position).getPeopleRegisterWebinar() == 0) {
@@ -502,19 +481,19 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
     public static class HomeViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_webinar_title, tv_webinar_price_status, tv_webinar_date, tv_webinar_time, tv_duration_name,
+        TextView tv_webinar_date, tv_webinar_time,
                 tv_favorite_count, tv_attend_views, tv_favorite_speaker_name, tv_company_name, tv_timezone;
         ImageView ivwebinar_thumbhel, ivshare;
 
-        View dv_time_duration, dv_divider;
-        Button credit_status, webinar_status, tv_webinar_type;
+        View  dv_divider;
+        Button credit_status, webinar_status, tv_webinar_type, tv_webinar_price_status;
         ImageView ivfavorite;
         RelativeLayout rel_item;
 
 
         private HomeViewHolder(View itemView) {
             super(itemView);
-            dv_time_duration = (View) itemView.findViewById(R.id.dv_time_duration);
+
             dv_divider = (View) itemView.findViewById(R.id.dv_divider);
 
             ivfavorite = (ImageView) itemView.findViewById(R.id.ivfavorite);
@@ -524,15 +503,15 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             webinar_status = (Button) itemView.findViewById(R.id.webinar_status);
             ivwebinar_thumbhel = (ImageView) itemView.findViewById(R.id.ivwebinar_thumbhel);
             ivshare = (ImageView) itemView.findViewById(R.id.ivshare);
-            tv_webinar_title = (TextView) itemView.findViewById(R.id.tv_webinar_title);
-            tv_webinar_price_status = (TextView) itemView.findViewById(R.id.tv_webinar_price_status);
+
+            tv_webinar_price_status = (Button) itemView.findViewById(R.id.tv_webinar_price_status);
             tv_webinar_date = (TextView) itemView.findViewById(R.id.tv_webinar_date);
             tv_webinar_time = (TextView) itemView.findViewById(R.id.tv_webinar_time);
-            tv_duration_name = (TextView) itemView.findViewById(R.id.tv_duration_name);
+
             tv_webinar_type = (Button) itemView.findViewById(R.id.tv_webinar_type);
             tv_favorite_count = (TextView) itemView.findViewById(R.id.tv_favorite_count);
             tv_attend_views = (TextView) itemView.findViewById(R.id.tv_attend_views);
-            tv_favorite_speaker_name = (TextView) itemView.findViewById(R.id.tv_favorite_speaker_name);
+            tv_favorite_speaker_name = (TextView) itemView.findViewById(R.id.tv_speaker_name);
             tv_timezone = (TextView) itemView.findViewById(R.id.tv_timezone);
             tv_company_name = (TextView) itemView.findViewById(R.id.tv_company_name);
             rel_item = (RelativeLayout) itemView.findViewById(R.id.rel_item);

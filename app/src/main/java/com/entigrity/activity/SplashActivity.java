@@ -80,14 +80,23 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    if (!AppSettings.get_login_token(context).isEmpty()) {
-                        Intent i = new Intent(SplashActivity.this, MainActivity.class);
+
+                    if (!AppSettings.get_walkthrough(context)) {
+
+                        Intent i = new Intent(SplashActivity.this, WelcomeActivity.class);
                         startActivity(i);
                         finish();
+
                     } else {
-                        Intent i = new Intent(SplashActivity.this, PreLoginActivity.class);
-                        startActivity(i);
-                        finish();
+                        if (!AppSettings.get_login_token(context).isEmpty()) {
+                            Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Intent i = new Intent(SplashActivity.this, PreLoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
                     }
 
 

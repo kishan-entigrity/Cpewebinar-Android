@@ -15,9 +15,10 @@ import android.widget.TextView;
 import com.entigrity.activity.LoginActivity;
 import com.entigrity.activity.PreLoginActivity;
 import com.entigrity.fragments.AccountFragment;
+import com.entigrity.fragments.HomeAllFragment;
 import com.entigrity.fragments.MyCreditsFragment;
 import com.entigrity.fragments.MyFavoriteScreenFragment;
-import com.entigrity.fragments.UserDashBoardFragment;
+import com.entigrity.fragments.MyWebinarFragment;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 
@@ -25,10 +26,14 @@ import static com.entigrity.utility.Constant.checkmywebinardotstatusset;
 
 public class MainActivity extends AppCompatActivity {
 
-    UserDashBoardFragment userDashBoardFragment;
+
     AccountFragment accountFragment;
     MyCreditsFragment myCreditsFragment;
     MyFavoriteScreenFragment myFavoriteScreenFragment;
+
+    HomeAllFragment homeAllFragment;
+    MyWebinarFragment myWebinarFragment;
+
     public Context context;
     private static MainActivity instance;
     public RelativeLayout rel_top_bottom;
@@ -89,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
                     selectmywebinardtab = 1;
                     checkmywebinardotstatusset = false;
                     SetImageBackground(1);
-                    SetDefault();
+                    myWebinarFragment = new MyWebinarFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myWebinarFragment, getResources()
+                            .getString(R.string.my_webinar_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
 
 
                 } else {
@@ -121,10 +128,11 @@ public class MainActivity extends AppCompatActivity {
                     setselectedtab = 2;
                     selectmywebinardtab = 0;
                     SetImageBackground(3);
-                    myFavoriteScreenFragment = new MyFavoriteScreenFragment();
+                    Constant.toast(context, "comming soon");
+                    /*myFavoriteScreenFragment = new MyFavoriteScreenFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFavoriteScreenFragment, getResources()
                             .getString(R.string.myfavoritescreenfragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
-
+*/
                 } else {
                     ShowPopUp();
                 }
@@ -196,29 +204,29 @@ public class MainActivity extends AppCompatActivity {
     public void SetImageBackground(int position) {
 
         if (position == 0) {
-            iv_mycredit.setImageResource(R.mipmap.footer_mycredits_select);
+            iv_mycredit.setImageResource(R.mipmap.footer_certificate_select_orange);
             iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars);
-            iv_myfavorite.setImageResource(R.mipmap.footer_favorites);
+            iv_myfavorite.setImageResource(R.mipmap.footer_premium);
             iv_account.setImageResource(R.mipmap.footer_account);
         } else if (position == 1) {
-            iv_mycredit.setImageResource(R.mipmap.footer_mycredits);
+            iv_mycredit.setImageResource(R.mipmap.footer_certificate);
             iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars_select);
-            iv_myfavorite.setImageResource(R.mipmap.footer_favorites);
+            iv_myfavorite.setImageResource(R.mipmap.footer_premium);
             iv_account.setImageResource(R.mipmap.footer_account);
         } else if (position == 2) {
-            iv_mycredit.setImageResource(R.mipmap.footer_mycredits);
+            iv_mycredit.setImageResource(R.mipmap.footer_certificate);
             iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars);
-            iv_myfavorite.setImageResource(R.mipmap.footer_favorites);
+            iv_myfavorite.setImageResource(R.mipmap.footer_premium);
             iv_account.setImageResource(R.mipmap.footer_account);
         } else if (position == 3) {
-            iv_mycredit.setImageResource(R.mipmap.footer_mycredits);
+            iv_mycredit.setImageResource(R.mipmap.footer_certificate);
             iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars);
-            iv_myfavorite.setImageResource(R.mipmap.footer_favorites_select);
+            iv_myfavorite.setImageResource(R.mipmap.footer_premium_select_orange);
             iv_account.setImageResource(R.mipmap.footer_account);
         } else if (position == 4) {
-            iv_mycredit.setImageResource(R.mipmap.footer_mycredits);
+            iv_mycredit.setImageResource(R.mipmap.footer_certificate);
             iv_mywebinar.setImageResource(R.mipmap.footer_mywebinars);
-            iv_myfavorite.setImageResource(R.mipmap.footer_favorites);
+            iv_myfavorite.setImageResource(R.mipmap.footer_premium);
             iv_account.setImageResource(R.mipmap.footer_account_select);
         }
 
@@ -233,9 +241,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void SetDefault() {
-        userDashBoardFragment = new UserDashBoardFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, userDashBoardFragment, getResources().getString(R.string.userdashBoard_fragment))
-                .commit();
+
+        homeAllFragment = new HomeAllFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, homeAllFragment, getResources()
+                .getString(R.string.home_fragment)).addToBackStack(getResources().getString(R.string.add_to_back_stack)).commit();
+
     }
 
 
