@@ -720,8 +720,8 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
 
-    public void GetUserType() {
-        mAPIService_new.Getusertype(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    public void GetProffesionalCredential() {
+        mAPIService_new.Getproffesionalcredential(getResources().getString(R.string.accept)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserTypeModel>() {
                     @Override
                     public void onCompleted() {
@@ -1072,7 +1072,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     public void onCompleted() {
                         if (!checkflagset) {
                             if (Constant.isNetworkAvailable(context)) {
-                                GetUserType();
+                                GetProffesionalCredential();
                             } else {
                                 Snackbar.make(binding.btnsubmit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
                             }

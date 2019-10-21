@@ -34,6 +34,7 @@ import com.entigrity.webservice.APIService;
 import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 
+import java.lang.invoke.VolatileCallSite;
 import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -106,6 +107,97 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
             }
 
 
+            if (!mList.get(position).getRatingaverage().equalsIgnoreCase("")) {
+
+
+                if (Float.parseFloat(mList.get(position).getRatingaverage()) == 0.0) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 0.5
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 1.0) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_one);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 1.0
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 1.5) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_two);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 1.6
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 2.0) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_two);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 2.1
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 2.5) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_three);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 2.6
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 3.0) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_three);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 3.1
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 3.5) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_four);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 3.5
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 4.0) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_four);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 4.1
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 4.5) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_five);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 4.5
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 5.0) {
+
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_five);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) == 5.0) {
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_five);
+                }
+
+
+            } else {
+                ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+            }
+
+
+         /*   tv_lable = (TextView) itemView.findViewById(R.id.tv_lable);
+            tv_enrolled = (TextView) itemView.findViewById(R.id.tv_enrolled);
+            tv_rating_number = (TextView) itemView.findViewById(R.id.tv_rating_number);
+            tv_rating_count = (TextView) itemView.findViewById(R.id.tv_rating_count);
+            iv_rating = (ImageView) itemView.findViewById(R.id.iv_rating);*/
+
+
+            if (!mList.get(position).getRatingaverage().equalsIgnoreCase("")) {
+                ((HomeViewHolder) viewHolder).tv_rating_number.setText("" + mList.get(position).getRatingaverage());
+            } else {
+                ((HomeViewHolder) viewHolder).tv_rating_number.setText("0");
+            }
+
+
+            if (mList.get(position).getRatingcount() != 0) {
+                ((HomeViewHolder) viewHolder).tv_rating_count.setText("" + "(" + mList.get(position).getRatingcount() + ")");
+            } else {
+                ((HomeViewHolder) viewHolder).tv_rating_count.setText("(0)");
+            }
+
+
+            if (mList.get(position).getEnrolled() != 0) {
+                ((HomeViewHolder) viewHolder).tv_enrolled.setVisibility(View.VISIBLE);
+                ((HomeViewHolder) viewHolder).tv_enrolled.setText("" + mList.get(position).getEnrolled() + " " +
+                        "Enrolled");
+            } else {
+                ((HomeViewHolder) viewHolder).tv_enrolled.setVisibility(View.INVISIBLE);
+            }
+
+
+            if (!mList.get(position).getWebinarlable().equalsIgnoreCase("")) {
+                ((HomeViewHolder) viewHolder).tv_lable.setVisibility(View.VISIBLE);
+                ((HomeViewHolder) viewHolder).tv_lable.setText(mList.get(position).getWebinarlable());
+            } else {
+                ((HomeViewHolder) viewHolder).tv_lable.setVisibility(View.INVISIBLE);
+            }
+
+
             if (!mList.get(position).getStatus().equalsIgnoreCase("")) {
 
                 if (mList.get(position).getStatus().equalsIgnoreCase(mContext
@@ -169,9 +261,6 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                 ((HomeViewHolder) viewHolder).dv_divider.setVisibility(View.INVISIBLE);
                 ((HomeViewHolder) viewHolder).tv_timezone.setVisibility(View.GONE);
             }
-
-
-
 
 
             if (mList.get(position).getPeopleRegisterWebinar() == 0) {
@@ -482,10 +571,11 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
     public static class HomeViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_webinar_date, tv_webinar_time,
-                tv_favorite_count, tv_attend_views, tv_favorite_speaker_name, tv_company_name, tv_timezone;
-        ImageView ivwebinar_thumbhel, ivshare;
+                tv_favorite_count, tv_attend_views, tv_favorite_speaker_name, tv_company_name, tv_timezone, tv_lable, tv_enrolled,
+                tv_rating_number, tv_rating_count;
+        ImageView ivwebinar_thumbhel, ivshare, iv_rating;
 
-        View  dv_divider;
+        View dv_divider;
         Button credit_status, webinar_status, tv_webinar_type, tv_webinar_price_status;
         ImageView ivfavorite;
         RelativeLayout rel_item;
@@ -496,9 +586,15 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
             dv_divider = (View) itemView.findViewById(R.id.dv_divider);
 
+
+            tv_lable = (TextView) itemView.findViewById(R.id.tv_lable);
+            tv_enrolled = (TextView) itemView.findViewById(R.id.tv_enrolled);
+            tv_rating_number = (TextView) itemView.findViewById(R.id.tv_rating_number);
+            tv_rating_count = (TextView) itemView.findViewById(R.id.tv_rating_count);
+            iv_rating = (ImageView) itemView.findViewById(R.id.iv_rating);
+
+
             ivfavorite = (ImageView) itemView.findViewById(R.id.ivfavorite);
-
-
             credit_status = (Button) itemView.findViewById(R.id.credit_status);
             webinar_status = (Button) itemView.findViewById(R.id.webinar_status);
             ivwebinar_thumbhel = (ImageView) itemView.findViewById(R.id.ivwebinar_thumbhel);

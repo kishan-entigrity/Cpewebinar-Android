@@ -30,6 +30,19 @@
                 android:src="@mipmap/login_logo" />
 
 
+            <com.entigrity.view.CustomTextView
+                android:id="@+id/str_lable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:text="1/2"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_15sdp"
+                app:font_text="SFUIDisplay-Bold.ttf" />
+
+
         </RelativeLayout>
 
         <FrameLayout
@@ -54,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/str_signup"
+                    android:text="@string/str_create_account"
                     android:textColor="@color/sign_up_heading"
                     android:textSize="@dimen/_18sdp"
                     app:font_text="SFUIDisplay-Bold.ttf" />
@@ -142,7 +155,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/str_phone_number"
-                            android:imeOptions="actionDone"
+                            android:imeOptions="actionNext"
                             android:inputType="phone"
                             android:maxLength="14"
                             android:singleLine="true"
@@ -187,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:drawableRight="@mipmap/password_eys"
                             android:hint="@string/str_confirm_password"
-                            android:imeOptions="actionNext"
+                            android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             android:singleLine="true"
                             android:textColorHint="@color/edit_field_hint"
@@ -301,9 +314,6 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginRight="@dimen/_3sdp"
                         android:background="@color/view_edit_profile" />
-
-
-
 
 
                     <com.entigrity.view.CustomButtonView

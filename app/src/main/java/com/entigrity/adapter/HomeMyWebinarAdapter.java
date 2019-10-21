@@ -111,6 +111,88 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                 ((MyWebinarHolder) viewHolder).webinar_status.setText(mList.get(position).getStatus());
             }
 
+            if (mList.get(position).getRatingcount() != 0) {
+                ((MyWebinarHolder) viewHolder).tv_rating_count.setText("" + "(" + mList.get(position).getRatingcount() + ")");
+            } else {
+                ((MyWebinarHolder) viewHolder).tv_rating_count.setText("(0)");
+            }
+
+
+
+            if (!mList.get(position).getRatingaverage().equalsIgnoreCase("")) {
+                ((MyWebinarHolder) viewHolder).tv_rating_number.setText("" + mList.get(position).getRatingaverage());
+            } else {
+                ((MyWebinarHolder) viewHolder).tv_rating_number.setText("0");
+            }
+
+            if (!mList.get(position).getWebinarlable().equalsIgnoreCase("")) {
+                ((MyWebinarHolder) viewHolder).tv_lable.setVisibility(View.VISIBLE);
+                ((MyWebinarHolder) viewHolder).tv_lable.setText(mList.get(position).getWebinarlable());
+            } else {
+                ((MyWebinarHolder) viewHolder).tv_lable.setVisibility(View.INVISIBLE);
+            }
+
+            if (mList.get(position).getEnrolled() != 0) {
+                ((MyWebinarHolder) viewHolder).tv_enrolled.setVisibility(View.VISIBLE);
+                ((MyWebinarHolder) viewHolder).tv_enrolled.setText("" + mList.get(position).getEnrolled() + " " +
+                        "Enrolled");
+            } else {
+                ((MyWebinarHolder) viewHolder).tv_enrolled.setVisibility(View.INVISIBLE);
+            }
+
+
+            if (!mList.get(position).getRatingaverage().equalsIgnoreCase("")) {
+
+
+                if (Float.parseFloat(mList.get(position).getRatingaverage()) == 0.0) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 0.5
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 1.0) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_one);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 1.0
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 1.5) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_two);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 1.6
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 2.0) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_two);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 2.1
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 2.5) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_three);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 2.6
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 3.0) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_three);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 3.1
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 3.5) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_four);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 3.5
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 4.0) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_four);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 4.1
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 4.5) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_five);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 4.5
+                        && Float.parseFloat(mList.get(position).getRatingaverage()) < 5.0) {
+
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_five);
+                } else if (Float.parseFloat(mList.get(position).getRatingaverage()) == 5.0) {
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_five);
+                }
+
+
+            } else {
+                ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+            }
+
 
             if (!mList.get(position).getFee().equalsIgnoreCase("")) {
                 ((MyWebinarHolder) viewHolder).tv_webinar_price_status.setText("$" + mList.get(position).getFee());
@@ -425,8 +507,9 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
     public static class MyWebinarHolder extends RecyclerView.ViewHolder {
 
         TextView tv_webinar_date, tv_webinar_time,
-                tv_favorite_count, tv_attend_views, tv_favorite_speaker_name, tv_company_name, tv_timezone;
-        ImageView ivwebinar_thumbhel, ivshare;
+                tv_favorite_count, tv_attend_views, tv_favorite_speaker_name, tv_company_name, tv_timezone, tv_lable, tv_enrolled,
+                tv_rating_number, tv_rating_count;
+        ImageView ivwebinar_thumbhel, ivshare, iv_rating;
         Button credit_status, webinar_status, tv_webinar_type, tv_webinar_price_status;
         ImageView ivfavorite;
         View dv_divider;
@@ -435,6 +518,13 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
 
         private MyWebinarHolder(View itemView) {
             super(itemView);
+
+            iv_rating = (ImageView) itemView.findViewById(R.id.iv_rating);
+
+            tv_lable = (TextView) itemView.findViewById(R.id.tv_lable);
+            tv_enrolled = (TextView) itemView.findViewById(R.id.tv_enrolled);
+            tv_rating_number = (TextView) itemView.findViewById(R.id.tv_rating_number);
+            tv_rating_count = (TextView) itemView.findViewById(R.id.tv_rating_count);
 
             ivfavorite = (ImageView) itemView.findViewById(R.id.ivfavorite);
             credit_status = (Button) itemView.findViewById(R.id.credit_status);

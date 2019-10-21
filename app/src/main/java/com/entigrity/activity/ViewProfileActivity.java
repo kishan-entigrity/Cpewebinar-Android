@@ -13,6 +13,7 @@ import android.view.View;
 import com.entigrity.R;
 import com.entigrity.databinding.ActivityViewProfileBinding;
 import com.entigrity.model.view_topics_of_interest.TopicOfInterestsItem;
+import com.entigrity.model.viewprofile_proffesional_credential.modelViewProfileProfesional;
 import com.entigrity.utility.Constant;
 
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class ViewProfileActivity extends AppCompatActivity {
     private int job_title_pos = 0;
     private int industry_pos = 0;
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
+    public ArrayList<modelViewProfileProfesional> professionalcredential = new
+            ArrayList<>();
     private ArrayList<String> arraylistsubcategory = new ArrayList<>();
     public int subcategoryremains = 0;
     public String subcategory = "";
@@ -55,7 +58,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             firmname = intent.getStringExtra(getResources().getString(R.string.pass_firm_name));
             country = intent.getStringExtra(getResources().getString(R.string.pass_country_text));
             mobilenumber = intent.getStringExtra(getResources().getString(R.string.pass_mobile_number));
-            whoyouarevalue = intent.getStringExtra(getResources().getString(R.string.pass_who_you_are_text));
+
             state = intent.getStringExtra(getResources().getString(R.string.pass_state_text));
             city = intent.getStringExtra(getResources().getString(R.string.pass_city_text));
             zipcode = intent.getStringExtra(getResources().getString(R.string.pass_zipcode));
@@ -63,7 +66,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             country_pos = intent.getIntExtra(getResources().getString(R.string.pass_country), 0);
             state_pos = intent.getIntExtra(getResources().getString(R.string.pass_state), 0);
             city_pos = intent.getIntExtra(getResources().getString(R.string.pass_city), 0);
-            who_you_are_pos = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are), 0);
+            /*who_you_are_pos = intent.getIntExtra(getResources().getString(R.string.pass_who_you_are), 0);*/
             job_title_pos = intent.getIntExtra(getResources().getString(R.string.pass_job_title), 0);
             industry_pos = intent.getIntExtra(getResources().getString(R.string.pass_industry), 0);
             job_titile = intent.getStringExtra(getResources().getString(R.string.pass_job_title_text));
@@ -71,7 +74,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
 
             topicsofinterestitem = intent.getParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest));
-
+            professionalcredential = intent.getParcelableArrayListExtra(getResources().getString(R.string.pass_who_you_are_text));
 
             if (topicsofinterestitem.size() > 0) {
                 for (int i = 0; i < topicsofinterestitem.size(); i++) {
@@ -222,8 +225,8 @@ public class ViewProfileActivity extends AppCompatActivity {
         }
 
 
-        if (!whoyouarevalue.equalsIgnoreCase("") && whoyouarevalue != null) {
-            binding.tvWhoYouAre.setText("" + whoyouarevalue);
+        if (professionalcredential.size() > 0) {
+            binding.tvWhoYouAre.setText("" + professionalcredential.get(0).getName());
         }
 
 
@@ -250,7 +253,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         i.putExtra(getResources().getString(R.string.pass_state_text), state);
         i.putExtra(getResources().getString(R.string.pass_city_text), city);
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
-        i.putExtra(getResources().getString(R.string.pass_who_you_are), who_you_are_pos);
+        i.putExtra(getResources().getString(R.string.pass_who_you_are), professionalcredential.get(0).getId());
         i.putStringArrayListExtra(getResources().getString(R.string.pass_selected_list), arraylistsubcategory);
         startActivity(i);
         finish();

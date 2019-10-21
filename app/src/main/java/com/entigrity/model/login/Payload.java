@@ -4,264 +4,348 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Payload {
+public class Payload{
 
-    @SerializedName("country")
-    private String country;
+	@SerializedName("country")
+	private String country;
 
-    @SerializedName("city")
-    private String city;
+	@SerializedName("industry_id")
+	private int industryId;
 
-    @SerializedName("last_name")
-    private String lastName;
+	@SerializedName("education")
+	private List<EducationItem> education;
 
-    @SerializedName("profile_picture")
-    private String profilePicture;
+	@SerializedName("city")
+	private String city;
 
-    @SerializedName("ptin_number")
-    private String ptinNumber;
+	@SerializedName("jobtitle_name")
+	private String jobtitleName;
 
-    @SerializedName("tags")
-    private List<TagsItem> tags;
+	@SerializedName("user_type")
+	private List<UserTypeItem> userType;
 
-    @SerializedName("token")
-    private String token;
+	@SerializedName("contact_no")
+	private String contactNo;
 
-    @SerializedName("zipcode")
-    private String zipcode;
+	@SerializedName("jobtitle_id")
+	private int jobtitleId;
 
-    @SerializedName("user_type")
-    private String userType;
+	@SerializedName("user_type_id")
+	private String userTypeId;
 
-    @SerializedName("contact_no")
-    private String contactNo;
+	@SerializedName("id")
+	private int id;
 
-    @SerializedName("firm_name")
-    private String firmName;
+	@SerializedName("state_id")
+	private int stateId;
 
-    @SerializedName("user_type_id")
-    private String userTypeId;
+	@SerializedName("state")
+	private String state;
 
-    @SerializedName("id")
-    private int id;
+	@SerializedName("credit")
+	private int credit;
 
-    @SerializedName("state_id")
-    private String stateId;
+	@SerializedName("first_name")
+	private String firstName;
 
-    @SerializedName("designation")
-    private String designation;
+	@SerializedName("email")
+	private String email;
 
-    @SerializedName("state")
-    private String state;
+	@SerializedName("industry_name")
+	private String industryName;
 
-    @SerializedName("credit")
-    private String credit;
+	@SerializedName("last_name")
+	private String lastName;
 
-    @SerializedName("first_name")
-    private String firstName;
+	@SerializedName("profile_picture")
+	private String profilePicture;
 
-    @SerializedName("email")
-    private String email;
+	@SerializedName("education_ids")
+	private String educationIds;
 
-    @SerializedName("country_id")
-    private String countryId;
+	@SerializedName("ptin_number")
+	private String ptinNumber;
 
-    @SerializedName("city_id")
-    private String cityId;
+	@SerializedName("tags")
+	private List<Object> tags;
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+	@SerializedName("token")
+	private String token;
 
-    public String getCountry() {
-        return country;
-    }
+	@SerializedName("zipcode")
+	private String zipcode;
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	@SerializedName("company_name")
+	private String companyName;
 
-    public String getCity() {
-        return city;
-    }
+	@SerializedName("firm_name")
+	private String firmName;
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	@SerializedName("designation")
+	private String designation;
 
-    public String getLastName() {
-        return lastName;
-    }
+	@SerializedName("country_id")
+	private int countryId;
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
+	@SerializedName("city_id")
+	private int cityId;
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
+	public void setCountry(String country){
+		this.country = country;
+	}
 
-    public void setPtinNumber(String ptinNumber) {
-        this.ptinNumber = ptinNumber;
-    }
+	public String getCountry(){
+		return country;
+	}
 
-    public String getPtinNumber() {
-        return ptinNumber;
-    }
+	public void setIndustryId(int industryId){
+		this.industryId = industryId;
+	}
 
-    public void setTags(List<TagsItem> tags) {
-        this.tags = tags;
-    }
-
-    public List<TagsItem> getTags() {
-        return tags;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
-    }
-
-    public String getContactNo() {
-        return contactNo;
-    }
-
-    public void setFirmName(String firmName) {
-        this.firmName = firmName;
-    }
-
-    public String getFirmName() {
-        return firmName;
-    }
-
-    public void setUserTypeId(String userTypeId) {
-        this.userTypeId = userTypeId;
-    }
-
-    public String getUserTypeId() {
-        return userTypeId;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setStateId(String stateId) {
-        this.stateId = stateId;
-    }
-
-    public String getStateId() {
-        return stateId;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setCredit(String credit) {
-        this.credit = credit;
-    }
-
-    public String getCredit() {
-        return credit;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
-    }
-
-    public String getCountryId() {
-        return countryId;
-    }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getCityId() {
-        return cityId;
-    }
-
-    @Override
-    public String toString() {
-        return
-                "Payload{" +
-                        "country = '" + country + '\'' +
-                        ",city = '" + city + '\'' +
-                        ",last_name = '" + lastName + '\'' +
-                        ",profile_picture = '" + profilePicture + '\'' +
-                        ",ptin_number = '" + ptinNumber + '\'' +
-                        ",tags = '" + tags + '\'' +
-                        ",token = '" + token + '\'' +
-                        ",zipcode = '" + zipcode + '\'' +
-                        ",user_type = '" + userType + '\'' +
-                        ",contact_no = '" + contactNo + '\'' +
-                        ",firm_name = '" + firmName + '\'' +
-                        ",user_type_id = '" + userTypeId + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",state_id = '" + stateId + '\'' +
-                        ",designation = '" + designation + '\'' +
-                        ",state = '" + state + '\'' +
-                        ",credit = '" + credit + '\'' +
-                        ",first_name = '" + firstName + '\'' +
-                        ",email = '" + email + '\'' +
-                        ",country_id = '" + countryId + '\'' +
-                        ",city_id = '" + cityId + '\'' +
-                        "}";
-    }
+	public int getIndustryId(){
+		return industryId;
+	}
+
+	public void setEducation(List<EducationItem> education){
+		this.education = education;
+	}
+
+	public List<EducationItem> getEducation(){
+		return education;
+	}
+
+	public void setCity(String city){
+		this.city = city;
+	}
+
+	public String getCity(){
+		return city;
+	}
+
+	public void setJobtitleName(String jobtitleName){
+		this.jobtitleName = jobtitleName;
+	}
+
+	public String getJobtitleName(){
+		return jobtitleName;
+	}
+
+	public void setUserType(List<UserTypeItem> userType){
+		this.userType = userType;
+	}
+
+	public List<UserTypeItem> getUserType(){
+		return userType;
+	}
+
+	public void setContactNo(String contactNo){
+		this.contactNo = contactNo;
+	}
+
+	public String getContactNo(){
+		return contactNo;
+	}
+
+	public void setJobtitleId(int jobtitleId){
+		this.jobtitleId = jobtitleId;
+	}
+
+	public int getJobtitleId(){
+		return jobtitleId;
+	}
+
+	public void setUserTypeId(String userTypeId){
+		this.userTypeId = userTypeId;
+	}
+
+	public String getUserTypeId(){
+		return userTypeId;
+	}
+
+	public void setId(int id){
+		this.id = id;
+	}
+
+	public int getId(){
+		return id;
+	}
+
+	public void setStateId(int stateId){
+		this.stateId = stateId;
+	}
+
+	public int getStateId(){
+		return stateId;
+	}
+
+	public void setState(String state){
+		this.state = state;
+	}
+
+	public String getState(){
+		return state;
+	}
+
+	public void setCredit(int credit){
+		this.credit = credit;
+	}
+
+	public int getCredit(){
+		return credit;
+	}
+
+	public void setFirstName(String firstName){
+		this.firstName = firstName;
+	}
+
+	public String getFirstName(){
+		return firstName;
+	}
+
+	public void setEmail(String email){
+		this.email = email;
+	}
+
+	public String getEmail(){
+		return email;
+	}
+
+	public void setIndustryName(String industryName){
+		this.industryName = industryName;
+	}
+
+	public String getIndustryName(){
+		return industryName;
+	}
+
+	public void setLastName(String lastName){
+		this.lastName = lastName;
+	}
+
+	public String getLastName(){
+		return lastName;
+	}
+
+	public void setProfilePicture(String profilePicture){
+		this.profilePicture = profilePicture;
+	}
+
+	public String getProfilePicture(){
+		return profilePicture;
+	}
+
+	public void setEducationIds(String educationIds){
+		this.educationIds = educationIds;
+	}
+
+	public String getEducationIds(){
+		return educationIds;
+	}
+
+	public void setPtinNumber(String ptinNumber){
+		this.ptinNumber = ptinNumber;
+	}
+
+	public String getPtinNumber(){
+		return ptinNumber;
+	}
+
+	public void setTags(List<Object> tags){
+		this.tags = tags;
+	}
+
+	public List<Object> getTags(){
+		return tags;
+	}
+
+	public void setToken(String token){
+		this.token = token;
+	}
+
+	public String getToken(){
+		return token;
+	}
+
+	public void setZipcode(String zipcode){
+		this.zipcode = zipcode;
+	}
+
+	public String getZipcode(){
+		return zipcode;
+	}
+
+	public void setCompanyName(String companyName){
+		this.companyName = companyName;
+	}
+
+	public String getCompanyName(){
+		return companyName;
+	}
+
+	public void setFirmName(String firmName){
+		this.firmName = firmName;
+	}
+
+	public String getFirmName(){
+		return firmName;
+	}
+
+	public void setDesignation(String designation){
+		this.designation = designation;
+	}
+
+	public String getDesignation(){
+		return designation;
+	}
+
+	public void setCountryId(int countryId){
+		this.countryId = countryId;
+	}
+
+	public int getCountryId(){
+		return countryId;
+	}
+
+	public void setCityId(int cityId){
+		this.cityId = cityId;
+	}
+
+	public int getCityId(){
+		return cityId;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"Payload{" + 
+			"country = '" + country + '\'' + 
+			",industry_id = '" + industryId + '\'' + 
+			",education = '" + education + '\'' + 
+			",city = '" + city + '\'' + 
+			",jobtitle_name = '" + jobtitleName + '\'' + 
+			",user_type = '" + userType + '\'' + 
+			",contact_no = '" + contactNo + '\'' + 
+			",jobtitle_id = '" + jobtitleId + '\'' + 
+			",user_type_id = '" + userTypeId + '\'' + 
+			",id = '" + id + '\'' + 
+			",state_id = '" + stateId + '\'' + 
+			",state = '" + state + '\'' + 
+			",credit = '" + credit + '\'' + 
+			",first_name = '" + firstName + '\'' + 
+			",email = '" + email + '\'' + 
+			",industry_name = '" + industryName + '\'' + 
+			",last_name = '" + lastName + '\'' + 
+			",profile_picture = '" + profilePicture + '\'' + 
+			",education_ids = '" + educationIds + '\'' + 
+			",ptin_number = '" + ptinNumber + '\'' + 
+			",tags = '" + tags + '\'' + 
+			",token = '" + token + '\'' + 
+			",zipcode = '" + zipcode + '\'' + 
+			",company_name = '" + companyName + '\'' + 
+			",firm_name = '" + firmName + '\'' + 
+			",designation = '" + designation + '\'' + 
+			",country_id = '" + countryId + '\'' + 
+			",city_id = '" + cityId + '\'' + 
+			"}";
+		}
 }

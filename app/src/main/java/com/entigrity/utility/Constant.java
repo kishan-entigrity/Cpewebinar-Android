@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +32,21 @@ public class Constant {
     public static String failure_message = "";
     public static int status_code = 0;
     public static ArrayList<Integer> arraylistselectedvalue = new ArrayList<Integer>();
+
+
+
+    //for sign up proffesional credential
+    public static ArrayList<Integer> arraylistselectedproffesionalcredentialID = new ArrayList<>();
+    public static ArrayList<String> arraylistselectedproffesionalcredential = new ArrayList<String>();
+    public static HashMap<String, Boolean> hashmap_professional_credential = new HashMap<String, Boolean>();
+
+
+    //for sign up additional qualification
+    public static ArrayList<Integer> arraylistselectedadditionalqualificationID = new ArrayList<>();
+    public static ArrayList<String> arraylistselectedadditionalqualification = new ArrayList<String>();
+    public static HashMap<String, Boolean> hashmap_additional_qualification = new HashMap<String, Boolean>();
+
+
     public static ArrayList<Integer> arraylistselectedtopicsofinterest = new ArrayList<Integer>();
     public static boolean checkmywebinardotstatusset = false;
     public static boolean isdataupdate = false;
@@ -39,6 +55,8 @@ public class Constant {
 
     public static ArrayList<String> arraylistselectedanswerfinal = new ArrayList<String>();
     public static ArrayList<Integer> arraylistselectedquestionfinal = new ArrayList<Integer>();
+
+
 
 
     public static boolean isNetworkAvailable(Context con) {

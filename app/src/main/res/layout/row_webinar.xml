@@ -324,7 +324,6 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/_5sdp"
                             android:layout_toLeftOf="@+id/iv_rating"
-                            android:text="4.8"
                             android:textColor="@color/webinar_status"
                             android:textSize="@dimen/_8sdp"
                             app:font_text="Montserrat-Bold.ttf" />
@@ -337,7 +336,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/_5sdp"
                             android:layout_toLeftOf="@+id/tv_rating_count"
-                            android:src="@mipmap/orange_star_five"
+                            android:src="@mipmap/orange_star_line"
 
                             />
 
@@ -348,7 +347,6 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:text="(38)"
                             android:textColor="@color/home_tab_color_unselected"
                             android:textSize="@dimen/_8sdp"
                             app:font_text="Montserrat-Bold.ttf"
@@ -378,8 +376,6 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_toRightOf="@+id/iv_company"
-                            android:ellipsize="end"
-                            android:ems="11"
                             android:inputType="textMultiLine"
                             android:textColor="@color/home_tab_color_unselected"
                             android:textSize="@dimen/_10sdp"
@@ -466,7 +462,6 @@
                             android:ellipsize="end"
                             android:ems="11"
                             android:inputType="textMultiLine"
-                            android:text="advance learning"
                             android:textAllCaps="true"
                             android:textColor="@android:color/holo_red_dark"
                             android:textSize="@dimen/_10sdp"
@@ -479,13 +474,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:text="19 Enrolled"
                             android:textColor="@color/home_tab_color_unselected"
                             android:textSize="@dimen/_10sdp"
-                            app:font_text="Montserrat-Bold.ttf"
-
-
-                            />
+                            app:font_text="Montserrat-Bold.ttf" />
 
                     </RelativeLayout>
 

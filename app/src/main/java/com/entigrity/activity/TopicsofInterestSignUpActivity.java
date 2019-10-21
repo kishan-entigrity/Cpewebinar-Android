@@ -16,14 +16,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.entigrity.MainActivity;
 import com.entigrity.R;
 import com.entigrity.adapter.SignUpInterestAdapter;
-import com.entigrity.model.registration.RegistrationModel;
 import com.entigrity.model.topicsofinterestn.TagsItem;
 import com.entigrity.model.topicsofinterestn.TopicOfInterestsItem;
 import com.entigrity.model.topicsofinterestn.Topicsofinterest;
-import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
 import com.entigrity.view.SimpleDividerItemDecoration;
@@ -123,8 +120,8 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
                             progressDialog = DialogsUtils.showProgressDialog(context, getResources().getString(R.string.progrees_msg));
 
-                            RegisterPost(fname, lname, email, password, confirm_password, firmname, mobilenumber,
-                                    topicsofinterest, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);
+                       /*     RegisterPost(fname, lname, email, password, confirm_password, firmname, mobilenumber,
+                                    topicsofinterest, user_type, AppSettings.get_device_id(context), AppSettings.get_device_token(context), Constant.device_type);*/
                         } else {
                             Snackbar.make(tv_submit, getResources().getString(R.string.please_check_internet_condition), Snackbar.LENGTH_SHORT).show();
 
@@ -181,7 +178,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
 
     }
 
-    public void RegisterPost(String first_name, String last_name, String email, String password, String confirm_password,
+   /* public void RegisterPost(String first_name, String last_name, String email, String password, String confirm_password,
                              String firm_name, String contact_no, String tags, int user_type,
                              String device_id, String device_token, String device_type
     ) {
@@ -242,7 +239,7 @@ public class TopicsofInterestSignUpActivity extends AppCompatActivity {
                     }
                 });
 
-    }
+    }*/
 
 
     private void init() {

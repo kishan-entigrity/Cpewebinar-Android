@@ -3,6 +3,7 @@ package com.entigrity.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.NotificationActivity;
 import com.entigrity.adapter.HomeALLAdapter;
 import com.entigrity.databinding.FragmentAllBinding;
 import com.entigrity.model.homewebinarnew.Webinar_Home_New;
@@ -91,6 +93,21 @@ public class HomeAllFragment extends Fragment {
 
         }
 
+        binding.ivnotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!AppSettings.get_login_token(context).isEmpty()) {
+                    Intent i = new Intent(getActivity(), NotificationActivity.class);
+                    startActivity(i);
+
+                } else {
+                    MainActivity.getInstance().ShowPopUp();
+                }
+
+
+            }
+        });
+
 
         binding.rvhome.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -107,6 +124,39 @@ public class HomeAllFragment extends Fragment {
                 }
 
 
+            }
+        });
+
+
+        binding.rvhome.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0 || dy < 0 && MainActivity.getInstance().rel_top_bottom.isShown()) {
+                    getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.GONE);
+
+                  /*  Animation bottomDown = AnimationUtils.loadAnimation(getContext(),
+                            R.anim.bottom_down);
+                    MainActivity.getInstance().rel_top_bottom.startAnimation(bottomDown);
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.GONE);*/
+
+
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    getActivity().overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_top);
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
+
+                   /* Animation bottomUp = AnimationUtils.loadAnimation(getContext(),
+                            R.anim.bottom_up);
+                    MainActivity.getInstance().rel_top_bottom.startAnimation(bottomUp);
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);*/
+                }
+
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
 

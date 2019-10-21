@@ -43,6 +43,7 @@ import com.entigrity.model.postfeedback.PostFeedback;
 import com.entigrity.model.view_topics_of_interest.TopicOfInterestsItem;
 import com.entigrity.model.view_topics_of_interest.View_Topics_Interest_Model;
 import com.entigrity.model.viewprofile.ViewProfileModel;
+import com.entigrity.model.viewprofile_proffesional_credential.modelViewProfileProfesional;
 import com.entigrity.utility.AppSettings;
 import com.entigrity.utility.Constant;
 import com.entigrity.view.DialogsUtils;
@@ -51,6 +52,7 @@ import com.entigrity.webservice.ApiUtilsNew;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -70,7 +72,8 @@ public class AccountFragment extends Fragment {
     public String firstname = "", lastname = "", email = "", firmname = "", mobilenumber = "", zipcode = "", country = "", ptin_number = "";
     public int country_id = 0, state_id = 0, city_id = 0, jobtitle_id = 0, industry_id = 0;
     public String job_titile = "", industry = "";
-    public String whoyouarevalue = "";
+    public ArrayList<modelViewProfileProfesional> professionalcredential = new
+            ArrayList<>();
     public int whoyouare = 0;
     public String state = "", city = "";
     private ArrayList<TopicOfInterestsItem> topicsofinterestitem = new ArrayList<TopicOfInterestsItem>();
@@ -276,23 +279,23 @@ public class AccountFragment extends Fragment {
                             }
 
 
-                            if (viewProfileModel.getPayload().getData().getJobTitle() != null
-                                    && !viewProfileModel.getPayload().getData().getJobTitle().equalsIgnoreCase("")) {
+                            if (viewProfileModel.getPayload().getData().getJobtitleName() != null
+                                    && !viewProfileModel.getPayload().getData().getJobtitleName().equalsIgnoreCase("")) {
 
                                 jobtitle_id = viewProfileModel.getPayload().getData().getJobtitleId();
-                                job_titile = viewProfileModel.getPayload().getData().getJobTitle();
+                                job_titile = viewProfileModel.getPayload().getData().getJobtitleName();
                             }
 
-                            if (viewProfileModel.getPayload().getData().getIndustry() != null
-                                    && !viewProfileModel.getPayload().getData().getIndustry().equalsIgnoreCase("")) {
+                            if (viewProfileModel.getPayload().getData().getIndustryName() != null
+                                    && !viewProfileModel.getPayload().getData().getIndustryName().equalsIgnoreCase("")) {
                                 industry_id = viewProfileModel.getPayload().getData().getIndustryId();
-                                industry = viewProfileModel.getPayload().getData().getIndustry();
+                                industry = viewProfileModel.getPayload().getData().getIndustryName();
                             }
 
 
                             if (viewProfileModel.getPayload().getData().getCountry() != null
                                     && !viewProfileModel.getPayload().getData().getCountry().equalsIgnoreCase("")) {
-                                country_id = Integer.parseInt(viewProfileModel.getPayload().getData().getCountryId());
+                                country_id = viewProfileModel.getPayload().getData().getCountryId();
                                 country = viewProfileModel.getPayload().getData().getCountry();
                             }
                             if (viewProfileModel.getPayload().getData().getState() != null
@@ -314,10 +317,27 @@ public class AccountFragment extends Fragment {
                             }
 
 
-                            if (viewProfileModel.getPayload().getData().getUserType() != null
-                                    && !viewProfileModel.getPayload().getData().getUserType().equalsIgnoreCase("")) {
-                                whoyouare = Integer.parseInt(viewProfileModel.getPayload().getData().getUserTypeId());
-                                whoyouarevalue = viewProfileModel.getPayload().getData().getUserType();
+                            if (viewProfileModel.getPayload().getData().getUserType() != null) {
+                                //whoyouare = Integer.parseInt(viewProfileModel.getPayload().getData().getUserTypeId());
+
+
+                                for (int i = 0; i < viewProfileModel.getPayload().getData().getUserType().size(); i++) {
+                                    modelViewProfileProfesional modelViewProfileProfesionalcredential = new
+                                            modelViewProfileProfesional(
+                                            viewProfileModel.getPayload().getData().getUserType().get(i).getName(),
+                                            viewProfileModel.getPayload().getData().getUserType().get(i).getId());
+
+
+                                    modelViewProfileProfesionalcredential.setId(
+                                            viewProfileModel.getPayload().getData().getUserType().get(i).getId());
+
+                                    modelViewProfileProfesionalcredential.setName(
+                                            viewProfileModel.getPayload().getData().getUserType().get(i).getName());
+
+                                    professionalcredential.add(modelViewProfileProfesionalcredential);
+
+
+                                }
 
 
                             }
@@ -568,8 +588,8 @@ public class AccountFragment extends Fragment {
         i.putExtra(getResources().getString(R.string.pass_state_text), state);
         i.putExtra(getResources().getString(R.string.pass_city_text), city);
         i.putExtra(getResources().getString(R.string.pass_zipcode), zipcode);
-        i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);
-        i.putExtra(getResources().getString(R.string.pass_who_you_are_text), whoyouarevalue);
+        /*i.putExtra(getResources().getString(R.string.pass_who_you_are), whoyouare);*/
+        i.putParcelableArrayListExtra(getResources().getString(R.string.pass_who_you_are_text), professionalcredential);
         i.putParcelableArrayListExtra(getResources().getString(R.string.pass_view_topics_of_interest), topicsofinterestitem);
         startActivity(i);
     }

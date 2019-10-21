@@ -3,13 +3,21 @@ package com.entigrity.model.login;
 import com.google.gson.annotations.SerializedName;
 
 
-public class TagsItem{
+public class EducationItem{
+
+	@SerializedName("name")
+	private String name;
 
 	@SerializedName("id")
 	private int id;
 
-	@SerializedName("tag")
-	private String tag;
+	public void setName(String name){
+		this.name = name;
+	}
+
+	public String getName(){
+		return name;
+	}
 
 	public void setId(int id){
 		this.id = id;
@@ -19,20 +27,12 @@ public class TagsItem{
 		return id;
 	}
 
-	public void setTag(String tag){
-		this.tag = tag;
-	}
-
-	public String getTag(){
-		return tag;
-	}
-
 	@Override
  	public String toString(){
 		return 
-			"TagsItem{" + 
-			"id = '" + id + '\'' + 
-			",tag = '" + tag + '\'' + 
+			"EducationItem{" + 
+			"name = '" + name + '\'' + 
+			",id = '" + id + '\'' + 
 			"}";
 		}
 }

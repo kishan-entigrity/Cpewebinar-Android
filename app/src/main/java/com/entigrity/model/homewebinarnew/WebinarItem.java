@@ -5,8 +5,56 @@ import com.google.gson.annotations.SerializedName;
 
 public class WebinarItem {
 
+
+    public String getRatingaverage() {
+        return ratingaverage;
+    }
+
+    public int getEnrolled() {
+        return enrolled;
+    }
+
+    public void setEnrolled(int enrolled) {
+        this.enrolled = enrolled;
+    }
+
+    public void setRatingaverage(String ratingaverage) {
+        this.ratingaverage = ratingaverage;
+    }
+
+
+
     @SerializedName("fav_webinar_count")
     private int favWebinarCount;
+
+    @SerializedName("enrolled")
+    private int enrolled;
+
+    public int getRatingcount() {
+        return ratingcount;
+    }
+
+    public void setRatingcount(int ratingcount) {
+        this.ratingcount = ratingcount;
+    }
+
+    @SerializedName("rating_average")
+    private String ratingaverage;
+
+    @SerializedName("rating_count")
+    private int ratingcount;
+
+    public String getWebinarlable() {
+        return webinarlable;
+    }
+
+    public void setWebinarlable(String webinarlable) {
+        this.webinarlable = webinarlable;
+    }
+
+    @SerializedName("webinar_lable")
+    private String webinarlable;
+
 
     public String getPaymentlink() {
         return paymentlink;
@@ -266,6 +314,10 @@ public class WebinarItem {
         return
                 "WebinarItem{" +
                         "fav_webinar_count = '" + favWebinarCount + '\'' +
+                        "enrolled = '" + enrolled + '\'' +
+                        "webinar_lable = '" + webinarlable + '\'' +
+                        "rating_average = '" + ratingaverage + '\'' +
+                        "rating_count = '" + ratingcount + '\'' +
                         "join_url = '" + joinurl + '\'' +
                         ",speaker_name = '" + speakerName + '\'' +
                         ",certificate_link = '" + certificatelink + '\'' +

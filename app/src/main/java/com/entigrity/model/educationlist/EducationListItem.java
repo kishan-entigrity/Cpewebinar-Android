@@ -1,8 +1,8 @@
-package com.entigrity.model.viewprofile;
+package com.entigrity.model.educationlist;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TagsItem{
+public class EducationListItem{
 
 	@SerializedName("name")
 	private String name;
@@ -29,7 +29,7 @@ public class TagsItem{
 	@Override
  	public String toString(){
 		return 
-			"TagsItem{" + 
+			"EducationListItem{" + 
 			"name = '" + name + '\'' + 
 			",id = '" + id + '\'' + 
 			"}";

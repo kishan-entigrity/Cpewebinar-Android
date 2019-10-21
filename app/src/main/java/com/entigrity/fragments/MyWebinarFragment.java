@@ -3,6 +3,7 @@ package com.entigrity.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 
 import com.entigrity.MainActivity;
 import com.entigrity.R;
+import com.entigrity.activity.NotificationActivity;
 import com.entigrity.adapter.HomeMyWebinarAdapter;
 import com.entigrity.databinding.FragmentMywebinarBinding;
 import com.entigrity.model.homewebinarnew.Webinar_Home_New;
@@ -123,6 +125,22 @@ public class MyWebinarFragment extends Fragment {
         });
 
 
+        binding.ivnotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!AppSettings.get_login_token(context).isEmpty()) {
+                    Intent i = new Intent(getActivity(), NotificationActivity.class);
+                    startActivity(i);
+
+                } else {
+                    MainActivity.getInstance().ShowPopUp();
+                }
+
+
+            }
+        });
+
+
         binding.rvhomewebinar.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -138,6 +156,25 @@ public class MyWebinarFragment extends Fragment {
                 }
 
 
+            }
+        });
+
+
+        binding.rvhomewebinar.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0 || dy < 0 && MainActivity.getInstance().rel_top_bottom.isShown()) {
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
+                }
+
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
 

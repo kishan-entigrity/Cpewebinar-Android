@@ -1,5 +1,6 @@
 package com.entigrity.webservice;
 
+import com.entigrity.model.EmailValidation.emailvalidationmodel;
 import com.entigrity.model.Instructorlist_details.Instructor_Details_Model;
 import com.entigrity.model.Job_title.ModelJobTitle;
 import com.entigrity.model.My_Credit.My_Credit;
@@ -13,6 +14,8 @@ import com.entigrity.model.companyfavorites.Company_Favorite;
 import com.entigrity.model.contactus.ContactUsModel;
 import com.entigrity.model.country.CountryModel;
 import com.entigrity.model.editProfile.EditProfileModel;
+import com.entigrity.model.education_list.educationmodel;
+import com.entigrity.model.educationlist.education_list_Model;
 import com.entigrity.model.evaluation_form.Evalutionformmodel;
 import com.entigrity.model.favorites_count.Favorite_Count_Model;
 import com.entigrity.model.final_Quiz.Final_Quiz;
@@ -59,8 +62,6 @@ import com.entigrity.model.webinar_like.Webinar_Like_Model;
 import com.entigrity.model.webinar_like_dislike.Webinar_Like_Dislike_Model;
 import com.entigrity.model.webinarfavorites.Webinar_Favorite;
 
-import java.util.ArrayList;
-
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -96,10 +97,15 @@ public interface APIService {
 
     //user type
     @GET("user-type")
-    Observable<UserTypeModel> Getusertype(
+    Observable<UserTypeModel> Getproffesionalcredential(
             @Header("Accept") String accept
     );
 
+    //additional qualification
+    @GET("education/list")
+    Observable<education_list_Model> GetAdditionalQualification(
+            @Header("Accept") String accept
+    );
 
     //NA
     //tags
@@ -117,10 +123,18 @@ public interface APIService {
             @Field("email") String email,
             @Field("password") String password,
             @Field("confirm_password") String confirm_password,
+            @Field("country_id") int country_id,
+            @Field("state_id") int state_id,
+            @Field("city_id") int city_id,
             @Field("firm_name") String firm_name,
             @Field("contact_no") String contact_no,
-            @Field("tags") String tags,
-            @Field("user_type_id") int user_type_id,
+            @Field("phone") String phone,
+            @Field("zipcode") String zipcode,
+            @Field("ptin") String ptin,
+            @Field("jobtitle_id") int jobtitle_id,
+            @Field("industry_id") int industry_id,
+            @Field("user_type_id") String user_type_id,
+            @Field("education_ids") String education_ids,
             @Field("device_id") String device_id,
             @Field("device_token") String device_token,
             @Field("device_type") String device_type
@@ -184,6 +198,20 @@ public interface APIService {
     //get country
     @GET("country")
     Observable<CountryModel> GetCountry(@Header("Accept") String accept);
+
+
+    //get education list
+
+    @GET("education/list")
+    Observable<educationmodel> GetEducationList(@Header("Accept") String accept);
+
+
+    //check email validation
+
+
+    @POST("check-email")
+    @FormUrlEncoded
+    Observable<emailvalidationmodel> CheckEmailValidation(@Header("Accept") String accept, @Field("email") String email);
 
 
     //get state
