@@ -391,7 +391,7 @@ public class SignUpActivity extends AppCompatActivity {
                     if (getcityarraylist.get(position).equalsIgnoreCase("City")) {
                         city_id = 0;
                     } else {
-                        city_id = getstatearray.get(position - 1).getId();
+                        city_id = getcityarray.get(position - 1).getId();
 
                         city_id_pos = position;
                     }

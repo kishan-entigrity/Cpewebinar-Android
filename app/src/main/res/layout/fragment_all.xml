@@ -31,12 +31,12 @@
                 android:layout_marginRight="@dimen/_20sdp"
                 android:background="@mipmap/search_box"
                 android:drawableLeft="@mipmap/search_home"
+                android:drawablePadding="@dimen/_5sdp"
                 android:gravity="center|left"
                 android:hint="@string/str_search"
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"
                 android:paddingLeft="@dimen/_10sdp"
-                android:drawablePadding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:textColorHint="@color/home_edit_search"
                 android:textSize="@dimen/_10sdp"
@@ -75,9 +75,9 @@
                     android:layout_height="@dimen/_22sdp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:background="@drawable/chipsetview_filter_home"
+                    android:background="@drawable/chipsetview_filter_home_unselected"
                     android:text="@string/str_topics"
-                    android:textColor="@color/White"
+                    android:textColor="@color/home_tab_color_unselected"
                     android:textSize="@dimen/_7sdp"
                     app:font_edit="SFUIDisplay-Medium.ttf" />
 
@@ -96,16 +96,6 @@
 
 
                 <com.entigrity.view.CustomButtonView
-                    android:id="@+id/btn_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_22sdp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:background="@drawable/chipsetview_filter_home_unselected"
-                    android:text="@string/str_price"
-                    android:textSize="@dimen/_7sdp" />
-
-                <com.entigrity.view.CustomButtonView
                     android:id="@+id/btn_self_study"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_22sdp"
@@ -113,6 +103,27 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:background="@drawable/chipsetview_filter_home_unselected"
                     android:text="@string/str_self_on_demand"
+                    android:textSize="@dimen/_7sdp" />
+
+                <com.entigrity.view.CustomButtonView
+                    android:id="@+id/btn_premium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:background="@drawable/chipsetview_filter_home_unselected"
+                    android:text="@string/str_premium"
+                    android:textSize="@dimen/_7sdp" />
+
+
+                <com.entigrity.view.CustomButtonView
+                    android:id="@+id/btn_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:background="@drawable/chipsetview_filter_home_unselected"
+                    android:text="@string/str_free"
                     android:textSize="@dimen/_7sdp" />
 
                 <com.entigrity.view.CustomButtonView

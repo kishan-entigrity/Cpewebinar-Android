@@ -12,23 +12,21 @@ import android.widget.TextView;
 
 import com.entigrity.R;
 import com.entigrity.model.Proffesional_Credential.Model_proffesional_Credential;
+import com.entigrity.model.subjects_store.Model_Subject_Area;
 import com.entigrity.utility.Constant;
 
 import java.util.ArrayList;
 
-public class ProffesionalCredentialPopUpAdapter extends RecyclerView.Adapter<ProffesionalCredentialPopUpAdapter.ViewHolder> {
+public class TopicsFilterHomePopUpAdapter extends RecyclerView.Adapter<TopicsFilterHomePopUpAdapter.ViewHolder> {
 
     private Context mContext;
-
-    private ArrayList<Model_proffesional_Credential> arraylistModelProffesioanlCredential = new ArrayList<>();
-
-
+    private ArrayList<Model_Subject_Area> arraylistModelSubjectArea = new ArrayList<>();
     LayoutInflater mInflater;
 
 
-    public ProffesionalCredentialPopUpAdapter(Context mContext, ArrayList<Model_proffesional_Credential> mList) {
+    public TopicsFilterHomePopUpAdapter(Context mContext, ArrayList<Model_Subject_Area> mList) {
         this.mContext = mContext;
-        this.arraylistModelProffesioanlCredential = mList;
+        this.arraylistModelSubjectArea = mList;
         mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -43,26 +41,26 @@ public class ProffesionalCredentialPopUpAdapter extends RecyclerView.Adapter<Pro
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
-        final Model_proffesional_Credential model_proffesional_credential = arraylistModelProffesioanlCredential.get(position);
+        final Model_Subject_Area model_subject_area = arraylistModelSubjectArea.get(position);
 
-        if (!model_proffesional_credential.getName().equalsIgnoreCase("")) {
-            viewHolder.tv_professional_credential.setText(model_proffesional_credential.getName());
+        if (!model_subject_area.getName().equalsIgnoreCase("")) {
+            viewHolder.tv_professional_credential.setText(model_subject_area.getName());
         }
 
         viewHolder.cbselection.setEnabled(false);
 
 
-        Boolean isChecked = Constant.hashmap_professional_credential.get(model_proffesional_credential.name);
+        /*Boolean isChecked = Constant.hashmap_professional_credential.get(model_proffesional_credential.name);
 
 
         if (isChecked) {
             viewHolder.cbselection.setChecked(true);
         } else {
             viewHolder.cbselection.setChecked(false);
-        }
+        }*/
 
 
-        if (model_proffesional_credential.isChecked()) {
+        if (model_subject_area.isChecked()) {
             viewHolder.cbselection.setChecked(true);
         } else {
             viewHolder.cbselection.setChecked(false);
@@ -73,7 +71,7 @@ public class ProffesionalCredentialPopUpAdapter extends RecyclerView.Adapter<Pro
             @Override
             public void onClick(View v) {
 
-                if (model_proffesional_credential.isChecked()) {
+               /* if (model_proffesional_credential.isChecked()) {
                     model_proffesional_credential.setChecked(false);
 
                     for (int i = 0; i < arraylistModelProffesioanlCredential.size(); i++) {
@@ -109,7 +107,7 @@ public class ProffesionalCredentialPopUpAdapter extends RecyclerView.Adapter<Pro
                     Constant.hashmap_professional_credential.put(arraylistModelProffesioanlCredential.get(position).name
                             , true);
                     viewHolder.cbselection.setChecked(true);
-                }
+                }*/
 
 
             }
@@ -121,7 +119,7 @@ public class ProffesionalCredentialPopUpAdapter extends RecyclerView.Adapter<Pro
 
     @Override
     public int getItemCount() {
-        return arraylistModelProffesioanlCredential.size();
+        return arraylistModelSubjectArea.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -5,13 +5,14 @@
     android:layout_height="match_parent">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_120sdp"
+        android:layout_height="@dimen/_165sdp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:background="@drawable/guest_user_background"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <com.entigrity.view.CustomTextView
@@ -19,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/str_guest_user_dialog_title"
             android:textColor="@color/feedback_title"
             android:textSize="@dimen/_15sdp"
@@ -29,9 +30,8 @@
             android:id="@+id/popup_detail_lable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:gravity="center"
             android:text="@string/str_guest_user_dialog_msg"
             android:textColor="@color/feedback_title"
@@ -40,11 +40,54 @@
 
 
         <View
-            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_above="@+id/lv_bottom"
-            android:background="@color/guest_button_color"></View>
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="#232323"></View>
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_login_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/str_login_guest"
+            android:textColor="#76B4FB"
+            android:textSize="@dimen/_15sdp"
+            app:font_text="SFUIDisplay-Bold.ttf" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="#232323"></View>
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_create_account_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/str_create_account"
+            android:textColor="#76B4FB"
+            android:textSize="@dimen/_15sdp"
+            app:font_text="SFUIDisplay-Bold.ttf" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="#232323"></View>
+
+        <com.entigrity.view.CustomTextView
+            android:id="@+id/tv_cancel_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/str_cancel_guest"
+            android:textColor="#76B4FB"
+            android:textSize="@dimen/_15sdp"
+            app:font_text="SFUIDisplay-Bold.ttf" />
+
 
         <LinearLayout
             android:id="@+id/lv_bottom"
@@ -53,7 +96,8 @@
             android:layout_alignParentBottom="true"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:visibility="gone"
+            android:weightSum="3">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -63,15 +107,15 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.entigrity.view.CustomTextView
-                    android:id="@+id/tv_login_guest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/str_login_guest"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_15sdp"
-                    app:font_text="SFUIDisplay-Bold.ttf" />
+                <!-- <com.entigrity.view.CustomTextView
+                     android:id="@+id/tv_login_guest"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center_vertical"
+                     android:text="@string/str_login_guest"
+                     android:textColor="#76B4FB"
+                     android:textSize="@dimen/_15sdp"
+                     app:font_text="SFUIDisplay-Bold.ttf" />-->
 
             </LinearLayout>
 
@@ -90,22 +134,22 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.entigrity.view.CustomTextView
-                    android:id="@+id/tv_cancel_guest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/str_cancel_guest"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_15sdp"
-                    app:font_text="SFUIDisplay-Bold.ttf" />
+                <!-- <com.entigrity.view.CustomTextView
+                     android:id="@+id/tv_cancel_guest"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center_vertical"
+                     android:text="@string/str_cancel_guest"
+                     android:textColor="#76B4FB"
+                     android:textSize="@dimen/_15sdp"
+                     app:font_text="SFUIDisplay-Bold.ttf" />-->
             </LinearLayout>
 
 
         </LinearLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.entigrity.activity.LoginActivity;
 import com.entigrity.activity.PreLoginActivity;
+import com.entigrity.activity.SignUpActivity;
 import com.entigrity.fragments.AccountFragment;
 import com.entigrity.fragments.HomeAllFragment;
 import com.entigrity.fragments.MyCreditsFragment;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public int setselectedtab = 0;
     public int selectmywebinardtab = 0;
     public Dialog myDialog;
-    public TextView tv_login, tv_cancel;
+    public TextView tv_login, tv_cancel, tv_create_account_guest;
     Intent intent;
     public String webinar_type = "";
 
@@ -266,6 +267,8 @@ public class MainActivity extends AppCompatActivity {
         tv_login = (TextView) myDialog.findViewById(R.id.tv_login_guest);
         tv_cancel = (TextView) myDialog.findViewById(R.id.tv_cancel_guest);
 
+        tv_create_account_guest = (TextView) myDialog.findViewById(R.id.tv_create_account_guest);
+
         tv_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -274,10 +277,23 @@ public class MainActivity extends AppCompatActivity {
                     myDialog.dismiss();
                 }
 
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                Intent i = new Intent(context, LoginActivity.class);
                 startActivity(i);
                 finish();
 
+            }
+        });
+
+        tv_create_account_guest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                }
+
+                Intent i = new Intent(context, SignUpActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 

@@ -112,51 +112,64 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
                 if (Float.parseFloat(mList.get(position).getRatingaverage()) == 0.0) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.GONE);
 
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 0.5
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 1.0) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_one);
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_one);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
+
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 1.0
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 1.5) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_two);
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_one);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 1.6
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 2.0) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_two);
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_two);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 2.1
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 2.5) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_three);
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_two);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 2.6
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 3.0) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_three);
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_three);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 3.1
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 3.5) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_four);
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_three);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 3.5
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 4.0) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_four);
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_four);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 4.1
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 4.5) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_five);
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_four);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 4.5
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 5.0) {
 
-                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_five);
+                    ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_five);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) == 5.0) {
                     ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_five);
+                    ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 }
 
 
             } else {
-                ((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+                //((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+                ((HomeViewHolder) viewHolder).iv_rating.setVisibility(View.GONE);
+
             }
 
 
@@ -168,16 +181,27 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
 
 
             if (!mList.get(position).getRatingaverage().equalsIgnoreCase("")) {
+
+                if (Float.parseFloat(mList.get(position).getRatingaverage()) == 0.0) {
+                    ((HomeViewHolder) viewHolder).tv_rating_number.setVisibility(View.GONE);
+                } else {
+                    ((HomeViewHolder) viewHolder).tv_rating_number.setVisibility(View.VISIBLE);
+                }
+
                 ((HomeViewHolder) viewHolder).tv_rating_number.setText("" + mList.get(position).getRatingaverage());
             } else {
-                ((HomeViewHolder) viewHolder).tv_rating_number.setText("0");
+                ((HomeViewHolder) viewHolder).tv_rating_number.setVisibility(View.GONE);
+
+                //((HomeViewHolder) viewHolder).tv_rating_number.setText("0");
             }
 
 
             if (mList.get(position).getRatingcount() != 0) {
+                ((HomeViewHolder) viewHolder).tv_rating_count.setVisibility(View.VISIBLE);
                 ((HomeViewHolder) viewHolder).tv_rating_count.setText("" + "(" + mList.get(position).getRatingcount() + ")");
             } else {
-                ((HomeViewHolder) viewHolder).tv_rating_count.setText("(0)");
+                ((HomeViewHolder) viewHolder).tv_rating_count.setVisibility(View.GONE);
+                //((HomeViewHolder) viewHolder).tv_rating_count.setText("(0)");
             }
 
 
@@ -362,6 +386,9 @@ public class HomeALLAdapter extends RecyclerView.Adapter {
                             Constant.toast(mContext, mContext.getResources().getString(R.string.str_sharing_not_avilable));
                         }
 
+                    }else
+                    {
+                        ShowPopUp();
                     }
 
                 }

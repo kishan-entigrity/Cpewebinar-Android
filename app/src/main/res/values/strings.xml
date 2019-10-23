@@ -28,7 +28,6 @@
     <string name="str_signup_city_pos">city pos</string>
 
 
-
     //progress dialog
     <string name="progrees_msg">Please Wait</string>
 
@@ -145,6 +144,16 @@
     <string name="str_filter_webinar">MyWebinar</string>
 
 
+    //new filter option with home screen
+
+    <string name="str_filter_home_live">live</string>
+    <string name="str_filter_home_self_study">self-study</string>
+    <string name="str_filter_home_fields_of_study">fields_of_study</string>
+    <string name="str_filter_home_price_free">free</string>
+    <string name="str_filter_home_price_premium">premium</string>
+    <string name="str_filter_home_date_filter">date_filter</string>
+
+
     //edit profile
     <string name="view_profile_firstname">First Name</string>
     <string name="view_profile_lastname">Last Name</string>
@@ -223,6 +232,7 @@
     <string name="str_who_you_are">Professional  Credentials?</string>
     <string name="str_profestional_credential">Professional  Credentials</string>
     <string name="str_additional_qualification">Additional Qualifications</string>
+    <string name="str_topic_home">Topics</string>
     <string name="str_reg_password">Password</string>
     <string name="str_reg_confirm_password">Confirm Password</string>
     <string name="str_firm_name">Company Name</string>
@@ -745,6 +755,9 @@
     <string name="str_self_on_demand">Self-Study</string>
     <string name="str_price">Price</string>
     <string name="str_date">Date</string>
+
+    <string name="str_premium">Premium</string>
+    <string name="str_free">Free</string>
 
 
 </resources>

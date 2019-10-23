@@ -47,6 +47,7 @@ import com.entigrity.model.savenotificationsetting.SubmitNotification;
 import com.entigrity.model.savetopicsofinterest.SaveTopicsInterest;
 import com.entigrity.model.state.StateModel;
 import com.entigrity.model.subject.SubjectModel;
+import com.entigrity.model.subject_area.Subject_Area;
 import com.entigrity.model.testimonial.Model_Testimonial;
 import com.entigrity.model.topics_subcategory.Topics_subcategory;
 import com.entigrity.model.topicsofinterest.TopicsofInterest;
@@ -509,6 +510,14 @@ public interface APIService {
     //get topics of interest for sign up user
     @GET("topic-of-interest/list")
     Observable<Topicsofinterest> GetTopicsofInterestsSignUp(
+            @Header("Accept") String accept
+    );
+
+
+    //get subject area
+
+    @GET("topic-of-interest/list")
+    Observable<Subject_Area> GetSubjectAreaTopics(
             @Header("Accept") String accept
     );
 

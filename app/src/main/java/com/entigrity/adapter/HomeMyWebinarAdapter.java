@@ -111,19 +111,30 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
                 ((MyWebinarHolder) viewHolder).webinar_status.setText(mList.get(position).getStatus());
             }
 
+
             if (mList.get(position).getRatingcount() != 0) {
+                ((MyWebinarHolder) viewHolder).tv_rating_count.setVisibility(View.VISIBLE);
                 ((MyWebinarHolder) viewHolder).tv_rating_count.setText("" + "(" + mList.get(position).getRatingcount() + ")");
             } else {
-                ((MyWebinarHolder) viewHolder).tv_rating_count.setText("(0)");
+                ((MyWebinarHolder) viewHolder).tv_rating_count.setVisibility(View.GONE);
+                //((HomeViewHolder) viewHolder).tv_rating_count.setText("(0)");
             }
-
-
 
             if (!mList.get(position).getRatingaverage().equalsIgnoreCase("")) {
+
+                if (Float.parseFloat(mList.get(position).getRatingaverage()) == 0.0) {
+                    ((MyWebinarHolder) viewHolder).tv_rating_number.setVisibility(View.GONE);
+                } else {
+                    ((MyWebinarHolder) viewHolder).tv_rating_number.setVisibility(View.VISIBLE);
+                }
+
                 ((MyWebinarHolder) viewHolder).tv_rating_number.setText("" + mList.get(position).getRatingaverage());
             } else {
-                ((MyWebinarHolder) viewHolder).tv_rating_number.setText("0");
+                ((MyWebinarHolder) viewHolder).tv_rating_number.setVisibility(View.GONE);
+
+                //((HomeViewHolder) viewHolder).tv_rating_number.setText("0");
             }
+
 
             if (!mList.get(position).getWebinarlable().equalsIgnoreCase("")) {
                 ((MyWebinarHolder) viewHolder).tv_lable.setVisibility(View.VISIBLE);
@@ -146,52 +157,66 @@ public class HomeMyWebinarAdapter extends RecyclerView.Adapter {
 
                 if (Float.parseFloat(mList.get(position).getRatingaverage()) == 0.0) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.GONE);
 
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 0.5
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 1.0) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_one);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_one);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
+
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 1.0
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 1.5) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_two);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_one);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 1.6
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 2.0) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_two);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_two);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 2.1
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 2.5) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_three);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_two);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 2.6
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 3.0) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_three);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_three);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 3.1
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 3.5) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_four);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_three);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 3.5
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 4.0) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_four);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_four);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 4.1
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 4.5) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_five);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_four);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) >= 4.5
                         && Float.parseFloat(mList.get(position).getRatingaverage()) < 5.0) {
 
-                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_five);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.half_five);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 } else if (Float.parseFloat(mList.get(position).getRatingaverage()) == 5.0) {
                     ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_five);
+                    ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.VISIBLE);
                 }
 
 
             } else {
-                ((MyWebinarHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+                //((HomeViewHolder) viewHolder).iv_rating.setImageResource(R.mipmap.orange_star_line);
+                ((MyWebinarHolder) viewHolder).iv_rating.setVisibility(View.GONE);
+
             }
+
 
 
             if (!mList.get(position).getFee().equalsIgnoreCase("")) {

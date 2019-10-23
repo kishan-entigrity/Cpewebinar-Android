@@ -116,6 +116,38 @@ public class MyWebinarFragment extends Fragment {
             binding.tvNodatafound.setText(getResources().getString(R.string.str_guest_user_dialog_msg));
         }
 
+        binding.rvhomewebinar.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0 || dy < 0 && MainActivity.getInstance().rel_top_bottom.isShown()) {
+                    getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.GONE);
+
+                  /*  Animation bottomDown = AnimationUtils.loadAnimation(getContext(),
+                            R.anim.bottom_down);
+                    MainActivity.getInstance().rel_top_bottom.startAnimation(bottomDown);
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.GONE);*/
+
+
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    getActivity().overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_top);
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);
+
+                   /* Animation bottomUp = AnimationUtils.loadAnimation(getContext(),
+                            R.anim.bottom_up);
+                    MainActivity.getInstance().rel_top_bottom.startAnimation(bottomUp);
+                    MainActivity.getInstance().rel_top_bottom.setVisibility(View.VISIBLE);*/
+                }
+
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
 
         binding.swipeRefreshLayouthomemywebinar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
